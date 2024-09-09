@@ -58,7 +58,7 @@ html {
 		 .form-control-label{margin-left:30px!important}
 		 #clear-input{background: linear-gradient(to bottom right, #ff0000 0%, #000000 100%)!important;border:none!important;margin-right:15px!important}
 		 #clear-output{background: linear-gradient(to bottom right, #ff0000 0%, #000000 100%)!important;border:none!important;margin-right:15px!important}
-		 .badge{background: linear-gradient(to bottom right, #cc00cc 0%, #000000 100%)!important;margin-left:15px!important;}
+		 .badge{width:200px!important;background: linear-gradient(to bottom right, #cc00cc 0%, #000000 100%)!important;margin-left:15px!important;}
 		 .hasil{color:white!important;margin-top:50px!important;margin-left:30px!important;}
 		 .navbar {background-color:black!important;}
 		 .pt-5 {background-color:black!important;}
@@ -68,7 +68,8 @@ html {
 	     #mail-progress-bar{color:black!important;background-color:green!important}	
 		 .progress{background-color:black!important}
          .card {background: linear-gradient(to top, #ffffff 0%, #ffffff 100%)!important;border:none!important;}		
-         .row{margin-bottom:10px!important;}			 
+         .row{margin-bottom:10px!important;}
+
 		 	  
       body>div.preloader {
          position: fixed;

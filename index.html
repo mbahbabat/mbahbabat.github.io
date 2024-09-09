@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0029)http://gmailchecker.info/Mail -->
+<html lang="en" style="height: auto;" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">.swal-icon--error{border-color:#f27474;-webkit-animation:animateErrorIcon .5s;animation:animateErrorIcon .5s}.swal-icon--error__x-mark{position:relative;display:block;-webkit-animation:animateXMark .5s;animation:animateXMark .5s}.swal-icon--error__line{position:absolute;height:5px;width:47px;background-color:#f27474;display:block;top:37px;border-radius:2px}.swal-icon--error__line--left{-webkit-transform:rotate(45deg);transform:rotate(45deg);left:17px}.swal-icon--error__line--right{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);right:16px}@-webkit-keyframes animateErrorIcon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@keyframes animateErrorIcon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@-webkit-keyframes animateXMark{0%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}50%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}80%{-webkit-transform:scale(1.15);transform:scale(1.15);margin-top:-6px}to{-webkit-transform:scale(1);transform:scale(1);margin-top:0;opacity:1}}@keyframes animateXMark{0%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}50%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}80%{-webkit-transform:scale(1.15);transform:scale(1.15);margin-top:-6px}to{-webkit-transform:scale(1);transform:scale(1);margin-top:0;opacity:1}}.swal-icon--warning{border-color:#f8bb86;-webkit-animation:pulseWarning .75s infinite alternate;animation:pulseWarning .75s infinite alternate}.swal-icon--warning__body{width:5px;height:47px;top:10px;border-radius:2px;margin-left:-2px}.swal-icon--warning__body,.swal-icon--warning__dot{position:absolute;left:50%;background-color:#f8bb86}.swal-icon--warning__dot{width:7px;height:7px;border-radius:50%;margin-left:-4px;bottom:-11px}@-webkit-keyframes pulseWarning{0%{border-color:#f8d486}to{border-color:#f8bb86}}@keyframes pulseWarning{0%{border-color:#f8d486}to{border-color:#f8bb86}}.swal-icon--success{border-color:#a5dc86}.swal-icon--success:after,.swal-icon--success:before{content:"";border-radius:50%;position:absolute;width:60px;height:120px;background:#fff;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.swal-icon--success:before{border-radius:120px 0 0 120px;top:-7px;left:-33px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:60px 60px;transform-origin:60px 60px}.swal-icon--success:after{border-radius:0 120px 120px 0;top:-11px;left:30px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0 60px;transform-origin:0 60px;-webkit-animation:rotatePlaceholder 4.25s ease-in;animation:rotatePlaceholder 4.25s ease-in}.swal-icon--success__ring{width:80px;height:80px;border:4px solid hsla(98,55%,69%,.2);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.swal-icon--success__hide-corners{width:5px;height:90px;background-color:#fff;padding:1px;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.swal-icon--success__line{height:5px;background-color:#a5dc86;display:block;border-radius:2px;position:absolute;z-index:2}.swal-icon--success__line--tip{width:25px;left:14px;top:46px;-webkit-transform:rotate(45deg);transform:rotate(45deg);-webkit-animation:animateSuccessTip .75s;animation:animateSuccessTip .75s}.swal-icon--success__line--long{width:47px;right:8px;top:38px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-animation:animateSuccessLong .75s;animation:animateSuccessLong .75s}@-webkit-keyframes rotatePlaceholder{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}to{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}to{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@-webkit-keyframes animateSuccessTip{0%{width:0;left:1px;top:19px}54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}to{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%{width:0;left:1px;top:19px}54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}to{width:25px;left:14px;top:45px}}@-webkit-keyframes animateSuccessLong{0%{width:0;right:46px;top:54px}65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}to{width:47px;right:8px;top:38px}}@keyframes animateSuccessLong{0%{width:0;right:46px;top:54px}65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}to{width:47px;right:8px;top:38px}}.swal-icon--info{border-color:#c9dae1}.swal-icon--info:before{width:5px;height:29px;bottom:17px;border-radius:2px;margin-left:-2px}.swal-icon--info:after,.swal-icon--info:before{content:"";position:absolute;left:50%;background-color:#c9dae1}.swal-icon--info:after{width:7px;height:7px;border-radius:50%;margin-left:-3px;top:19px}.swal-icon{width:80px;height:80px;border-width:4px;border-style:solid;border-radius:50%;padding:0;position:relative;box-sizing:content-box;margin:20px auto}.swal-icon:first-child{margin-top:32px}.swal-icon--custom{width:auto;height:auto;max-width:100%;border:none;border-radius:0}.swal-icon img{max-width:100%;max-height:100%}.swal-title{color:rgba(0,0,0,.65);font-weight:600;text-transform:none;position:relative;display:block;padding:13px 16px;font-size:27px;line-height:normal;text-align:center;margin-bottom:0}.swal-title:first-child{margin-top:26px}.swal-title:not(:first-child){padding-bottom:0}.swal-title:not(:last-child){margin-bottom:13px}.swal-text{font-size:16px;position:relative;float:none;line-height:normal;vertical-align:top;text-align:left;display:inline-block;margin:0;padding:0 10px;font-weight:400;color:rgba(0,0,0,.64);max-width:calc(100% - 20px);overflow-wrap:break-word;box-sizing:border-box}.swal-text:first-child{margin-top:45px}.swal-text:last-child{margin-bottom:45px}.swal-footer{text-align:right;padding-top:13px;margin-top:13px;padding:13px 16px;border-radius:inherit;border-top-left-radius:0;border-top-right-radius:0}.swal-button-container{margin:5px;display:inline-block;position:relative}.swal-button{background-color:#7cd1f9;color:#fff;border:none;box-shadow:none;border-radius:5px;font-weight:600;font-size:14px;padding:10px 24px;margin:0;cursor:pointer}.swal-button:not([disabled]):hover{background-color:#78cbf2}.swal-button:active{background-color:#70bce0}.swal-button:focus{outline:none;box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(43,114,165,.29)}.swal-button[disabled]{opacity:.5;cursor:default}.swal-button::-moz-focus-inner{border:0}.swal-button--cancel{color:#555;background-color:#efefef}.swal-button--cancel:not([disabled]):hover{background-color:#e8e8e8}.swal-button--cancel:active{background-color:#d7d7d7}.swal-button--cancel:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(116,136,150,.29)}.swal-button--danger{background-color:#e64942}.swal-button--danger:not([disabled]):hover{background-color:#df4740}.swal-button--danger:active{background-color:#cf423b}.swal-button--danger:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(165,43,43,.29)}.swal-content{padding:0 20px;margin-top:20px;font-size:medium}.swal-content:last-child{margin-bottom:20px}.swal-content__input,.swal-content__textarea{-webkit-appearance:none;background-color:#fff;border:none;font-size:14px;display:block;box-sizing:border-box;width:100%;border:1px solid rgba(0,0,0,.14);padding:10px 13px;border-radius:2px;transition:border-color .2s}.swal-content__input:focus,.swal-content__textarea:focus{outline:none;border-color:#6db8ff}.swal-content__textarea{resize:vertical}.swal-button--loading{color:transparent}.swal-button--loading~.swal-button__loader{opacity:1}.swal-button__loader{position:absolute;height:auto;width:43px;z-index:2;left:50%;top:50%;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%);text-align:center;pointer-events:none;opacity:0}.swal-button__loader div{display:inline-block;float:none;vertical-align:baseline;width:9px;height:9px;padding:0;border:none;margin:2px;opacity:.4;border-radius:7px;background-color:hsla(0,0%,100%,.9);transition:background .2s;-webkit-animation:swal-loading-anim 1s infinite;animation:swal-loading-anim 1s infinite}.swal-button__loader div:nth-child(3n+2){-webkit-animation-delay:.15s;animation-delay:.15s}.swal-button__loader div:nth-child(3n+3){-webkit-animation-delay:.3s;animation-delay:.3s}@-webkit-keyframes swal-loading-anim{0%{opacity:.4}20%{opacity:.4}50%{opacity:1}to{opacity:.4}}@keyframes swal-loading-anim{0%{opacity:.4}20%{opacity:.4}50%{opacity:1}to{opacity:.4}}.swal-overlay{position:fixed;top:0;bottom:0;left:0;right:0;text-align:center;font-size:0;overflow-y:auto;background-color:rgba(0,0,0,.4);z-index:10000;pointer-events:none;opacity:0;transition:opacity .3s}.swal-overlay:before{content:" ";display:inline-block;vertical-align:middle;height:100%}.swal-overlay--show-modal{opacity:1;pointer-events:auto}.swal-overlay--show-modal .swal-modal{opacity:1;pointer-events:auto;box-sizing:border-box;-webkit-animation:showSweetAlert .3s;animation:showSweetAlert .3s;will-change:transform}.swal-modal{width:478px;opacity:0;pointer-events:none;background-color:#fff;text-align:center;border-radius:5px;position:static;margin:20px auto;display:inline-block;vertical-align:middle;-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;z-index:10001;transition:opacity .2s,-webkit-transform .3s;transition:transform .3s,opacity .2s;transition:transform .3s,opacity .2s,-webkit-transform .3s}@media (max-width:500px){.swal-modal{width:calc(100% - 20px)}}@-webkit-keyframes showSweetAlert{0%{-webkit-transform:scale(1);transform:scale(1)}1%{-webkit-transform:scale(.5);transform:scale(.5)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}to{-webkit-transform:scale(1);transform:scale(1)}}@keyframes showSweetAlert{0%{-webkit-transform:scale(1);transform:scale(1)}1%{-webkit-transform:scale(.5);transform:scale(.5)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}to{-webkit-transform:scale(1);transform:scale(1)}}</style>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Webpixels">
+    <title>Periksa Akun Google </title>
+	 <link href="css/toastr.min.css" rel="stylesheet">
+    <!-- Preloader -->
+    <style>
+      @keyframes hidePreloader {
+         0% {
+            width: 100%;
+            height: 100%;
+         }
+
+         100% {
+            width: 0;
+            height: 0;
+         }
+      }
+      
+
+	
+
+
+		 .CodeMirror-scroll{
+         background: linear-gradient(to bottom right, #666699 0%, #000000 100%)!important;
+		 color: #66ff33!important;
+		 }
+		 
+
+		 
+		 .CodeMirror-gutters{
+         background: #1a1a1a!important;border:none!important;
+		 }
+		
+		 
+		 #clear-input{background: linear-gradient(to bottom right, #ff0000 0%, #000000 100%)!important;border:none!important}
+		 #clear-output{background: linear-gradient(to bottom right, #ff0000 0%, #000000 100%)!important;border:none!important}
+		 .badge{background: linear-gradient(to bottom right, #cc00cc 0%, #000000 100%)!important;margin-left:15px!important;}
+		 .hasil{color:white!important}
+		 .navbar {background-color:black!important;}
+		 .pt-5 {background-color:black!important;}
+		 .slice {background-color:black!important;}
+		 .form-control-label{color:#00ff00!important;}
+		 #check-btn{margin-top:20px;margin-bottom:50px;background:linear-gradient(to bottom right, #ccccff 0%, #000000 100%);border:none!important;}
+
+		
+		
+		 
+	  
+      body>div.preloader {
+         position: fixed;
+         background: black!important;
+         width: 100%;
+         height: 100%;
+         z-index: 1071;
+         opacity: 0;
+         transition: opacity .5s ease;
+         overflow: hidden;
+         pointer-events: none;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
+
+      body:not(.loaded)>div.preloader {
+         opacity: 1;
+      }
+
+      body:not(.loaded) {
+         overflow: hidden;
+      }
+
+      body.loaded>div.preloader {
+         animation: hidePreloader .5s linear .5s forwards;
+      }
+    </style>
+	<style>
+	    .main-card {
+	        height: 700px;
+	        border-top-right-radius: 15px;
+	        border-top-left-radius: 15px;
+	    }
+	
+	        .main-card > textarea {
+	            width: 100%;
+	            height: 100%;
+	        }
+	
+	        .main-card .CodeMirror {
+	            width: 100%;
+	            height: 100%;
+	        }
+	
+	    .header-card {
+	        height: 45px;
+	        background-color: black;
+	        border-top-right-radius: 15px;
+	        border-top-left-radius: 15px;
+	    }
+	
+	        .header-card > span {
+	            height: 45px;
+	            color: white;
+	            font-size: 24px;
+	            font-weight: 600;
+	        }
+	
+	    .card-btn {
+	        width: 145px;
+	        height: 50px;
+	        font-size: 23px;
+	        background-color: black;
+	    }
+	
+	    .card-border {
+	        border: 0px solid;
+	        border-radius: 10px;
+	        padding: 1px;
+	    }
+	</style>
+	<link rel="stylesheet" href="css/codemirror.css">
+    <script>
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                document.querySelector('body').classList.add('loaded');
+            }, 300);
+        });
+    </script>
+    
+<link href="css/css" rel="stylesheet">
+
+
+    <link href="css/all.min.css" rel="stylesheet">
+    <link href="css/icheck-bootstrap.css" rel="stylesheet">
+    <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/responsive.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/adminlte.min.css" rel="stylesheet">
+	<link href="css/sweetalert.css" rel="stylesheet">
+
+    <link href="css/toastr.css" rel="stylesheet">
+    <link href="css/famfamfam-flags.min.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/loading-bar.css" rel="stylesheet">
+
+    <link href="css/Layout.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/layui.css" rel="stylesheet">
+	<link href="css/style1.css" rel="stylesheet">
+    
+<style type="text/css"></style></head>
+<div id="loading" style="z-index:100000;position: absolute; top: 0; bottom: 0; right: 0; left: 0;   display: flex; justify-content: center; align-items: center;background-color: #fff;">
+	<img src="img/1.gif"/>
+	
+	</div>
+<body class="loaded" style="height: auto;background:black">
+	
+
+	
+    <div class="preloader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+	
+	<nav class="navbar navbar-expand-lg navbar-light ">
+	    <div class="container">
+	        <!-- Brand -->
+	        <a class="navbar-brand" href="https://t.me/s161774">
+	            <img src="img/1697685932611.png" alt="">
+				<span style="justify-content: center;align-items: center;">Periksa Akun Google</span>
+	        </a>
+	        <!-- Collapse -->
+	    </div>
+	</nav>
+	
+	
+
+	
+	
+	
+	</div>
+
+    <section class="slice slice-sm">
+        <div class="container">
+           
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="form-heading d-flex justify-content-between mb-3">
+                <label class="form-control-label font-weight-bold ">Masukkan Akun</label>
+                <button id="clear-input" type="button" class="btn btn-info btn-xs btn-icon-label">
+                    <span class="btn-inner--icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </span>
+                    <span class="btn-inner--text">Hapus</span>
+                </button>
+            </div>
+            <div class="card-border">
+                <textarea id="mail-input" class="form-control mb-4" rows="15" style="display: none;" placeholder="123"></textarea><div class="CodeMirror cm-s-default" style="height: 0px;">
+				<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 34px;">
+					<textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea>
+					</div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div>
+					</div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div>
+					</div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
+					<div class="CodeMirror-scroll" tabindex="-1">
+						<div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: -17px; border-right-width: 13px; min-height: 35px; min-width: 7px; padding-right: 0px; padding-bottom: 0px;">
+							<div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;">
+							<div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 27px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; border-bottom: 0px solid transparent; top: 35px;"></div><div class="CodeMirror-gutters" style="height: 48px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;">
+						</div></div></div></div>
+            </div>
+        </div>
+        <div class="progress progress-lg">
+            <div id="mail-progress-bar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+        <button type="button" id="check-btn" class="btn bd-toggle-animated-progress btn-primary mt-sm-4" data-toggle="button" aria-pressed="true">
+            Periksa
+        </button>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="form-heading d-flex justify-content-between mb-3">
+                <label class="form-control-label font-weight-bold ">Hasil</label>
+                <button id="clear-output" type="button" class="btn btn-info btn-xs btn-icon-label">
+                    <span class="btn-inner--icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </span>
+                    <span class="btn-inner--text">Hapus</span>
+                </button>
+            </div>
+            <div class="card-border">
+                <textarea id="mail-output" class="form-control" rows="15" style="display: none;"></textarea>
+				<div class="CodeMirror cm-s-default" style="height: 0px;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 34px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: -17px; border-right-width: 13px; min-height: 35px; min-width: 7px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 27px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; border-bottom: 0px solid transparent; top: 35px;"></div><div class="CodeMirror-gutters" style="height: 48px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div>
+            </div>
+        </div>
+        <div class="hasil">
+            <div class="row">
+                <div class="col-12 col-md-6 col-sm-6">
+                    <div class="row mg-bottom-5">
+                        <div class="text-sm col-sm-6">Bagus:</div>
+						<div class="badge badge-success hand-cursor"  onclick="downloadFile(&#39;good&#39;)">
+							<span id="rp-good">0</span>
+							<span>  download</span>
+						</div>
+                    </div>
+                    <div class="row mg-bottom-5">
+                        <div class="text-sm col-sm-6">Butuh Verifikasi:</div>
+						<div class="badge badge-danger hand-cursor"  onclick="downloadFile(&#39;ver&#39;)">
+							<span id="rp-ver">0</span>
+							<span>  download</span>
+						</div>
+                    </div>
+                    
+					<div class="row mg-bottom-5">
+                        <div class="text-sm col-sm-6">Pelanggaran:</div>
+						<div onclick="downloadFile(&#39;unknown&#39;)" class="badge text-white  hand-cursor">
+							<span id="rp-unknown">0</span>
+							<span>  download</span>
+						</div>
+               
+					</div>
+                    <div class="row mg-bottom-5">
+                        <div class="text-sm col-sm-6">Tidak Ada:</div>
+						<div onclick="downloadFile(&#39;notExist&#39;)" class="badge text-white hand-cursor">
+							<span id="rp-not-exist">0</span>
+							<span>  download</span>
+						</div>
+                        
+					</div>
+                    <div class="row mg-bottom-5">
+                        <div class="text-sm col-sm-6">Mati:</div>
+						<div  onclick="downloadFile(&#39;disable&#39;)"  class="badge text-white hand-cursor">
+							<span id="rp-disabled">0</span>
+							<span>  download</span>
+						</div>
+                       
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+		
+    </section>
+	
+<section class="pt-5 ">
+	    <div class="container" class="app1">
+	        <div class="card">
+	            <div class="card-body">
+	                <div class="row row-grid align-items-center">
+	                    <div class="col-lg-8">
+	                        <div class="media align-items-center">
+	                            <img src="img/tele.png" style="width:50px">
+	                            <div class="media-body">
+	                                <h5 id="plan-label" class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" v-if="token"></font><font  v-if="!token" style="vertical-align: inherit;"> Jika ada kendala hubungi telegram</font></font></h5>
+									<a class="navbar-brand" href="https://t.me/s161774"> @S161774</a>
+	                            </div>
+	                        </div>
+	                    </div>
+
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	
+	
+	
+	
+	
+	
+	
+	</body>
+	</html>
+	
+
+    <script src="js/quick-website.js"></script>
+    <!-- Feather Icons -->
+    <script>
+        feather.replace({
+            'width': '1em',
+            'height': '1em'
+        })
+    </script>
+    
+<script type="text/javascript">
+    // This is used to get the application's root path from javascript.
+    // It's useful if you're running application in a virtual directory under IIS.
+    var abp = abp || {};
+    abp.appPath = '/';
+</script>
+
+<script src="js/codemirror.js"></script>
+    <script src="js/jquery.js"></script>
+
+    <script src="js/bootstrap.bundle.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap4.min.js"></script>
+    <script src="js/dataTables.responsive.min.js"></script>
+    <script src="js/responsive.bootstrap4.min.js"></script>
+    <script src="js/dataTables.buttons.js"></script>
+    <script src="js/buttons.bootstrap4.js"></script>
+    <script src="js/adminlte.js"></script>
+
+    <script src="js/jquery.blockUI.js"></script>
+    <script src="js/spin.js"></script>
+    <script src="js/jquery.spin.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <!--<script src="js/lodash.min.js"></script>-->
+    <script src="js/lodash.min.js">
+    </script>
+    <script src="js/abp.js"></script>
+    <script src="js/abp.jquery.js"></script>
+    <script src="js/abp.toastr.js"></script>
+    <script src="js/abp.blockUI.js"></script>
+    <script src="js/abp.spin.js"></script>
+    <script src="js/abp.sweet-alert.js"></script>
+    <script src="js/abp.signalr-client.js"></script>
+
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/jquery.validate.unobtrusive.js"></script>
+    <script src="js/push.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <!--<script src="./Dashboards - Gmailchecker_files/progressbar.js.下载"></script>-->
+    <script src="js/loading-bar.js"></script>
+	<script src="js/axios.min.js"></script>
+
+    <script src="js/abp.dataTable.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/quick-website.js"></script>
+	<script src="js/sweetalert.min.js"></script>
+
+
+
+
+
+<script type="text/javascript">
+    // Localizing momentjs
+    moment.locale('en');
+</script>
+
+<!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+<script src="js/GetAll"></script>
+<script src="js/GetScripts"></script>
+
+    
+    
+        <script src="js/index.js"></script>
+    
+
+  
+
+    
+
+
+
+
+
+
+
+
+
+<script src="js/vue.js"></script>
+    <script src="js/axios2.min.js"></script>
+	<script src="js/toastr.min.js"></script>
+	
+	
+	
+
+
+
+<script>
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+			loginshow:false,
+			registershow:false,
+			siberianshow:false,
+			siberian:'',
+            username:'',
+			password:'',
+			passwordtwo:'',
+			token:'',
+			puserinfo:'',
+			txtj:''
+        },
+		created(){
+			this.token = this.getCookie('token')
+			if(!this.token){
+				document.getElementById("loading").style.display = "none"
+			}
+// 			this.userinfo(this.token)
+		},
+		methods: {
+			yue(time){
+				// 创建一个 Date 对象
+				var date = new Date(time * 1000); // 将秒级时间戳转换为毫秒级
+				
+				// 提取年、月、日、小时和分钟
+				var year = date.getFullYear();
+				var month = (date.getMonth() + 1).toString().padStart(2, '0');
+				var day = date.getDate().toString().padStart(2, '0');
+				var hour = date.getHours().toString().padStart(2, '0');
+				var minute = date.getMinutes().toString().padStart(2, '0');
+				
+				// 格式化日期和时间
+				var formattedDate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+				return formattedDate;
+			},
+			userinfo(token){
+				
+				let data = {
+					token:token
+				}
+				let self = this
+				axios.post('',data)
+				.then(res=>{
+					if(res.data.code == -1){
+					}else{
+						self.puserinfo = res.data.data[0]
+						if(self.puserinfo.Expirationtime > Date.now()/1000){
+							self.txtj = '过期时间：' +self.yue(self.puserinfo.Expirationtime)
+						}else{
+							self.txtj = '剩余积分：'+self.puserinfo.price
+						}
+						document.getElementById("loading").style.display = "none"
+					}
+				    
+				})
+			},
+			loginshoww(){
+				this.loginshow = true
+				this.registershow = false
+			},
+			siberianshoww(){
+				if(!this.token){
+					toastr.warning ("请先登录！！");
+					return;
+				}
+				this.siberianshow = true
+			},
+			registershoww(){
+				this.loginshow = false
+				this.registershow = true
+			},
+			showw(){
+				this.loginshow = false
+				this.registershow = false
+				this.siberianshow = false
+			},
+			login(){
+				if(!this.username){
+					toastr.warning ("请填写账号！！");
+					return;
+				}
+				if(!this.password){
+					toastr.warning ("请填写密码！！");
+					return;
+				}
+				let data = {
+					username:this.username,
+					userpass:this.password
+				}
+				let self = this
+				axios.post('',data)
+				.then(res=>{
+					if(res.data.code == -1){
+						toastr.warning (res.data.message);
+					}else{
+						toastr.success (res.data.message);
+						setTimeout(function(){
+							self.setCookie('token',res.data.data[0].token,365)
+							location.reload();
+						},1500)
+					}
+				    
+				})
+			},
+			register(){
+				if(!this.username){
+					toastr.warning ("请填写账号！！");
+					return;
+				}
+				if(!this.password && !this.passwordtwo){
+					toastr.warning ("请填写密码！！");
+					return;
+				}
+				if(this.password != this.passwordtwo){
+					toastr.warning ("密码不一致！！！");
+					return;
+				}
+				if(this.password.length <8 || this.password.length >12){
+					toastr.warning ("密码长度大于8位小于12位！！！");
+					return;
+				}
+				if(this.username.length <5 || this.username.length >30){
+					toastr.warning ("账号长度大于5位小于30位！！！");
+					return;
+				}
+				if (this.username.indexOf('@') === -1) {
+				    toastr.warning("账号需要包含@");
+				    return;
+				}
+				let data = {
+					username:this.username,
+					userpass:this.password
+				}
+				let self = this
+				axios.post('',data)
+				.then(res=>{
+					if(res.data.code == -1){
+						toastr.warning(res.data.message);
+					}else{
+						toastr.success(res.data.message+'---去登录吧！');
+						self.loginshoww()
+					}
+				    
+				})
+			},
+			urlbuy(){
+				window.open('http://gmail1888.com')
+			},
+			thecard(){
+				if(!this.token){
+					toastr.warning("先登录！");
+					return;
+				}
+				if(!this.siberian){
+					toastr.warning("先填写卡密！");
+					return;
+				}
+				let data = {
+					siberian:this.siberian,
+					token:this.token
+				}
+				let self = this
+				axios.post('',data)
+				.then(res=>{
+					if(res.data.code == -1){
+						toastr.warning(res.data.message);
+					}else{
+						toastr.success(res.data.message);
+						location.reload();
+					}
+				    
+				})
+			}
+			,
+			exit(){
+				this.deleteCookie('token')
+				location.reload();
+			},
+			getCookie(cookieName) {
+			    var name = cookieName + "=";
+			    var decodedCookie = decodeURIComponent(document.cookie);
+			    var cookieArray = decodedCookie.split(';');
+			    for (var i = 0; i < cookieArray.length; i++) {
+			        var cookie = cookieArray[i];
+			        while (cookie.charAt(0) == ' ') {
+			            cookie = cookie.substring(1);
+			        }
+			        if (cookie.indexOf(name) == 0) {
+			            return cookie.substring(name.length, cookie.length);
+			        }
+			    }
+			    return "";
+			},
+			setCookie(cookieName, cookieValue, expirationDays) {
+			    var d = new Date();
+			    d.setTime(d.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+			    var expires = "expires=" + d.toUTCString();
+			    document.cookie = cookieName + "=" + cookieValue + "; " + expires;
+			},
+			deleteCookie(cookieName) {
+			    document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			}
+        }
+    })
+</script>
+
+
+<script type="text/javascript" src="https://api.tongjiniao.com/c?_=589111616462032896" async></script>
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?94e759aa4dfb950b197606be12a1a24d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

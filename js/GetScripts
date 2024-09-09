@@ -1,0 +1,418 @@
+(function(abp){
+
+    abp.multiTenancy = abp.multiTenancy || {};
+    abp.multiTenancy.isEnabled = false;
+
+})(abp);
+
+(function(){
+
+    abp.session = abp.session || {};
+    abp.session.userId = 10;
+    abp.session.tenantId = 1;
+    abp.session.impersonatorUserId = null;
+    abp.session.impersonatorTenantId = 1;
+    abp.session.multiTenancySide = 1;
+
+})();
+
+(function(){
+
+    abp.localization = abp.localization || {};
+
+    abp.localization.currentCulture = {
+        name: 'en',
+        displayName: 'English'
+    };
+
+    abp.localization.languages = [{
+        name: 'en',
+        displayName: 'English',
+        icon: 'famfamfam-flags gb',
+        isDisabled: false,
+        isDefault: true
+    } , {
+        name: 'es-MX',
+        displayName: 'Español México',
+        icon: 'famfamfam-flags mx',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'fr',
+        displayName: 'Français',
+        icon: 'famfamfam-flags fr',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'de',
+        displayName: 'German',
+        icon: 'famfamfam-flags de',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'it',
+        displayName: 'Italiano',
+        icon: 'famfamfam-flags it',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'nl',
+        displayName: 'Nederlands',
+        icon: 'famfamfam-flags nl',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'pt-BR',
+        displayName: 'Português',
+        icon: 'famfamfam-flags br',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'tr',
+        displayName: 'Türkçe',
+        icon: 'famfamfam-flags tr',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'ru',
+        displayName: 'Русский',
+        icon: 'famfamfam-flags ru',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'ar',
+        displayName: 'العربية',
+        icon: 'famfamfam-flags sa',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'ja',
+        displayName: '日本語',
+        icon: 'famfamfam-flags jp',
+        isDisabled: false,
+        isDefault: false
+    } , {
+        name: 'zh-Hans',
+        displayName: '简体中文',
+        icon: 'famfamfam-flags cn',
+        isDisabled: false,
+        isDefault: false
+    }];
+
+    abp.localization.currentLanguage = {
+        name: 'en',
+        displayName: 'English',
+        icon: 'famfamfam-flags gb',
+        isDisabled: false,
+        isDefault: true
+    };
+
+    abp.localization.sources = [
+        {
+            name: 'Abp',
+            type: 'MultiTenantLocalizationSource'
+        },
+        {
+            name: 'AbpWeb',
+            type: 'MultiTenantLocalizationSource'
+        },
+        {
+            name: 'AbpZero',
+            type: 'MultiTenantLocalizationSource'
+        },
+        {
+            name: 'MailChecker',
+            type: 'MultiTenantLocalizationSource'
+        }
+    ];
+
+    abp.localization.values = abp.localization.values || {};
+
+    abp.localization.values['Abp'] = {
+  "AllOfTheseFeaturesMustBeEnabled": "Required features are not enabled. All of these features must be enabled: {0}",
+  "AllOfThesePermissionsMustBeGranted": "Required permissions are not granted. All of these permissions must be granted: {0}",
+  "AtLeastOneOfTheseFeaturesMustBeEnabled": "Required features are not enabled. At least one of these features must be enabled: {0}",
+  "AtLeastOneOfThesePermissionsMustBeGranted": "Required permissions are not granted. At least one of these permissions must be granted: {0}",
+  "CurrentUserDidNotLoginToTheApplication": "Current user did not login to the application!",
+  "DefaultFromSenderDisplayName": "Default from (sender) display name",
+  "DefaultFromSenderEmailAddress": "Default from (sender) email address",
+  "DefaultLanguage": "Default language",
+  "DomainName": "Domain name",
+  "FeatureIsNotEnabled": "Feature is not enabled: {0}",
+  "MainMenu": "Main menu",
+  "Password": "Password",
+  "ReceiveNotifications": "Receive notifications",
+  "SmtpHost": "SMTP host",
+  "SmtpPort": "SMTP port",
+  "TimeZone": "Timezone",
+  "UseDefaultCredentials": "Use default credentials",
+  "Username": "User name",
+  "UseSSL": "Use SSL"
+};
+
+    abp.localization.values['AbpWeb'] = {
+  "AreYouSure": "Are you sure?",
+  "Cancel": "Cancel",
+  "DefaultError": "An error has occurred!",
+  "DefaultError401": "You are not authenticated!",
+  "DefaultError403": "You are not authorized!",
+  "DefaultError404": "Resource not found!",
+  "DefaultErrorDetail": "Error detail not sent by server.",
+  "DefaultErrorDetail401": "You should be authenticated (sign in) in order to perform this operation.",
+  "DefaultErrorDetail403": "You are not allowed to perform this operation.",
+  "DefaultErrorDetail404": "The resource requested could not found on the server.",
+  "EntityNotFound": "There is no entity {0} with id = {1}!",
+  "InternalServerError": "An internal error occurred during your request!",
+  "ValidationError": "Your request is not valid!",
+  "ValidationNarrativeTitle": "The following errors were detected during validation.",
+  "Yes": "Yes"
+};
+
+    abp.localization.values['AbpZero'] = {
+  "CanNotDeleteAdminUser": "Can not delete user {0} since this is the default admin user!",
+  "CanNotDeleteStaticRole": "Can not delete a static role: {0}",
+  "CanNotRenameAdminUser": "Can not rename user name of the {0} since this is the default admin user!",
+  "Email": "Email",
+  "EmailSecurityCodeBody": "Your security code is: {0}",
+  "EmailSecurityCodeSubject": "Security Code",
+  "Identity.ConcurrencyFailure": "Optimistic concurrency failure, object has been modified.",
+  "Identity.DefaultError": "An unknown failure has occurred.",
+  "Identity.DuplicateEmail": "Email '{0}' is already taken.",
+  "Identity.DuplicateRoleName": "Role name '{0}' is already taken.",
+  "Identity.DuplicateUserName": "User name '{0}' is already taken.",
+  "Identity.InvalidEmail": "Email '{0}' is invalid.",
+  "Identity.InvalidPasswordHasherCompatibilityMode": "The provided PasswordHasherCompatibilityMode is invalid.",
+  "Identity.InvalidPasswordHasherIterationCount": "The iteration count must be a positive integer.",
+  "Identity.InvalidRoleName": "Role name '{0}' is invalid.",
+  "Identity.InvalidToken": "Invalid token.",
+  "Identity.InvalidUserName": "User name '{0}' is invalid, can only contain letters or digits.",
+  "Identity.LoginAlreadyAssociated": "A user with this login already exists.",
+  "Identity.PasswordMismatch": "Incorrect password.",
+  "Identity.PasswordRequireDigit": "Passwords must have at least one digit ('0'-'9').",
+  "Identity.PasswordRequireLower": "Passwords must have at least one lowercase ('a'-'z').",
+  "Identity.PasswordRequireNonAlphanumeric": "Passwords must have at least one non alphanumeric character.",
+  "Identity.PasswordRequireUpper": "Passwords must have at least one uppercase ('A'-'Z').",
+  "Identity.PasswordTooShort": "Passwords must be at least {0} characters.",
+  "Identity.RoleNotFound": "Role {0} does not exist.",
+  "Identity.UserAlreadyHasPassword": "User already has a password set.",
+  "Identity.UserAlreadyInRole": "User already in role '{0}'.",
+  "Identity.UserLockedOut": "User is locked out.",
+  "Identity.UserLockoutNotEnabled": "Lockout is not enabled for this user.",
+  "Identity.UserNameNotFound": "User {0} does not exist.",
+  "Identity.UserNotInRole": "User is not in role '{0}'.",
+  "InvalidFeatureValue": "{0} feature value is not valid!",
+  "InvalidTenancyName": "Tenancy name is not valid!",
+  "OrganizationUnitDuplicateDisplayNameWarning": "There is already an organization unit with name {0}. Two units with same name can not be created in same level.",
+  "RoleDisplayNameIsAlreadyTaken": "Role display name {0} is already taken.",
+  "RoleNameIsAlreadyTaken": "Role name {0} is already taken.",
+  "Sms": "Sms",
+  "SmsSecurityCodeMessage": "Your security code is: {0}",
+  "TenancyNameIsAlreadyTaken": "Tenancy name {0} is already taken."
+};
+
+    abp.localization.values['MailChecker'] = {
+  "About": "About",
+  "Actions": "Actions",
+  "AdminEmailAddress": "Admin email address",
+  "Administration": "Administration",
+  "AdminPassword": "Admin password",
+  "AreYouSureWantToDelete": "Are you sure want to delete {0}?",
+  "Back": "Back",
+  "CanBeEmptyToLoginAsHost": "Can be empty to login as host.",
+  "Cancel": "Cancel",
+  "Change": "Change",
+  "ChangeTenant": "Change tenant",
+  "CheckMail": "Check Mail",
+  "ClearAll": "Clear all",
+  "ClearOthers": "Clear others",
+  "ConfirmNewPassword": "Confirm New Password",
+  "ConfirmPassword": "Confirm password",
+  "CouldNotCompleteLoginOperation": "Could not complete login operation. Please try again later.",
+  "CouldNotValidateExternalUser": "Could not validate external user",
+  "Create": "Create",
+  "CreateNewRole": "Create new role",
+  "CreateNewTenant": "Create new tenant",
+  "CreateNewUser": "Create new user",
+  "CurrentPassword": "Current Password",
+  "CurrentTenant": "Current tenant",
+  "DatabaseConnectionString": "Database connection string",
+  "DefaultPasswordIs": "Default password is {0}",
+  "Delete": "Delete",
+  "DisplayName": "Display Name",
+  "Edit": "Edit",
+  "EditRole": "Edit role",
+  "EditTenant": "Edit tenant",
+  "EditUser": "Edit user",
+  "EmailAddress": "Email address",
+  "Filter": "Filter",
+  "FormIsNotValidMessage": "Form is not valid. Please check and fix errors.",
+  "FullName": "Full name",
+  "History": "History",
+  "HomePage": "Home page",
+  "InvalidUserNameOrPassword": "Invalid user name or password",
+  "IsActive": "Is active",
+  "LabelOptions": "Label options",
+  "LeaveEmptyToSwitchToHost": "Leave empty to switch to the host",
+  "LogIn": "Log in",
+  "LoginFailed": "Login failed!",
+  "Logout": "Logout",
+  "MultiLevelMenu": "Multi Level Menu",
+  "Name": "Name",
+  "NameSurname": "Name surname",
+  "NewPassword": "New Password",
+  "No": "No",
+  "NotSelected": "Not selected",
+  "Off": "Off",
+  "On": "On",
+  "Optional": "Optional",
+  "OrLoginWith": "Or login with",
+  "Password": "Password",
+  "PasswordsDoNotMatch": "Passwords do not match",
+  "PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber": "Passwords must be at least 8 characters, contain a lowercase, uppercase, and number",
+  "Permissions": "Permissions",
+  "PleaseEnterLoginInformation": "Please enter login information",
+  "PleaseWait": "Please wait...",
+  "Refresh": "Refresh",
+  "Register": "Register",
+  "RegisterFormUserNameInvalidMessage": "Please don't enter an email address for username.",
+  "RememberMe": "Remember me",
+  "ResetPassword": "Reset Password",
+  "RoleDeleteWarningMessage": "Role {0} will be deleted and unassigned from all assigned users.",
+  "RoleDescription": "Role description",
+  "RoleName": "Role Name",
+  "Roles": "Roles",
+  "Save": "Save",
+  "SavedSuccessfully": "Saved successfully",
+  "SearchWithThreeDot": "Search...",
+  "Settings": "Settings",
+  "Skins": "Skins",
+  "StartTyping": "Start Typing",
+  "SuccessfullyDeleted": "Successfully deleted",
+  "SuccessfullyRegistered": "Successfully registered",
+  "Surname": "Surname",
+  "TenancyName": "Tenancy name",
+  "TenantDeleteWarningMessage": "Tenant {0} will be deleted.",
+  "TenantIdIsNotActive{0}": "TenantId {0} is not active",
+  "TenantIsNotActive": "Tenant {0} is not active.",
+  "TenantName_Regex_Description": "Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore.",
+  "TenantNameCanNotBeEmpty": "Tenant name can not be empty",
+  "Tenants": "Tenants",
+  "TenantSelection": "Tenant Selection",
+  "TenantSelection_Detail": "Please select one of the following tenants.",
+  "ThereIsNoTenantDefinedWithName{0}": "There is no tenant defined with name {0}",
+  "ThisFieldIsRequired": "This field is required",
+  "UnknownTenantId{0}": "Unknown tenantId {0}",
+  "UpdatePassword": "Update Password",
+  "UserDeleteWarningMessage": "User {0} will be deleted.",
+  "UserDetails": "User details",
+  "UserEmailIsNotConfirmedAndCanNotLogin": "Your email address is not confirmed. You can not login.",
+  "UserIsNotActiveAndCanNotLogin": "User {0} is not active and can not log in.",
+  "UserLockedOutMessage": "The user account has been locked out. Please try again later.",
+  "UserName": "User name",
+  "UserNameOrEmail": "User name or email",
+  "UserRoles": "User roles",
+  "Users": "Users",
+  "Version": "Version",
+  "WaitingForActivationMessage": "Your account is waiting to be activated by system admin.",
+  "WaitingForEmailActivation": "Your email address should be activated",
+  "WelcomeMessage": "Welcome to MailChecker!",
+  "Yes": "Yes"
+};
+
+
+})();
+
+(function() {
+
+    abp.features = abp.features || {};
+
+    abp.features.allFeatures = {
+    };
+
+})();
+
+(function(){
+
+    abp.auth = abp.auth || {};
+
+    abp.auth.allPermissions = {
+        'Pages.Users': true,
+        'Pages.Roles': true,
+        'Pages.Tenants': true
+    };
+
+    abp.auth.grantedPermissions = {
+    };
+
+})();
+
+(function() {
+    abp.nav = {};
+    abp.nav.menus = {
+        'MainMenu': {
+            name: 'MainMenu',
+            displayName: 'Main menu',
+            items: [{
+                    name: 'Transaction',
+                    order: 0,
+                    icon: 'fas fa-clipboard-check',
+                    url: 'Transaction',
+                    displayName: 'History',
+                    isEnabled: true,
+                    isVisible: true,
+                    items: []
+                } , {
+                    name: 'Mail',
+                    order: 0,
+                    icon: 'fas fa-list-alt',
+                    url: 'Mail',
+                    displayName: 'Check Mail',
+                    isEnabled: true,
+                    isVisible: true,
+                    items: []
+                }]
+            }
+    };
+})();
+
+
+(function(){
+    abp.setting = abp.setting || {};
+    abp.setting.values = {
+
+        'Abp.Localization.DefaultLanguageName': 'en',
+        'Abp.Notifications.ReceiveNotifications': 'true',
+        'Abp.Timing.TimeZone': 'UTC',
+        'Abp.Zero.UserManagement.IsEmailConfirmationRequiredForLogin': 'false',
+        'Abp.Zero.OrganizationUnits.MaxUserMembershipCount': '2147483647',
+        'Abp.Zero.UserManagement.TwoFactorLogin.IsEnabled': 'true',
+        'Abp.Zero.UserManagement.TwoFactorLogin.IsRememberBrowserEnabled': 'true',
+        'Abp.Zero.UserManagement.TwoFactorLogin.IsEmailProviderEnabled': 'true',
+        'Abp.Zero.UserManagement.TwoFactorLogin.IsSmsProviderEnabled': 'true',
+        'Abp.Zero.UserManagement.UserLockOut.IsEnabled': 'true',
+        'Abp.Zero.UserManagement.UserLockOut.MaxFailedAccessAttemptsBeforeLockout': '5',
+        'Abp.Zero.UserManagement.UserLockOut.DefaultAccountLockoutSeconds': '300',
+        'Abp.Zero.UserManagement.PasswordComplexity.RequireDigit': 'false',
+        'Abp.Zero.UserManagement.PasswordComplexity.RequireLowercase': 'false',
+        'Abp.Zero.UserManagement.PasswordComplexity.RequireNonAlphanumeric': 'false',
+        'Abp.Zero.UserManagement.PasswordComplexity.RequireUppercase': 'false',
+        'Abp.Zero.UserManagement.PasswordComplexity.RequiredLength': '3',
+        'App.UiTheme': 'red'
+    };
+
+})();
+
+(function(){
+    abp.clock.provider = abp.timing.unspecifiedClockProvider || abp.timing.localClockProvider;
+    abp.clock.provider.supportsMultipleTimezone = false;
+})();
+
+(function(abp){
+
+    abp.custom = {}
+
+})(abp);
+
+(function(){
+    abp.event.trigger('abp.dynamicScriptsInitialized');
+})();

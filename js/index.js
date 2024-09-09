@@ -96,7 +96,7 @@ function getCookie(name)
 			}
 			console.log(ok)
 			if(ok == 0){
-				abp.notify.error("Can only detect Google Mail gmail!");
+				abp.notify.error("Kami hanya bisa memeriksa akun google! silahkan tambakan @gmail.com !");
 				return;
 			}
 			
@@ -183,7 +183,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         $("#mail-progress-bar")[0].style.width = `${percent}%`;
         $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
-        abp.notify.info("Check OK: " + totalChecked);
+        abp.notify.info("Sukses: " + totalChecked);
         let oldValue = (outputEditor.getValue() || "").split("\n");
         if (oldValue.filter(x => x).length == 0) oldValue = [];
         let newValue = [...oldValue, ...result];

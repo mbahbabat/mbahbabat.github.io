@@ -48,7 +48,7 @@ html {
 
 		 .CodeMirror-scroll{
          background: linear-gradient(to bottom right, #404040 0%, #262626 100%)!important;
-		 color: #66ff33!important;
+		 color: #00b33c!important;
 		 }
 		 
 		 
@@ -65,12 +65,18 @@ html {
 		 .navbar {background-color:black!important;}
 		 .pt-5 {background-color:black!important;}
 		 .slice {background-color:black!important;}
-		 .form-control-label{color:#00ff00!important;}
+		 .form-control-label{color:#ffffff!important;}
 		 #check-btn{margin-top:20px;margin-bottom:50px;background:linear-gradient(to bottom right, #ccccff 0%, #000000 100%);border:none!important;margin-left:30px!important;}
 	     #mail-progress-bar{color:black!important;background-color:green!important}	
 		 .progress{background-color:black!important}
          .card {background: linear-gradient(to top, #ffffff 0%, #ffffff 100%)!important;border:none!important;}		
          .row{margin-bottom:10px!important;}
+		 #rp-good{color:#00ff00}
+		 #rp-ver{color:#ffff00}
+		 #rp-unknown{color:#ff9900}
+		 #rp-disabled{color:#ff0000}
+		 #rp-not-exist{color:#00ffff}
+		 .toast-info{background-color:#262626!important;box-shadow:none!important}
 
 		 	  
       body>div.preloader {

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en" style="height: auto;" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,8 +10,26 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="shortcut icon" href="img/logo.png">
     <title>Free Bulk Gmail Checker</title>
+	    
+	<link href="css/css" rel="stylesheet">
+	<link href="css/all.min.css" rel="stylesheet">
+    <link href="css/icheck-bootstrap.css" rel="stylesheet">
+    <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/responsive.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/adminlte.min.css" rel="stylesheet">
+	<link href="css/sweetalert.css" rel="stylesheet">
+    <link href="css/toastr.css" rel="stylesheet">
+    <link href="css/famfamfam-flags.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/loading-bar.css" rel="stylesheet">
+    <link href="css/Layout.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/layui.css" rel="stylesheet">
+	<link href="css/style1.css" rel="stylesheet">
 	
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-T0FBXCK6YT"></script>
+ <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0FBXCK6YT"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -29,40 +46,14 @@
                 document.querySelector('body').classList.add('loaded');
             }, 300);
         });
-    </script>
-    
-<link href="css/css" rel="stylesheet">
-
-
-    <link href="css/all.min.css" rel="stylesheet">
-    <link href="css/icheck-bootstrap.css" rel="stylesheet">
-    <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="css/responsive.bootstrap4.min.css" rel="stylesheet">
-    <link href="css/buttons.bootstrap4.min.css" rel="stylesheet">
-    <link href="css/adminlte.min.css" rel="stylesheet">
-	<link href="css/sweetalert.css" rel="stylesheet">
-
-    <link href="css/toastr.css" rel="stylesheet">
-    <link href="css/famfamfam-flags.min.css" rel="stylesheet">
-
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/loading-bar.css" rel="stylesheet">
-
-    <link href="css/Layout.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/layui.css" rel="stylesheet">
-	<link href="css/style1.css" rel="stylesheet">
-    
-<style type="text/css"></style></head>
+    </script>   
+</head>
 <div id="loading" style="z-index:100000;position: absolute; top: 0; bottom: 0; right: 0; left: 0;   display: flex; justify-content: center; align-items: center;background-color: #fff;">
 	<img src="img/1.gif"/>
 	
 	</div>
 <body class="loaded" style="height: auto;background:black">
-	
-
-	
+		
     <div class="preloader">
         <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
@@ -80,8 +71,7 @@
 	    </div>
 	</nav>
 	
-
-    <section class="slice slice-sm">
+<section class="slice slice-sm">
         <div class="container">
            
 
@@ -273,22 +263,15 @@
     <script src="js/quick-website.js"></script>
 	<script src="js/sweetalert.min.js"></script>
 
-
-
-
-
 <script type="text/javascript">
 
     moment.locale('en');
 </script>
 
 
-<script src="js/GetAll"></script>
-<script src="js/GetScripts"></script>
 <script src="js/index.js"></script>
 <script src="js/vue.js"></script>
-<script src="js/axios2.min.js"></script>
-<script src="js/toastr.min.js"></script>
+
 
 <script>
 
@@ -329,149 +312,7 @@
 				var formattedDate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
 				return formattedDate;
 			},
-			userinfo(token){
-				
-				let data = {
-					token:token
-				}
-				let self = this
-				axios.post('',data)
-				.then(res=>{
-					if(res.data.code == -1){
-					}else{
-						self.puserinfo = res.data.data[0]
-						if(self.puserinfo.Expirationtime > Date.now()/1000){
-							self.txtj = '过期时间：' +self.yue(self.puserinfo.Expirationtime)
-						}else{
-							self.txtj = '剩余积分：'+self.puserinfo.price
-						}
-						document.getElementById("loading").style.display = "none"
-					}
-				    
-				})
-			},
-			loginshoww(){
-				this.loginshow = true
-				this.registershow = false
-			},
-			siberianshoww(){
-				if(!this.token){
-					toastr.warning ("请先登录！！");
-					return;
-				}
-				this.siberianshow = true
-			},
-			registershoww(){
-				this.loginshow = false
-				this.registershow = true
-			},
-			showw(){
-				this.loginshow = false
-				this.registershow = false
-				this.siberianshow = false
-			},
-			login(){
-				if(!this.username){
-					toastr.warning ("请填写账号！！");
-					return;
-				}
-				if(!this.password){
-					toastr.warning ("请填写密码！！");
-					return;
-				}
-				let data = {
-					username:this.username,
-					userpass:this.password
-				}
-				let self = this
-				axios.post('',data)
-				.then(res=>{
-					if(res.data.code == -1){
-						toastr.warning (res.data.message);
-					}else{
-						toastr.success (res.data.message);
-						setTimeout(function(){
-							self.setCookie('token',res.data.data[0].token,365)
-							location.reload();
-						},1500)
-					}
-				    
-				})
-			},
-			register(){
-				if(!this.username){
-					toastr.warning ("请填写账号！！");
-					return;
-				}
-				if(!this.password && !this.passwordtwo){
-					toastr.warning ("请填写密码！！");
-					return;
-				}
-				if(this.password != this.passwordtwo){
-					toastr.warning ("密码不一致！！！");
-					return;
-				}
-				if(this.password.length <8 || this.password.length >12){
-					toastr.warning ("密码长度大于8位小于12位！！！");
-					return;
-				}
-				if(this.username.length <5 || this.username.length >30){
-					toastr.warning ("账号长度大于5位小于30位！！！");
-					return;
-				}
-				if (this.username.indexOf('@') === -1) {
-				    toastr.warning("账号需要包含@");
-				    return;
-				}
-				let data = {
-					username:this.username,
-					userpass:this.password
-				}
-				let self = this
-				axios.post('',data)
-				.then(res=>{
-					if(res.data.code == -1){
-						toastr.warning(res.data.message);
-					}else{
-						toastr.success(res.data.message+'---去登录吧！');
-						self.loginshoww()
-					}
-				    
-				})
-			},
-			urlbuy(){
-				window.open('http://gmail1888.com')
-			},
-			thecard(){
-				if(!this.token){
-					toastr.warning("先登录！");
-					return;
-				}
-				if(!this.siberian){
-					toastr.warning("先填写卡密！");
-					return;
-				}
-				let data = {
-					siberian:this.siberian,
-					token:this.token
-				}
-				let self = this
-				axios.post('',data)
-				.then(res=>{
-					if(res.data.code == -1){
-						toastr.warning(res.data.message);
-					}else{
-						toastr.success(res.data.message);
-						location.reload();
-					}
-				    
-				})
-			}
-			,
-			exit(){
-				this.deleteCookie('token')
-				location.reload();
-			},
+			
 			getCookie(cookieName) {
 			    var name = cookieName + "=";
 			    var decodedCookie = decodeURIComponent(document.cookie);
@@ -501,18 +342,6 @@
 </script>
 
 
-<script type="text/javascript" src="https://api.tongjiniao.com/c?_=589111616462032896" async></script>
-
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?94e759aa4dfb950b197606be12a1a24d";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
 
 

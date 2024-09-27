@@ -38,7 +38,12 @@
 		.btn-scondary{
 		padding:5px;
 		cursor: pointer;
-		}		
+		}
+
+		hr{
+		border: 1px solid #4d4d4d;
+		margin: 25px 0px 25px 0px;
+		}
 
 		.flexi{
 		display:flex;
@@ -82,7 +87,11 @@
 
 		@media screen and (min-width: 1200px) {
 			.boxi {
-			width:1200px}
+			width:1200px
+			}
+			hr.solid1{
+			display:none!important;
+			}
 		}
 		
 		.gchecker{	
@@ -237,6 +246,7 @@
 			<div class="result">
 				<div>
 					<div class="indicator" style="width:100%;display:block;position:relative;">
+						<hr class="solid1">
 						<h3 style="font-size:16px;color:#ffffff;margin:0px 0px 15px 0px;">INDIKATOR</h3>
 						<div>
 							<div style="width:75px;display:inline-block">Good</div>
@@ -264,6 +274,7 @@
 							<div style="color:#00ffff;display:inline-block">Tidak Terdaftar</div>
 						</div>
 					</div>
+					<hr class="solid2">
 					<div class="downlaod-result" style="width:100%">
 						<h3 style="font-size:16px;color:#ffffff;margin:30px 0px 15px 0px;">DOWNLOAD RESULT</h3>
 						<div class="good" style="display:flex;justify-content:left;align-items:center;padding:5px 0px 5px 0px">

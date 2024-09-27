@@ -27,8 +27,6 @@ function getCookie(name)
         {
             lineNumbers: true
         });
-    inputEditor.setSize(null, 400);
-    outputEditor.setSize(null, 400);
     $(document).on("click",
         "#clear-editor",
         function() {
@@ -71,10 +69,10 @@ function getCookie(name)
 			
 			
 			if (mails.filter(x => x).length === 0) {
-				abp.notify.error("The mailbox cannot be empty!");
+				abp.notify.error("Error! Harap Masukkan Gmail");
 				return;
 			}
-			if (mails.filter(x => x).length > 100000) return alert("Please do not exceed 100,000 emails at a timeï¼");
+			if (mails.filter(x => x).length > 100000) return alert("Terbatas!! Versi gratis hanya bisa memasukkan 50 Gmail! Silahkan gunakan Versi Pro untuk pengecekan Gmail tanpa batas");
 			transactionId = null;
 			$("#mail-progress-bar")[0].style.width = "0%";
 			$("#mail-progress-bar")[0].textContent = "0%";
@@ -92,7 +90,7 @@ function getCookie(name)
 			}
 			console.log(ok)
 			if(ok == 0){
-				abp.notify.error("Kami hanya bisa memeriksa akun google! silahkan tambakan @gmail.com !");
+				abp.notify.warn("Format salah! harus menyertakan @gmail.com ");
 				return;
 			}
 			
@@ -179,7 +177,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         $("#mail-progress-bar")[0].style.width = `${percent}%`;
         $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
-        abp.notify.info("Sukses: " + totalChecked);
+        abp.notify.info("Pengecekan: " + totalChecked);
         let oldValue = (outputEditor.getValue() || "").split("\n");
         if (oldValue.filter(x => x).length == 0) oldValue = [];
         let newValue = [...oldValue, ...result];

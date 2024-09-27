@@ -1,372 +1,292 @@
 <!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 
-<html lang="en" style="height: auto;" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="S161774">
-	<meta name="theme-color" content="black">
-	<meta name="msapplication-navbutton-color" content="black">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="shortcut icon" href="img/logo.png">
-    <title>Free Bulk Gmail Checker</title>
-	    
-	<link href="css/css" rel="stylesheet">
-	<link href="css/all.min.css" rel="stylesheet">
-    <link href="css/icheck-bootstrap.css" rel="stylesheet">
-    <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="css/responsive.bootstrap4.min.css" rel="stylesheet">
-    <link href="css/buttons.bootstrap4.min.css" rel="stylesheet">
-    <link href="css/adminlte.min.css" rel="stylesheet">
-	<link href="css/sweetalert.css" rel="stylesheet">
-    <link href="css/toastr.css" rel="stylesheet">
-    <link href="css/famfamfam-flags.min.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/loading-bar.css" rel="stylesheet">
-    <link href="css/Layout.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/layui.css" rel="stylesheet">
-	<link href="css/style1.css" rel="stylesheet">
+
+	<style>
+		*{margin:0;padding:0;box-sizing:border-box;}
+			*,*:before,*:after{box-sizing: inherit;}
+			html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }
+			html,body{font-family:Verdana,sans-serif;font-size:14px;line-height:1.5;}
+			html::-webkit-scrollbar,.element::-webkit-scrollbar{display: none;}
+			a{text-decoration: none;background:0 0}
+			mark{background:#ff0;color:#000}
+			img{border-style: none;}
+			@media print{*{text-shadow:none!important;color:#000!important;background:0 0!important;box-shadow:none!important}}
 	
- <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0FBXCK6YT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+		body{
+		display:flex;
+		padding:0;
+		margin:0;
+		color:#d9d9d9;
+		}
 
-  gtag('config', 'G-T0FBXCK6YT');
-</script>
-	 <link href="css/toastr.min.css" rel="stylesheet">
-    
-	<link rel="stylesheet" href="css/codemirror.css">
-    <script>
-        window.addEventListener("load", function () {
-            setTimeout(function () {
-                document.querySelector('body').classList.add('loaded');
-            }, 300);
-        });
-    </script>   
+		.btn-primary{
+		padding:10px;
+		cursor: pointer;		
+		}
+		
+		.btn-scondary{
+		padding:5px;
+		cursor: pointer;
+		}		
+
+		.flexi{
+		display:flex;
+		position:absolute;
+		width:100%;
+		height:100%;
+		background: linear-gradient(to right, #111109 0%, #003366 100%);
+		justify-content:center;
+		align-items:center;
+		}
+		
+		.boxi{
+		display:flex;
+		justify-content:center;			
+		position:relative;
+		}
+		
+		@media screen and (max-width: 1199px) {
+			.boxi {			
+			display:block;
+			width:100%!important;
+			height:100%!important;
+			}
+			.gchecker {
+			width:100%!important;			
+			}
+			.result {
+			width:100%!important;
+			display:block!important;
+			min-height:650px;
+			}			
+		}
+
+		@media screen and (min-width: 1200px) {
+			.boxi {
+			width:1200px}
+		}
+		
+		.gchecker{	
+		width:50%;
+		background:#666666;
+		padding:25px;
+		border-right: 1px solid black;
+		border-radius:5px;		
+		}
+		
+		.result{
+		display:flex;
+		justify-content:center;		
+		width:50%;	
+		background:#666666;	
+		padding:25px;
+		position:relative;
+		border-left: 1px solid black;
+		border-radius:5px;
+		}	
+
+		.CodeMirror{
+		height:200px!important;
+		width:100%!important; 	
+		}
+		
+
+		.CodeMirror-scroll{
+		background: #e6e6e6!important; 
+		color: #333333!important;
+		}
+
+		.CodeMirror-gutters{
+		background: #e6e6e6!important;
+		border:none!important;
+		}
+		
+		.btn-executor{
+		display:flex;
+		justify-content:right;
+		}
+		
+		@keyframes progress-bar-stripes
+		{
+			from
+			{
+				background-position: .5rem 0;
+			}
+			to
+			{
+				background-position: 0 0;
+			}
+		}
+
+		.progress
+		{
+			font-size: .75rem;
+
+			display: flex;
+			overflow: hidden;
+
+			height: 14px;
+			width:100%;
+
+			border-radius: 50rem;
+			background-color: #eaecf3;
+			box-shadow: inset 0 .1rem .1rem rgba(31, 45, 61, .1);
+		}
+
+		.progress-bar
+		{
+			display: flex;
+			overflow: hidden;
+			flex-direction: column;
+
+			transition: width .6s ease; 
+			text-align: center;
+			white-space: nowrap;
+
+			color: #ffffff;
+			background-color: green;
+
+			justify-content: center;
+		}
+		@media (prefers-reduced-motion: reduce)
+		{
+			.progress-bar
+			{
+				transition: none;
+			}
+		}
+
+		.progress-bar-striped
+		{
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+			background-size: .5rem .5rem;
+		}
+
+		.progress-bar-animated
+		{
+			animation: progress-bar-stripes 1s linear infinite;
+		}
+		@media (prefers-reduced-motion: reduce)
+		{
+			.progress-bar-animated
+			{
+				animation: none;
+			}
+		}		
+
+	</style>
+	<link rel="stylesheet" href="https:mbahbabat.github.io/css/codemirror.css">
 </head>
-<div id="loading" style="z-index:100000;position: absolute; top: 0; bottom: 0; right: 0; left: 0;   display: flex; justify-content: center; align-items: center;background-color: #fff;">
-	<img src="img/1.gif"/>
-	
-	</div>
-<body class="loaded" style="height: auto;background:black">
-		
-    <div class="preloader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-	
-	<nav class="navbar navbar-expand-lg navbar-light ">
-	    <div class="container">
-	        <!-- Brand -->
-	        <a class="navbar-brand" href="https://mbahbabat.github.io">
-	            <img src="img/logo.png" alt="">
-				<span style="justify-content: center;align-items: center;color:white;">Bulk Gmail Checker</span>
-	        </a>
-	        <!-- Collapse -->
-	    </div>
-	</nav>
-	
-<section class="slice slice-sm">
-        <div class="container">
-           
-
-<div class="row">
-
-    <div class="col-md-6">
-        <div class="form-group">
-            <div class="form-heading d-flex justify-content-between mb-3">
-                <label class="form-control-label font-weight-bold ">Masukkan Akun</label>
-                <button id="clear-input" type="button" class="btn btn-info btn-xs btn-icon-label">
-                    <span class="btn-inner--icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                    </span>
-                    <span class="btn-inner--text">Hapus</span>
-                </button>
-            </div>
-            <div class="card-border">
-                <textarea id="mail-input" class="form-control mb-4" rows="15" style="display: none;" placeholder="123"></textarea><div class="CodeMirror cm-s-default" style="height: 0px;">
-				<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 34px;">
-					<textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea>
-					</div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div>
-					</div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div>
-					</div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
-					<div class="CodeMirror-scroll" tabindex="-1">
-						<div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: -17px; border-right-width: 13px; min-height: 35px; min-width: 7px; padding-right: 0px; padding-bottom: 0px;">
-							<div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;">
-							<div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 27px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; border-bottom: 0px solid transparent; top: 35px;"></div><div class="CodeMirror-gutters" style="height: 48px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;">
-						</div></div></div></div>
-            </div>
-        </div>
-        <div class="progress progress-lg">
-            <div id="mail-progress-bar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
-        </div>
-        <button type="button" id="check-btn" class="btn bd-toggle-animated-progress btn-primary mt-sm-4" data-toggle="button" aria-pressed="true">
-            Periksa
-        </button>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <div class="form-heading d-flex justify-content-between mb-3">
-                <label class="form-control-label font-weight-bold ">Hasil</label>
-                <button id="clear-output" type="button" class="btn btn-info btn-xs btn-icon-label">
-                    <span class="btn-inner--icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                    </span>
-                    <span class="btn-inner--text">Hapus</span>
-                </button>
-            </div>
-            <div class="card-border">
-                <textarea id="mail-output" class="form-control" rows="15" style="display: none;"></textarea>
-				<div class="CodeMirror cm-s-default" style="height: 0px;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 34px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: -17px; border-right-width: 13px; min-height: 35px; min-width: 7px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 27px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; border-bottom: 0px solid transparent; top: 35px;"></div><div class="CodeMirror-gutters" style="height: 48px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div>
-            </div>
-        </div>
-        <div class="hasil">
-            <div class="row">
-                <div class="col-12 col-md-6 col-sm-6">
-                    <div class="row mg-bottom-5">
-                        <div class="text-sm col-sm-6" style="color:#00ff00">Bagus</div>
-						<div class="badge badge-success hand-cursor"  onclick="downloadFile(&#39;good&#39;)">
-							<span>  download</span>
-							<span id="rp-good"></span>
-							<span>  akun</span>
+<body>
+	<div class="flexi">
+		<div class="boxi">
+			<div class="gchecker">
+				<div>
+					<h2 style="color:#ffffff;margin-bottom:25px;">BULK GMAIL CHECKER V.1.2</h2>
+				</div>		
+				<div>
+					<h3 style="color:#ffffff">MASUKKAN GMAIL</h3>
+					<p>Format : user@gmail.com</p>
+					<textarea id="mail-input" ></textarea>		
+				</div>
+				<div style="margin-top:25px">
+					<h3 style="color:#ffffff">RESULT</h3>
+					<textarea id="mail-output" style="color:green!important"></textarea>
+				</div>
+				<div style="display:flex;align-items:center;">
+					<p style="font-size:16px">proses: </p>
+					<div class="progress progress-lg">
+				   <div id="mail-progress-bar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+					</div>
+				</div>
+				<div class="btn-executor">
+					<button id="clear-editor" class="btn-primary">HAPUS</button>			
+					<button id="check-btn" class="btn-primary">CEK</button>
+				</div>				
+			</div>
+			<div class="result">
+				<div>
+					<div class="indicator" style="width:100%;display:block;position:relative;">
+						<h3 style="font-size:16px;color:#ffffff;margin:0px 0px 15px 0px;">INDIKATOR :</h3>
+						<div>
+							<div style="width:75px;display:inline-block">Good</div>
+							<div style="width:10px;display:inline-block">:</div>
+							<div style="color:#00ff00;display:inline-block">Bagus</div>
 						</div>
-                    </div>
-                    <div class="row mg-bottom-5">
-                        <div class="text-sm col-sm-6" style="color:#ffff00">Butuh Verifikasi</div>
-						<div class="badge badge-danger hand-cursor"  onclick="downloadFile(&#39;ver&#39;)">
-							<span>  download</span>						
-							<span id="rp-ver"></span>
-							<span>  akun</span>
+						<div>
+							<div style="width:75px;display:inline-block">Ver</div>
+							<div style="width:10px;display:inline-block">:</div>
+							<div style="color:#ffff00;display:inline-block">Butuh Verifikasi</div>
 						</div>
-                    </div>                 
-					<div class="row mg-bottom-5">
-                        <div class="text-sm col-sm-6" style="color:#ff9900">Pelanggaran</div>
-						<div onclick="downloadFile(&#39;unknown&#39;)" class="badge text-white  hand-cursor">
-							<span>  download</span>
-							<span id="rp-unknown"></span>
-							<span>  akun</span>							
+						<div>
+							<div style="width:75px;display:inline-block">Unknown</div>
+							<div style="width:10px;display:inline-block">:</div>
+							<div style="color:#ff9900;display:inline-block">Terjadi Masalah</div>
+						</div>
+						<div>
+							<div style="width:75px;display:inline-block">Disabled</div>
+							<div style="width:10px;display:inline-block">:</div>
+							<div style="color:#ff471a;display:inline-block">Dinonaktifkan</div>
+						</div>
+						<div>
+							<div style="width:75px;display:inline-block">Not_Exist</div>
+							<div style="width:10px;display:inline-block">:</div>
+							<div style="color:#00ffff;display:inline-block">Tidak Terdaftar</div>
 						</div>
 					</div>
-                    <div class="row mg-bottom-5">
-                        <div class="text-sm col-sm-6" style="color:#ff0000">Mati</div>
-						<div  onclick="downloadFile(&#39;disable&#39;)"  class="badge text-white hand-cursor">
+					<div class="downlaod-result" style="width:100%">
+						<h3 style="font-size:16px;color:#ffffff;margin:30px 0px 15px 0px;">DOWNLOAD RESULT :</h3>
+						<div class="good" style="display:flex;justify-content:left;align-items:center;padding:5px 0px 5px 0px">
+							<p style="width:75px">Good</p>
+							<span id="rp-good" style=";border-radius:5px;width:125px;height:30px;font-weight:bold;background:#404040;text-align:center;box-shadow: 1px 1px 3px 1px inset #000000;display:flex;justify-content:center;align-items:center;margin-right:10px;color:#00ff00;"></span>							
+							<button class="btn-scondary" onclick="downloadFile(&#39;good&#39;)" >
 							<span>  download</span>
-							<span id="rp-disabled"></span>
-							<span>  akun</span>
+							</button>						
 						</div>
-					</div>					
-                    <div class="row mg-bottom-5">
-                        <div class="text-sm col-sm-6" style="color:#00ffff">Tidak Terdaftar</div>
-						<div onclick="downloadFile(&#39;notExist&#39;)" class="badge text-white hand-cursor">
+						<div class="good" style="display:flex;justify-content:left;align-items:center;padding:5px 0px 5px 0px">
+							<p style="width:75px">Ver</p>
+							<span id="rp-ver" style=";border-radius:5px;width:125px;height:30px;font-weight:bold;background:#404040;text-align:center;box-shadow: 1px 1px 3px 1px inset #000000;display:flex;justify-content:center;align-items:center;margin-right:10px;color:#ffff00;"></span>								
+							<button class="btn-scondary" onclick="downloadFile(&#39;ver&#39;)" >
 							<span>  download</span>
-							<span id="rp-not-exist"></span>
-							<span>  akun</span>
+							</button>					
 						</div>
-                        
-					</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-        </div>
-		
-    </section>
-	
-<section class="pt-5 ">
-	    <div class="container" class="app1">
-	        <div class="card">
-	            <div class="card-body">
-	                <div class="row row-grid align-items-center">
-	                    <div class="col-lg-8">
-	                        <div class="media align-items-center">
-	                            <img src="img/tele.png" style="width:50px">
-	                            <div class="media-body">
-	                                <h5 id="plan-label" class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" v-if="token"></font><font  v-if="!token" style="vertical-align: inherit;color:#000000;"> Jika ada kendala hubungi telegram</font></font></h5>
-									<a class="navbar-brand" href="https://t.me/s161774"> @S161774</a>
-	                            </div>
-	                        </div>
-	                    </div>
-
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</section>
-	<div class="livechat">
-		<script id="intergram" type="text/javascript" src="js/livechat.js"></script>
-		<script id="intergram" type="text/javascript" src="js/integram.js"></script>
+						<div class="good" style="display:flex;justify-content:left;align-items:center;padding:5px 0px 5px 0px">
+							<p style="width:75px">Unknown</p>
+							<span id="rp-unknown" style=";border-radius:5px;width:125px;height:30px;font-weight:bold;background:#404040;text-align:center;box-shadow: 1px 1px 3px 1px inset #000000;display:flex;justify-content:center;align-items:center;margin-right:10px;color:#ff9900;"></span>							
+							<button class="btn-scondary" onclick="downloadFile(&#39;unknown&#39;)" >
+							<span>  download</span>
+							</button>						
+						</div>	
+						<div class="good" style="display:flex;justify-content:left;align-items:center;padding:5px 0px 5px 0px">
+							<p style="width:75px">Disabled</p>
+							<span id="rp-disabled" style=";border-radius:5px;width:125px;height:30px;font-weight:bold;background:#404040;text-align:center;box-shadow: 1px 1px 3px 1px inset #000000;display:flex;justify-content:center;align-items:center;margin-right:10px;color:#ff471a;"></span>							
+							<button class="btn-scondary" onclick="downloadFile(&#39;disable&#39;)" >
+							<span>  download</span>
+							</button>
+						</div>	
+						<div class="good" style= "display:flex;justify-content:left;align-items:center;padding:5px 0px 5px 0px">
+							<p style="width:75px">Not-Exist</p>
+							<span id="rp-not-exist" style=";border-radius:5px;width:125px;height:30px;font-weight:bold;background:#404040;text-align:center;box-shadow: 1px 1px 3px 1px inset #000000;display:flex;justify-content:center;align-items:center;margin-right:10px;color:#00ffff;"></span>							
+							<button class="btn-scondary"  onclick="downloadFile(&#39;notExist&#39;)" >
+							<span>  download</span>
+							</button>
+						</div>
+						<p style="position:absolute;color:#262626;bottom:10px;right:10px">V.1.2</p>
+					</div>	
+				</div>
+			</div>	
+		</div>
 	</div>
-	</body>
-	</html>
-	
-
-    <script src="js/quick-website.js"></script>
-
-    <script>
-        feather.replace({
-            'width': '1em',
-            'height': '1em'
-        })
-    </script>
-    
-<script type="text/javascript">
-
-    var abp = abp || {};
-    abp.appPath = '/';
-</script>
-
-<script src="js/codemirror.js"></script>
-    <script src="js/jquery.js"></script>
-
-    <script src="js/bootstrap.bundle.js"></script>
-    <script src="js/jquery.dataTables.min.js"></script>
-    <script src="js/dataTables.bootstrap4.min.js"></script>
-    <script src="js/dataTables.responsive.min.js"></script>
-    <script src="js/responsive.bootstrap4.min.js"></script>
-    <script src="js/dataTables.buttons.js"></script>
-    <script src="js/buttons.bootstrap4.js"></script>
-    <script src="js/adminlte.js"></script>
-
-    <script src="js/jquery.blockUI.js"></script>
-    <script src="js/spin.js"></script>
-    <script src="js/jquery.spin.js"></script>
-    <script src="js/sweetalert.min.js"></script>
-    <script src="js/toastr.min.js"></script>
-
-    <script src="js/lodash.min.js">
-    </script>
-    <script src="js/abp.js"></script>
-    <script src="js/abp.jquery.js"></script>
-    <script src="js/abp.toastr.js"></script>
-    <script src="js/abp.blockUI.js"></script>
-    <script src="js/abp.spin.js"></script>
-    <script src="js/abp.sweet-alert.js"></script>
-    <script src="js/abp.signalr-client.js"></script>
-
-    <script src="js/jquery.validate.js"></script>
-    <script src="js/jquery.validate.unobtrusive.js"></script>
-    <script src="js/push.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-
-    <script src="js/loading-bar.js"></script>
-	<script src="js/axios.min.js"></script>
-
-    <script src="js/abp.dataTable.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/quick-website.js"></script>
-	<script src="js/sweetalert.min.js"></script>
-
-<script type="text/javascript">
-
-    moment.locale('en');
-</script>
-
-
-<script src="js/index.js"></script>
-<script src="js/vue.js"></script>
-
-
-<script>
-
-    var vm = new Vue({
-        el: '#app',
-        data: {
-			loginshow:false,
-			registershow:false,
-			siberianshow:false,
-			siberian:'',
-            username:'',
-			password:'',
-			passwordtwo:'',
-			token:'',
-			puserinfo:'',
-			txtj:''
-        },
-		created(){
-			this.token = this.getCookie('token')
-			if(!this.token){
-				document.getElementById("loading").style.display = "none"
-			}
-
-		},
-		methods: {
-			yue(time){
-				
-				var date = new Date(time * 1000); 
-				
-			
-				var year = date.getFullYear();
-				var month = (date.getMonth() + 1).toString().padStart(2, '0');
-				var day = date.getDate().toString().padStart(2, '0');
-				var hour = date.getHours().toString().padStart(2, '0');
-				var minute = date.getMinutes().toString().padStart(2, '0');
-				
-		
-				var formattedDate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
-				return formattedDate;
-			},
-			
-			getCookie(cookieName) {
-			    var name = cookieName + "=";
-			    var decodedCookie = decodeURIComponent(document.cookie);
-			    var cookieArray = decodedCookie.split(';');
-			    for (var i = 0; i < cookieArray.length; i++) {
-			        var cookie = cookieArray[i];
-			        while (cookie.charAt(0) == ' ') {
-			            cookie = cookie.substring(1);
-			        }
-			        if (cookie.indexOf(name) == 0) {
-			            return cookie.substring(name.length, cookie.length);
-			        }
-			    }
-			    return "";
-			},
-			setCookie(cookieName, cookieValue, expirationDays) {
-			    var d = new Date();
-			    d.setTime(d.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
-			    var expires = "expires=" + d.toUTCString();
-			    document.cookie = cookieName + "=" + cookieValue + "; " + expires;
-			},
-			deleteCookie(cookieName) {
-			    document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-			}
-        }
-    })
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script src="https:mbahbabat.github.io/js/codemirror.js"></script>
+<script src="https:mbahbabat.github.io/js/jquery.js"></script>
+<script src="https:mbahbabat.github.io/js/spin.js"></script>
+<script src="https:mbahbabat.github.io/js/jquery.spin.js"></script>
+<script src="https:mbahbabat.github.io/js/abp.js"></script>
+<script src="https:mbahbabat.github.io/js/abp.spin.js"></script>
+<script src="https:mbahbabat.github.io/js/axios.min.js"></script>
+<script src="https:mbahbabat.github.io/js/index.js"></script>		
+</body>
+</html>

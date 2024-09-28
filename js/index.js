@@ -177,7 +177,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         $("#mail-progress-bar")[0].style.width = `${percent}%`;
         $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
-        abp.notify.info("Pengecekan: " + totalChecked);
+        abp.notify.info("Total Checked: " + totalChecked);
         let oldValue = (outputEditor.getValue() || "").split("\n");
         if (oldValue.filter(x => x).length == 0) oldValue = [];
         let newValue = [...oldValue, ...result];

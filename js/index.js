@@ -69,7 +69,7 @@ function getCookie(name)
 			
 			
 			if (mails.filter(x => x).length === 0) {
-				abp.notify.error("Error! Harap Masukkan Gmail");
+				abp.notify.error("Error! Please Input Gmail");
 				return;
 			}
 			if (mails.filter(x => x).length > 100000) return alert("Terbatas!! Versi gratis hanya bisa memasukkan 50 Gmail! Silahkan gunakan Versi Pro untuk pengecekan Gmail tanpa batas");
@@ -90,7 +90,7 @@ function getCookie(name)
 			}
 			console.log(ok)
 			if(ok == 0){
-				abp.notify.warn("Format salah! harus menyertakan @gmail.com ");
+				abp.notify.warn("Wrong Format! must include @gmail.com ");
 				return;
 			}
 			

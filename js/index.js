@@ -139,29 +139,7 @@ async function sleep(ms) {
     return new Promise(r => setTimeout(() => r(), ms));
 }
 
-async function checkMails(smallParts, totalNeedCheck) {
-    abp.ui.setBusy($("body"));
-    let totalChecked = 0;
-    for (let i = 0; i < smallParts.length; i++) {
-        let mails = smallParts[i];
-        let result;
-        while (true) {
-            result = await requestCheckMails(mails);
-            if (result === false) {
-                abp.notify.warn("Please Wait...");
-                await sleep(5000);
-                continue;
-            } else {
-                break;
-            }
-        }
-        console.log(result);
-        if (!result || result.length == 0) {
-            abp.ui.clearBusy();
-            return;
-        }
-        report(result);
-        totalChecked += result.length;
+
 
         // Update to global result
         allResult.good = [...allResult.good, ...result.filter(x => x.includes("Good|"))];

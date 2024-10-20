@@ -180,19 +180,6 @@ function report(mails) {
     increaseReport("#rp-unknown", unknown);
 }
 
-function increaseReport(id, number) {
-    try {
-        if (number <= 0 || isNaN(number)) return;
-        let ele = $(id);
-        if (!ele || ele.length == 0) return;
-        let currentValue = Number(ele.text());
-        if (isNaN(currentValue)) ele.text(number);
-        ele.text(currentValue + number);
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 async function requestCheckMails(mails) {
     return new Promise(r => {
 		

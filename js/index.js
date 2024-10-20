@@ -148,7 +148,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         while (true) {
             result = await requestCheckMails(mails);
             if (result === false) {
-                abp.notify.warn("Äang thá»­ láº¡i...");
+                abp.notify.warn("Please Wait...");
                 await sleep(5000);
                 continue;
             } else {

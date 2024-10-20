@@ -147,7 +147,14 @@ async function checkMails(smallParts, totalNeedCheck) {
         let result;
         while (true) {
             result = await requestCheckMails(mails);
-		
+            if (result === false) {
+                abp.notify.warn("Äang thá»­ láº¡i...");
+                await sleep(5000);
+                continue;
+            } else {
+                break;
+            }
+        }
         console.log(result);
         if (!result || result.length == 0) {
             abp.ui.clearBusy();

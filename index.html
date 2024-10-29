@@ -78,7 +78,8 @@
 		zoom:80%;
 		}
 		}
-		@media screen and (max-width: 1199px) {
+		
+		@media screen and (max-width: 767px) {
 			.boxi {	
 			display:block;
 			background:#666666;		
@@ -87,7 +88,6 @@
 			}
 			
 			.gchecker {
-			width:100%!important;
 			border-radius:0px!important;
 			}
 			
@@ -108,11 +108,31 @@
 			.appversion{display:none!important;
 			}
 		}
-
+		
+		@media screen and (min-width: 768px) and (max-width: 1199px) {
+			.boxi {
+			width:100%!important;
+			height:100%!important;
+			}
+			.gchecker {
+			border-radius:0px!important;
+			}
+			
+			.result {
+			border-radius:0px!important;
+			}
+			
+			hr.solid1{
+			display:none!important;
+			}	
+			
+		}
+			
 		@media screen and (min-width: 1200px) {
 			.boxi {
-			width:1200px
+			width:1000px
 			}
+			
 			hr.solid1{
 			display:none!important;
 			}
@@ -124,8 +144,8 @@
 			}
 		}		
 		
-		.gchecker{	
-		width:70%;
+		.gchecker{
+		width:100%;		
 		background:#666666;
 		padding:25px;
 		border-right: 1px solid #4d4d4d;
@@ -136,11 +156,11 @@
 		display:flex;
 		flex-direction:column;
 		align-items:center;		
-		width:30%;	
+		width:320px;	
 		background:#666666;	
 		padding:25px;
 		position:relative;
-		border: 2px #8c8c8c;
+		border: 1px #8c8c8c;
 		border-style:hidden hidden hidden inset;
 		border-radius:5px;
 		}

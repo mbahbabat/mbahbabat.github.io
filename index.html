@@ -97,6 +97,8 @@
 		.flexi{
 		display:flex;
 		position:absolute;
+		top:0;
+		left:0;
 		width:100%;
 		height:100%;
 		justify-content:center;
@@ -115,8 +117,11 @@
 		}
 		.CodeMirror{
 		zoom:125%!important;
-		}			
-		}
+		}	
+			.result {
+			align-items:center;				
+			}			
+		}	
 		
 		@media screen and (max-width: 767px) {
 			.boxi {	
@@ -147,7 +152,8 @@
 			width:100%!important;
 			min-height:550px;
 			border-radius:0px!important;
-			border:none!important;			
+			border:none!important;
+			align-items:center;				
 			}
 			
 			.download-result{
@@ -165,11 +171,35 @@
 			.download-result_mob .hidedown{
 			position:absolute;
 			right:0;
-			top:0;
-			padding:10px;
+			display:flex;
+			background: linear-gradient(to top right, #262626 0%, #4d4d4d 100%);
+			align-items:center;
+			justify-content:center;
+			width:30px;
+			height:30px;
+			border:2px #8c8c8c;
+			border-style:outset;
 			color:red;
 			font-weight:bold;
-			margin:5px;
+			border-radius:5px;
+			margin:-10px 0px 0px 10px;
+			}
+			
+			.download-result_mob .showdown{
+			position:absolute;
+			right:0;			
+			display:flex;
+			background: linear-gradient(to top right, #262626 0%, #4d4d4d 100%);
+			align-items:center;
+			justify-content:center;
+			width:30px;
+			height:30px;
+			border:2px #8c8c8c;
+			border-style:outset;
+			color:#00ffff;
+			font-weight:bold;
+			border-radius:5px;
+			margin:-10px 0px 0px 10px; 
 			}
 			
 			.check_btn_mob{
@@ -190,18 +220,36 @@
 		}
 		
 		@media screen and (min-width: 768px) and (max-width: 1199px) {
-			.boxi {
+			.boxi {	
+			display:block;
+			background:#666666;		
 			width:100%!important;
 			height:100%!important;
+			}
+			
+			.result{
+			width:100%!important;
+			flex-direction:row!important;
+			justify-content:center;
+			border-radius:0px!important;
+			align-items:none!important;
+			}
+			
+			.download-result{
+			border:4px #999999;
+			border-style: hidden hidden hidden groove;
+			}			
+			
+			
+			hr.solid2{
+			position:absolute;
+			top:-30px;
+			width:90%!important;
 			}
 			
 			.dark_light{
 			top:-20px;
 			right:-20px!important;
-			}
-			
-			.dark_light button{
-			padding:5px!important;
 			}
 			
 			.title{
@@ -213,17 +261,20 @@
 			border-radius:0px!important;
 			}		
 			
-			.result {
-			border-radius:0px!important;
-			}
-			
 			.indicator{
-			margin-top:22px!important;
+			margin:0px!important;
 			}
 			
 			hr.solid1{
 			display:none!important;
-			}	
+			}
+			
+			.appversion{
+			position:fixed!important;
+			bottm:0;
+			right:0;
+			z-index:999;
+			}			
 			
 		}
 			
@@ -256,8 +307,7 @@
 		
 		.result{
 		display:flex;
-		flex-direction:column;
-		align-items:center;		
+		flex-direction:column;	
 		width:350px;	
 		background:#666666;	
 		padding:25px;
@@ -305,13 +355,11 @@
 		
 		.download-result h3{
 		font-size:16px;
-		color:#ffffff;
 		margin:0px 0px 15px 0px;
 		}
 		
 		.download-result_mob h3{
 		font-size:16px;
-		color:#ffffff;
 		margin:0px 0px 15px 0px;
 		}
 		
@@ -469,18 +517,18 @@
 			<div class="gchecker">				
 				<div style="display:flex;justify-content:left;align-items:center;margin-bottom:25px;position:relative">
 					<image style=";width:30px;height:30px;margin-right:10px;" src="https://gmooy.github.io/gmail-checker.png"></image>
-					<h2 class="title"style="color:#ffffff;">BULK GMAIL CHECKER V1.3</h2>
+					<h2 class="title">BULK GMAIL CHECKER V1.3</h2>
 					<div class="dark_light" style="position:absolute;right:0;display:flex">
 						<button class="darkmode" onclick="darkmode()" style="background:#262626;color:#b3b3b3;border:1px #fff;border-style:outset;padding:10px;cursor:pointer;border-radius:5px 0px 0px 5px;;"/>Dark</button>
 						<button class="lightmode" onclick="lightmode()" style="background:#fff;color:#737373;border:1px #fff;border-style:outset;padding:10px;cursor:pointer;border-radius:0px 5px 5px 0px;"/>Light</button>
 					</div>					
 				</div>		
 				<div class="mailinput">
-					<h3 style="color:#ffffff;margin-bottom:5px;">INPUT GMAIL</h3>
+					<h3 style="margin-bottom:5px;">INPUT GMAIL</h3>
 					<textarea style="display:none" id="mail-input" ></textarea>		
 				</div>
 				<div class="mailoutput" style="margin-top:25px">
-					<h3 style="color:#ffffff;margin-bottom:5px;">RESULT</h3>
+					<h3 style="margin-bottom:5px;">RESULT</h3>
 					<textarea style="display:none" id="mail-output"></textarea>
 				</div>
 				<div style="display:flex;align-items:center;">
@@ -498,7 +546,7 @@
 			<div class="result">
 				<hr class="solid1">
 				<div class="indicator">
-					<h3 style="font-size:16px;color:#ffffff;margin:0px 0px 15px 0px;">INDICATOR</h3>
+					<h3 style="font-size:16px;margin:0px 0px 15px 0px;">INDICATOR</h3>
 					<div>
 						<div class="indi_item">
 							<p class="indi_title">Good</p>
@@ -568,8 +616,11 @@
 					</div>
 				</div>
 				<div class="download-result_mob" style="display:none">
-					<h3>DOWNLOAD RESULT</h3>
-					<button class="hidedown" onClick="hidedown()" style="display:none">X</button>
+					<div style="display:flex;position:relative;width:100%;justify-content:center;">
+						<h3>DOWNLOAD RESULT</h3>
+						<div class="hidedown" onClick="hidedown()">x</div>
+						<div class="showdown" onClick="showdown()">^</div>
+					</div>
 					<div class="downres_item">
 						<p>Good</p>
 						<span class="rp-down" id="rp-good" style="color:#00cc00"></span>							
@@ -627,11 +678,12 @@ function clear_all() {
 </script>
 <script>	
 function darkmode(){
-  document.getElementById('flexi').style.background="#0d0d0d";
+  document.querySelector("body").style.cssText="background:#0d0d0d";
+  document.querySelector(".boxi").style.cssText="opacity:0.7;background:#404040";
   document.querySelector(".mailinput .CodeMirror-scroll").style.background="#262626";
   document.querySelector(".mailoutput .CodeMirror-scroll").style.background="#262626";
   document.querySelector(".mailinput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)";
-  document.querySelector(".mailoutput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)";  
+  document.querySelector(".mailoutput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)"; 
   document.querySelector(".mailinput .CodeMirror-scroll").style.color="#009933";
   document.querySelector(".mailoutput .CodeMirror-scroll").style.color="#cc9900";
   document.querySelector(".gchecker").style.background="#404040";
@@ -640,7 +692,8 @@ function darkmode(){
 	
 }
 function lightmode(){
-  document.getElementById('flexi').style.background="none";
+  document.querySelector("body").style.cssText="background:none";
+  document.querySelector(".boxi").style.cssText="opacity:1;background:#666666";
   document.querySelector(".mailinput .CodeMirror-scroll").style.background="linear-gradient(to top right, #f2f2f2 0%, #d9d9d9 100%)";
   document.querySelector(".mailoutput .CodeMirror-scroll").style.background="linear-gradient(to top right, #f2f2f2 0%, #d9d9d9 100%)";
   document.querySelector(".mailinput .CodeMirror-gutters").style.background="linear-gradient(to top, #f2f2f2 0%, #d9d9d9 100%)";
@@ -656,8 +709,10 @@ function showdown(){
 document.querySelector(".download-result_mob").style.position="fixed";
 document.querySelector(".download-result_mob").style.padding="25px";
 document.querySelector(".download-result_mob").style["boxShadow"] = "0 0 5px 5px rgba(0,0,0,0.5)";
-document.querySelector(".download-result_mob").style.animation="slideup 2s";
-document.querySelector(".hidedown").style.display="block";
+document.querySelector(".download-result_mob").style.animation="slideup 0.75s";
+document.querySelector(".hidedown").style.display="flex";
+document.querySelector(".solid2").style.display="none";
+document.querySelector(".showdown").style.display="none";
 document.querySelector(".download-result").remove();
 }
 
@@ -666,7 +721,9 @@ document.querySelector(".download-result_mob").style.position="relative";
 document.querySelector(".download-result_mob").style.padding="0px";
 document.querySelector(".download-result_mob").style["boxShadow"] = "none";
 document.querySelector(".download-result_mob").style.animation="none";
+document.querySelector(".solid2").style.display="block";
 document.querySelector(".hidedown").style.display="none";
+document.querySelector(".showdown").style.display="flex";
 }
 </script>
 

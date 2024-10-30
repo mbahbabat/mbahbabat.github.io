@@ -37,6 +37,7 @@
 		padding:0;
 		margin:0;
 		color:#d9d9d9;
+		font-size:12px;
 		}
 
 /* width */
@@ -112,15 +113,17 @@
 		border-radius:5px;
 		}
 		
-		@media screen and (max-width: 1920px) and (min-width: 1200px) {
-		.flexi{
-		zoom:80%;
-		}
-		.CodeMirror{
-		zoom:125%!important;
-		}	
-			.result {
-			align-items:center;				
+		@media screen and (min-width: 1200px) {
+			.boxi {
+			width:800px
+			}
+			
+			hr.solid1{
+			display:none!important;
+			}
+			
+		.showdown, .hidedown{
+			display:none!important;
 			}			
 		}	
 		
@@ -155,21 +158,9 @@
 			border-radius:0px!important;
 			border:none!important;
 			align-items:center;				
-			}
+			}			
 			
-			.download-result{
-			display:none!important;
-			}
-			
-			.download-result_mob{
-			display:flex!important;
-			opacity:0.98;
-			bottom:0;
-			background:#666666;
-			z-index:999;
-			}
-			
-			.download-result_mob .hidedown{
+			.download-result .hidedown{
 			position:absolute;
 			right:0;
 			display:flex;
@@ -186,7 +177,7 @@
 			margin:-10px 0px 0px 10px;
 			}
 			
-			.download-result_mob .showdown{
+			.download-result .showdown{
 			position:absolute;
 			right:0;
 			padding-top:5px;
@@ -223,6 +214,10 @@
 		}
 		
 		@media screen and (min-width: 768px) and (max-width: 1199px) {
+			.showdown, .hidedown{
+			display:none!important;
+			}
+		
 			.boxi {	
 			display:block;
 			background:#666666;		
@@ -245,6 +240,7 @@
 			
 			
 			hr.solid2{
+			display:none;
 			position:absolute;
 			top:-30px;
 			width:90%!important;
@@ -256,7 +252,7 @@
 			}
 			
 			.title{
-			font-size:18px;
+			font-size:14px;
 			margin-top:20px!important;
 			}			
 			
@@ -280,17 +276,6 @@
 			}			
 			
 		}
-			
-		@media screen and (min-width: 1200px) {
-			.boxi {
-			width:1000px
-			}
-			
-			hr.solid1{
-			display:none!important;
-			}
-						
-		}
 
 		@media screen and (max-width: 350px) {
 			body {
@@ -307,6 +292,10 @@
 		border-radius:5px;
 		position:relative;
 		}
+
+		.title{
+		font-size:16px;
+			}
 		
 		.result{
 		display:flex;
@@ -330,6 +319,7 @@
 		display:flex;
 		justify-content:left;
 		align-items:center;
+		padding:5px 0px 5px 0px;
 		}
 		
 		.indi_item .indi_title{
@@ -337,7 +327,9 @@
 		}
 		
 		.indi_item .indi_spara{
-		width:10px
+		width:20px;
+		dislay:flex;
+		justify-content:center;
 		}
 		
 		.indi_item .indi_trans{
@@ -345,34 +337,19 @@
 		}
 		
 		.download-result{
+		bottom:0;
+		background:#666666;	
 		width:100%;
 		display:flex;
 		flex-direction:column;
-		align-items:center}
-		
-		.download-result_mob{
-		width:100%;
-		display:flex;
-		flex-direction:column;
-		align-items:center}	
-		
-		.download-result h3{
-		font-size:16px;
-		margin:0px 0px 15px 0px;
-		}
-		
-		.download-result_mob h3{
-		font-size:16px;
-		margin:0px 0px 15px 0px;
+		align-items:center;
+		z-index:999;
 		}
 		
 		.download-result p{
 		width:75px
 		}
 		
-		.download-result_mob p{
-		width:75px
-		}
 		
 		.downres_item {
 		display:flex;
@@ -403,6 +380,10 @@
 		border:none!important;
 		}
 		
+		.CodeMirror-hscrollbar{
+		display:none!important;
+		}
+		
 		CodeMirror-scrollbar-filler{
 		display:none
 		}
@@ -423,6 +404,7 @@
 		.CodeMirror-linenumber{
 		font-weight:300!important;
 		font-size:12px;
+		border:none!important;
 		}
 		
 		.btn-executor{
@@ -519,7 +501,7 @@
 		<div class="boxi">
 			<div class="gchecker">				
 				<div style="display:flex;justify-content:left;align-items:center;margin-bottom:25px;position:relative">
-					<image style=";width:30px;height:30px;margin-right:10px;" src="https://gmooy.github.io/gmail-checker.png"></image>
+					<image style=";width:20px;height:20px;margin-right:10px;" src="https://gmooy.github.io/gmail-checker.png"></image>
 					<h2 class="title">BULK GMAIL CHECKER V1.3</h2>
 					<div class="dark_light" style="position:absolute;right:0;display:flex">
 						<button class="darkmode" onclick="darkmode()" style="background:#262626;color:#b3b3b3;border:1px #fff;border-style:outset;padding:10px;cursor:pointer;border-radius:5px 0px 0px 5px;;"/>Dark</button>
@@ -527,15 +509,15 @@
 					</div>					
 				</div>		
 				<div class="mailinput">
-					<h3 style="margin-bottom:5px;">INPUT GMAIL</h3>
+					<h4 style="margin-bottom:5px;">INPUT GMAIL</h4>
 					<textarea style="display:none" id="mail-input" ></textarea>		
 				</div>
 				<div class="mailoutput" style="margin-top:25px">
-					<h3 style="margin-bottom:5px;">RESULT</h3>
+					<h4 style="margin-bottom:5px;">RESULT</h4>
 					<textarea style="display:none" id="mail-output"></textarea>
 				</div>
 				<div style="display:flex;align-items:center;">
-					<p style="font-size:16px;padding:5px 5px 5px 0px;">Progress: </p>
+					<p style="padding:5px 5px 5px 0px;">Progress: </p>
 					<div class="progress progress-lg">
 				   <div id="mail-progress-bar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
 					</div>
@@ -549,7 +531,7 @@
 			<div class="result">
 				<hr class="solid1">
 				<div class="indicator">
-					<h3 style="font-size:16px;margin:0px 0px 15px 0px;">INDICATOR</h3>
+					<h4 style="margin:0px 0px 15px 0px;">INDICATOR</h4>
 					<div>
 						<div class="indi_item">
 							<p class="indi_title">Good</p>
@@ -581,49 +563,11 @@
 				
 				<hr class="solid2">
 				<div class="download-result">
-					<h3>DOWNLOAD RESULT</h3>
-					<div class="downres_item">
-						<p>Good</p>
-						<span class="rp-down" id="rp-good" style="color:#00cc00"></span>							
-						<button class="btn-scondary" onclick="downloadFile(&#39;good&#39;)" >
-						<span>  download</span>
-						</button>						
-					</div>
-					<div class="downres_item">
-						<p>Ver</p>
-						<span class="rp-down" id="rp-ver" style="color:#ffff00"></span>								
-						<button class="btn-scondary" onclick="downloadFile(&#39;ver&#39;)" >
-						<span>  download</span>
-						</button>					
-					</div>
-					<div class="downres_item">
-						<p>Unknown</p>
-						<span class="rp-down" id="rp-unknown" style="color:#00ccff"></span>							
-						<button class="btn-scondary" onclick="downloadFile(&#39;unknown&#39;)" >
-						<span>  download</span>
-						</button>						
-					</div>	
-					<div class="downres_item">
-						<p>Disabled</p>
-						<span class="rp-down" id="rp-disabled" style="color:#ff8080"></span>							
-						<button class="btn-scondary" onclick="downloadFile(&#39;disable&#39;)" >
-						<span>  download</span>
-						</button>
-					</div>	
-					<div class="downres_item">
-						<p>Not_Exist</p>
-						<span class="rp-down" id="rp-not-exist" style="color:#ccffff"></span>							
-						<button class="btn-scondary"  onclick="downloadFile(&#39;notExist&#39;)" >
-						<span>  download</span>
-						</button>
-					</div>
-				</div>
-				<div class="download-result_mob" style="display:none">
 					<div style="display:flex;position:relative;width:100%;justify-content:center;">
-						<h3>DOWNLOAD RESULT</h3>
+						<h4 style="margin:0px 0px 15px 0px;">DOWNLOAD RESULT</h4>
 						<div class="hidedown" onClick="hidedown()">x</div>
 						<div class="showdown" onClick="showdown()">^</div>
-					</div>
+					</div>				
 					<div class="downres_item">
 						<p>Good</p>
 						<span class="rp-down" id="rp-good" style="color:#00cc00"></span>							
@@ -672,17 +616,17 @@ function refreshPage(){
 }
 
 function clear_all() {
+	document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
 	document.querySelector("#rp-good").textContent = "";
 	document.querySelector("#rp-ver").textContent = "";
 	document.querySelector("#rp-unknown").textContent = "";
 	document.querySelector("#rp-disabled").textContent = "";
 	document.querySelector("#rp-exist").textContent = "";
 } 
-</script>
-<script>	
+	
 function darkmode(){
   document.querySelector("body").style.cssText="background:#0d0d0d";
-  document.querySelector(".boxi").style.cssText="opacity:0.7;background:#404040";
+  document.querySelector(".boxi").style.cssText="opacity:0.7;background:#404040;";
   document.querySelector(".mailinput .CodeMirror-scroll").style.background="#262626";
   document.querySelector(".mailoutput .CodeMirror-scroll").style.background="#262626";
   document.querySelector(".mailinput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)";
@@ -691,7 +635,7 @@ function darkmode(){
   document.querySelector(".mailoutput .CodeMirror-scroll").style.color="#cc9900";
   document.querySelector(".gchecker").style.background="#404040";
   document.querySelector(".result").style.background="#404040";
-  document.querySelector(".download-result_mob").style.background="#404040";  
+  document.querySelector(".download-result").style.background="#404040";  
 	
 }
 function lightmode(){
@@ -705,25 +649,24 @@ function lightmode(){
   document.querySelector(".mailoutput .CodeMirror-scroll").style.color="#000";
   document.querySelector(".gchecker").style.background="#666666";
   document.querySelector(".result").style.background="#666666"; 
-  document.querySelector(".download-result_mob").style.background="#666666";  
+  document.querySelector(".download-result").style.background="#666666";  
 }
 
 function showdown(){
-document.querySelector(".download-result_mob").style.position="fixed";
-document.querySelector(".download-result_mob").style.padding="25px";
-document.querySelector(".download-result_mob").style["boxShadow"] = "0 0 5px 5px rgba(0,0,0,0.5)";
-document.querySelector(".download-result_mob").style.animation="slideup 0.75s";
+document.querySelector(".download-result").style.position="fixed";
+document.querySelector(".download-result").style.padding="25px";
+document.querySelector(".download-result").style["boxShadow"] = "0 0 5px 5px rgba(0,0,0,0.5)";
+document.querySelector(".download-result").style.animation="slideup 0.75s";
 document.querySelector(".hidedown").style.display="flex";
 document.querySelector(".solid2").style.display="none";
 document.querySelector(".showdown").style.display="none";
-document.querySelector(".download-result").remove();
 }
 
 function hidedown(){
-document.querySelector(".download-result_mob").style.position="relative";
-document.querySelector(".download-result_mob").style.padding="0px";
-document.querySelector(".download-result_mob").style["boxShadow"] = "none";
-document.querySelector(".download-result_mob").style.animation="none";
+document.querySelector(".download-result").style.position="relative";
+document.querySelector(".download-result").style.padding="0px";
+document.querySelector(".download-result").style["boxShadow"] = "none";
+document.querySelector(".download-result").style.animation="none";
 document.querySelector(".solid2").style.display="block";
 document.querySelector(".hidedown").style.display="none";
 document.querySelector(".showdown").style.display="flex";

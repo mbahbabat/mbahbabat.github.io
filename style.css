@@ -68,7 +68,7 @@
 		width:100%;
 		border: 2px #8c8c8c;
 		border-style:inset;
-		margin: 25px 0px 25px 0px;
+		margin: 15px 0px 15px 0px;
 		}
 
 		.flexi{
@@ -106,6 +106,10 @@
 			}
 		}	
 		
+		.CodeMirror{
+		height:150px!important;
+		}
+		
 		@media screen and (max-width: 767px) {
 			.boxi {	
 			display:block;
@@ -117,23 +121,25 @@
 			
 			.dark_light{
 			top:-45px;
-			right:-15px!important;
+			right:-5px!important;
 			}
 			
 			.gchecker {
+			width:100%!important;
 			border-radius:0!important;
 			}
 			
 			.CodeMirror{
 			font-size:12px
+			height:150px!important;
 			}
 			
 			.result {
 			width:100%!important;
-			min-height:550px;
 			border-radius:0!important;
 			border:none!important;
-			align-items:center;				
+			align-items:center;
+			padding:15px 15px 100px 15px!important;			
 			}			
 			
 			.download-result .hidedown{
@@ -181,11 +187,9 @@
 			}
 			
 			.header{
-			margin-top:30px!important;
+			margin-top:40px!important;
 			}
 			
-			.appversion{display:none!important;
-			}
 		}
 		
 		@media screen and (max-width: 1199px) and (min-width: 768px) {
@@ -206,9 +210,23 @@
 			align-items:none!important;
 			}
 			
+			#cm_mail{
+			gap:10px!important;
+			flex-direction:row!important;
+			}
+			
+			.mailinput, .mailoutput{
+				width:50%;
+			}
+			
+			.CodeMirror{
+			height:350px!important;
+			}
+			
 			.download-result{
 			border:4px #999999;
 			border-style: hidden hidden hidden groove;
+			padding-left:15px;
 			}			
 			
 			hr.solid2{
@@ -218,16 +236,10 @@
 			width:90%!important;
 			}
 			
-			.dark_light{
-			top:-50px;
-			right:-20px!important;
-			}
-			
-			.header{
-			margin-top:30px!important;
-			}			
+		
 			
 			.gchecker {
+			width:100%!important;
 			border-radius:0!important;
 			}		
 			
@@ -249,24 +261,24 @@
 			
 			.appversion{
 			position:fixed!important;
-			bottm:0;
-			right:0;
-			z-index:999;
-			}			
+			right:5px;
+			bottom:5px;
+		}
+			
 			
 		}
 
-		@media screen and (max-width: 350px) {
-			body {
-			font-size:12px;
-			zoom:80%
+		@media screen and (max-width: 300px) {
+			.result,.gchecker button,.gchecker h2,.gchecker h3,#indi_progress{
+			zoom:75%;
 			}
+
 		}		
 		
 		.gchecker{
-		width:100%;		
+		width:55%;		
 		background:#666666;
-		padding:25px;
+		padding:15px;
 		border-right: 1px solid #4d4d4d;
 		border-radius:5px;
 		position:relative;
@@ -279,40 +291,65 @@
 		.result{
 		display:flex;
 		flex-direction:column;	
-		width:350px;	
+		width:40%;	
 		background:#666666;	
-		padding:25px;
+		padding:15px;
 		position:relative;
 		border: 1px #8c8c8c;
 		border-style:hidden hidden hidden inset;
 		border-radius:5px;
 		}
 		
+		#cm_mail{
+		display:flex;
+		flex-direction:column;
+		gap:25px;
+		}
+	
+		#indi_progress{
+			display:flex;
+			align-items:center;
+			margin:10px 0px 10px 0px;
+			gap:10px;
+			}
+		
 		.indicator{
 		width:100%;
 		display:flex;
 		flex-direction:column;
-		align-items:center}
+		align-items:center;
+		}
+		
+		#indi_items{
+		display:flex;
+		flex-direction:column;
+		width:100%;
+		}
 		
 		.indi_item{
 		display:flex;
 		justify-content:left;
 		align-items:center;
+
 		padding:5px 0px 5px 0px;
 		}
 		
 		.indi_item .indi_title{
-		width:75px
+		min-width:60px;
 		}
 		
 		.indi_item .indi_spara{
-		width:20px;
-		dislay:flex;
+		min-width:20px;
+		display:flex;
 		justify-content:center;
 		}
 		
-		.indi_item .indi_trans{
-		color:#fff
+		.indi_item .indi_trans{	
+		min-width:195px;
+		color:#fff;
+		overflow: hidden;
+		white-space: nowrap; 		
+		text-overflow: ellipsis; 		
 		}
 		
 		.download-result{
@@ -323,22 +360,23 @@
 		flex-direction:column;
 		align-items:center;
 		z-index:999;
-		}
-		
-		.download-result p{
-		width:75px
-		}
+		gap:5px;
+		}	
 
 		.downres_item {
+		width:100%;
 		display:flex;
 		justify-content:left;
 		align-items:center;
-		padding:5px 0px 5px 0px;
 		}
+		
+		.downres_item p{
+		min-width:65px;
+		}		
 		
 		.rp-down{
 		border-radius:5px;
-		width:125px;
+		width:100%;
 		height:30px;
 		font-weight:bold;
 		background:#595959;
@@ -348,14 +386,14 @@
 		display:flex;
 		justify-content:center;
 		align-items:center;
-		margin-right:10px;
+		margin:5px;
 		}
 			
-		.CodeMirror{
-		height:150px!important;		
+		.CodeMirror{	
 		background: #e6f5ff;
 		width:100%!important;
 		border:none!important;
+		border-radius:5px;
 		}
 		
 		.CodeMirror-hscrollbar{
@@ -456,5 +494,12 @@
 			{
 				animation: none;
 			}
-		}	
+		}
+
+		.appversion{
+		position:absolute;
+		right:5px;
+		bottom:5px;
+		z-index:1000;
+		}
 		

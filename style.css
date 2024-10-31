@@ -268,7 +268,7 @@
 			
 		}
 
-		@media screen and (max-width: 300px) {
+		@media screen and (max-width: 310px) {
 			.result,.gchecker button,.gchecker h2,.gchecker h3,#indi_progress{
 			zoom:75%;
 			}

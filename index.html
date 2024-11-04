@@ -13,7 +13,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="#666666">
     <title>Free Bulk Gmail Checker</title>
 	<link rel="shortcut icon" href="https://mbahbabat.github.io/gmail-checker.png">	
-	<link rel="stylesheet" href="https://gmooy.github.io/css/codemirror.css">	
+	<link rel="stylesheet" href="codemirror.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T0FBXCK6YT"></script>
 	<script>
@@ -129,7 +129,9 @@
   }
 
   function activeElt() {
-
+    // IE and Edge may throw an "Unspecified Error" when accessing document.activeElement.
+    // IE < 10 will throw when accessed while the page is loading or in an iframe.
+    // IE > 9 and Edge will throw when accessed in an iframe if document.body is unavailable.
     var activeElement;
     try {
       activeElement = document.activeElement;
@@ -171,6 +173,8 @@
     return target
   }
 
+  // Counts the column offset in a string, taking tabs into account.
+  // Used mostly to find indentation.
   function countColumn(string, end, tabSize, startIndex, startValue) {
     if (end == null) {
       end = string.search(/[^\s\u00a0]/);
@@ -357,10 +361,33 @@
     return found != null ? found : bidiOther
   }
 
+  // Bidirectional ordering algorithm
+  // See http://unicode.org/reports/tr9/tr9-13.html for the algorithm
+  // that this (partially) implements.
+
+  // One-char codes used for character types:
+  // L (L):   Left-to-Right
+  // R (R):   Right-to-Left
+  // r (AL):  Right-to-Left Arabic
+  // 1 (EN):  European Number
+  // + (ES):  European Number Separator
+  // % (ET):  European Number Terminator
+  // n (AN):  Arabic Number
+  // , (CS):  Common Number Separator
+  // m (NSM): Non-Spacing Mark
+  // b (BN):  Boundary Neutral
+  // s (B):   Paragraph Separator
+  // t (S):   Segment Separator
+  // w (WS):  Whitespace
+  // N (ON):  Other Neutrals
+
+  // Returns null if characters are ordered as they appear
+  // (left-to-right), or an array of sections ({from, to, level}
+  // objects) in the order in which they occur visually.
   var bidiOrdering = (function() {
-
+    // Character types for codepoints 0 to 0xff
     var lowTypes = "bbbbbbbbbtstwsbbbbbbbbbbbbbbssstwNN%%%NNNNNN,N,N1111111111NNNNNNNLLLLLLLLLLLLLLLLLLLLLLLLLLNNNNNNLLLLLLLLLLLLLLLLLLLLLLLLLLNNNNbbbbbbsbbbbbbbbbbbbbbbbbbbbbbbbbb,N%%%%NNNNLNNNNN%%11NLNNN1LNNNNNLLLLLLLLLLLLLLLLLLLLLLLNLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLN";
-
+    // Character types for codepoints 0x600 to 0x6f9
     var arabicTypes = "nnnnnnNNr%%r,rNNmmmmmmmmmmmrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrmmmmmmmmmmmmmmmmmmmmmnnnnnnnnnn%nnrrrmrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrmmmmmmmnNmmmmmmrrmmNmmmmrr1111111111";
     function charType(code) {
       if (code <= 0xf7) { return lowTypes.charAt(code) }
@@ -22125,9 +22152,10 @@ function getCookie(cookieName) {
 			        }
 			    }
 			    return "";
-			}		
+			}
+
 </script>
-	<script src="abp.toastr.js"></script>
-	<script src="toastr.min.js"></script>	
+<script src="toastr.min.js"></script>
+<script src="abp.toastr.js"></script>	
 </body>
 </html>

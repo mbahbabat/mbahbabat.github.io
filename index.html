@@ -21931,7 +21931,7 @@ function getCookie(name)
 			}
 			console.log(ok)
 			if(ok == 0){
-				abp.notify.warn("Wrong Format! @gmail.com must be included ");
+				abp.notify.error("Wrong Format! @gmail.com must be included ");
 				return;
 			}
 			
@@ -22071,7 +22071,7 @@ async function requestCheckMails(mails) {
 			
 			if (!res.success) {
 			    if (res.error && res.error.message) {
-			        abp.notify.warning("Server Busy!");
+			        abp.notify.warn("Server Busy!");
 			        setTimeout(() => {
 			            return r(false);
 			        }, 1000);

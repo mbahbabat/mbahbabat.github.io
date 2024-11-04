@@ -21990,7 +21990,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         while (true) {
             result = await requestCheckMails(mails);
             if (result === false) {
-                abp.notify.info("Server Busy! Please Wait...");
+                abp.notify.info("Server is busy! Please Wait...");
                 await sleep(5000);
                 continue;
             } else {

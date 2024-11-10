@@ -9662,6 +9662,7 @@ $( ".preloader" ).prepend( $( "<image class='pre_img' style='width:75px;height:7
 setTimeout(function() {
 $(".preloader").remove()
 }, 1500);
+document.body.addEventListener("contextmenu", (e) => {e.preventDefault()});
 
 ( function( global, factory ) {
 

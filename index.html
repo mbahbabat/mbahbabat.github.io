@@ -21874,7 +21874,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         $("#mail-progress-bar")[0].style.width = `${percent}%`;
         $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
-        abp.notify.success("✔️ Total Checked: " + totalChecked + " Gmail Adress");
+        abp.notify.success("✔ Total Checked: " + totalChecked + " Addresses");
         let oldValue = (outputEditor.getValue() || "").split("\n");
         if (oldValue.filter(x => x).length == 0) oldValue = [];
         let newValue = [...oldValue, ...result];

@@ -21852,7 +21852,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         while (true) {
             result = await requestCheckMails(mails);
             if (result === false) {
-                abp.notify.error(" 📢 Server is busy! Please Wait...");
+                abp.notify.info(" 📢 Server is busy! Please Wait...");
                 await sleep(1);
                 continue;
             } else {

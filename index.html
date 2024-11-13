@@ -21662,7 +21662,7 @@ var abp = abp || {};
         //TODO@Halil: Maybe better to do not call unblock if it's not blocked by setBusy
         if (!elm) {
             abp.ui.unblock();
-            $('body').spin(false);
+            $('.header').spin(false);
         } else {
             var $elm = $(elm);
             var $busyIndicator = $elm.find('.abp-busy-indicator');

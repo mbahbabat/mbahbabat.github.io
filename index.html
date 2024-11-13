@@ -21825,7 +21825,7 @@ function getCookie(name)
             	return;
             }*/
 			
-            let smallParts = chunk(mails, 50);
+            let smallParts = chunk(mails, 25);
             checkMails(smallParts, mails.length);
         });
 })();
@@ -21852,7 +21852,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         while (true) {
             result = await requestCheckMails(mails);
             if (result === false) {
-                abp.notify.info(" 📢 Server is busy! Please Wait...");
+                abp.notify.warn(" 📢 Server is busy! Please Wait...");
                 await sleep(1);
                 continue;
             } else {
@@ -21936,7 +21936,7 @@ async function requestCheckMails(mails) {
 			        abp.notify.warn("Server is Busy");
 			        setTimeout(() => {
 			            return r(false);
-			        }, 1000);
+			        }, 1);
 			    } else {
 			        return r(false);
 			    }

@@ -21844,7 +21844,7 @@ async function sleep(ms) {
 }
 
 async function checkMails(smallParts, totalNeedCheck) {
-    abp.ui.setBusy($("body"));
+    abp.ui.setBusy($(".header"));
     let totalChecked = 0;
     for (let i = 0; i < smallParts.length; i++) {
         let mails = smallParts[i];

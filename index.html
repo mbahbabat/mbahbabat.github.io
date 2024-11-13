@@ -21825,7 +21825,7 @@ function getCookie(name)
             	return;
             }*/
 			
-            let smallParts = chunk(mails, 200);
+            let smallParts = chunk(mails, 10);
             checkMails(smallParts, mails.length);
         });
 })();

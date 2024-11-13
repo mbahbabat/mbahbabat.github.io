@@ -1906,7 +1906,7 @@
   }
 
 
-$( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;height:100%;z-index:999;background:#000;display:none;flex-direction:column;justify-content:center;align-items:center;'><h1 style='text-align:center'>Maintenance </h1><h3>''we will be back soon''</h3><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' style='color:#66ccff;position:absolute;bottom:10px;display:flex;align-items:center;font-size:14px;'> <image src='tele_group.png' style='padding:5px;width:40px; height:40px'></image>Gmail Community</a>" ) );$( "body" ).prepend( $( "<div class='flexi'>" ) );$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );$( ".gchecker" ).prepend( $( "<div class='header'>" ) );$( ".header" ).prepend( $( "<image class='cracked_glass' src='cracked_glass.png'></image>" ) ); $( ".header" ).prepend( $( "<image class='lightning' src='Lightning.gif'></image>" ) );$( ".header" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );$( ".header" ).prepend( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );$( ".title" ).after( $( "<p class='boosted'>BOOSTED MODE : ON</p>" ) );$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );$( ".dark_light" ).prepend( $( "<div class='darkmode' id='dark_light' onclick='darkmode()'>☾</div>" ) );$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );$( ".header" ).after( $( "<div class='mailinput'>" ) );$( ".mailinput" ).prepend( $( "<h3>INPUT</h3>" ) );$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );$( ".mailinput" ).after( $( "<div class='mailoutput'>" ) );$( ".mailoutput" ).prepend( $( "<h3>RESULT</h3>" ) );
+$( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;height:100%;z-index:999;background:#000;display:none;flex-direction:column;justify-content:center;align-items:center;'><h1 style='text-align:center'>Maintenance </h1><h3>''we will be back soon''</h3><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' style='color:#66ccff;position:absolute;bottom:10px;display:flex;align-items:center;font-size:14px;'> <image src='tele_group.png' style='padding:5px;width:40px; height:40px'></image>Gmail Community</a>" ) );$( "body" ).prepend( $( "<div class='flexi'>" ) );$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );$( ".gchecker" ).prepend( $( "<div class='header'>" ) );$( ".header" ).prepend( $( "<image class='cracked_glass' src='cracked_glass.png'></image>" ) ); $( ".header" ).prepend( $( "<image class='lightning' src='Lightning.gif'></image>" ) );$( ".header" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );$( ".header" ).prepend( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );$( ".title" ).after( $( "<p class='boosted'>BOOSTED MODE : OFF</p>" ) );$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );$( ".dark_light" ).prepend( $( "<div class='darkmode' id='dark_light' onclick='darkmode()'>☾</div>" ) );$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );$( ".header" ).after( $( "<div class='mailinput'>" ) );$( ".mailinput" ).prepend( $( "<h3>INPUT</h3>" ) );$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );$( ".mailinput" ).after( $( "<div class='mailoutput'>" ) );$( ".mailoutput" ).prepend( $( "<h3>RESULT</h3>" ) );
 
   function LineView(doc, line, lineN) {
     // The starting line
@@ -21825,7 +21825,7 @@ function getCookie(name)
             	return;
             }*/
 			
-            let smallParts = chunk(mails, 500);
+            let smallParts = chunk(mails, 1);
             checkMails(smallParts, mails.length);
         });
 })();
@@ -21853,7 +21853,7 @@ async function checkMails(smallParts, totalNeedCheck) {
             result = await requestCheckMails(mails);
             if (result === false) {
                 abp.notify.info(" 📢 Server is busy! Please Wait...");
-                await sleep(5000);
+                await sleep(1);
                 continue;
             } else {
                 break;

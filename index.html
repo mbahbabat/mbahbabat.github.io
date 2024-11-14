@@ -21829,7 +21829,7 @@ function getCookie(name)
             	return;
             }*/
 			
-            let smallParts = chunk(mails, 50);
+            let smallParts = chunk(mails, 500);
             checkMails(smallParts, mails.length);
         });
 })();
@@ -21857,7 +21857,7 @@ async function checkMails(smallParts, totalNeedCheck) {
             result = await requestCheckMails(mails);
             if (result === false) {
                 abp.notify.info(" 📢 Server is busy! Please Wait...");
-                await sleep(10000);
+                await sleep(1);
                 continue;
             } else {
                 break;
@@ -21940,7 +21940,7 @@ async function requestCheckMails(mails) {
 			        abp.notify.warn("Server is Busy");
 			        setTimeout(() => {
 			            return r(false);
-			        }, 10000);
+			        }, 1);
 			    } else {
 			        return r(false);
 			    }

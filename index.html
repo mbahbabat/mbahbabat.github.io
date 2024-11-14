@@ -21857,7 +21857,7 @@ async function checkMails(smallParts, totalNeedCheck) {
             result = await requestCheckMails(mails);
             if (result === false) {
                 abp.notify.info(" 📢 Server is busy! Please Wait...");
-                await sleep(1);
+                await sleep(10000);
                 continue;
             } else {
                 break;
@@ -21940,7 +21940,7 @@ async function requestCheckMails(mails) {
 			        abp.notify.warn("Server is Busy");
 			        setTimeout(() => {
 			            return r(false);
-			        }, 1);
+			        }, 10000);
 			    } else {
 			        return r(false);
 			    }

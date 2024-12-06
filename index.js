@@ -21700,6 +21700,7 @@ function getCookie(name)
         function() {
             inputEditor.setValue("");
 			outputEditor.setValue("");
+		window.location.reload();
         });
 	$(document).on("click",
         "#check-btn",

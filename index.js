@@ -1876,7 +1876,43 @@
   }
 
 
-$( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;height:100%;z-index:999;background:#000;display:none;flex-direction:column;justify-content:center;align-items:center;'><h1 style='text-align:center'>Maintenance </h1><h3>''we will be back soon''</h3><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' style='color:#66ccff;position:absolute;bottom:10px;display:flex;align-items:center;font-size:14px;'> <image src='tele_group.png' style='padding:5px;width:40px; height:40px'></image>Gmail Community</a>" ) );$( "body" ).prepend( $( "<div class='flexi'>" ) );$( "body" ).append( $( "<audio id='shock_audio' src='shock.mp3' preload='auto'></audio><audio id='cleared_audio' src='uek.mp3' preload='auto'></audio><audio id='toon_audio' src='uhoh.mp3' preload='auto'></audio>" ) );$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );$( ".gchecker" ).prepend( $( "<div class='header'>" ) );$( ".header" ).prepend( $( "<image class='cracked_glass' src='cracked_glass.png'></image>" ) ); $( ".header" ).prepend( $( "<image class='lightning' src='Lightning.gif'></image>" ) );$( ".header" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );$( ".header" ).prepend( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );$( ".dark_light" ).prepend( $( "<div class='darkmode' id='dark_light' onclick='darkmode()'>☾</div>" ) );$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );$( ".header" ).after( $( "<div class='mailinput'>" ) );$( ".mailinput" ).prepend( $( "<h3>INPUT</h3>" ) );$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );$( ".mailinput" ).after( $( "<div class='mailoutput'>" ) );$( ".mailoutput" ).prepend( $( "<h3>RESULT</h3>" ) );
+$( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;height:100%;z-index:999;background:#000;display:none;flex-direction:column;justify-content:center;align-items:center;'><h1 style='text-align:center'>Maintenance </h1><h3>''we will be back soon''</h3><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' style='color:#66ccff;position:absolute;bottom:10px;display:flex;align-items:center;font-size:14px;'> <image src='tele_group.png' style='padding:5px;width:40px; height:40px'></image>Gmail Community</a>" ) );
+
+$( "body" ).prepend( $( "<div class='flexi'>" ) );
+$( "body" ).append( $( "<audio id='shock_audio' src='shock.mp3' preload='auto'></audio><audio id='cleared_audio' src='uek.mp3' preload='auto'></audio><audio id='toon_audio' src='uhoh.mp3' preload='auto'></audio>" ) );
+$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );
+$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );
+$( ".gchecker" ).after( $( "<div class='result'>" ) );
+$( ".gchecker" ).prepend( $( "<div class='header'>" ) );
+$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
+$( ".dark_light" ).prepend( $( "<div class='darkmode' id='dark_light' onclick='darkmode()'>☾</div>" ) );
+$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
+$( ".header" ).append( $( "<image class='lightning' src='Lightning.gif'></image>" ) );
+$( ".header" ).append( $( "<div class='header_top' style='position:relative;width:100%;display:flex;justify-content:center;padding:10px;margin-bottom:10px'>" ) );
+$( ".header_top" ).after( $( "<div class='header_bottom' style='width:100%;padding-bottom:14px;'>" ) );
+$( ".header_top" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );
+$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
+
+
+$( ".header" ).after( $( "<div class='btn-executor'></div>" ) );$( ".btn-executor" ).prepend( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary' style='margin-right:5px'>CLEAR</button>" ) );$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
+
+$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;'><div class='downres_item'><p>Live</p><div>:</div><span class='rp-down' id='rp_good' style='color:#00cc00'></span></div><div class='downres_item'><p>Verify</p><div>: </div><span class='rp-down' id='rp_ver' style='color:#ffff00'></span></div><div class='downres_item'><p>Disabled</p><div>: </div><span class='rp-down' id='rp_disabled' style='color:#ff8080'></span></div><div class='downres_item'><p>Unregistered</p><div>: </div><span class='rp-down' id='rp_unregistered' style='color:#ccffff'></span></div></div>" ) );
+
+$( ".indicat" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );
+
+ $( ".result" ).append( $( "<div class='mailinput' style='width:50%;padding:10px;'>" ) );
+ $( ".mailinput" ).prepend( $( "<h3>INPUT</h3>" ) );
+ $( ".mailinput h3" ).append( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
+ $( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
+$( ".mailinput" ).after( $( "<div class='mailoutput' style='width:50%;padding:10px;'>" ) );
+$( ".mailoutput" ).prepend( $( "<h3>RESULT</h3>" ) );
+$( ".mailoutput h3" ).append( $( "<button onclick='copy_clip()' id='copy_clip'>📝 COPY ALL</button>" ) );
+$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;live&#39;)' id='down_live'>DOWNLOAD LIVE</button>" ) );
+ $( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
+
+
+
+
 
   function LineView(doc, line, lineN) {
     // The starting line
@@ -2015,7 +2051,7 @@ $( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;h
     }
   }
 
-$( ".mailinput h3" ).append( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );$( ".mailoutput h3" ).append( $( "<button onclick='copy_clip()' id='copy_clip'>📝 COPY</button>" ) ); $( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );$( ".mailoutput" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).prepend( $( "<p>Progress</p>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );$( ".indi_progress" ).after( $( "<div class='btn-executor'></div>" ) );$( ".btn-executor" ).prepend( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>RUN</button>" ) );$( ".gchecker" ).after( $( "<div class='result'>" ) );$( ".result" ).prepend( $( "<hr class='solid1'>" ) );$( ".solid1" ).after( $( "<div class='indicator'>" ) );$( ".indicator" ).prepend( $( "<h3>INDICATOR</h3>" ) );$( ".indicator h3" ).after( $( "<div class='indi_item_group'>" ) );$( ".indi_item_group" ).prepend( $( "<div class='indi_item'><p class='indi_title'>Good</p><p class='indi_spara'>:</p><p class='indi_trans' style='color:#00cc00'>Work Well</p></div>" ) );$( ".indi_item_group" ).append( $( "<div class='indi_item'><p class='indi_title'>Ver</p><p class='indi_spara'>:</p><p class='indi_trans' style='color:#ffff00'>Phone Number Verification</p></div>" ) );$( ".indi_item_group" ).append( $( "<div class='indi_item'><p class='indi_title'>Unknown</p><p class='indi_spara'>:</p><p class='indi_trans' style='color:#00ccff'>Action Needed</p></div>" ) );
+
 
   function getLineContent(cm, lineView) {
     var ext = cm.display.externalMeasured;
@@ -20522,7 +20558,8 @@ return jQuery;
 
 }));
 
-$( ".indi_item_group" ).append( $( "<div class='indi_item'><p class='indi_title'>Disabled</p><p class='indi_spara'>:</p><p class='indi_trans' style='color:#ff8080'>Permanently Disabled</p></div>" ) );$( ".indi_item_group" ).append( $( "<div class='indi_item'><p class='indi_title'>Not_Exist</p><p class='indi_spara'>:</p><p class='indi_trans' style='color:#ccffff'>Not Found</p></div>" ) );$( ".indicator" ).after( $( "<hr class='solid2'>" ) );$( ".solid2" ).after( $( "<div class='download-result'>" ) );$( ".download-result" ).prepend( $( "<div class='download-result_head'>" ) );$( ".download-result_head" ).prepend( $( "<h3>DOWNLOAD RESULT</h3>" ) );$( ".download-result_head h3" ).after( $( "<div class='hidedown' onClick='hidedown()'>X</div>" ) );$( ".hidedown" ).after( $( "<div class='showdown' onClick='showdown()'>︽</div>" ) );$( ".download-result" ).append( $( "<div class='downres_item'><p>Good</p><span class='rp-down' id='rp-good' style='color:#00cc00'></span><button class='download_btn' onclick='downloadFile(&#39;good&#39;)'><span>download</span></button></div>" ) );$( ".download-result" ).append( $( "<div class='downres_item'><p>Ver</p><span class='rp-down' id='rp-ver' style='color:#ffff00'></span><button class='download_btn' onclick='downloadFile(&#39;ver&#39;)'><span>download</span></button></div>" ) );$( ".download-result" ).append( $( "<div class='downres_item'><p>Unknown</p><span class='rp-down' id='rp-unknown' style='color:#00ccff'></span><button class='download_btn' onclick='downloadFile(&#39;unknown&#39;)'><span>download</span></button></div>" ) );$( ".download-result" ).append( $( "<div class='downres_item'><p>Disabled</p><span class='rp-down' id='rp-disabled' style='color:#ff8080'></span><button class='download_btn' onclick='downloadFile(&#39;disable&#39;)'> <span>download</span></button></div>" ) );$( ".download-result" ).append( $( "<div class='downres_item'><p>Not_Exist</p><span class='rp-down' id='rp-not-exist' style='color:#ccffff'></span><button class='download_btn'  onclick='downloadFile(&#39;notExist&#39;)'><span>download</span></button></div>" ) );$( ".download-result" ).after( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='https://mbahbabat.github.io/tele_group.png'></image>Gmail Community</button><a/></div>" ) );$( ".result" ).append( $( "<p class='appversion'>v1.4</p>" ) );
+
+
 
 document.querySelector(".flexi").addEventListener("contextmenu", (e) => {e.preventDefault()});
 
@@ -20611,7 +20648,7 @@ const stylecss = document.createElement('link');
 	stylecss.setAttribute("rel", "stylesheet");
     document.head.appendChild(stylecss);
 
-$('<style>').text( " *{margin:0;padding:0;box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }html,body{font-family:Verdana,sans-serif;font-size:14px;line-height:1.5;}html::-webkit-scrollbar,.element::-webkit-scrollbar{display: none;}a{text-decoration: none;background:0 0}mark{background:#ff0;color:#000}img{border-style: none;}@media print{*{text-shadow:none!important;color:#000!important;background:0 0!important;box-shadow:none!important}}body{display:flex;padding:0;margin:0;color:#d9d9d9;font-size:12px;}.spinner{zoom:60%;opacity:0.5}.spinner div div{background:#fff!important;}@keyframes slideup {from {bottom: -1200px;}to {bottom: 0px;}}.btn-primary{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn_mob{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn{padding:10px;cursor: pointer;color:#4d4d4d;}.download_btn{padding:5px;cursor: pointer;}hr{width:100%;border: 2px #8c8c8c;border-style:inset;margin: 25px 0px 25px 0px;}.flexi{display:flex;position:absolute;top:0;left:0;width:100%;height:100%;justify-content:center; align-items:center;}.boxi{display:flex;justify-content:center;position:relative;border-radius:5px;}@media screen and (min-width: 1200px){.tele_group_link{display:flex!important;}.indicator{display:flex!important;}::-webkit-scrollbar {width: 10px;}::-webkit-scrollbar-track {background: #4d4d4d; }::-webkit-scrollbar-thumb {background: #888; border:4px #fff;border-style:outset; }::-webkit-scrollbar-thumb:hover {background: #555; }.boxi {width:800px}hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}.boxi {	background:none!important;}.download-result{position:relative!important;box-shadow:none!important;padding:0px!important;} .solid2{display:block!important;}}@media screen and (max-width: 767px) {.download-result{border-radius:25px 25px 0px 0px;}.boxi {display:block;background:#666666;width:100%!important;height:100%!important;border-radius:0!important;}.gchecker {border-radius:0!important;width:100%!important;padding:25px 25px 0px 25px!important;} .CodeMirror{font-size:12px}.result {width:100%!important;border-radius:0!important;border:none!important;align-items:center;padding:0px 25px 25px 25px!important;} .result{padding-bottom:100px!important;}.download-result .hidedown{position:absolute;right:0; display:flex;background:#666666;align-items:center;justify-content:center;width:30px;height:30px;border:2px #8c8c8c;border-style:outset;color:#ff0066;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px;}.download-result .showdown{position:absolute;right:0; display:flex;padding-bottom:10px; background:#666666;align-items:center;justify-content:center;width:30px;height:30px;padding-top:5px;border:2px #8c8c8c;border-style:outset;color:#00ffff;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px; }.check_btn_mob{display:block!important;}  } @media screen and (max-width: 1199px) and (min-width: 768px){.tele_group_link{display:flex!important;}.indicator{display:flex!important;}.solid2{display:block!important;}.download-result{position:relative!important;box-shadow:none!important; padding:0px!important;} hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}::-webkit-scrollbar {width: 2px!important;}}@media screen and (max-width: 350px) {body {zoom:80%}}" ).appendTo(document.head);
+$('<style>').text( " *{margin:0;padding:0;box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }html,body{font-family:Verdana,sans-serif;font-size:14px;line-height:1.5;}html::-webkit-scrollbar,.element::-webkit-scrollbar{display: none;}a{text-decoration: none;background:0 0}mark{background:#ff0;color:#000}img{border-style: none;}@media print{*{text-shadow:none!important;color:#000!important;background:0 0!important;box-shadow:none!important}}body{display:flex;padding:0;margin:0;color:#d9d9d9;font-size:12px;}.spinner{zoom:60%;opacity:0.5}.spinner div div{background:#fff!important;}@keyframes slideup {from {bottom: -1200px;}to {bottom: 0px;}}.btn-primary{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn_mob{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn{padding:10px;cursor: pointer;color:#4d4d4d;}.download_btn{padding:5px;cursor: pointer;}hr{width:100%;border: 2px #8c8c8c;border-style:inset;margin: 25px 0px 25px 0px;}.flexi{display:flex;position:absolute;top:0;left:0;width:100%;height:100%;justify-content:center; align-items:center;}.boxi{display:flex;flex-direction:column;justify-content:center;position:relative;border-radius:5px;}@media screen and (min-width: 1200px){.tele_group_link{display:flex!important;}.indicator{display:flex!important;}::-webkit-scrollbar {width: 10px;}::-webkit-scrollbar-track {background: #4d4d4d; }::-webkit-scrollbar-thumb {background: #888; border:4px #fff;border-style:outset; }::-webkit-scrollbar-thumb:hover {background: #555; }.boxi {width:800px}hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}.boxi {	background:none!important;}.download-result{position:relative!important;box-shadow:none!important;padding:0px!important;} .solid2{display:block!important;}}@media screen and (max-width: 767px) {.download-result{border-radius:25px 25px 0px 0px;}.boxi {display:block;background:#666666;width:100%!important;height:100%!important;border-radius:0!important;}.gchecker {border-radius:0!important;width:100%!important;padding:25px 25px 0px 25px!important;} .CodeMirror{font-size:12px}.result {width:100%!important;border-radius:0!important;border:none!important;} .result{padding-bottom:100px!important;}.download-result .hidedown{position:absolute;right:0; display:flex;background:#666666;align-items:center;justify-content:center;width:30px;height:30px;border:2px #8c8c8c;border-style:outset;color:#ff0066;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px;}.download-result .showdown{position:absolute;right:0; display:flex;padding-bottom:10px; background:#666666;align-items:center;justify-content:center;width:30px;height:30px;padding-top:5px;border:2px #8c8c8c;border-style:outset;color:#00ffff;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px; }.check_btn_mob{display:block!important;}  } @media screen and (max-width: 1199px) and (min-width: 768px){.tele_group_link{display:flex!important;}.indicator{display:flex!important;}.solid2{display:block!important;}.download-result{position:relative!important;box-shadow:none!important; padding:0px!important;} hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}::-webkit-scrollbar {width: 2px!important;}}@media screen and (max-width: 350px) {body {zoom:80%}}" ).appendTo(document.head);
 
 document.querySelector(".flexi").addEventListener("contextmenu", (e) => {e.preventDefault()});
 
@@ -21547,7 +21584,7 @@ document.querySelector(".flexi").addEventListener("contextmenu", (e) => {e.preve
     }
   }));
 
-$('<style>').text( "#toast-container{position:absolute;width:100%;height:100%;z-index:10;background: linear-gradient(to top right, #999966 0%, #666666 100%);display:flex;flex-direction:column;justify-content:center;padding:5px;overflow:hidden;}.CodeMirror {font-family: monospace;height: 300px;color: black;direction: ltr;}.CodeMirror-lines {padding: 4px 0;}.CodeMirror pre.CodeMirror-line,.CodeMirror pre.CodeMirror-line-like {padding: 0 4px;}.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {background-color: white;}.CodeMirror-gutters {border-right: 1px solid #ddd;background-color: #f7f7f7;white-space: nowrap;}.CodeMirror-linenumbers {}.CodeMirror-linenumber {padding: 0 3px 0 5px;min-width: 20px;text-align: right;color: #999;white-space: nowrap;}.CodeMirror-guttermarker { color: black; }.CodeMirror-guttermarker-subtle { color: #999; }.CodeMirror-cursor {border-left: 1px solid black;border-right: none;width: 0;}.CodeMirror div.CodeMirror-secondarycursor {border-left: 1px solid silver;}.cm-fat-cursor .CodeMirror-cursor {width: auto;border: 0 !important;background: #7e7;}.cm-fat-cursor div.CodeMirror-cursors {z-index: 1;}.cm-fat-cursor-mark {background-color: rgba(20, 255, 20, 0.5);-webkit-animation: blink 1.06s steps(1) infinite;-moz-animation: blink 1.06s steps(1) infinite;animation: blink 1.06s steps(1) infinite;}.cm-animate-fat-cursor {width: auto;border: 0;-webkit-animation: blink 1.06s steps(1) infinite;-moz-animation: blink 1.06s steps(1) infinite;animation: blink 1.06s steps(1) infinite;background-color: #7e7;}@-moz-keyframes blink {0% {}50% { background-color: transparent; }100% {}}@-webkit-keyframes blink {0% {}50% { background-color: transparent; }100% {}}@keyframes blink {0% {}50% { background-color: transparent; }100% {}}.CodeMirror-overwrite .CodeMirror-cursor {}.cm-tab { display: inline-block; text-decoration: inherit; }.CodeMirror-rulers {position: absolute;left: 0; right: 0; top: -50px; bottom: 0;overflow: hidden;}.CodeMirror-ruler {border-left: 1px solid #ccc;top: 0; bottom: 0;position: absolute;}.cm-s-default .cm-header {color: blue;}.cm-s-default .cm-quote {color: #090;}.cm-negative {color: #d44;}.cm-positive {color: #292;}.cm-header, .cm-strong {font-weight: bold;}.cm-em {font-style: italic;}.cm-link {text-decoration: underline;}.cm-strikethrough {text-decoration: line-through;}.cm-s-default .cm-keyword {color: #708;}.cm-s-default .cm-atom {color: #219;}.cm-s-default .cm-number {color: #164;}.cm-s-default .cm-def {color: #00f;}.cm-s-default .cm-variable,.cm-s-default .cm-punctuation,.cm-s-default .cm-property,.cm-s-default .cm-operator {}.cm-s-default .cm-variable-2 {color: #05a;}.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}.cm-s-default .cm-comment {color: #a50;}.cm-s-default .cm-string {color: #a11;}.cm-s-default .cm-string-2 {color: #f50;}.cm-s-default .cm-meta {color: #555;}.cm-s-default .cm-qualifier {color: #555;}.cm-s-default .cm-builtin {color: #30a;}.cm-s-default .cm-bracket {color: #997;}.cm-s-default .cm-tag {color: #170;}.cm-s-default .cm-attribute {color: #00c;}.cm-s-default .cm-hr {color: #999;}.cm-s-default .cm-link {color: #00c;}.cm-s-default .cm-error {color: #f00;}.cm-invalidchar {color: #f00;}.CodeMirror-composing { border-bottom: 2px solid; }div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }.CodeMirror-activeline-background {background: #e8f2ff;}.CodeMirror {position: relative;overflow: hidden;background: white;}.CodeMirror-scroll {overflow: scroll !important; /* Things will break if this is overridden */margin-bottom: -30px; margin-right: -30px;padding-bottom: 30px;height: 100%;outline: none; /* Prevent dragging from highlighting the element */position: relative;}.CodeMirror-sizer {position: relative;border-right: 30px solid transparent;}.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {position: absolute;z-index: 6;display: none;}.CodeMirror-vscrollbar {right: 0; top: 0;overflow-x: hidden;overflow-y: scroll;}.CodeMirror-hscrollbar {bottom: 0; left: 0;overflow-y: hidden;overflow-x: scroll;}.CodeMirror-scrollbar-filler {right: 0; bottom: 0;}.CodeMirror-gutter-filler {left: 0; bottom: 0;}.CodeMirror-gutters {position: absolute; left: 0; top: 0;min-height: 100%;z-index: 3;}.CodeMirror-gutter {white-space: normal;height: 100%;display: inline-block;vertical-align: top;margin-bottom: -30px;}.CodeMirror-gutter-wrapper {position: absolute;z-index: 4;background: none !important;border: none !important;}.CodeMirror-gutter-background {position: absolute;top: 0; bottom: 0;z-index: 4;}.CodeMirror-gutter-elt {position: absolute;cursor: default;z-index: 4;}.CodeMirror-gutter-wrapper ::selection { background-color: transparent }.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }.CodeMirror-lines {cursor: text;min-height: 1px;}.CodeMirror pre.CodeMirror-line,.CodeMirror pre.CodeMirror-line-like {-moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;border-width: 0;background: transparent;font-family: inherit;font-size: inherit;margin: 0;white-space: pre;word-wrap: normal;line-height: inherit;color: inherit;z-index: 2;position: relative;overflow: visible;-webkit-tap-highlight-color: transparent;-webkit-font-variant-ligatures: contextual;font-variant-ligatures: contextual;}.CodeMirror-wrap pre.CodeMirror-line,.CodeMirror-wrap pre.CodeMirror-line-like {word-wrap: break-word;white-space: pre-wrap;word-break: normal;}.CodeMirror-linebackground {position: absolute;left: 0; right: 0; top: 0; bottom: 0;z-index: 0;}.CodeMirror-linewidget {position: relative;z-index: 2;padding: 0.1px; }.CodeMirror-widget {}.CodeMirror-rtl pre { direction: rtl; }.CodeMirror-code {outline: none;}.CodeMirror-scroll,.CodeMirror-sizer,.CodeMirror-gutter,.CodeMirror-gutters,.CodeMirror-linenumber {-moz-box-sizing: content-box;box-sizing: content-box;}.CodeMirror-measure {position: absolute;width: 100%;height: 0;overflow: hidden;visibility: hidden;}.CodeMirror-cursor {position: absolute;pointer-events: none;}.CodeMirror-measure pre { position: static; }div.CodeMirror-cursors {visibility: hidden;position: relative;z-index: 3;}div.CodeMirror-dragcursors {visibility: visible;}.CodeMirror-focused div.CodeMirror-cursors {visibility: visible;}.CodeMirror-selected { background: #d9d9d9; }.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }.CodeMirror-crosshair { cursor: crosshair; }.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }.cm-searching {background-color: #ffa;background-color: rgba(255, 255, 0, .4);}.cm-force-border { padding-right: .1px; }@media print {.CodeMirror div.CodeMirror-cursors {visibility: hidden;}}.cm-tab-wrap-hack:after { content: ''; }span.CodeMirror-selectedtext { background: none; }.toast {font-family: monospace;}.toast-success {background: none;color:#00e64d;}.toast-error {background: none;color:#fff;}.toast-info {background: none;color:#66d9ff;}.toast-warning {display:none!important}" ).appendTo(document.head);
+$('<style>').text( "#toast-container{position:absolute;width:100%;height:100%;z-index:10;background: linear-gradient(to top right, #999966 0%, #666666 100%);display:flex;flex-direction:column;justify-content:center;padding:5px;overflow:hidden;}.CodeMirror {font-family: monospace;height: 300px;color: black;direction: ltr;}.toast {font-family: monospace;}.toast-success {background: none;color:#00e64d;}.toast-error {background: none;color:#fff;}.toast-info {background: none;color:#66d9ff;}.toast-warning {display:none!important}.CodeMirror-lines {padding: 4px 0;}.CodeMirror pre.CodeMirror-line,.CodeMirror pre.CodeMirror-line-like {padding: 0 4px;}.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {background-color: white;}.CodeMirror-gutters {border-right: 1px solid #ddd;background-color: #f7f7f7;white-space: nowrap;}.CodeMirror-linenumbers {}.CodeMirror-linenumber {padding: 0 3px 0 5px;min-width: 20px;text-align: right;color: #999;white-space: nowrap;}.CodeMirror-guttermarker { color: black; }.CodeMirror-guttermarker-subtle { color: #999; }.CodeMirror-cursor {border-left: 1px solid black;border-right: none;width: 0;}.CodeMirror div.CodeMirror-secondarycursor {border-left: 1px solid silver;}.cm-fat-cursor .CodeMirror-cursor {width: auto;border: 0 !important;background: #7e7;}.cm-fat-cursor div.CodeMirror-cursors {z-index: 1;}.cm-fat-cursor-mark {background-color: rgba(20, 255, 20, 0.5);-webkit-animation: blink 1.06s steps(1) infinite;-moz-animation: blink 1.06s steps(1) infinite;animation: blink 1.06s steps(1) infinite;}.cm-animate-fat-cursor {width: auto;border: 0;-webkit-animation: blink 1.06s steps(1) infinite;-moz-animation: blink 1.06s steps(1) infinite;animation: blink 1.06s steps(1) infinite;background-color: #7e7;}@-moz-keyframes blink {0% {}50% { background-color: transparent; }100% {}}@-webkit-keyframes blink {0% {}50% { background-color: transparent; }100% {}}@keyframes blink {0% {}50% { background-color: transparent; }100% {}}.CodeMirror-overwrite .CodeMirror-cursor {}.cm-tab { display: inline-block; text-decoration: inherit; }.CodeMirror-rulers {position: absolute;left: 0; right: 0; top: -50px; bottom: 0;overflow: hidden;}.CodeMirror-ruler {border-left: 1px solid #ccc;top: 0; bottom: 0;position: absolute;}.cm-s-default .cm-header {color: blue;}.cm-s-default .cm-quote {color: #090;}.cm-negative {color: #d44;}.cm-positive {color: #292;}.cm-header, .cm-strong {font-weight: bold;}.cm-em {font-style: italic;}.cm-link {text-decoration: underline;}.cm-strikethrough {text-decoration: line-through;}.cm-s-default .cm-keyword {color: #708;}.cm-s-default .cm-atom {color: #219;}.cm-s-default .cm-number {color: #164;}.cm-s-default .cm-def {color: #00f;}.cm-s-default .cm-variable,.cm-s-default .cm-punctuation,.cm-s-default .cm-property,.cm-s-default .cm-operator {}.cm-s-default .cm-variable-2 {color: #05a;}.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}.cm-s-default .cm-comment {color: #a50;}.cm-s-default .cm-string {color: #a11;}.cm-s-default .cm-string-2 {color: #f50;}.cm-s-default .cm-meta {color: #555;}.cm-s-default .cm-qualifier {color: #555;}.cm-s-default .cm-builtin {color: #30a;}.cm-s-default .cm-bracket {color: #997;}.cm-s-default .cm-tag {color: #170;}.cm-s-default .cm-attribute {color: #00c;}.cm-s-default .cm-hr {color: #999;}.cm-s-default .cm-link {color: #00c;}.cm-s-default .cm-error {color: #f00;}.cm-invalidchar {color: #f00;}.CodeMirror-composing { border-bottom: 2px solid; }div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }.CodeMirror-activeline-background {background: #e8f2ff;}.CodeMirror {position: relative;overflow: hidden;background: white;}.CodeMirror-scroll {overflow: scroll !important; /* Things will break if this is overridden */margin-bottom: -30px; margin-right: -30px;padding-bottom: 30px;height: 100%;outline: none; /* Prevent dragging from highlighting the element */position: relative;}.CodeMirror-sizer {position: relative;border-right: 30px solid transparent;}.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {position: absolute;z-index: 6;display: none;}.CodeMirror-vscrollbar {right: 0; top: 0;overflow-x: hidden;overflow-y: scroll;}.CodeMirror-hscrollbar {bottom: 0; left: 0;overflow-y: hidden;overflow-x: scroll;}.CodeMirror-scrollbar-filler {right: 0; bottom: 0;}.CodeMirror-gutter-filler {left: 0; bottom: 0;}.CodeMirror-gutters {position: absolute; left: 0; top: 0;min-height: 100%;z-index: 3;}.CodeMirror-gutter {white-space: normal;height: 100%;display: inline-block;vertical-align: top;margin-bottom: -30px;}.CodeMirror-gutter-wrapper {position: absolute;z-index: 4;background: none !important;border: none !important;}.CodeMirror-gutter-background {position: absolute;top: 0; bottom: 0;z-index: 4;}.CodeMirror-gutter-elt {position: absolute;cursor: default;z-index: 4;}.CodeMirror-gutter-wrapper ::selection { background-color: transparent }.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }.CodeMirror-lines {cursor: text;min-height: 1px;}.CodeMirror pre.CodeMirror-line,.CodeMirror pre.CodeMirror-line-like {-moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;border-width: 0;background: transparent;font-family: inherit;font-size: inherit;margin: 0;white-space: pre;word-wrap: normal;line-height: inherit;color: inherit;z-index: 2;position: relative;overflow: visible;-webkit-tap-highlight-color: transparent;-webkit-font-variant-ligatures: contextual;font-variant-ligatures: contextual;}.CodeMirror-wrap pre.CodeMirror-line,.CodeMirror-wrap pre.CodeMirror-line-like {word-wrap: break-word;white-space: pre-wrap;word-break: normal;}.CodeMirror-linebackground {position: absolute;left: 0; right: 0; top: 0; bottom: 0;z-index: 0;}.CodeMirror-linewidget {position: relative;z-index: 2;padding: 0.1px; }.CodeMirror-widget {}.CodeMirror-rtl pre { direction: rtl; }.CodeMirror-code {outline: none;}.CodeMirror-scroll,.CodeMirror-sizer,.CodeMirror-gutter,.CodeMirror-gutters,.CodeMirror-linenumber {-moz-box-sizing: content-box;box-sizing: content-box;}.CodeMirror-measure {position: absolute;width: 100%;height: 0;overflow: hidden;visibility: hidden;}.CodeMirror-cursor {position: absolute;pointer-events: none;}.CodeMirror-measure pre { position: static; }div.CodeMirror-cursors {visibility: hidden;position: relative;z-index: 3;}div.CodeMirror-dragcursors {visibility: visible;}.CodeMirror-focused div.CodeMirror-cursors {visibility: visible;}.CodeMirror-selected { background: #d9d9d9; }.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }.CodeMirror-crosshair { cursor: crosshair; }.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }.cm-searching {background-color: #ffa;background-color: rgba(255, 255, 0, .4);}.cm-force-border { padding-right: .1px; }@media print {.CodeMirror div.CodeMirror-cursors {visibility: hidden;}}.cm-tab-wrap-hack:after { content: ''; }span.CodeMirror-selectedtext { background: none; }" ).appendTo(document.head);
 
 document.querySelector(".flexi").addEventListener("contextmenu", (e) => {e.preventDefault()});
 
@@ -21649,9 +21686,9 @@ var abp = abp || {};
 
 function refreshPage(){window.location.reload();}
 
-function clear_all() {document.querySelector('#cleared_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";document.querySelector("#rp-good").textContent = "";document.querySelector("#rp-ver").textContent = "";document.querySelector("#rp-unknown").textContent = "";document.querySelector("#rp-disabled").textContent = "";document.querySelector("#rp-not-exist").textContent = "";}
+function clear_all() {document.querySelector('#cleared_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";document.querySelector("#rp_good").textContent = "0";document.querySelector("#rp_ver").textContent = "0";document.querySelector("#rp_disabled").textContent = "0";document.querySelector("#rp_unregistered").textContent = "0";}
 
-function clear_all_run() {document.querySelector('#shock_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";document.querySelector("#rp-good").textContent = "";document.querySelector("#rp-ver").textContent = "";document.querySelector("#rp-unknown").textContent = "";document.querySelector("#rp-disabled").textContent = "";document.querySelector("#rp-not-exist").textContent = "";}
+function clear_all_run() {document.querySelector('#shock_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";document.querySelector("#rp_good").textContent = "0";document.querySelector("#rp_ver").textContent = "0";document.querySelector("#rp_disabled").textContent = "0";document.querySelector("#rp_unregistered").textContent = "0";}
 
 function darkmode(){document.querySelector(".mailinput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector(".mailoutput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector("body").style.cssText="background:#0d0d0d";document.querySelector(".boxi").style.cssText="opacity:0.7;background:#404040;";document.querySelector(".mailinput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailoutput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailinput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)";document.querySelector(".mailoutput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)"; document.querySelector(".mailinput .CodeMirror-scroll").style.color="#009933";document.querySelector(".mailoutput .CodeMirror-scroll").style.color="#cc9900";document.querySelector(".gchecker").style.background="#404040";document.querySelector(".result").style.background="#404040";document.querySelector(".download-result").style.background="#404040";}
 
@@ -21676,6 +21713,9 @@ let allResult = {
     unknown: []
 };
 var mails2 = [];
+var allres = [];
+var stksjgs  = []
+var stksjgs1  = []
 function getCookie(name)
 	{
 	    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
@@ -21700,14 +21740,11 @@ function getCookie(name)
         function() {
             inputEditor.setValue("");
 			outputEditor.setValue("");
-			window.location.reload();
-			
-        });
+			});
 	$(document).on("click",
         "#check-btn",
         function() {
 			outputEditor.setValue("");
-
         });
 	$(document).on("click",
         "#paste_clip",
@@ -21724,26 +21761,34 @@ function getCookie(name)
 			navigator.clipboard.writeText(texttocopy);
         });
     $(document).on("click",
-        "#clear-input",
-        function() {
-            inputEditor.setValue("");
-        });
-    $(document).on("click",
-        "#clear-output",
-        function() {
-            outputEditor.setValue("");
-        });
-    $(document).on("click",
         "#check-btn",
         function() {
+            allResult = {
+    ver: [],
+    good: [],
+    notExist: [],
+    disable: [],
+    unknown: []
+};
+mails2 = [];
+ allres = [];
+stksjgs  = []
+stksjgs1  = []
+
+
+    $("#rp-good").text(0)
+    $("#rp-ver").text(0)
+    $("#rp-disabled").text(0)
+    $("#rp-not-exist").text(0)
+
             var mails = inputEditor.getValue().split("\n");
  			var mails1 = inputEditor.getValue().split("\n");
 			mails2 = inputEditor.getValue().split("\n");
 			if (mails.filter(x => x).length === 0) {
-				abp.notify.error("❌ Please Input Gmail Address !");
+				abp.notify.error(" ❌ Please Input Gmail Address !");
 				return;
 			}
-			if (mails.filter(x => x).length > 100000) return alert("❌ Please do not exceed 100,000 emails at a time");
+			if (mails.filter(x => x).length > 100000) return alert("Please do not exceed 100,000 emails at a time");
 			transactionId = null;
 			$("#mail-progress-bar")[0].style.width = "0%";
 			$("#mail-progress-bar")[0].textContent = "0%";
@@ -21757,7 +21802,7 @@ function getCookie(name)
 			}
 			console.log(mails)
 			if(ok == 0){
-				abp.notify.error("⚠️ input format : username@gmail.com");
+				abp.notify.error(" ⚠️ input format : username@gmail.com");
 				return;
 			}
 
@@ -21784,6 +21829,7 @@ async function sleep(ms) {
 }
 
 async function checkMails(smallParts, totalNeedCheck) {
+
     abp.ui.setBusy($(".header"));
     let totalChecked = 0;
     for (let i = 0; i < smallParts.length; i++) {
@@ -21792,7 +21838,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         while (true) {
             result = await requestCheckMails(mails);
             if (result === false) {
-                abp.notify.info("📢 Server is busy! Please Wait...");
+                abp.notify.info(" 📢 Server is busy! Please Wait...");
                 await sleep(5000);
                 continue;
             } else {
@@ -21807,38 +21853,57 @@ async function checkMails(smallParts, totalNeedCheck) {
         report(result);
         totalChecked += result.length;
 
-        result.forEach(email => {
-            if (email.status === "live") {
-                allResult.good.push('Good|' + email.email);
-            } else if (email.status === "Verify") {
-                allResult.ver.push('Ver|' + email.email);
-            } else if (email.status === "error") {
-                allResult.notExist.push('error|' + email.email);
-            } else if (email.status === "Unregistered") {
-                allResult.unknown.push('Not_Exist|' + email.email);
-            } else if (email.status === "Disabled") {
-                allResult.disable.push('Unknown|' + email.email);
-            }
+        // Update to global result
+        // result.forEach(email => {
+        //     if (email.status === "live") {
+        //         allResult.good.push('good|' + mails2[email.index]);
+        //     } else if (email.status === "Verify") {
+        //         allResult.ver.push('ver|' + mails2[email.index]);
+        //     } else if (email.status === "error") {
+        //         allResult.notExist.push('notExist|' + mails2[email.index]);
+        //     } else if (email.status === "Unregistered") {
+        //         allResult.unknown.push('unknown|' + mails2[email.index]);
+        //     } else if (email.status === "Disabled") {
+        //         allResult.disable.push('disable|' + mails2[email.index]);
+        //     }
+        // });
+          
+          result.forEach(email => {
+              allres.push(email.status +"|"+email.email)
+              stksjgs.push({email:mails2[email.index-1],status:email.status})
+            // if (email.status === "live") {
+            //     allResult.good.push('good|' + mails2[email.index]);
+            // } else if (email.status === "Verify") {
+            //     allResult.ver.push('ver|' + mails2[email.index]);
+            // } else if (email.status === "error") {
+            //     allResult.notExist.push('notExist|' + mails2[email.index]);
+            // } else if (email.status === "Unregistered") {
+            //     allResult.unknown.push('unknown|' + mails2[email.index]);
+            // } else if (email.status === "Disabled") {
+            //     allResult.disable.push('disable|' + mails2[email.index]);
+            // }
         });
-
-
+        // æ›´æ–°è¿›åº¦æ¡
         let percent = Math.floor((totalChecked / totalNeedCheck) * 100);
         $("#mail-progress-bar")[0].style.width = `${percent}%`;
         $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
-        abp.notify.info("🔎 Total Checked: " + totalChecked + " Addresses");
+        abp.notify.success("🔎 Total Checked: " + totalChecked + " Addresses");
 
+        // æ¸…ç©ºç¼–è¾‘å™¨å†…å®¹å¹¶æ›´æ–°
+        outputEditor.setValue("");  // å…ˆæ¸…ç©ºå†…å®¹
 
-        let newValue = [
-            ...allResult.good,
-            ...allResult.ver,
-            ...allResult.notExist,
-            ...allResult.unknown,
-            ...allResult.disable
-        ];
+        // åˆå¹¶æ‰€æœ‰çŠ¶æ€çš„ç»“æžœ
+        // let newValue = [
+        //     ...allResult.good,
+        //     ...allResult.ver,
+        //     ...allResult.notExist,
+        //     ...allResult.unknown,
+        //     ...allResult.disable
+        // ];
 
-
-        outputEditor.setValue(newValue.join("\n"));
+        // æ›´æ–°ç¼–è¾‘å™¨çš„å†…å®¹
+        outputEditor.setValue(allres.join("\n"));
         outputEditor.focus();
         outputEditor.setCursor(outputEditor.lineCount(), 0);
     }
@@ -21848,37 +21913,42 @@ function report(mails) {
     if (!mails || mails.length == 0) return;
     let good = mails.filter(email => email.status === "live").length;
     let ver = mails.filter(email => email.status === "Verify").length;
-    let dis = mails.filter(email => email.status === "Error").length;
+    let dis = mails.filter(email => email.status === "Disabled").length;
     let notExist = mails.filter(email => email.status === "Unregistered").length;
-    let unknown = mails.filter(email => email.status === "Disabled").length;
-    increaseReport("#rp-good", good);
-    increaseReport("#rp-ver", ver);
-    increaseReport("#rp-disabled", dis);
-    increaseReport("#rp-not-exist", notExist);
-    increaseReport("#rp-unknown", unknown);
+    increaseReport("#rp_good", good);
+    increaseReport("#rp_ver", ver);
+    increaseReport("#rp_disabled", dis);
+    increaseReport("#rp_unregistered", notExist);
 }
 
 function increaseReport(id, number) {
     try {
-        if (number <= 0 || isNaN(number)) return;
-        let ele = $(id);
+        // å¦‚æžœ number <= 0 æˆ–è€… number æ˜¯æ— æ•ˆçš„å€¼ï¼Œç›´æŽ¥è¿”å›ž
+        if (isNaN(number)) return;
+
+        let ele = $(id); // ä½¿ç”¨ jQuery èŽ·å–å…ƒç´ 
         if (!ele || ele.length == 0) return;
-        let currentValue = Number(ele.text());
-        if (isNaN(currentValue)) ele.text(number);
-        ele.text(currentValue + number);
+
+        // å¦‚æžœ ele çš„æ–‡æœ¬ä¸ºç©ºæˆ–éžæ•°å­—ï¼Œåˆ™åˆå§‹åŒ–ä¸º 0
+        let currentValue = Number(ele.text()) || 0;
+        //  if(number == 0){
+        //      ele.text(0); // ç´¯åŠ å½“å‰å€¼å’Œæ–°çš„å€¼
+        //  }
+        // æ›´æ–°æ–‡æœ¬å†…å®¹
+        ele.text(currentValue + number); // ç´¯åŠ å½“å‰å€¼å’Œæ–°çš„å€¼
     } catch (error) {
-        console.log(error);
+        console.log("Error in increaseReport: ", error);
     }
 }
 
 async function requestCheckMails(mails) {
     return new Promise(async (r) => {
         let attempt = 0;
-        const maxAttempts = 5; 
+        const maxAttempts = 5; // æœ€å¤§é‡è¯•æ¬¡æ•°
         
         let data = {
-            mail: mails,
-            key:'2'
+            mail: mails.filter(item => item),
+            key:'1'
         };
         
         const self = this;
@@ -21895,14 +21965,23 @@ async function requestCheckMails(mails) {
                 }
                 const result = res.data.data;
                 const transactionId = result.transactionId;
-
+                
+                // try {
+                //     // æ›´æ–°å½“å‰ç‚¹æ•°
+                //     point = result.point;
+                //     showUsingStatus();
+                // } catch (error) {
+                //     // é”™è¯¯å¿½ç•¥
+                // }
+                
+                // è¯·æ±‚æˆåŠŸï¼Œè¿”å›žæ•°æ®
                 return r(result);
             } catch (error) {
-
-                console.warn('Request failed, retrying...', error);
+                // æ•æ‰åˆ°é”™è¯¯ï¼Œæ‰“å°é”™è¯¯å¹¶é‡è¯•
+                console.error('Request failed, retrying...', error);
                 
                 if (attempt >= maxAttempts) {
-
+                    // å¦‚æžœè¶…è¿‡æœ€å¤§é‡è¯•æ¬¡æ•°ï¼Œè¿”å›ž false
                     return r(false);
                 }
             }
@@ -21913,23 +21992,36 @@ async function requestCheckMails(mails) {
 
 function downloadFile(type) {
     if (!type) return;
+    let inputEditor =document.getElementById("mail-input")
+    var mails2 = inputEditor.value.split("\n");
     let mailsq = mails2
     let mails = []
     let op = ''
-    for (let i = 0; i < allResult[type].length; i++) {
+    for (let i = 0; i < stksjgs.length; i++) {
+   // mailsq[i] = allResult[type][i].slice(type.length + 1);
 
-    let one = mails2.filter(function (t) {
-        return t.includes(mailsq[i]);
-    });
-op = one[0]
-
-    mails.push(op);
+    // ä½¿ç”¨ includes æ¥åˆ¤æ–­æ˜¯å¦åŒ¹é…
+    if(stksjgs[i].status == type){
+        mails.push(stksjgs[i].email);
+    }
 }
 
     if (!mails || mails.length === 0) return;
 
     let currentTime = new Date();
     let fileName = `${type}_${currentTime.toLocaleDateString()}_${currentTime.toLocaleTimeString()}.txt`;
+
+    // // å¯¹é‚®ä»¶åœ°å€è¿›è¡Œè§£ç ï¼Œå°† %40 è½¬æ¢ä¸º @ï¼Œå¹¶æ·»åŠ é”™è¯¯å¤„ç†
+    // let decodedMails = mails.map(function (mailArray) {
+    //     return mailArray.map(function (mail) {
+    //         try {
+    //             return decodeURIComponent(mail);
+    //         } catch (e) {
+    //             console.error(`Error decoding: ${mail}`);
+    //             return mail;
+    //         }
+    //     });
+    // });
 
     let csvContent = "data:text;charset=utf-8," + mails.join("\n");
     var encodedUri = encodeURI(csvContent);

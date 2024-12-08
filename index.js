@@ -1881,15 +1881,18 @@
 	$( "body" ).append( $( "<audio id='shock_audio' src='shock.mp3' preload='auto'></audio><audio id='cleared_audio' src='uek.mp3' preload='auto'></audio><audio id='toon_audio' src='uhoh.mp3' preload='auto'></audio>" ) );
 	$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );
 	$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );
-	$( ".gchecker" ).after( $( "<div class='result'>" ) );
+	$( ".gchecker" ).after( $( "<div class='result' style='overflow:hidden'>" ) );
 	$( ".result" ).after( $( "<div class='footer' style='padding:10px;width:100%;background:#262626;border-radius:0px 0px 5px 5px;position:relative'>" ) );
-	$( ".footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='https://mbahbabat.github.io/tele.gif'></image>Gmail Community</button><a/></div>" ) );
+	$( ".footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='tele.gif'></image>Gmail Community</button><a/></div>" ) );
 	$( ".footer" ).append( $( "<p class='appversion'>v1.5</p>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='header'>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='Lightning.gif'></image>" ) );
-	$( ".header" ).append( $( "<div class='header_top' style='position:relative;width:100%;height:40px;display:flex;justify-content:center;align-items:center'>" ) );
+	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:18;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;color:#fff;overflow:hidden'><image src='star.gif' style='width:100%;'></image></div>" ) );
+	$( ".header" ).append( $( "<div id='starting1' style='position:absolute;top:0;left:0;z-index:22;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#000;color:#fff'>turn on...</div>" ) );
+	$( ".header" ).append( $( "<div id='starting2' style='position:absolute;top:0;left:0;z-index:19;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#0066ff;color:#fff'>WELCOME</div>" ) );
+	$( ".header" ).append( $( "<div class='header_top' id='header_top' style='position:relative;width:100%;height:40px;display:flex;justify-content:center;align-items:center'>" ) );
 	$( ".header_top" ).after( $( "<div class='header_bottom' style='width:100%;padding-bottom:10px;display:flex;justify-content:center'>" ) );
 	$( ".header_top" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );
 	$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
@@ -1898,6 +1901,30 @@
 	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc00'>Live</p><div>:</div><span class='rp-down' id='rp_good' style='color:#00ff00'></span></div><div class='downres_item'><p style='color:#ffcc00'>Verify</p><div>: </div><span class='rp-down' id='rp_ver' style='color:#ffff00' ></span></div><div class='downres_item'><p style='color:#ff8080'>Disabled</p><div>: </div><span class='rp-down' id='rp_disabled' style='color:#ff0000'></span></div><div class='downres_item'><p style='color:#4db8ff'>Unregistered</p><div>: </div><span class='rp-down' id='rp_unregistered' style='color:#0066ff' ></span></div></div>" ) );
 	$( ".indicat" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );
 	$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );
+
+const mbahmatur1 = document.getElementById("mbahmatur");
+setInterval(function() {mbahmatur1.style.display="none";}, 10000);
+
+const mbahmatur2 = document.getElementById("mbahmatur");
+setInterval(function() {mbahmatur2.style.display="flex";}, 50000);
+
+const myTimeout1 = setTimeout(starting1, 4000);
+
+function starting1() {
+  document.getElementById("starting1").style.display="none";
+}
+
+const myTimeout2 = setTimeout(starting2, 2000);
+
+function starting2() {
+  document.getElementById("starting2").style.display="flex";
+}
+
+const myTimeout3 = setTimeout(starting3, 6000);
+
+function starting3() {
+  document.getElementById("starting2").style.display="none";
+}
 
 
 

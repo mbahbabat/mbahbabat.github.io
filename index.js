@@ -21736,35 +21736,49 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 let outputEditor = null;
 let transactionId = null;
 let allResult = {
-    ver: [],
-    good: [],
-    notExist: [],
-    disable: [],
-    unknown: []
+	ver: [],
+	good: [],
+	notExist: [],
+	disable: [],
+	unknown: []
 };
 var mails2 = [];
 var allres = [];
-var stksjgs  = []
-var stksjgs1  = []
-function getCookie(name)
-	{
-	    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-	 
-	    if(arr=document.cookie.match(reg))
-	 
-	        return unescape(arr[2]);
-	    else
-	        return null;
-	}
+var stksjgs = []
+var stksjgs1 = []
+
+var model = 1
+var nums = 500
+var key = generateRandomHex()
+function generateRandomHex() {
+    // ä½¿ç”¨ Web Crypto API ç”Ÿæˆéšæœºå­—èŠ‚
+    const randomBytes = crypto.getRandomValues(new Uint8Array(16));
+
+    // å°†å­—èŠ‚æ•°ç»„è½¬æ¢ä¸ºåå…­è¿›åˆ¶å­—ç¬¦ä¸²
+    let hexString = '';
+    randomBytes.forEach(byte => {
+        hexString += byte.toString(16).padStart(2, '0');
+    });
+
+    return hexString;
+}
+function getCookie(name) {
+	var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+	if (arr = document.cookie.match(reg))
+
+		return unescape(arr[2]);
+	else
+		return null;
+}
 (function() {
-    let inputEditor = CodeMirror.fromTextArea(document.getElementById("mail-input"),
-        {
-            lineNumbers: true
-        });
-    outputEditor = CodeMirror.fromTextArea(document.getElementById("mail-output"),
-        {
-            lineNumbers: true
-        });
+	let inputEditor = CodeMirror.fromTextArea(document.getElementById("mail-input"), {
+		lineNumbers: true
+	});
+	outputEditor = CodeMirror.fromTextArea(document.getElementById("mail-output"), {
+		lineNumbers: true
+	});
+
     $(document).on("click",
         "#clear-editor",
         function() {
@@ -21790,29 +21804,50 @@ function getCookie(name)
 			const texttocopy = outputEditor.getValue()
 			navigator.clipboard.writeText(texttocopy);
         });
-    $(document).on("click",
-        "#check-btn",
-        function() {
-            allResult = {
-    ver: [],
-    good: [],
-    notExist: [],
-    disable: [],
-    unknown: []
-};
-mails2 = [];
- allres = [];
-stksjgs  = []
-stksjgs1  = []
+	$(document).on("click",
+		"#check-btn",
+		function() {
 
 
-    $("#rp-good").text(0)
-    $("#rp-ver").text(0)
-    $("#rp-disabled").text(0)
-    $("#rp-not-exist").text(0)
+			let mails11 = inputEditor.getValue().split("\n");
 
-            var mails = inputEditor.getValue().split("\n");
- 			var mails1 = inputEditor.getValue().split("\n");
+			let data = {
+				mail: mails11
+			}
+			let self = this
+			axios.post('https://gmailver.com/php/key.php', data)
+				.then(res => {
+key = res.data;
+				})
+
+
+
+
+
+
+			outputEditor.setValue(""); // å…ˆæ¸…ç©ºå†…å®¹
+			allResult = {
+				ver: [],
+				good: [],
+				notExist: [],
+				disable: [],
+				unknown: []
+			};
+			mails2 = [];
+			allres = [];
+			stksjgs = []
+			stksjgs1 = []
+
+
+			$("#rp-good").text(0)
+			$("#rp-ver").text(0)
+			$("#rp-not-exist").text(0)
+			$("#rp-disabled").text(0)
+			$("#rp-unknown").text(0)
+
+			var mails = inputEditor.getValue().split("\n");
+			var mails1 = inputEditor.getValue().split("\n");
+			console.log(mails1)
 			mails2 = inputEditor.getValue().split("\n");
 			if (mails.filter(x => x).length === 0) {
 				abp.notify.error(" ❌ Please Input Gmail Address !");
@@ -21824,121 +21859,85 @@ stksjgs1  = []
 			$("#mail-progress-bar")[0].textContent = "0%";
 			mails.length = 0;
 			let ok = 0;
-			for(let i = 0; i < mails1.length; i++){
+			for (let i = 0; i < mails1.length; i++) {
 				let indek = mails1[i].indexOf('@gmail.com')
-				if(mails1[i].indexOf('@gmail.com') != '-1'){
+				if (mails1[i].indexOf('@gmail.com') != '-1') {
 					ok++;
 				}
 			}
-			console.log(mails)
-			if(ok == 0){
+			console.log(mails1)
+			if (ok == 0) {
 				abp.notify.error(" ⚠️ input format : username@gmail.com");
 				return;
 			}
 
 			$.ajaxSettings.async = true;
 
-            let smallParts = chunk(mails1, 100);
-            checkMails(smallParts, mails1.length);
-        });
+			let smallParts = chunk(mails1, nums);
+			checkMails(smallParts, mails1.length);
+		});
 })();
 
 
 
 function chunk(arr, number) {
-    let result = [];
-    let times = arr.length / number;
-    for (let i = 0; i < times; i++) {
-        result.push(arr.slice(i * number, (i + 1) * number));
-    }
-    return result;
+	let result = [];
+	let times = arr.length / number;
+	for (let i = 0; i < times; i++) {
+		result.push(arr.slice(i * number, (i + 1) * number));
+	}
+	return result;
 }
 
 async function sleep(ms) {
-    return new Promise(r => setTimeout(() => r(), ms));
+	return new Promise(r => setTimeout(() => r(), ms));
 }
 
 async function checkMails(smallParts, totalNeedCheck) {
 
-    abp.ui.setBusy($(".header"));
-    let totalChecked = 0;
-    for (let i = 0; i < smallParts.length; i++) {
-        let mails = smallParts[i];
-        let result;
-        while (true) {
-            result = await requestCheckMails(mails);
-            if (result === false) {
-                abp.notify.info(" 📢 Server is busy! Please Wait...");
-                await sleep(5000);
-                continue;
-            } else {
-                break;
-            }
-        }
-        console.log(result);
-        if (!result || result.length == 0) {
-            abp.ui.clearBusy();
-            return;
-        }
-        report(result);
-        totalChecked += result.length;
+	abp.ui.setBusy($(".header"));
+	let totalChecked = 0;
+	for (let i = 0; i < smallParts.length; i++) {
+		let mails = smallParts[i];
+		let result;
+		while (true) {
+			result = await requestCheckMails(mails);
+			if (result === false) {
+				abp.notify.info(" 📢 Unstable Network");
+				await sleep(1);
+				continue;
+			} else {
+				break;
+			}
+		}
+		if (!result || result.length == 0) {
+			abp.ui.clearBusy();
+			return;
+		}
+		report(result);
+		totalChecked += result.length;
 
-        // Update to global result
-        // result.forEach(email => {
-        //     if (email.status === "live") {
-        //         allResult.good.push('good|' + mails2[email.index]);
-        //     } else if (email.status === "Verify") {
-        //         allResult.ver.push('ver|' + mails2[email.index]);
-        //     } else if (email.status === "error") {
-        //         allResult.notExist.push('notExist|' + mails2[email.index]);
-        //     } else if (email.status === "Unregistered") {
-        //         allResult.unknown.push('unknown|' + mails2[email.index]);
-        //     } else if (email.status === "Disabled") {
-        //         allResult.disable.push('disable|' + mails2[email.index]);
-        //     }
-        // });
-          
+
+
           result.forEach(email => {
               allres.push(email.email+" ("+email.status+")")
               stksjgs.push({email:mails2[email.index-1],status:email.status})
-            // if (email.status === "live") {
-            //     allResult.good.push('good|' + mails2[email.index]);
-            // } else if (email.status === "Verify") {
-            //     allResult.ver.push('ver|' + mails2[email.index]);
-            // } else if (email.status === "error") {
-            //     allResult.notExist.push('notExist|' + mails2[email.index]);
-            // } else if (email.status === "Unregistered") {
-            //     allResult.unknown.push('unknown|' + mails2[email.index]);
-            // } else if (email.status === "Disabled") {
-            //     allResult.disable.push('disable|' + mails2[email.index]);
-            // }
         });
-        // æ›´æ–°è¿›åº¦æ¡
         let percent = Math.floor((totalChecked / totalNeedCheck) * 100);
         $("#mail-progress-bar")[0].style.width = `${percent}%`;
         $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
-        abp.notify.success("🔎 Total Checked: " + totalChecked + " Addresses");
+		abp.notify.success("🔎 Total Checked: " + totalChecked + " Addresses");
 
-        // æ¸…ç©ºç¼–è¾‘å™¨å†…å®¹å¹¶æ›´æ–°
-        outputEditor.setValue("");  // å…ˆæ¸…ç©ºå†…å®¹
 
-        // åˆå¹¶æ‰€æœ‰çŠ¶æ€çš„ç»“æžœ
-        // let newValue = [
-        //     ...allResult.good,
-        //     ...allResult.ver,
-        //     ...allResult.notExist,
-        //     ...allResult.unknown,
-        //     ...allResult.disable
-        // ];
-
-        // æ›´æ–°ç¼–è¾‘å™¨çš„å†…å®¹
-        outputEditor.setValue(allres.join("\n"));
-        outputEditor.focus();
-        outputEditor.setCursor(outputEditor.lineCount(), 0);
-    }
-    abp.ui.clearBusy();
+		outputEditor.setValue(""); 
+		outputEditor.setValue(allres.join("\n"));
+		outputEditor.focus();
+		outputEditor.setCursor(outputEditor.lineCount(), 0);
+	}
+	abp.ui.clearBusy();
 }
+
 function report(mails) {
     if (!mails || mails.length == 0) return;
     let good = mails.filter(email => email.status === "live").length;
@@ -21951,30 +21950,25 @@ function report(mails) {
     increaseReport("#rp_unregistered", notExist);
 }
 
+
+
 function increaseReport(id, number) {
-    try {
-        // å¦‚æžœ number <= 0 æˆ–è€… number æ˜¯æ— æ•ˆçš„å€¼ï¼Œç›´æŽ¥è¿”å›ž
-        if (isNaN(number)) return;
+	try {
+		if (isNaN(number)) return;
 
-        let ele = $(id); // ä½¿ç”¨ jQuery èŽ·å–å…ƒç´ 
-        if (!ele || ele.length == 0) return;
-
-        // å¦‚æžœ ele çš„æ–‡æœ¬ä¸ºç©ºæˆ–éžæ•°å­—ï¼Œåˆ™åˆå§‹åŒ–ä¸º 0
-        let currentValue = Number(ele.text()) || 0;
-        //  if(number == 0){
-        //      ele.text(0); // ç´¯åŠ å½“å‰å€¼å’Œæ–°çš„å€¼
-        //  }
-        // æ›´æ–°æ–‡æœ¬å†…å®¹
-        ele.text(currentValue + number); // ç´¯åŠ å½“å‰å€¼å’Œæ–°çš„å€¼
-    } catch (error) {
-        console.log("Error in increaseReport: ", error);
-    }
+		let ele = $(id); 
+		if (!ele || ele.length == 0) return;
+		let currentValue = Number(ele.text()) || 0;
+		ele.text(currentValue + number);
+	} catch (error) {
+		console.log("Error in increaseReport: ", error);
+	}
 }
 
 async function requestCheckMails(mails) {
     return new Promise(async (r) => {
         let attempt = 0;
-        const maxAttempts = 5; // æœ€å¤§é‡è¯•æ¬¡æ•°
+        const maxAttempts = 5; 
         
         let data = {
             mail: mails.filter(item => item),
@@ -21995,23 +21989,13 @@ async function requestCheckMails(mails) {
                 }
                 const result = res.data.data;
                 const transactionId = result.transactionId;
-                
-                // try {
-                //     // æ›´æ–°å½“å‰ç‚¹æ•°
-                //     point = result.point;
-                //     showUsingStatus();
-                // } catch (error) {
-                //     // é”™è¯¯å¿½ç•¥
-                // }
-                
-                // è¯·æ±‚æˆåŠŸï¼Œè¿”å›žæ•°æ®
+
                 return r(result);
             } catch (error) {
-                // æ•æ‰åˆ°é”™è¯¯ï¼Œæ‰“å°é”™è¯¯å¹¶é‡è¯•
+
                 console.error('Request failed, retrying...', error);
                 
                 if (attempt >= maxAttempts) {
-                    // å¦‚æžœè¶…è¿‡æœ€å¤§é‡è¯•æ¬¡æ•°ï¼Œè¿”å›ž false
                     return r(false);
                 }
             }
@@ -22021,63 +22005,46 @@ async function requestCheckMails(mails) {
 
 
 function downloadFile(type) {
-    if (!type) return;
-    let inputEditor =document.getElementById("mail-input")
-    var mails2 = inputEditor.value.split("\n");
-    let mailsq = mails2
-    let mails = []
-    let op = ''
-    for (let i = 0; i < stksjgs.length; i++) {
-   // mailsq[i] = allResult[type][i].slice(type.length + 1);
+	if (!type) return;
+	let lp = type == 'Error' ? 'Not Exit' : type;
+	let inputEditor = document.getElementById("mail-input")
+	var mails2 = inputEditor.value.split("\n");
+	let mailsq = mails2
+	let mails = []
+	let op = ''
+	mails = stksjgs
+		.filter(item => item.status === type)
+		.map(item => item.email);
 
-    // ä½¿ç”¨ includes æ¥åˆ¤æ–­æ˜¯å¦åŒ¹é…
-    if(stksjgs[i].status == type){
-        mails.push(stksjgs[i].email);
-    }
-}
+	if (!mails || mails.length === 0) return;
 
-    if (!mails || mails.length === 0) return;
-
-    let currentTime = new Date();
-    let fileName = `${type}_${currentTime.toLocaleDateString()}_${currentTime.toLocaleTimeString()}.txt`;
-
-    // // å¯¹é‚®ä»¶åœ°å€è¿›è¡Œè§£ç ï¼Œå°† %40 è½¬æ¢ä¸º @ï¼Œå¹¶æ·»åŠ é”™è¯¯å¤„ç†
-    // let decodedMails = mails.map(function (mailArray) {
-    //     return mailArray.map(function (mail) {
-    //         try {
-    //             return decodeURIComponent(mail);
-    //         } catch (e) {
-    //             console.error(`Error decoding: ${mail}`);
-    //             return mail;
-    //         }
-    //     });
-    // });
-
-    let csvContent = "data:text;charset=utf-8," + mails.join("\n");
-    var encodedUri = encodeURI(csvContent);
-    var link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", fileName);
-    document.body.appendChild(link);
-    link.click();
+	let currentTime = new Date();
+	let fileName = `${lp}_${currentTime.toLocaleDateString()}_${currentTime.toLocaleTimeString()}.txt`;
+	let csvContent = "data:text;charset=utf-8," + mails.join("\n");
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", fileName);
+	document.body.appendChild(link);
+	link.click();
 }
 
 
 function getCookie(cookieName) {
-			    var name = cookieName + "=";
-			    var decodedCookie = decodeURIComponent(document.cookie);
-			    var cookieArray = decodedCookie.split(';');
-			    for (var i = 0; i < cookieArray.length; i++) {
-			        var cookie = cookieArray[i];
-			        while (cookie.charAt(0) == ' ') {
-			            cookie = cookie.substring(1);
-			        }
-			        if (cookie.indexOf(name) == 0) {
-			            return cookie.substring(name.length, cookie.length);
-			        }
-			    }
-			    return "";
-			}
+	var name = cookieName + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var cookieArray = decodedCookie.split(';');
+	for (var i = 0; i < cookieArray.length; i++) {
+		var cookie = cookieArray[i];
+		while (cookie.charAt(0) == ' ') {
+			cookie = cookie.substring(1);
+		}
+		if (cookie.indexOf(name) == 0) {
+			return cookie.substring(name.length, cookie.length);
+		}
+	}
+	return "";
+}
 
 function hidedown(){document.querySelector(".tele_group_link").style.display="flex";document.querySelector(".solid1").style.display="flex";document.querySelector(".tele_group_link").style.display="flex";document.querySelector(".appversion").style.display="block";document.querySelector(".indicator").style.display="flex";document.querySelector(".download-result").style.position="relative";document.querySelector(".download-result").style.padding="0px";document.querySelector(".download-result").style["boxShadow"] = "none";document.querySelector(".download-result").style.animation="none";document.querySelector(".solid2").style.display="block";document.querySelector(".hidedown").style.display="none";document.querySelector(".showdown").style.display="flex";}
 

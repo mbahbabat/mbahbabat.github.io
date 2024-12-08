@@ -1890,11 +1890,11 @@
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='Lightning.gif'></image>" ) );
 	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:18;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;color:#fff;overflow:hidden'><image src='star.gif' style='width:100%;'></image></div>" ) );
-	$( ".header" ).append( $( "<div id='mbahmatur2' style='position:absolute;top:0;left:0;z-index:18;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;color:yellow;overflow:hidden;background:#404040;'> 📢 DOWNLOAD(LIVE) button has been fixed </div>" ) );	
 	$( ".header" ).append( $( "<div id='starting1' style='position:absolute;top:0;left:0;z-index:22;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#000;color:#fff'></div>" ) );
 	$( ".header" ).append( $( "<div id='starting2' style='position:absolute;top:0;left:0;z-index:19;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#0066ff;color:#fff'>WELCOME</div>" ) );
-	$( ".header" ).append( $( "<div class='header_top' id='header_top' style='position:relative;width:100%;height:40px;display:flex;justify-content:center;align-items:center'>" ) );
+	$( ".header" ).append( $( "<div class='header_top' id='header_top' style='position:relative;width:100%;height:40px;display:flex;justify-content:center;align-items:center;padding:15px 0px 15px 0px'>" ) );
 	$( ".header_top" ).after( $( "<div class='header_bottom' style='width:100%;padding-bottom:10px;display:flex;justify-content:center'>" ) );
+	$( ".header_top" ).before( $( "<marquee id='maranoun' style='display:none;position:absolute;top:0;left:0;width:100%;height:10px;background:#000;color:yellow;font-size:8px;line-height:8px'> 📢 DOWNLOAD(LIVE) button has been fixed </marquee>" ) );	
 	$( ".header_top" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );
 	$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
 	$( ".header" ).after( $( "<div class='btn-executor'></div>" ) );$( ".btn-executor" ).prepend( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary' style='margin-right:5px'>CLEAR</button>" ) );
@@ -1908,12 +1908,6 @@ setInterval(function() {mbahmatur1a.style.display="none";}, 10000);
 
 const mbahmatur1b = document.getElementById("mbahmatur");
 setInterval(function() {mbahmatur1b.style.display="flex";}, 30000);
-
-const mbahmatur2a = document.getElementById("mbahmatur2");
-setInterval(function() {mbahmatur2a.style.display="none";}, 5000);
-
-const mbahmatur2b = document.getElementById("mbahmatur2");
-setInterval(function() {mbahmatur2b.style.display="flex";}, 40000);
 
 const myTimeout1 = setTimeout(starting1, 4000);
 

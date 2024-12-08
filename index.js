@@ -1882,6 +1882,9 @@
 	$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );
 	$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );
 	$( ".gchecker" ).after( $( "<div class='result'>" ) );
+	$( ".result" ).after( $( "<div class='footer' style='padding:10px;width:100%;background:#262626;border-radius:0px 0px 5px 5px;position:relative'>" ) );
+	$( ".footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='https://mbahbabat.github.io/tele_group.png'></image>Gmail Community</button><a/></div>" ) );
+	$( ".footer" ).append( $( "<p class='appversion'>v1.5</p>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='header'>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
@@ -1892,20 +1895,10 @@
 	$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
 	$( ".header" ).after( $( "<div class='btn-executor'></div>" ) );$( ".btn-executor" ).prepend( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary' style='margin-right:5px'>CLEAR</button>" ) );
 	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
-	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc00'>Live</p><div>:</div><span class='rp-down' id='rp_good'></span></div><div class='downres_item'><p style='color:#ffff00'>Verify</p><div>: </div><span class='rp-down' id='rp_ver' ></span></div><div class='downres_item'><p style='color:#ff8080'>Disabled</p><div>: </div><span class='rp-down' id='rp_disabled' ></span></div><div class='downres_item'><p style='color:#0099ff'>Unregistered</p><div>: </div><span class='rp-down' id='rp_unregistered' ></span></div></div>" ) );
+	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc00'>Live</p><div>:</div><span class='rp-down' id='rp_good'></span></div><div class='downres_item'><p style='color:#ffff00'>Verify</p><div>: </div><span class='rp-down' id='rp_ver' ></span></div><div class='downres_item'><p style='color:#ff8080'>Disabled</p><div>: </div><span class='rp-down' id='rp_disabled' ></span></div><div class='downres_item'><p style='color:#4db8ff'>Unregistered</p><div>: </div><span class='rp-down' id='rp_unregistered' ></span></div></div>" ) );
 	$( ".indicat" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );
 	$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );
-	$( ".result" ).append( $( "<div class='mailinput' style='width:50%;padding:0px 12.5px 0px 0px'>" ) );
-	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'>INPUT</h3>" ) );
-	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );	
-	$( ".input_btn" ).append( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
-	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
-	$( ".mailinput" ).after( $( "<div class='mailoutput' style='width:50%;padding:0px 0px 0px 12.5px'>" ) );
-	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'>RESULT</h3>" ) );
-	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
-	$( ".result_btn" ).append( $( "<button onclick='copy_clip()' id='copy_clip'>📝 COPY ALL</button>" ) );
-	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;live&#39;)' id='down_live'>DOWNLOAD (LIVE)</button>" ) );
-	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
+
 
 
 
@@ -21700,6 +21693,18 @@ function lightmode(){document.querySelector(".mailinput h3").style.cssText="bord
 
 function showdown(){document.querySelector(".tele_group_link").style.display="none";document.querySelector(".solid1").style.display="none";document.querySelector(".tele_group_link").style.display="none";document.querySelector(".appversion").style.display="none";document.querySelector(".indicator").style.display="none";document.querySelector(".download-result").style.position="fixed";document.querySelector(".download-result").style.padding="25px";document.querySelector(".download-result").style["boxShadow"] = "0 0 5px 5px rgba(0,0,0,0.5)";
 document.querySelector(".download-result").style.animation="slideup 0.75s"; document.querySelector(".hidedown").style.display="flex";document.querySelector(".solid2").style.display="none";document.querySelector(".showdown").style.display="none";}
+
+	$( ".result" ).append( $( "<div class='mailinput' style='width:50%;padding:0px 12.5px 0px 0px'>" ) );
+	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'>INPUT</h3>" ) );
+	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );	
+	$( ".input_btn" ).append( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
+	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
+	$( ".mailinput" ).after( $( "<div class='mailoutput' style='width:50%;padding:0px 0px 0px 12.5px'>" ) );
+	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'>RESULT</h3>" ) );
+	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
+	$( ".result_btn" ).append( $( "<button onclick='copy_clip()' id='copy_clip'>📝 COPY ALL</button>" ) );
+	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;live&#39;)' id='down_live'>DOWNLOAD (LIVE)</button>" ) );
+	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
 
 let outputEditor = null;
 let transactionId = null;

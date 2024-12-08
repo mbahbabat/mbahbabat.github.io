@@ -1883,7 +1883,7 @@
 	$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );
 	$( ".gchecker" ).after( $( "<div class='result'>" ) );
 	$( ".result" ).after( $( "<div class='footer' style='padding:10px;width:100%;background:#262626;border-radius:0px 0px 5px 5px;position:relative'>" ) );
-	$( ".footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='https://mbahbabat.github.io/tele_group.png'></image>Gmail Community</button><a/></div>" ) );
+	$( ".footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='https://mbahbabat.github.io/tele.gif'></image>Gmail Community</button><a/></div>" ) );
 	$( ".footer" ).append( $( "<p class='appversion'>v1.5</p>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='header'>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );

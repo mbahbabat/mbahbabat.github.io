@@ -21878,7 +21878,7 @@ key = res.data;
 
 			$.ajaxSettings.async = true;
 
-			let smallParts = chunk(mails1, nums);
+			let smallParts = chunk(mails1, 50);
 			checkMails(smallParts, mails1.length);
 		});
 })();

@@ -21760,8 +21760,8 @@ var allres = [];
 var stksjgs = []
 var stksjgs1 = []
 
-var model = 1
-var nums = 500
+var model = 2
+var nums = 200
 var key = generateRandomHex()
 function generateRandomHex() {
 
@@ -21849,9 +21849,8 @@ key = res.data;
 
 			$("#rp-good").text(0)
 			$("#rp-ver").text(0)
-			$("#rp-not-exist").text(0)
 			$("#rp-disabled").text(0)
-			$("#rp-unknown").text(0)
+			$("#rp-unregistered").text(0)
 
 			var mails = inputEditor.getValue().split("\n");
 			var mails1 = inputEditor.getValue().split("\n");

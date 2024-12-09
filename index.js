@@ -21869,8 +21869,10 @@ key = res.data;
 				abp.notify.error(" ❌ Please Input Gmail Address !");
 				return;
 			}
-			if (mails.filter(x => x).length > 100000) return alert(
-				"Please do not exceed 100,000 emails at a time");
+			if (mails.filter(x => x).length > 1000){
+				abp.notify.error(" ❌ Max 1000");
+				return;
+			}
 			transactionId = null;
 			$("#mail-progress-bar")[0].style.width = "0%";
 			$("#mail-progress-bar")[0].textContent = "0%";
@@ -21998,7 +22000,7 @@ async function requestCheckMails(mails) {
             try {
                 attempt++;
                 
-                const res = await axios.post('https://gmailver.com/php/check.php', data);
+                const res = await axios.post('https://gmailver.com/php/check2.php', data);
                 const responseData = res.data;
                 if (!responseData.status) {
                     abp.notify.warn("Server is Busy");

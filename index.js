@@ -21869,8 +21869,8 @@ key = res.data;
 				abp.notify.error(" ❌ Please Input Gmail Address !");
 				return;
 			}
-			if (mails.filter(x => x).length > 1000){
-				abp.notify.error(" ❌ Max 1000");
+			if (mails.filter(x => x).length > 200){
+				abp.notify.error(" ❌ Max 200");
 				return;
 			}
 			transactionId = null;

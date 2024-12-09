@@ -1903,6 +1903,11 @@
 	$( ".indicat" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );
 	$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );
 
+
+			$("#rp-good").text("-");
+			$("#rp-ver").text("-");
+			$("#rp-disabled").text("-");
+			$("#rp-unregistered").text("-");
 const mbahmatur1a = document.getElementById("mbahmatur");
 setInterval(function() {mbahmatur1a.style.display="none";}, 10000);
 
@@ -21716,9 +21721,19 @@ var abp = abp || {};
 
 function refreshPage(){window.location.reload();}
 
-function clear_all() {document.querySelector('#cleared_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";document.querySelector("#rp_good").textContent = "0";document.querySelector("#rp_ver").textContent = "0";document.querySelector("#rp_disabled").textContent = "0";document.querySelector("#rp_unregistered").textContent = "0";}
+function clear_all() {document.querySelector('#cleared_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
+			$("#rp-good").text("-");
+			$("#rp-ver").text("-");
+			$("#rp-disabled").text("-");
+			$("#rp-unregistered").text("-");
+			}
 
-function clear_all_run() {document.querySelector('#shock_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";document.querySelector("#rp_good").textContent = "0";document.querySelector("#rp_ver").textContent = "0";document.querySelector("#rp_disabled").textContent = "0";document.querySelector("#rp_unregistered").textContent = "0";}
+function clear_all_run() {document.querySelector('#shock_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
+			$("#rp-good").text("-");
+			$("#rp-ver").text("-");
+			$("#rp-disabled").text("-");
+			$("#rp-unregistered").text("-");
+			}
 
 function darkmode(){document.querySelector(".mailinput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector(".mailoutput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector("body").style.cssText="background:#0d0d0d";document.querySelector(".boxi").style.cssText="opacity:0.7;background:#404040;";document.querySelector(".mailinput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailoutput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailinput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)";document.querySelector(".mailoutput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)"; document.querySelector(".mailinput .CodeMirror-scroll").style.color="#009933";document.querySelector(".mailoutput .CodeMirror-scroll").style.color="#cc9900";document.querySelector(".gchecker").style.background="#404040";document.querySelector(".result").style.background="#404040";document.querySelector(".download-result").style.background="#404040";}
 
@@ -21846,12 +21861,6 @@ key = res.data;
 			stksjgs = []
 			stksjgs1 = []
 
-
-			$("#rp-good").text(0)
-			$("#rp-ver").text(0)
-			$("#rp-disabled").text(0)
-			$("#rp-unregistered").text(0)
-
 			var mails = inputEditor.getValue().split("\n");
 			var mails1 = inputEditor.getValue().split("\n");
 			console.log(mails1)
@@ -21925,7 +21934,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 
 		result.forEach(email => {
 			let lp = email.status == 'Error' ? 'Not Exit' : email.status
-			allres.push(lp +"|"+email.email)
+			allres.push(email.email +"  ("+ lp+")")
 			stksjgs.push({
 				email: mails2[email.index - 1],
 				status: email.status

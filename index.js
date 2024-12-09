@@ -1899,7 +1899,7 @@
 	$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
 	$( ".header" ).after( $( "<div class='btn-executor'></div>" ) );$( ".btn-executor" ).prepend( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary' style='margin-right:5px'>CLEAR</button>" ) );
 	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
-	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc00'>Live</p><div>:</div><span class='rp-down' id='rp_good' style='color:#00ff00'></span></div><div class='downres_item'><p style='color:#ffcc00'>Verify</p><div>: </div><span class='rp-down' id='rp_ver' style='color:#ffff00' ></span></div><div class='downres_item'><p style='color:#ff8080'>Disabled</p><div>: </div><span class='rp-down' id='rp_disabled' style='color:#ff0000'></span></div><div class='downres_item'><p style='color:#4db8ff'>Unregistered</p><div>: </div><span class='rp-down' id='rp_unregistered' style='color:#0066ff' ></span></div></div>" ) );
+	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc00'>Live</p><div>:</div><span class='rp-down' id='rp-good' style='color:#00ff00'></span></div><div class='downres_item'><p style='color:#ffcc00'>Verify</p><div>: </div><span class='rp-down' id='rp-ver' style='color:#ffff00' ></span></div><div class='downres_item'><p style='color:#ff8080'>Disabled</p><div>: </div><span class='rp-down' id='rp-disabled' style='color:#ff0000'></span></div><div class='downres_item'><p style='color:#4db8ff'>Unregistered</p><div>: </div><span class='rp-down' id='rp-unregistered' style='color:#0066ff' ></span></div></div>" ) );
 	$( ".indicat" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );
 	$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );
 
@@ -21742,8 +21742,9 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'>RESULT</h3>" ) );
 	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn" ).append( $( "<button onclick='copy_clip()' id='copy_clip'>📝 COPY ALL</button>" ) );
-	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;live&#39;)' id='down_live' style='display:none'>DOWNLOAD (LIVE)</button>" ) );
+	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;live&#39;)' id='down_live' style='display:block'>DOWNLOAD (LIVE)</button>" ) );
 	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
+
 
 let outputEditor = null;
 let transactionId = null;
@@ -21765,6 +21766,7 @@ var key = generateRandomHex()
 function generateRandomHex() {
 
     const randomBytes = crypto.getRandomValues(new Uint8Array(16));
+
 
     let hexString = '';
     randomBytes.forEach(byte => {
@@ -21789,7 +21791,7 @@ function getCookie(name) {
 	outputEditor = CodeMirror.fromTextArea(document.getElementById("mail-output"), {
 		lineNumbers: true
 	});
-
+	
     $(document).on("click",
         "#clear-editor",
         function() {
@@ -21814,10 +21816,11 @@ function getCookie(name) {
 			document.querySelector('#toon_audio').play();
 			const texttocopy = outputEditor.getValue()
 			navigator.clipboard.writeText(texttocopy);
-        });
+        });	
 	$(document).on("click",
 		"#check-btn",
 		function() {
+
 
 			let mails11 = inputEditor.getValue().split("\n");
 
@@ -21830,7 +21833,7 @@ function getCookie(name) {
 key = res.data;
 				})
 
-			outputEditor.setValue(""); 
+			outputEditor.setValue("");
 			allResult = {
 				ver: [],
 				good: [],
@@ -21858,7 +21861,8 @@ key = res.data;
 				abp.notify.error(" ❌ Please Input Gmail Address !");
 				return;
 			}
-			if (mails.filter(x => x).length > 100000) return alert("Please do not exceed 100,000 emails at a time");
+			if (mails.filter(x => x).length > 100000) return alert(
+				"Please do not exceed 100,000 emails at a time");
 			transactionId = null;
 			$("#mail-progress-bar")[0].style.width = "0%";
 			$("#mail-progress-bar")[0].textContent = "0%";
@@ -21878,7 +21882,7 @@ key = res.data;
 
 			$.ajaxSettings.async = true;
 
-			let smallParts = chunk(mails1, 100);
+			let smallParts = chunk(mails1, nums);
 			checkMails(smallParts, mails1.length);
 		});
 })();
@@ -21907,7 +21911,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 			result = await requestCheckMails(mails);
 			if (result === false) {
 				abp.notify.info(" 📢 Unstable Network");
-				await sleep(1);
+				await sleep(5000);
 				continue;
 			} else {
 				break;
@@ -21920,16 +21924,20 @@ async function checkMails(smallParts, totalNeedCheck) {
 		report(result);
 		totalChecked += result.length;
 
-          result.forEach(email => {
-              allres.push(email.email+" ("+email.status+")")
-              stksjgs.push({email:mails2[email.index-1],status:email.status})
-        });
-        let percent = Math.floor((totalChecked / totalNeedCheck) * 100);
-        $("#mail-progress-bar")[0].style.width = `${percent}%`;
-        $("#mail-progress-bar")[0].textContent = `${percent}%`;
+		result.forEach(email => {
+			let lp = email.status == 'Error' ? 'Not Exit' : email.status
+			allres.push(lp +"|"+email.email)
+			stksjgs.push({
+				email: mails2[email.index - 1],
+				status: email.status
+			})
+		});
+
+		let percent = Math.floor((totalChecked / (totalNeedCheck - 1)) * 100);
+		$("#mail-progress-bar")[0].style.width = `${percent}%`;
+		$("#mail-progress-bar")[0].textContent = `${percent}%`;
 
 		abp.notify.success("🔎 Total Checked: " + totalChecked + " Addresses");
-
 		outputEditor.setValue(""); 
 		outputEditor.setValue(allres.join("\n"));
 		outputEditor.focus();
@@ -21939,25 +21947,28 @@ async function checkMails(smallParts, totalNeedCheck) {
 }
 
 function report(mails) {
-    if (!mails || mails.length == 0) return;
-    let good = mails.filter(email => email.status === "live").length;
-    let ver = mails.filter(email => email.status === "Verify").length;
-    let dis = mails.filter(email => email.status === "Disabled").length;
-    let notExist = mails.filter(email => email.status === "Unregistered").length;
-    increaseReport("#rp_good", good);
-    increaseReport("#rp_ver", ver);
-    increaseReport("#rp_disabled", dis);
-    increaseReport("#rp_unregistered", notExist);
+	if (!mails || mails.length == 0) return;
+	let good = mails.filter(email => email.status === "live").length;
+	let ver = mails.filter(email => email.status === "Verify").length;
+	let dis = mails.filter(email => email.status === "Disabled").length;
+	let notExist = mails.filter(email => email.status === "Unregistered").length;
+	increaseReport("#rp-good", good);
+	increaseReport("#rp-ver", ver);
+	increaseReport("#rp-disabled", dis);
+	increaseReport("#rp-unregistered", notExist);
 }
 
 function increaseReport(id, number) {
 	try {
+
 		if (isNaN(number)) return;
 
 		let ele = $(id); 
 		if (!ele || ele.length == 0) return;
+
 		let currentValue = Number(ele.text()) || 0;
-		ele.text(currentValue + number);
+
+		ele.text(currentValue + number); 
 	} catch (error) {
 		console.log("Error in increaseReport: ", error);
 	}
@@ -22018,6 +22029,7 @@ function downloadFile(type) {
 
 	let currentTime = new Date();
 	let fileName = `${lp}_${currentTime.toLocaleDateString()}_${currentTime.toLocaleTimeString()}.txt`;
+
 	let csvContent = "data:text;charset=utf-8," + mails.join("\n");
 	var encodedUri = encodeURI(csvContent);
 	var link = document.createElement("a");
@@ -22026,7 +22038,6 @@ function downloadFile(type) {
 	document.body.appendChild(link);
 	link.click();
 }
-
 
 function getCookie(cookieName) {
 	var name = cookieName + "=";

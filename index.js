@@ -21935,7 +21935,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 		totalChecked += result.length;
 
 		result.forEach(email => {
-			let lp = email.status == 'Error' ? 'Not Exit' : email.status
+			let lp = email.status == 'Error' ? 'Unregistered' : email.status
 			allres.push(email.email +"  ("+ lp+")")
 			stksjgs.push({
 				email: mails2[email.index - 1],
@@ -21961,7 +21961,7 @@ function report(mails) {
 	let good = mails.filter(email => email.status === "live").length;
 	let ver = mails.filter(email => email.status === "Verify").length;
 	let dis = mails.filter(email => email.status === "Disabled").length;
-	let notExist = mails.filter(email => email.status === "Unregistered").length;
+	let notExist = mails.filter(email => email.status === "Error").length;
 	increaseReport("#rp-good", good);
 	increaseReport("#rp-ver", ver);
 	increaseReport("#rp-disabled", dis);

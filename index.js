@@ -21742,7 +21742,7 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'>RESULT</h3>" ) );
 	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn" ).append( $( "<button onclick='copy_clip()' id='copy_clip'>📝 COPY ALL</button>" ) );
-	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;live&#39;)' id='down_live'>DOWNLOAD (LIVE)</button>" ) );
+	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;live&#39;)' id='down_live' style='display:none'>DOWNLOAD (LIVE)</button>" ) );
 	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
 
 let outputEditor = null;

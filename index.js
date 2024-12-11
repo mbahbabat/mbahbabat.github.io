@@ -21984,11 +21984,23 @@ async function checkMails(smallParts, totalNeedCheck) {
 
         goodEditor.setValue(goodValue.join("\n"));
 		
+		var goodScreen = window.matchMedia("(min-width: 1200px)");
+		if (goodScreen.matches){
+		goodEditor.focus();
+		goodEditor.setCursor(goodEditor.lineCount(), 0);
+		}
+		
         let verValue = [
             ...allResult.ver,
         ];
 
         verEditor.setValue(verValue.join("\n"));
+		
+		var verScreen = window.matchMedia("(min-width: 1200px)");
+		if (verScreen.matches){
+		verEditor.focus();
+		verEditor.setCursor(verEditor.lineCount(), 0);
+		}
 
 		let notExistValue = [
             ...allResult.notExist,
@@ -21996,11 +22008,24 @@ async function checkMails(smallParts, totalNeedCheck) {
 
         notExistEditor.setValue(notExistValue.join("\n"));
 		
+		var notExistScreen = window.matchMedia("(min-width: 1200px)");
+		if (notExistScreen.matches){
+		notExistEditor.focus();
+		notExistEditor.setCursor(notExistEditor.lineCount(), 0);
+		}	
+		
 		let disableValue = [
             ...allResult.disable,
         ];
 
         disableEditor.setValue(disableValue.join("\n"));
+		
+		var disableScreen = window.matchMedia("(min-width: 1200px)");
+		if (disableScreen.matches){
+		disableEditor.focus();
+		disableEditor.setCursor(disableEditor.lineCount(), 0);
+		}	
+		
     }
     abp.ui.clearBusy();
 }

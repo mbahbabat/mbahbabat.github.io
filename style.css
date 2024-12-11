@@ -23,7 +23,7 @@
 .mailoutput3 ::-webkit-scrollbar-thumb:hover {background: #555; }
 
 .mailinput{width:30%;position:relative}
-.mailinput .CodeMirror-scroll{background: #1a1a1a;}
+.mailinput .CodeMirror-scroll{background: #0d0d0d;}
 .mailoutput .CodeMirror-scroll{color:#00cc66;background: #0d0d0d;}
 .mailoutput1 .CodeMirror-scroll{color:#ffcc00;background: #0d0d0d;}
 .mailoutput2 .CodeMirror-scroll{color:#ff4d4d;background: #0d0d0d;}

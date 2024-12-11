@@ -21720,6 +21720,10 @@ function clear_all() {document.querySelector('#cleared_audio').play();document.q
 			$("#rp-ver").text("");
 			$("#rp-disabled").text("");
 			$("#rp-notfound").text("");
+			$("#good_res").text("");
+			$("#ver_res").text("");
+			$("#dis_res").text("");
+			$("#notfound_res").text("");
 			}
 
 function clear_all_run() {document.querySelector('#shock_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
@@ -21727,6 +21731,10 @@ function clear_all_run() {document.querySelector('#shock_audio').play();document
 			$("#rp-ver").text("");
 			$("#rp-disabled").text("");
 			$("#rp-notfound").text("");
+			$("#good_res").text("");
+			$("#ver_res").text("");
+			$("#dis_res").text("");
+			$("#notfound_res").text("");			
 			}
 
 function darkmode(){document.querySelector(".mailinput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector(".mailoutput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector("body").style.cssText="background:#0d0d0d";document.querySelector(".boxi").style.cssText="opacity:0.7;background:#404040;";document.querySelector(".mailinput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailoutput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailinput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)";document.querySelector(".mailoutput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)"; document.querySelector(".mailinput .CodeMirror-scroll").style.color="#009933";document.querySelector(".mailoutput .CodeMirror-scroll").style.color="#cc9900";document.querySelector(".gchecker").style.background="#404040";document.querySelector(".result").style.background="#404040";document.querySelector(".download-result").style.background="#404040";}
@@ -21751,27 +21759,25 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".input_btn" ).append( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
 	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
 	$( ".result" ).append( $( "<div class='mailoutput'>" ) );
-	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>GOOD</p></h3>" ) );
+	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>GOOD  <span id='good_res'></span></p></h3>" ) );
 	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn" ).append( $( "<button onclick='copy_good()' id='copy_clip'>📝 COPY</button>" ) );
 	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
 	$( ".mailoutput" ).after( $( "<div class='mailoutput1'>" ) );
-	$( ".mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>VER</p></h3>" ) );
+	$( ".mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>VER  <span id='ver_res'></span></p></h3>" ) );
 	$( ".mailoutput1 h3" ).after( $( "<textarea style='display:none' id='ver-output'></textarea>" ) );
 	$( ".mailoutput1 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' id='copy_clip1'>📝 COPY</button>" ) );
 	$( ".mailoutput1" ).after( $( "<div class='mailoutput2'>" ) );
-	$( ".mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>DISABLED</p></h3>" ) );
+	$( ".mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>DISABLED  <span id='dis_res'></span></p></h3>" ) );
 	$( ".mailoutput2 h3" ).after( $( "<textarea style='display:none' id='disable-output'></textarea>" ) );
 	$( ".mailoutput2 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' id='copy_clip2'>📝 COPY</button>" ) );
 	$( ".mailoutput2" ).after( $( "<div class='mailoutput3'>" ) );
-	$( ".mailoutput3" ).prepend( $( "<h3 style='display:flex;align-items:center;height:50px'><p style='width:100%'>NOT FOUND</p></h3>" ) );
+	$( ".mailoutput3" ).prepend( $( "<h3 style='display:flex;align-items:center;height:50px'><p style='width:100%'>NOT FOUND  <span id='notfound_res'></span></p></h3>" ) );
 	$( ".mailoutput3 h3" ).after( $( "<textarea style='display:none' id='notExist-output'></textarea>" ) );
 	$( ".mailoutput3 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn3" ).append( $( "<button onclick='copy_notExist()' id='copy_clip3'>📝 COPY</button>" ) );
-	
-
 
 let goodEditor = null;
 let verEditor = null;
@@ -22042,6 +22048,10 @@ function report(mails) {
     increaseReport("#rp-ver", ver);
     increaseReport("#rp-disabled", dis);
     increaseReport("#rp-notfound", notExist);
+	increaseReport("#good_res", good);
+	increaseReport("#ver_res", ver);
+    increaseReport("#dis_res", dis);
+    increaseReport("#notfound_res", notExist);
 }
 
 function increaseReport(id, number) {

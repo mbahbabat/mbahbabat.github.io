@@ -21995,7 +21995,6 @@ async function checkMails(smallParts, totalNeedCheck) {
 		
 		var goodScreen = window.matchMedia("(min-width: 1200px)");
 		if (goodScreen.matches){
-		goodEditor.focus();
 		goodEditor.setCursor(goodEditor.lineCount(), 0);
 		}
 		
@@ -22007,7 +22006,6 @@ async function checkMails(smallParts, totalNeedCheck) {
 		
 		var verScreen = window.matchMedia("(min-width: 1200px)");
 		if (verScreen.matches){
-		verEditor.focus();
 		verEditor.setCursor(verEditor.lineCount(), 0);
 		}
 
@@ -22019,7 +22017,6 @@ async function checkMails(smallParts, totalNeedCheck) {
 		
 		var notExistScreen = window.matchMedia("(min-width: 1200px)");
 		if (notExistScreen.matches){
-		notExistEditor.focus();
 		notExistEditor.setCursor(notExistEditor.lineCount(), 0);
 		}	
 		
@@ -22031,7 +22028,6 @@ async function checkMails(smallParts, totalNeedCheck) {
 		
 		var disableScreen = window.matchMedia("(min-width: 1200px)");
 		if (disableScreen.matches){
-		disableEditor.focus();
 		disableEditor.setCursor(disableEditor.lineCount(), 0);
 		}	
 		

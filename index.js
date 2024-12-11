@@ -1892,7 +1892,7 @@
 	$( ".header" ).append( $( "<div id='starting1' style='position:absolute;top:0;left:0;z-index:22;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#000;color:#fff'></div>" ) );
 	$( ".header" ).append( $( "<div id='starting2' style='position:absolute;top:0;left:0;z-index:19;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#0066ff;color:#fff'>WELCOME</div>" ) );
 	$( ".header" ).append( $( "<div class='header_top' id='header_top' style='position:relative;width:100%;height:50%;display:flex;justify-content:center;padding:15px 0px 15px 0px'>" ) );
-	$( ".header_top" ).after( $( "<div class='header_bottom' style='width:100%;padding-bottom:10px;display:flex;justify-content:center'>" ) );
+	$( ".header_top" ).after( $( "<div class='header_bottom' style='width:100%;padding-bottom:20px;display:flex;justify-content:center'>" ) );
 	$( ".header_top" ).before( $( "<marquee id='maranoun' style='display:none;position:absolute;top:0;left:0;width:100%;height:10px;background:#000;color:yellow;font-size:8px;line-height:8px'> 📢 DOWNLOAD(LIVE) button has been fixed </marquee>" ) );	
 	$( ".header_top" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );
 	$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
@@ -21983,28 +21983,24 @@ async function checkMails(smallParts, totalNeedCheck) {
         ];
 
         goodEditor.setValue(goodValue.join("\n"));
-        goodEditor.setCursor(goodEditor.lineCount(), 0);
 		
         let verValue = [
             ...allResult.ver,
         ];
 
         verEditor.setValue(verValue.join("\n"));
-        verEditor.setCursor(verEditor.lineCount(), 0);
 
 		let notExistValue = [
             ...allResult.notExist,
         ];
 
         notExistEditor.setValue(notExistValue.join("\n"));
-        notExistEditor.setCursor(notExistEditor.lineCount(), 0);
 		
 		let disableValue = [
             ...allResult.disable,
         ];
 
         disableEditor.setValue(disableValue.join("\n"));
-        disableEditor.setCursor(disableEditor.lineCount(), 0);
     }
     abp.ui.clearBusy();
 }

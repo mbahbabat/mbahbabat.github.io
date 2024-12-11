@@ -21902,7 +21902,7 @@ inputEditor.setValue("example@gmail.com");
  			var mails1 = inputEditor.getValue().split("\n");
 			mails2 = inputEditor.getValue().split("\n");
 			if (mails.filter(x => x).length === 0) {
-				abp.notify.error("❌ Please Input Gmail Address !");
+				abp.notify.error(" ❌ Please Input Gmail Address !");
 				return;
 			}
 			if (mails.filter(x => x).length > 100000) return alert("❌ Max 100000 ");
@@ -21919,7 +21919,7 @@ inputEditor.setValue("example@gmail.com");
 			}
 			console.log(mails)
 			if(ok == 0){
-				abp.notify.error("⚠️ input format : example@gmail.com");
+				abp.notify.error(" ⚠️ input format : example@gmail.com");
 				return;
 			}
 
@@ -21954,7 +21954,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         while (true) {
             result = await requestCheckMails(mails);
             if (result === false) {
-                abp.notify.info(" 📡 please check your network or try to change server");
+                abp.notify.info(" 📡 network error! please check your network or try to change server");
                 await sleep(1);
                 continue;
             } else {

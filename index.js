@@ -1882,7 +1882,6 @@
 	$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );
 	$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );
 	$( ".gchecker" ).after( $( "<div class='result'>" ) );
-	$( ".result" ).append( $( "<div class='footer' style='width:100%;position:absolute;bottom:10px'>" ) );
 	$( ".footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='tele.gif'></image>Gmail Community</button><a/></div>" ) );
 	$( ".footer" ).append( $( "<p class='appversion'>v1.5</p>" ) );
 	$( ".gchecker" ).append( $( "<div class='header'>" ) );

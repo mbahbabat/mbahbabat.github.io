@@ -21965,7 +21965,7 @@ async function checkMails(smallParts, totalNeedCheck) {
                 allResult.ver.push(email.email);
 			} else if (email.status === "Disabled") {
                 allResult.disable.push(email.email);			
-            } else if (email.status === "Unregistered") {
+            } else if (email.status === "Error") {
                 allResult.notExist.push(email.email);
 			}					
         });
@@ -21983,7 +21983,6 @@ async function checkMails(smallParts, totalNeedCheck) {
         ];
 
         goodEditor.setValue(goodValue.join("\n"));
-        goodEditor.focus();
         goodEditor.setCursor(goodEditor.lineCount(), 0);
 		
         let verValue = [
@@ -21991,7 +21990,6 @@ async function checkMails(smallParts, totalNeedCheck) {
         ];
 
         verEditor.setValue(verValue.join("\n"));
-        verEditor.focus();
         verEditor.setCursor(verEditor.lineCount(), 0);
 
 		let notExistValue = [
@@ -21999,7 +21997,6 @@ async function checkMails(smallParts, totalNeedCheck) {
         ];
 
         notExistEditor.setValue(notExistValue.join("\n"));
-        notExistEditor.focus();
         notExistEditor.setCursor(notExistEditor.lineCount(), 0);
 		
 		let disableValue = [
@@ -22007,7 +22004,6 @@ async function checkMails(smallParts, totalNeedCheck) {
         ];
 
         disableEditor.setValue(disableValue.join("\n"));
-        disableEditor.focus();
         disableEditor.setCursor(disableEditor.lineCount(), 0);
     }
     abp.ui.clearBusy();
@@ -22017,7 +22013,7 @@ function report(mails) {
     let good = mails.filter(email => email.status === "live").length;
     let ver = mails.filter(email => email.status === "Verify").length;
     let dis = mails.filter(email => email.status === "Disabled").length;
-    let notExist = mails.filter(email => email.status === "Unregistered").length;
+    let notExist = mails.filter(email => email.status === "Error").length;
     increaseReport("#rp-good", good);
     increaseReport("#rp-ver", ver);
     increaseReport("#rp-disabled", dis);

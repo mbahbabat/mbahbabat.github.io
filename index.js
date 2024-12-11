@@ -1881,11 +1881,11 @@
 	$( "body" ).append( $( "<audio id='shock_audio' src='shock.mp3' preload='auto'></audio><audio id='cleared_audio' src='uek.mp3' preload='auto'></audio><audio id='toon_audio' src='uhoh.mp3' preload='auto'></audio>" ) );
 	$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );
 	$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );
-	$( ".gchecker" ).after( $( "<div class='result' style='overflow:hidden'>" ) );
-	$( ".result" ).after( $( "<div class='footer' style='padding:10px;width:100%;background:#262626;border-radius:0px 0px 5px 5px;position:relative'>" ) );
+	$( ".gchecker" ).after( $( "<div class='result'>" ) );
+	$( ".boxi" ).append( $( "<div class='footer' style='width:100%;position:absolute;bottom:10px'>" ) );
 	$( ".footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='tele.gif'></image>Gmail Community</button><a/></div>" ) );
 	$( ".footer" ).append( $( "<p class='appversion'>v1.5</p>" ) );
-	$( ".gchecker" ).prepend( $( "<div class='header'>" ) );
+	$( ".gchecker" ).append( $( "<div class='header'>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='Lightning.gif'></image>" ) );
@@ -1897,17 +1897,12 @@
 	$( ".header_top" ).before( $( "<marquee id='maranoun' style='display:none;position:absolute;top:0;left:0;width:100%;height:10px;background:#000;color:yellow;font-size:8px;line-height:8px'> 📢 DOWNLOAD(LIVE) button has been fixed </marquee>" ) );	
 	$( ".header_top" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );
 	$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
-	$( ".header" ).after( $( "<div class='btn-executor'></div>" ) );$( ".btn-executor" ).prepend( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary' style='margin-right:5px'>CLEAR</button>" ) );
-	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
-	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc00'>Live</p><div>:</div><span class='rp-down' id='rp-good' style='color:#00ff00'></span></div><div class='downres_item'><p style='color:#ffcc00'>Verify</p><div>: </div><span class='rp-down' id='rp-ver' style='color:#ffff00' ></span></div><div class='downres_item'><p style='color:#ff8080'>Disabled</p><div>: </div><span class='rp-down' id='rp-disabled' style='color:#ff0000'></span></div><div class='downres_item'><p style='color:#4db8ff'>Unregistered</p><div>: </div><span class='rp-down' id='rp-unregistered' style='color:#0066ff' ></span></div></div>" ) );
+	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc00'>GOOD</p><div>:</div><span class='rp-down' id='rp-good' style='color:#00cc66'></span></div><div class='downres_item'><p style='color:#ffcc00'>VER</p><div>: </div><span class='rp-down' id='rp-ver' style='color:#ffff00' ></span></div><div class='downres_item'><p style='color:#ff8080'>DISABLED</p><div>: </div><span class='rp-down' id='rp-disabled' style='color:#ff0000'></span></div><div class='downres_item'><p style='color:#4db8ff'>NOT FOUND</p><div>: </div><span class='rp-down' id='rp-notfound' style='color:#0066ff' ></span></div></div>" ) );
 	$( ".indicat" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );
 	$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );
 
 
-			$("#rp-good").text("-");
-			$("#rp-ver").text("-");
-			$("#rp-disabled").text("-");
-			$("#rp-unregistered").text("-");
+
 const mbahmatur1a = document.getElementById("mbahmatur");
 setInterval(function() {mbahmatur1a.style.display="none";}, 10000);
 
@@ -20683,7 +20678,7 @@ const stylecss = document.createElement('link');
 	stylecss.setAttribute("rel", "stylesheet");
     document.head.appendChild(stylecss);
 
-$('<style>').text( " *{margin:0;padding:0;box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }html,body{font-family:Verdana,sans-serif;font-size:14px;line-height:1.5;}html::-webkit-scrollbar,.element::-webkit-scrollbar{display: none;}a{text-decoration: none;background:0 0}mark{background:#ff0;color:#000}img{border-style: none;}@media print{*{text-shadow:none!important;color:#000!important;background:0 0!important;box-shadow:none!important}}body{display:flex;padding:0;margin:0;color:#d9d9d9;font-size:12px;background:#000}.spinner{zoom:60%;}.spinner div div{background:#00cc99!important;}@keyframes slideup {from {bottom: -1200px;}to {bottom: 0px;}}.btn-primary{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn_mob{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn{padding:10px;cursor: pointer;color:#4d4d4d;}.download_btn{padding:5px;cursor: pointer;}hr{width:100%;border: 2px #8c8c8c;border-style:inset;margin: 25px 0px 25px 0px;}.flexi{display:flex;position:absolute;top:0;left:0;width:100%;height:100%;justify-content:center; align-items:center;}.boxi{display:flex;flex-direction:column;justify-content:center;position:relative;border-radius:5px;}@media screen and (min-width: 1200px){.tele_group_link{display:flex!important;}.indicator{display:flex!important;}::-webkit-scrollbar {width: 10px;}::-webkit-scrollbar-track {background: #4d4d4d; }::-webkit-scrollbar-thumb {background: #404040; border:4px #fff;border-style:outset; }::-webkit-scrollbar-thumb:hover {background: #555; }.boxi {width:800px}hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}.boxi {	background:none!important;}.download-result{position:relative!important;box-shadow:none!important;padding:0px!important;} .solid2{display:block!important;}}@media screen and (max-width: 767px) {.download-result{border-radius:25px 25px 0px 0px;}.boxi {display:block;background:#262626;width:100%!important;height:100%!important;border-radius:0!important;}.gchecker {border-radius:0!important;width:100%!important;padding:25px 25px 0px 25px!important;} .result {width:100%!important;border-radius:0!important;border:none!important;} .download-result .hidedown{position:absolute;right:0; display:flex;background:#666666;align-items:center;justify-content:center;width:30px;height:30px;border:2px #8c8c8c;border-style:outset;color:#ff0066;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px;}.download-result .showdown{position:absolute;right:0; display:flex;padding-bottom:10px; background:#666666;align-items:center;justify-content:center;width:30px;height:30px;padding-top:5px;border:2px #8c8c8c;border-style:outset;color:#00ffff;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px; }.check_btn_mob{display:block!important;}  } @media screen and (max-width: 1199px) and (min-width: 768px){.boxi {display:block;background:#262626;width:100%!important;height:100%!important;border-radius:0!important;}.gchecker {border-radius:0!important;width:100%!important;padding:25px 25px 0px 25px!important;}.tele_group_link{display:flex!important;}.indicator{display:flex!important;}.solid2{display:block!important;}.download-result{position:relative!important;box-shadow:none!important; padding:0px!important;} hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}::-webkit-scrollbar {width: 2px!important;}}@media screen and (max-width: 350px) {body {zoom:80%}}" ).appendTo(document.head);
+$('<style>').text( " *{margin:0;padding:0;box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }html,body{font-family:Verdana,sans-serif;font-size:14px;line-height:1.5;}html::-webkit-scrollbar,.element::-webkit-scrollbar{display: none;}a{text-decoration: none;background:0 0}mark{background:#ff0;color:#000}img{border-style: none;}@media print{*{text-shadow:none!important;color:#000!important;background:0 0!important;box-shadow:none!important}}body{display:flex;padding:0;margin:0;color:#d9d9d9;font-size:12px;background:#000}.spinner{zoom:60%;}.spinner div div{background:#00cc99!important;}@keyframes slideup {from {bottom: -1200px;}to {bottom: 0px;}}.btn-primary{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn_mob{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn{padding:10px;cursor: pointer;color:#4d4d4d;}.download_btn{padding:5px;cursor: pointer;}hr{width:100%;border: 2px #8c8c8c;border-style:inset;margin: 25px 0px 25px 0px;}.flexi{display:flex;position:absolute;top:0;left:0;width:100%;height:100%;justify-content:center; align-items:center;}@media screen and (min-width: 1200px){.tele_group_link{display:flex!important;}.indicator{display:flex!important;}::-webkit-scrollbar {width: 10px;}::-webkit-scrollbar-track {background: #4d4d4d; }::-webkit-scrollbar-thumb {background: #404040; border:4px #fff;border-style:outset; }::-webkit-scrollbar-thumb:hover {background: #555; }hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}.download-result{position:relative!important;box-shadow:none!important;padding:0px!important;} .solid2{display:block!important;}}@media screen and (max-width: 767px) {.download-result{border-radius:25px 25px 0px 0px;}.gchecker {border-radius:0!important;width:100%!important;} .result {width:100%!important;border-radius:0!important;border:none!important;} .download-result .hidedown{position:absolute;right:0; display:flex;background:#666666;align-items:center;justify-content:center;width:30px;height:30px;border:2px #8c8c8c;border-style:outset;color:#ff0066;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px;}.download-result .showdown{position:absolute;right:0; display:flex;padding-bottom:10px; background:#666666;align-items:center;justify-content:center;width:30px;height:30px;padding-top:5px;border:2px #8c8c8c;border-style:outset;color:#00ffff;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px; }.check_btn_mob{display:block!important;}  } @media screen and (max-width: 1199px) and (min-width: 768px){.gchecker {border-radius:0!important;width:100%!important;}.tele_group_link{display:flex!important;}.indicator{display:flex!important;}.solid2{display:block!important;}.download-result{position:relative!important;box-shadow:none!important; padding:0px!important;} hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}::-webkit-scrollbar {width: 2px!important;}}@media screen and (max-width: 350px) {body {zoom:80%}}" ).appendTo(document.head);
 
 document.querySelector(".flexi").addEventListener("contextmenu", (e) => {e.preventDefault()});
 
@@ -21722,17 +21717,17 @@ var abp = abp || {};
 function refreshPage(){window.location.reload();}
 
 function clear_all() {document.querySelector('#cleared_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
-			$("#rp-good").text("-");
-			$("#rp-ver").text("-");
-			$("#rp-disabled").text("-");
-			$("#rp-unregistered").text("-");
+			$("#rp-good").text("");
+			$("#rp-ver").text("");
+			$("#rp-disabled").text("");
+			$("#rp-notfound").text("");
 			}
 
 function clear_all_run() {document.querySelector('#shock_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
-			$("#rp-good").text("-");
-			$("#rp-ver").text("-");
-			$("#rp-disabled").text("-");
-			$("#rp-unregistered").text("-");
+			$("#rp-good").text("");
+			$("#rp-ver").text("");
+			$("#rp-disabled").text("");
+			$("#rp-notfound").text("");
 			}
 
 function darkmode(){document.querySelector(".mailinput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector(".mailoutput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector("body").style.cssText="background:#0d0d0d";document.querySelector(".boxi").style.cssText="opacity:0.7;background:#404040;";document.querySelector(".mailinput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailoutput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailinput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)";document.querySelector(".mailoutput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)"; document.querySelector(".mailinput .CodeMirror-scroll").style.color="#009933";document.querySelector(".mailoutput .CodeMirror-scroll").style.color="#cc9900";document.querySelector(".gchecker").style.background="#404040";document.querySelector(".result").style.background="#404040";document.querySelector(".download-result").style.background="#404040";}
@@ -21748,75 +21743,112 @@ function lightmode(){document.querySelector(".mailinput h3").style.cssText="bord
 function showdown(){document.querySelector(".tele_group_link").style.display="none";document.querySelector(".solid1").style.display="none";document.querySelector(".tele_group_link").style.display="none";document.querySelector(".appversion").style.display="none";document.querySelector(".indicator").style.display="none";document.querySelector(".download-result").style.position="fixed";document.querySelector(".download-result").style.padding="25px";document.querySelector(".download-result").style["boxShadow"] = "0 0 5px 5px rgba(0,0,0,0.5)";
 document.querySelector(".download-result").style.animation="slideup 0.75s"; document.querySelector(".hidedown").style.display="flex";document.querySelector(".solid2").style.display="none";document.querySelector(".showdown").style.display="none";}
 
-	$( ".result" ).append( $( "<div class='mailinput' style='width:50%;padding:0px 12.5px 0px 0px'>" ) );
-	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'>INPUT</h3>" ) );
+	$( ".gchecker" ).prepend( $( "<div class='mailinput'>" ) );
+	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>INPUT</p></h3>" ) );
+	$( ".mailinput" ).prepend( $( "<div class='btn-executor'></div>" ) );
+	$( ".btn-executor" ).prepend( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );
+	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
 	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );	
 	$( ".input_btn" ).append( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
 	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
-	$( ".mailinput" ).after( $( "<div class='mailoutput' style='width:50%;padding:0px 0px 0px 12.5px'>" ) );
-	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'>RESULT</h3>" ) );
+	$( ".result" ).append( $( "<div class='mailoutput'>" ) );
+	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>GOOD</p></h3>" ) );
 	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
-	$( ".result_btn" ).append( $( "<button onclick='copy_clip()' id='copy_clip'>📝 COPY ALL</button>" ) );
-	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;live&#39;)' id='down_live' style='display:block'>DOWNLOAD (LIVE)</button>" ) );
+	$( ".result_btn" ).append( $( "<button onclick='copy_good()' id='copy_clip'>📝 COPY</button>" ) );
 	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
+	$( ".mailoutput" ).after( $( "<div class='mailoutput1'>" ) );
+	$( ".mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>VER</p></h3>" ) );
+	$( ".mailoutput1 h3" ).after( $( "<textarea style='display:none' id='ver-output'></textarea>" ) );
+	$( ".mailoutput1 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
+	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' id='copy_clip1'>📝 COPY</button>" ) );
+	$( ".mailoutput1" ).after( $( "<div class='mailoutput2'>" ) );
+	$( ".mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>DISABLED</p></h3>" ) );
+	$( ".mailoutput2 h3" ).after( $( "<textarea style='display:none' id='disable-output'></textarea>" ) );
+	$( ".mailoutput2 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
+	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' id='copy_clip2'>📝 COPY</button>" ) );
+	$( ".mailoutput2" ).after( $( "<div class='mailoutput3'>" ) );
+	$( ".mailoutput3" ).prepend( $( "<h3 style='display:flex;align-items:center;height:50px'><p style='width:100%'>NOT FOUND</p></h3>" ) );
+	$( ".mailoutput3 h3" ).after( $( "<textarea style='display:none' id='notExist-output'></textarea>" ) );
+	$( ".mailoutput3 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
+	$( ".result_btn3" ).append( $( "<button onclick='copy_notExist()' id='copy_clip3'>📝 COPY</button>" ) );
+	
 
 
-let outputEditor = null;
+let goodEditor = null;
+let verEditor = null;
+let notExistEditor = null;
+let disableEditor = null;
 let transactionId = null;
 let allResult = {
-	ver: [],
-	good: [],
-	notExist: [],
-	disable: [],
-	unknown: []
+    ver: [],
+    good: [],
+    notExist: [],
+    disable: [],
 };
 var mails2 = [];
-var allres = [];
-var stksjgs = []
-var stksjgs1 = []
-
-var model = 2
-var nums = 200
-var key = generateRandomHex()
-function generateRandomHex() {
-
-    const randomBytes = crypto.getRandomValues(new Uint8Array(16));
-
-
-    let hexString = '';
-    randomBytes.forEach(byte => {
-        hexString += byte.toString(16).padStart(2, '0');
-    });
-
-    return hexString;
-}
-function getCookie(name) {
-	var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-
-	if (arr = document.cookie.match(reg))
-
-		return unescape(arr[2]);
-	else
-		return null;
-}
+function getCookie(name)
+	{
+	    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+	 
+	    if(arr=document.cookie.match(reg))
+	 
+	        return unescape(arr[2]);
+	    else
+	        return null;
+	}
 (function() {
-	let inputEditor = CodeMirror.fromTextArea(document.getElementById("mail-input"), {
-		lineNumbers: true
-	});
-	outputEditor = CodeMirror.fromTextArea(document.getElementById("mail-output"), {
-		lineNumbers: true
-	});
+    let inputEditor = CodeMirror.fromTextArea(document.getElementById("mail-input"),
+        {
+            lineNumbers: true
+        });
+    goodEditor = CodeMirror.fromTextArea(document.getElementById("mail-output"),
+        {
+            lineNumbers: true
+        });
+	verEditor = CodeMirror.fromTextArea(document.getElementById("ver-output"),
+        {
+            lineNumbers: true
+        });
+	disableEditor = CodeMirror.fromTextArea(document.getElementById("disable-output"),
+        {
+            lineNumbers: true
+        });			
+	notExistEditor = CodeMirror.fromTextArea(document.getElementById("notExist-output"),
+        {
+            lineNumbers: true
+        });	
+
 	
     $(document).on("click",
         "#clear-editor",
         function() {
             inputEditor.setValue("");
-			outputEditor.setValue("");
-			});
+			goodEditor.setValue("");
+			verEditor.setValue("");
+			notExistEditor.setValue("");
+			disableEditor.setValue("");
+			allResult = {
+				ver: [],
+				good: [],
+				notExist: [],
+				disable: [],
+			};
+			mails2 = [];
+        });
 	$(document).on("click",
         "#check-btn",
         function() {
-			outputEditor.setValue("");
+			goodEditor.setValue("");
+			verEditor.setValue("");
+			notExistEditor.setValue("");
+			disableEditor.setValue("");
+			allResult = {
+				ver: [],
+				good: [],
+				notExist: [],
+				disable: [],
+			};
+			mails2 = [];			
         });
 	$(document).on("click",
         "#paste_clip",
@@ -21827,161 +21859,183 @@ function getCookie(name) {
         });
 	$(document).on("click",
         "#copy_clip",
-        async function copy_clip() {
+        async function copy_good() {
 			document.querySelector('#toon_audio').play();
-			const texttocopy = outputEditor.getValue()
-			navigator.clipboard.writeText(texttocopy);
-        });	
+			const goodtocopy = goodEditor.getValue()
+			navigator.clipboard.writeText(goodtocopy);
+        });
 	$(document).on("click",
-		"#check-btn",
-		function() {
-
-
-			let mails11 = inputEditor.getValue().split("\n");
-
-			let data = {
-				mail: mails11
-			}
-			let self = this
-			axios.post('https://gmailver.com/php/key.php', data)
-				.then(res => {
-key = res.data;
-				})
-
-			outputEditor.setValue("");
-			allResult = {
-				ver: [],
-				good: [],
-				notExist: [],
-				disable: [],
-				unknown: []
-			};
-			mails2 = [];
-			allres = [];
-			stksjgs = []
-			stksjgs1 = []
-
-			var mails = inputEditor.getValue().split("\n");
-			var mails1 = inputEditor.getValue().split("\n");
-			console.log(mails1)
+        "#copy_clip1",
+        async function copy_ver() {
+			document.querySelector('#toon_audio').play();
+			const vertocopy = verEditor.getValue()
+			navigator.clipboard.writeText(vertocopy);
+        });
+	$(document).on("click",
+        "#copy_clip2",
+        async function copy_disable() {
+			document.querySelector('#toon_audio').play();
+			const disabletocopy = disableEditor.getValue()
+			navigator.clipboard.writeText(disabletocopy);
+        });
+	$(document).on("click",
+        "#copy_clip3",
+        async function copy_notExist() {
+			document.querySelector('#toon_audio').play();
+			const notExisttocopy = notExistEditor.getValue()
+			navigator.clipboard.writeText(notExisttocopy);
+        });
+    $(document).on("click",
+        "#check-btn",
+        function() {
+            var mails = inputEditor.getValue().split("\n");
+ 			var mails1 = inputEditor.getValue().split("\n");
 			mails2 = inputEditor.getValue().split("\n");
 			if (mails.filter(x => x).length === 0) {
-				abp.notify.error(" ❌ Please Input Gmail Address !");
+				abp.notify.error("❌ Please Input Gmail Address !");
 				return;
 			}
-			if (mails.filter(x => x).length > 200){
-				abp.notify.error(" ❌ Max 200");
-				return;
-			}
+			if (mails.filter(x => x).length > 100000) return alert("❌ Max 100000 ");
 			transactionId = null;
 			$("#mail-progress-bar")[0].style.width = "0%";
 			$("#mail-progress-bar")[0].textContent = "0%";
 			mails.length = 0;
 			let ok = 0;
-			for (let i = 0; i < mails1.length; i++) {
+			for(let i = 0; i < mails1.length; i++){
 				let indek = mails1[i].indexOf('@gmail.com')
-				if (mails1[i].indexOf('@gmail.com') != '-1') {
+				if(mails1[i].indexOf('@gmail.com') != '-1'){
 					ok++;
 				}
 			}
-			console.log(mails1)
-			if (ok == 0) {
-				abp.notify.error(" ⚠️ input format : username@gmail.com");
+			console.log(mails)
+			if(ok == 0){
+				abp.notify.error("⚠️ input format : example@gmail.com");
 				return;
 			}
 
 			$.ajaxSettings.async = true;
 
-			let smallParts = chunk(mails1, nums);
-			checkMails(smallParts, mails1.length);
-		});
+            let smallParts = chunk(mails1, 25);
+            checkMails(smallParts, mails1.length);
+        });
 })();
 
+
+
 function chunk(arr, number) {
-	let result = [];
-	let times = arr.length / number;
-	for (let i = 0; i < times; i++) {
-		result.push(arr.slice(i * number, (i + 1) * number));
-	}
-	return result;
+    let result = [];
+    let times = arr.length / number;
+    for (let i = 0; i < times; i++) {
+        result.push(arr.slice(i * number, (i + 1) * number));
+    }
+    return result;
 }
 
 async function sleep(ms) {
-	return new Promise(r => setTimeout(() => r(), ms));
+    return new Promise(r => setTimeout(() => r(), ms));
 }
 
 async function checkMails(smallParts, totalNeedCheck) {
+    abp.ui.setBusy($(".header"));
+    let totalChecked = 0;
+    for (let i = 0; i < smallParts.length; i++) {
+        let mails = smallParts[i];
+        let result;
+        while (true) {
+            result = await requestCheckMails(mails);
+            if (result === false) {
+                abp.notify.info(" 📡 reconnecting... please wait");
+                await sleep(1);
+                continue;
+            } else {
+                break;
+            }
+        }
+        console.log(result);
+        if (!result || result.length == 0) {
+            abp.ui.clearBusy();
+            return;
+        }
+        report(result);
+        totalChecked += result.length;
 
-	abp.ui.setBusy($(".header"));
-	let totalChecked = 0;
-	for (let i = 0; i < smallParts.length; i++) {
-		let mails = smallParts[i];
-		let result;
-		while (true) {
-			result = await requestCheckMails(mails);
-			if (result === false) {
-				abp.notify.info(" 📢 Unstable Network");
-				await sleep(5000);
-				continue;
-			} else {
-				break;
-			}
-		}
-		if (!result || result.length == 0) {
-			abp.ui.clearBusy();
-			return;
-		}
-		report(result);
-		totalChecked += result.length;
+        result.forEach(email => {
+            if (email.status === "live") {
+                allResult.good.push(email.email);
+            } else if (email.status === "Verify") {
+                allResult.ver.push(email.email);
+			} else if (email.status === "Disabled") {
+                allResult.disable.push(email.email);			
+            } else if (email.status === "Unregistered") {
+                allResult.notExist.push(email.email);
+			}					
+        });
 
-		result.forEach(email => {
-			let lp = email.status == 'Error' ? 'Unregistered' : email.status
-			allres.push(email.email +"  ("+ lp+")")
-			stksjgs.push({
-				email: mails2[email.index - 1],
-				status: email.status
-			})
-		});
 
-		let percent = Math.floor((totalChecked / (totalNeedCheck - 1)) * 100);
-		$("#mail-progress-bar")[0].style.width = `${percent}%`;
-		$("#mail-progress-bar")[0].textContent = `${percent}%`;
+        let percent = Math.floor((totalChecked / totalNeedCheck) * 100);
+        $("#mail-progress-bar")[0].style.width = `${percent}%`;
+        $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
-		abp.notify.success("🔎 Total Checked: " + totalChecked + " Addresses");
-		outputEditor.setValue(""); 
-		outputEditor.setValue(allres.join("\n"));
-		outputEditor.focus();
-		outputEditor.setCursor(outputEditor.lineCount(), 0);
-	}
-	abp.ui.clearBusy();
+        abp.notify.success("✅ " + totalChecked + " Checked ");
+
+
+        let goodValue = [
+            ...allResult.good,
+        ];
+
+        goodEditor.setValue(goodValue.join("\n"));
+        goodEditor.focus();
+        goodEditor.setCursor(goodEditor.lineCount(), 0);
+		
+        let verValue = [
+            ...allResult.ver,
+        ];
+
+        verEditor.setValue(verValue.join("\n"));
+        verEditor.focus();
+        verEditor.setCursor(verEditor.lineCount(), 0);
+
+		let notExistValue = [
+            ...allResult.notExist,
+        ];
+
+        notExistEditor.setValue(notExistValue.join("\n"));
+        notExistEditor.focus();
+        notExistEditor.setCursor(notExistEditor.lineCount(), 0);
+		
+		let disableValue = [
+            ...allResult.disable,
+        ];
+
+        disableEditor.setValue(disableValue.join("\n"));
+        disableEditor.focus();
+        disableEditor.setCursor(disableEditor.lineCount(), 0);
+    }
+    abp.ui.clearBusy();
 }
-
 function report(mails) {
-	if (!mails || mails.length == 0) return;
-	let good = mails.filter(email => email.status === "live").length;
-	let ver = mails.filter(email => email.status === "Verify").length;
-	let dis = mails.filter(email => email.status === "Disabled").length;
-	let notExist = mails.filter(email => email.status === "Error").length;
-	increaseReport("#rp-good", good);
-	increaseReport("#rp-ver", ver);
-	increaseReport("#rp-disabled", dis);
-	increaseReport("#rp-unregistered", notExist);
+    if (!mails || mails.length == 0) return;
+    let good = mails.filter(email => email.status === "live").length;
+    let ver = mails.filter(email => email.status === "Verify").length;
+    let dis = mails.filter(email => email.status === "Disabled").length;
+    let notExist = mails.filter(email => email.status === "Unregistered").length;
+    increaseReport("#rp-good", good);
+    increaseReport("#rp-ver", ver);
+    increaseReport("#rp-disabled", dis);
+    increaseReport("#rp-notfound", notExist);
 }
 
 function increaseReport(id, number) {
-	try {
-
-		if (isNaN(number)) return;
-
-		let ele = $(id); 
-		if (!ele || ele.length == 0) return;
-
-		let currentValue = Number(ele.text()) || 0;
-
-		ele.text(currentValue + number); 
-	} catch (error) {
-		console.log("Error in increaseReport: ", error);
-	}
+    try {
+        if (number <= 0 || isNaN(number)) return;
+        let ele = $(id);
+        if (!ele || ele.length == 0) return;
+        let currentValue = Number(ele.text());
+        if (isNaN(currentValue)) ele.text(number);
+        ele.text(currentValue + number);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 async function requestCheckMails(mails) {
@@ -21990,8 +22044,8 @@ async function requestCheckMails(mails) {
         const maxAttempts = 5; 
         
         let data = {
-            mail: mails.filter(item => item),
-            key:'1'
+            mail: mails,
+            key:'2'
         };
         
         const self = this;
@@ -22012,9 +22066,10 @@ async function requestCheckMails(mails) {
                 return r(result);
             } catch (error) {
 
-                console.error('Request failed, retrying...', error);
+                console.warn('Request failed, retrying...', error);
                 
                 if (attempt >= maxAttempts) {
+
                     return r(false);
                 }
             }
@@ -22024,46 +22079,60 @@ async function requestCheckMails(mails) {
 
 
 function downloadFile(type) {
-	if (!type) return;
-	let lp = type == 'Error' ? 'Not Exit' : type;
-	let inputEditor = document.getElementById("mail-input")
-	var mails2 = inputEditor.value.split("\n");
-	let mailsq = mails2
-	let mails = []
-	let op = ''
-	mails = stksjgs
-		.filter(item => item.status === type)
-		.map(item => item.email);
+    if (!type) return;
+    let mails = [];
+    let mailsq = [];
 
-	if (!mails || mails.length === 0) return;
+    for (let i = 0; i < allResult[type].length; i++) {
+        mailsq[i] = allResult[type][i].slice(type.length + 1);
+        let one = mails2.filter(function (t) {
+            return t.search(mailsq[i]) > -1;
+        });
+        mails.push(one);
+    }
 
-	let currentTime = new Date();
-	let fileName = `${lp}_${currentTime.toLocaleDateString()}_${currentTime.toLocaleTimeString()}.txt`;
+    if (!mails || mails.length === 0) return;
 
-	let csvContent = "data:text;charset=utf-8," + mails.join("\n");
-	var encodedUri = encodeURI(csvContent);
-	var link = document.createElement("a");
-	link.setAttribute("href", encodedUri);
-	link.setAttribute("download", fileName);
-	document.body.appendChild(link);
-	link.click();
+    let currentTime = new Date();
+    let fileName = `${type}_${currentTime.toLocaleDateString()}_${currentTime.toLocaleTimeString()}.txt`;
+
+
+    let decodedMails = mails.map(function (mailArray) {
+        return mailArray.map(function (mail) {
+            try {
+                return decodeURIComponent(mail);
+            } catch (e) {
+                console.error(`Error decoding: ${mail}`);
+                return mail;
+            }
+        });
+    });
+
+    let csvContent = "data:text;charset=utf-8," + decodedMails.join("\n");
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
 }
 
 function getCookie(cookieName) {
-	var name = cookieName + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var cookieArray = decodedCookie.split(';');
-	for (var i = 0; i < cookieArray.length; i++) {
-		var cookie = cookieArray[i];
-		while (cookie.charAt(0) == ' ') {
-			cookie = cookie.substring(1);
-		}
-		if (cookie.indexOf(name) == 0) {
-			return cookie.substring(name.length, cookie.length);
-		}
-	}
-	return "";
-}
+			    var name = cookieName + "=";
+			    var decodedCookie = decodeURIComponent(document.cookie);
+			    var cookieArray = decodedCookie.split(';');
+			    for (var i = 0; i < cookieArray.length; i++) {
+			        var cookie = cookieArray[i];
+			        while (cookie.charAt(0) == ' ') {
+			            cookie = cookie.substring(1);
+			        }
+			        if (cookie.indexOf(name) == 0) {
+			            return cookie.substring(name.length, cookie.length);
+			        }
+			    }
+			    return "";
+			}
 
 function hidedown(){document.querySelector(".tele_group_link").style.display="flex";document.querySelector(".solid1").style.display="flex";document.querySelector(".tele_group_link").style.display="flex";document.querySelector(".appversion").style.display="block";document.querySelector(".indicator").style.display="flex";document.querySelector(".download-result").style.position="relative";document.querySelector(".download-result").style.padding="0px";document.querySelector(".download-result").style["boxShadow"] = "none";document.querySelector(".download-result").style.animation="none";document.querySelector(".solid2").style.display="block";document.querySelector(".hidedown").style.display="none";document.querySelector(".showdown").style.display="flex";}
+
 

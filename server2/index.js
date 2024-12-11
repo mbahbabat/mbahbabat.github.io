@@ -21756,8 +21756,8 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
 	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
 	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );	
-	$( ".input_btn" ).append( $( "<a href='https://mbahbabat.github.io'><button id='server1' class='btn-primary'>SERVER 1</button></a>" ) );
-	$( "#server1" ).after( $( "<a href='server2/index.html'><button id='server2' class='btn-primary'>SERVER 2</button></a>" ) );	
+	$( ".input_btn" ).append( $( "<a href='index.html'><button id='server1' class='btn-primary'>SERVER 1</button></a>" ) );
+	$( "#server1" ).after( $( "<a href='server2/'><button id='server2' class='btn-primary'>SERVER 2</button></a>" ) );	
 	$( ".mailinput h3" ).after( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
 	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
 	$( ".result" ).append( $( "<div class='mailoutput'>" ) );
@@ -21976,7 +21976,7 @@ async function checkMails(smallParts, totalNeedCheck) {
                 allResult.ver.push(email.email);
 			} else if (email.status === "Disabled") {
                 allResult.disable.push(email.email);			
-            } else if (email.status === "Unregistered") {
+            } else if (email.status === "Error") {
                 allResult.notExist.push(email.email);
 			}					
         });
@@ -22041,7 +22041,7 @@ function report(mails) {
     let good = mails.filter(email => email.status === "live").length;
     let ver = mails.filter(email => email.status === "Verify").length;
     let dis = mails.filter(email => email.status === "Disabled").length;
-    let notExist = mails.filter(email => email.status === "Unregistered").length;
+    let notExist = mails.filter(email => email.status === "Error").length;
     increaseReport("#rp-good", good);
     increaseReport("#rp-ver", ver);
     increaseReport("#rp-disabled", dis);
@@ -22081,7 +22081,7 @@ async function requestCheckMails(mails) {
             try {
                 attempt++;
                 
-                const res = await axios.post('https://gmailver.com/php/check.php', data);
+                const res = await axios.post('https://gmailver.com/php/check2.php', data);
                 const responseData = res.data;
                 if (!responseData.status) {
                     abp.notify.warn("Server is Busy");

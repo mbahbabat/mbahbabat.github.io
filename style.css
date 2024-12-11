@@ -69,31 +69,30 @@
 	
 }
 
-
 @media only screen and (min-height: 500px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:100px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:125px}
 
 	
 }
 
 @media only screen and (min-height: 600px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:200px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:225px}
 
 	
 }
 
 @media only screen and (min-height: 700px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:300px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:325px}
 
 	
 }
 
 @media only screen and (min-height: 800px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:400px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:425px}
 
 	
 }
@@ -101,32 +100,98 @@
 
 @media only screen and (min-height: 900px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:500px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:525px}
 
 	
 }
 
 @media only screen and (min-height: 1000px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:600px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:625px}
 	
 }
 
 @media only screen and (min-height: 1100px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:700px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:725px}
 	
 }
 
 @media only screen and (min-height: 1200px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:800px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:825px}
 	
 }
 
 @media only screen and (min-height: 1300px) and (min-width: 1200px){
 
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:875px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:925px}
+	
+}
+
+@media only screen and (min-height: 1400px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1025px}
+	
+}
+
+@media only screen and (min-height: 1500px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1125px}
+	
+}
+
+@media only screen and (min-height: 1600px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1225px}
+	
+}
+
+@media only screen and (min-height: 1700px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1325px}
+	
+}
+
+@media only screen and (min-height: 1800px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1425px}
+	
+}
+
+@media only screen and (min-height: 1900px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1525px}
+	
+}
+
+@media only screen and (min-height: 2000px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1625px}
+	
+}
+
+@media only screen and (min-height: 2100px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1725px}
+	
+}
+
+@media only screen and (min-height: 2200px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1825px}
+	
+}
+
+@media only screen and (min-height: 2300px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:1925px}
+	
+}
+
+@media only screen and (min-height: 2400px) and (min-width: 1200px){
+
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:2025px}
 	
 }
 

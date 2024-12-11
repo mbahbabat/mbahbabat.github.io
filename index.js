@@ -21816,6 +21816,7 @@ function getCookie(name)
         {
             lineNumbers: true
         });
+inputEditor.focus();		
 inputEditor.setValue("example@gmail.com");
 
 	

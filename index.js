@@ -21717,10 +21717,10 @@ var abp = abp || {};
 function refreshPage(){window.location.reload();}
 
 function clear_all() {document.querySelector('#cleared_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
-			$("#rp-good").text("");
-			$("#rp-ver").text("");
-			$("#rp-disabled").text("");
-			$("#rp-notfound").text("");
+			$("#rp-good").text(" - ");
+			$("#rp-ver").text(" - ");
+			$("#rp-disabled").text(" - ");
+			$("#rp-notfound").text(" - ");
 			$("#good_res").text("");
 			$("#ver_res").text("");
 			$("#dis_res").text("");
@@ -21728,14 +21728,14 @@ function clear_all() {document.querySelector('#cleared_audio').play();document.q
 			}
 
 function clear_all_run() {document.querySelector('#shock_audio').play();document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
-			$("#rp-good").text("");
-			$("#rp-ver").text("");
-			$("#rp-disabled").text("");
-			$("#rp-notfound").text("");
-			$("#good_res").text("");
-			$("#ver_res").text("");
-			$("#dis_res").text("");
-			$("#notfound_res").text("");			
+			$("#rp-good").text(" 0 ");
+			$("#rp-ver").text(" 0 ");
+			$("#rp-disabled").text(" 0 ");
+			$("#rp-notfound").text(" 0 ");
+			$("#good_res").text(" 0 ");
+			$("#ver_res").text(" 0 ");
+			$("#dis_res").text(" 0 ");
+			$("#notfound_res").text(" 0 ");			
 			}
 
 function darkmode(){document.querySelector(".mailinput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector(".mailoutput h3").style.cssText="border-radius:15px 5px 0px 15px;";document.querySelector("body").style.cssText="background:#0d0d0d";document.querySelector(".boxi").style.cssText="opacity:0.7;background:#404040;";document.querySelector(".mailinput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailoutput .CodeMirror-scroll").style.background="#262626";document.querySelector(".mailinput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)";document.querySelector(".mailoutput .CodeMirror-gutters").style.background="linear-gradient(to left, #333333 0%, #404040 100%)"; document.querySelector(".mailinput .CodeMirror-scroll").style.color="#009933";document.querySelector(".mailoutput .CodeMirror-scroll").style.color="#cc9900";document.querySelector(".gchecker").style.background="#404040";document.querySelector(".result").style.background="#404040";document.querySelector(".download-result").style.background="#404040";}
@@ -21827,6 +21827,10 @@ function getCookie(name)
         });
 inputEditor.focus();		
 inputEditor.setValue("example@gmail.com");
+$("#rp-good").text(" - ")
+$("#rp-ver").text(" - ")
+$("#rp-notfound").text(" - ")
+$("#rp-disabled").text(" - ")
 
 	
     $(document).on("click",

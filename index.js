@@ -21914,7 +21914,7 @@ function getCookie(name)
 
 			$.ajaxSettings.async = true;
 
-            let smallParts = chunk(mails1, 25);
+            let smallParts = chunk(mails1, 50);
             checkMails(smallParts, mails1.length);
         });
 })();

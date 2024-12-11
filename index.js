@@ -21954,7 +21954,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         while (true) {
             result = await requestCheckMails(mails);
             if (result === false) {
-                abp.notify.info(" 📡 reconnecting... please wait");
+                abp.notify.info(" 📡 please check your network or try to change server");
                 await sleep(1);
                 continue;
             } else {

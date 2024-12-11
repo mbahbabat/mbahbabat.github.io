@@ -1890,8 +1890,7 @@
 	$( ".header" ).append( $( "<p class='server_info'>SERVER : 1</>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='Lightning.gif'></image>" ) );
 	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:18;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;color:#fff;overflow:hidden'><image src='star.gif' style='width:100%;'></image></div>" ) );
-	$( ".header" ).append( $( "<div id='starting1' style='position:absolute;top:0;left:0;z-index:22;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#000;color:#fff'></div>" ) );
-	$( ".header" ).append( $( "<div id='starting2' style='position:absolute;top:0;left:0;z-index:19;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#0066ff;color:#fff'>WELCOME</div>" ) );
+	$( ".header" ).append( $( "<div id='starting1' style='position:absolute;top:0;left:0;z-index:19;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#0066ff;color:#fff'></div>" ) );
 	$( ".header" ).append( $( "<div class='header_top' id='header_top' style='position:relative;width:100%;height:50%;display:flex;justify-content:center;align-items:center;'>" ) );
 	$( ".header_top" ).after( $( "<div class='header_bottom' style='width:100%;height:50%;padding-bottom:20px;display:flex;justify-content:center;'>" ) );
 	$( ".header_top" ).before( $( "<marquee id='maranoun' style='display:none;position:absolute;top:0;left:0;width:100%;height:10px;background:#000;color:yellow;font-size:8px;line-height:8px'> 📢 DOWNLOAD(LIVE) button has been fixed </marquee>" ) );	
@@ -1909,25 +1908,15 @@ setInterval(function() {mbahmatur1a.style.display="none";}, 10000);
 const mbahmatur1b = document.getElementById("mbahmatur");
 setInterval(function() {mbahmatur1b.style.display="flex";}, 30000);
 
-const myTimeout1 = setTimeout(starting1, 4000);
+const myTimeout1 = setTimeout(starting1, 5000);
 
 function starting1() {
   document.getElementById("starting1").style.display="none";
 }
 
-const myTimeout2 = setTimeout(starting2, 2000);
 
-function starting2() {
-  document.getElementById("starting2").style.display="flex";
-}
 
-const myTimeout3 = setTimeout(starting3, 6000);
-
-function starting3() {
-  document.getElementById("starting2").style.display="none";
-}
-
-function typewriter(element, text, delay = 300) {
+function typewriter(element, text, delay = 400) {
   for (let i = 0; i < text.length; i++) {
     setTimeout(() => {
       element.innerHTML += text[i];
@@ -1936,7 +1925,7 @@ function typewriter(element, text, delay = 300) {
 }
 
 const el = document.getElementById("starting1");
-typewriter(el, "turn on...");
+typewriter(el, "WELCOME");
 
 
 

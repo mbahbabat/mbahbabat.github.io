@@ -1887,6 +1887,7 @@
 	$( ".gchecker" ).append( $( "<div class='header'>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
+	$( ".header" ).append( $( "<p class='server_info'>SERVER : 1</>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='Lightning.gif'></image>" ) );
 	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:18;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;color:#fff;overflow:hidden'><image src='star.gif' style='width:100%;'></image></div>" ) );
 	$( ".header" ).append( $( "<div id='starting1' style='position:absolute;top:0;left:0;z-index:22;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#000;color:#fff'></div>" ) );
@@ -1896,7 +1897,7 @@
 	$( ".header_top" ).before( $( "<marquee id='maranoun' style='display:none;position:absolute;top:0;left:0;width:100%;height:10px;background:#000;color:yellow;font-size:8px;line-height:8px'> 📢 DOWNLOAD(LIVE) button has been fixed </marquee>" ) );	
 	$( ".header_top" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );
 	$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
-	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc00'>GOOD</p><div>:</div><span class='rp-down' id='rp-good' style='color:#00cc66'></span></div><div class='downres_item'><p style='color:#ffcc00'>VER</p><div>: </div><span class='rp-down' id='rp-ver' style='color:#ffff00' ></span></div><div class='downres_item'><p style='color:#ff8080'>DISABLED</p><div>: </div><span class='rp-down' id='rp-disabled' style='color:#ff0000'></span></div><div class='downres_item'><p style='color:#4db8ff'>NOT FOUND</p><div>: </div><span class='rp-down' id='rp-notfound' style='color:#0066ff' ></span></div></div>" ) );
+	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc66'>GOOD</p><div>:</div><span class='rp-down' id='rp-good' style='color:#00cc66'></span></div><div class='downres_item'><p style='color:#ffcc00'>VER</p><div>: </div><span class='rp-down' id='rp-ver' style='color:#ffff00' ></span></div><div class='downres_item'><p style='color:#ff8080'>DISABLED</p><div>: </div><span class='rp-down' id='rp-disabled' style='color:#ff0000'></span></div><div class='downres_item'><p style='color:#4db8ff'>NOT FOUND</p><div>: </div><span class='rp-down' id='rp-notfound' style='color:#0066ff' ></span></div></div>" ) );
 	$( ".indicat" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );
 	$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );
 
@@ -21753,10 +21754,12 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".gchecker" ).prepend( $( "<div class='mailinput'>" ) );
 	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>GMAIL INPUT</p></h3>" ) );
 	$( ".mailinput" ).prepend( $( "<div class='btn-executor'></div>" ) );
-	$( ".btn-executor" ).prepend( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );
+	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
 	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
 	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );	
-	$( ".input_btn" ).append( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
+	$( ".input_btn" ).append( $( "<a href='https://mbahbabat.github.io' ><button id='server1' class='btn-primary' style='color:#ffcc66'>SERVER 1</button></a>" ) );
+	$( "#server1" ).after( $( "<a href='https://gmailchecker.github.io'><button id='server2' class='btn-primary' style='color:#ffcc66'>SERVER 2</button></a>" ) );	
+	$( ".mailinput h3" ).after( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
 	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
 	$( ".result" ).append( $( "<div class='mailoutput'>" ) );
 	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>GOOD  <span id='good_res'></span></p></h3>" ) );
@@ -21829,8 +21832,7 @@ inputEditor.setValue("example@gmail.com");
     $(document).on("click",
         "#clear-editor",
         function() {
-			inputEditor.focus();
-            inputEditor.setValue("enter gmail here...");
+            inputEditor.setValue("");
 			goodEditor.setValue("");
 			verEditor.setValue("");
 			notExistEditor.setValue("");

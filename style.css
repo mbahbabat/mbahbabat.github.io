@@ -19,9 +19,9 @@
 .mailoutput2 .CodeMirror-linenumber{color:#ff4d4d}
 .mailoutput3 .CodeMirror-linenumber{color:#3399ff}
 
-.mailoutput h3{color:#00ffff}
-.mailoutput1 h3{color:#00cc66}
-.mailoutput2 h3{color:#ffcc00}
+.mailoutput h3{color:#00cc66}
+.mailoutput1 h3{color:#ffcc00}
+.mailoutput2 h3{color:#ff4d4d}
 .mailoutput3 h3{color:#3399ff}
 
 @media only screen and (min-width: 1200px){

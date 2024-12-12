@@ -22075,7 +22075,7 @@ async function requestCheckMails(mails) {
             try {
                 attempt++;
                 
-                const res = await axios.post('https://gmailver.com/php/check1.php', data);
+                const res = await axios.post('https://gmailver.com/php/check2.php', data);
                 const responseData = res.data;
                 if (!responseData.status) {
                     abp.notify.warn("Server is Busy");

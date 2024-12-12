@@ -28,8 +28,8 @@
 .mailoutput3 ::-webkit-scrollbar-thumb {background: #3399ff; border:3px #000;border-style:outset; }
 .mailoutput3 ::-webkit-scrollbar-thumb:hover {background: #555; }
 
-.mailinput{width:30%;position:relative}
-.mailinput .CodeMirror-scroll{background: #1a1a1a;}
+.mailinput{width:30%;position:relative;z-index:1}
+.mailinput .CodeMirror-scroll{background: #1a1a1a;z-index:1}
 .mailoutput .CodeMirror-scroll{color:#00cc66;background: #1a1a1a;}
 .mailoutput1 .CodeMirror-scroll{color:#ffcc00;background: #1a1a1a;}
 .mailoutput2 .CodeMirror-scroll{color:#ff4d4d;background: #1a1a1a;}

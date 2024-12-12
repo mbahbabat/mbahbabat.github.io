@@ -21860,6 +21860,8 @@ $("#rp-disabled").text(" - ")
 			document.querySelector('#toon_audio').play();
 			const text = await navigator.clipboard.readText();
 			inputEditor.setValue(text);
+			inputEditor.focus();
+			inputEditor.setCursor(inputEditor.lineCount(), 0);
         });
 	$(document).on("click",
         "#copy_clip",

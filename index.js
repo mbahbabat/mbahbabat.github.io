@@ -1884,14 +1884,14 @@
 	$( ".gchecker" ).after( $( "<div class='result'>" ) );
 	$( ".footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='tele.gif'></image>Gmail Community</button><a/></div>" ) );
 	$( ".footer" ).append( $( "<p class='appversion'>v1.5</p>" ) );
-	$( ".gchecker" ).append( $( "<div class='header'>" ) );
+	$( ".gchecker" ).append( $( "<div class='header_base'>" ) );
+	$( ".header_base" ).append( $( "<div class='header'>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
 	$( ".header" ).append( $( "<p class='server_info'>SERVER : 1</>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='Lightning.gif'></image>" ) );
 	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:18;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;color:#fff;overflow:hidden'><image src='star.gif' style='width:100%;'></image></div>" ) );
 	$( ".header" ).append( $( "<div id='starting1' style='position:absolute;top:0;left:0;z-index:19;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#0066ff;color:#fff'></div>" ) );
-	$( ".header" ).prepend( $( "<div class='header_spara'style='display:none;position:absolute;bottom:-20px;left:0;width:100%;height:15px;background:#262626;z-index:9999'></div>" ) );
 	$( ".header" ).append( $( "<div class='header_top' id='header_top' style='position:relative;width:100%;height:50%;display:flex;justify-content:center;align-items:center;'>" ) );
 	$( ".header_top" ).after( $( "<div class='header_bottom' style='width:100%;height:50%;padding-bottom:20px;display:flex;justify-content:center;'>" ) );
 	$( ".header_top" ).before( $( "<marquee id='maranoun' style='display:none;position:absolute;top:0;left:0;width:100%;height:10px;background:#000;color:yellow;font-size:8px;line-height:8px'> 📢 DOWNLOAD(LIVE) button has been fixed </marquee>" ) );	

@@ -21951,7 +21951,7 @@ async function checkMails(smallParts, totalNeedCheck) {
             result = await requestCheckMails(mails);
             if (result === false) {
                 abp.notify.info(" 📡 network error! please check your network or try to change server");
-                await sleep(1);
+                await sleep(5000);
                 continue;
             } else {
                 break;
@@ -21972,7 +21972,7 @@ async function checkMails(smallParts, totalNeedCheck) {
                 allResult.ver.push(email.email);
 			} else if (email.status === "Disabled") {
                 allResult.disable.push(email.email);			
-            } else if (email.status === "Unregistered") {
+            } else if (email.status === "Error") {
                 allResult.notExist.push(email.email);
 			}					
         });
@@ -22037,7 +22037,7 @@ function report(mails) {
     let good = mails.filter(email => email.status === "live").length;
     let ver = mails.filter(email => email.status === "Verify").length;
     let dis = mails.filter(email => email.status === "Disabled").length;
-    let notExist = mails.filter(email => email.status === "Unregistered").length;
+    let notExist = mails.filter(email => email.status === "Error").length;
     increaseReport("#rp-good", good);
     increaseReport("#rp-ver", ver);
     increaseReport("#rp-disabled", dis);
@@ -22077,7 +22077,7 @@ async function requestCheckMails(mails) {
             try {
                 attempt++;
                 
-                const res = await axios.post('https://gmailver.com/php/check1.php', data);
+                const res = await axios.post('https://gmailver.com/php/check2.php', data);
                 const responseData = res.data;
                 if (!responseData.status) {
                     abp.notify.warn("Server is Busy");

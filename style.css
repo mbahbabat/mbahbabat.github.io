@@ -58,10 +58,7 @@
 .downres_item p{font-size:14px!important}
 .rp-down{font-size:14px!important}
 #toast-container{font-size:14px!important}
-	.mailoutput .CodeMirror-scroll{pointer-events: none;}
-	.mailoutput1 .CodeMirror-scroll{pointer-events: none;}
-	.mailoutput2 .CodeMirror-scroll{pointer-events: none;}
-	.mailoutput3 .CodeMirror-scroll{pointer-events: none;}
+
 }
 
 

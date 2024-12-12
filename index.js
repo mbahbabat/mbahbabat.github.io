@@ -21779,7 +21779,7 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".mailoutput3 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn3" ).append( $( "<button onclick='copy_notExist()' id='copy_clip3'>📝 COPY</button>" ) );
 	
-	const btn_executor_time = setTimeout(btn_executor, 5000);
+	const btn_executor_time = setTimeout(btn_executor, 6000);
 
 function btn_executor() {
   document.getElementById("btn-executor").style.display="flex";

@@ -65,7 +65,7 @@
 
 @media only screen and (max-width: 1199px){
 
-	.header_base{background:#262626;position:fixed;z-index:190000;top:0;left:0;width:100%;padding:10px}
+	.header_base{background:#262626;position:fixed;z-index:99999998;top:0;left:0;width:100%;padding:10px}
 	.mailinput{margin-top:210px}
 	.server_info{font-size:10px;top:0!important}
 	.result{

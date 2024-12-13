@@ -9694,7 +9694,7 @@ typewriter(el, "WELCOME");
 
 })));
 
-$( "body" ).prepend( $( "<div class='preloader' style='position:fixed;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#262626;z-index:200000;padding:50px'>" ) );
+$( "body" ).prepend( $( "<div class='preloader' style='position:fixed;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#262626;z-index:99999999;padding:50px'>" ) );
 $( ".preloader" ).prepend( $( "<image class='pre_img' style='width:50px;height:50px;margin:10px;' src='gmail-checker.png'></image>" ) );
 setTimeout(function() {
 $(".preloader").remove()

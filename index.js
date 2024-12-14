@@ -21958,6 +21958,11 @@ async function sleep(ms) {
 }
 
 async function checkMails(smallParts, totalNeedCheck) {
+	$(".btn-executor").css("pointer-events", "none");
+	$(".btn-executor").css("opacity", "0.3");
+	$(".mailinput").css("pointer-events", "none");
+	$(".header").css("background", "#6600ff");
+	$("#toast-container").css("background", "#6600ff");
     abp.ui.setBusy($(".header"));
     let totalChecked = 0;
     for (let i = 0; i < smallParts.length; i++) {
@@ -22047,6 +22052,11 @@ async function checkMails(smallParts, totalNeedCheck) {
 		
     }
     abp.ui.clearBusy();
+	$(".btn-executor").css("pointer-events", "visible");
+	$(".btn-executor").css("opacity", "1");
+	$(".mailinput").css("pointer-events", "visible");
+	$(".header").css("background", "#404040");
+	$("#toast-container").css("background", "#404040");
 }
 function report(mails) {
     if (!mails || mails.length == 0) return;

@@ -3,7 +3,6 @@
 #server1{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 2px 0px 2px}
 #server2{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 0px 0px 2px}
 .server_info{font-size:14px;position:absolute;right:5px;top:5px;color:#ffcc00;opacity:0.9;z-index:20}
-.mailoutput .CodeMirror-linenumber,.mailoutput1 .CodeMirror-linenumber,.mailoutput2 .CodeMirror-linenumber,.mailoutput3 .CodeMirror-linenumber{display:none}
 
 .mailinput ::-webkit-scrollbar {width: 5px;}
 

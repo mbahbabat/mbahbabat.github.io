@@ -21774,37 +21774,37 @@ function showdown(){document.querySelector(".tele_group_link").style.display="no
 document.querySelector(".download-result").style.animation="slideup 0.75s"; document.querySelector(".hidedown").style.display="flex";document.querySelector(".solid2").style.display="none";document.querySelector(".showdown").style.display="none";}
 
 	$( ".gchecker" ).prepend( $( "<div class='mailinput'>" ) );
-	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100% ;position:absolute;z-index:-1'>GMAIL INPUT</p></h3>" ) );
+	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100% ;position:absolute;z-index:1'>GMAIL INPUT</p></h3>" ) );
 	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'></div>" ) );
 	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
 	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
-	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );	
+	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );	
 	$( ".input_btn" ).append( $( "<a href='https://mbahbabat.github.io' ><button id='server1' class='btn-primary' style='color:#ffcc66'>SERVER 1</button></a>" ) );
 	$( "#server1" ).after( $( "<a href='https://gmailchecker.github.io'><button id='server2' class='btn-primary' style='color:#ffcc66'>SERVER 2</button></a>" ) );	
 	$( ".mailinput h3" ).after( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
 	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
 	$( ".result" ).append( $( "<div class='mailoutput'>" ) );
-	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:-1'>GOOD  <span id='good_res'></span></p></h3>" ) );
-	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
+	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1''>GOOD  <span id='good_res'></span></p></h3>" ) );
+	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn" ).append( $( "<button onclick='copy_good()' class='copy_clip' id='copy_clip'>📝 COPY</button>" ) );
 	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;good&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
 	$( ".mailoutput" ).after( $( "<div class='mailoutput1'>" ) );
-	$( ".mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:-1'>VER  <span id='ver_res'></span></p></h3>" ) );
+	$( ".mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>VER  <span id='ver_res'></span></p></h3>" ) );
 	$( ".mailoutput1 h3" ).after( $( "<textarea style='display:none' id='ver-output'></textarea>" ) );
-	$( ".mailoutput1 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
+	$( ".mailoutput1 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' class='copy_clip' id='copy_clip1'>📝 COPY</button>" ) );
 	$( "#copy_clip1" ).before( $( "<button onclick='downloadFile(&#39;ver&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput1" ).after( $( "<div class='mailoutput2'>" ) );
-	$( ".mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:-1'>DISABLED  <span id='dis_res'></span></p></h3>" ) );
+	$( ".mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>DISABLED  <span id='dis_res'></span></p></h3>" ) );
 	$( ".mailoutput2 h3" ).after( $( "<textarea style='display:none' id='disable-output'></textarea>" ) );
-	$( ".mailoutput2 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
+	$( ".mailoutput2 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' class='copy_clip' id='copy_clip2'>📝 COPY</button>" ) );
 	$( "#copy_clip2" ).before( $( "<button onclick='downloadFile(&#39;disable&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput2" ).after( $( "<div class='mailoutput3'>" ) );
-	$( ".mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:-1'>NOT FOUND  <span id='notfound_res'></span></p></h3>" ) );
+	$( ".mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>NOT FOUND  <span id='notfound_res'></span></p></h3>" ) );
 	$( ".mailoutput3 h3" ).after( $( "<textarea style='display:none' id='notExist-output'></textarea>" ) );
-	$( ".mailoutput3 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
+	$( ".mailoutput3 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 
 	
 	const btn_executor_time = setTimeout(btn_executor, 6000);

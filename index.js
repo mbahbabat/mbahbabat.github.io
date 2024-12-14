@@ -21762,22 +21762,24 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>GOOD  <span id='good_res'></span></p></h3>" ) );
 	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn" ).append( $( "<button onclick='copy_good()' id='copy_clip'>📝 COPY</button>" ) );
+	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;good&#39;)' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
 	$( ".mailoutput" ).after( $( "<div class='mailoutput1'>" ) );
 	$( ".mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>VER  <span id='ver_res'></span></p></h3>" ) );
 	$( ".mailoutput1 h3" ).after( $( "<textarea style='display:none' id='ver-output'></textarea>" ) );
 	$( ".mailoutput1 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' id='copy_clip1'>📝 COPY</button>" ) );
+	$( "#copy_clip1" ).before( $( "<button onclick='downloadFile(&#39;ver&#39;)' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput1" ).after( $( "<div class='mailoutput2'>" ) );
 	$( ".mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>DISABLED  <span id='dis_res'></span></p></h3>" ) );
 	$( ".mailoutput2 h3" ).after( $( "<textarea style='display:none' id='disable-output'></textarea>" ) );
 	$( ".mailoutput2 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
 	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' id='copy_clip2'>📝 COPY</button>" ) );
+	$( "#copy_clip2" ).before( $( "<button onclick='downloadFile(&#39;disable&#39;)' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput2" ).after( $( "<div class='mailoutput3'>" ) );
 	$( ".mailoutput3" ).prepend( $( "<h3 style='display:flex;align-items:center;height:50px'><p style='width:100%'>NOT FOUND  <span id='notfound_res'></span></p></h3>" ) );
 	$( ".mailoutput3 h3" ).after( $( "<textarea style='display:none' id='notExist-output'></textarea>" ) );
 	$( ".mailoutput3 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
-	$( ".result_btn3" ).append( $( "<button onclick='copy_notExist()' id='copy_clip3'>📝 COPY</button>" ) );
 	
 	const btn_executor_time = setTimeout(btn_executor, 6000);
 

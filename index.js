@@ -21761,21 +21761,21 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".result" ).append( $( "<div class='mailoutput'>" ) );
 	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>GOOD  <span id='good_res'></span></p></h3>" ) );
 	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
-	$( ".result_btn" ).append( $( "<button onclick='copy_good()' id='copy_clip'>📝 COPY</button>" ) );
-	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;good&#39;)' id='download_item' >DOWNLOAD</button>" ) );
+	$( ".result_btn" ).append( $( "<button onclick='copy_good()' class='copy_clip' id='copy_clip'>📝 COPY</button>" ) );
+	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;good&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
 	$( ".mailoutput" ).after( $( "<div class='mailoutput1'>" ) );
 	$( ".mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>VER  <span id='ver_res'></span></p></h3>" ) );
 	$( ".mailoutput1 h3" ).after( $( "<textarea style='display:none' id='ver-output'></textarea>" ) );
 	$( ".mailoutput1 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
-	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' id='copy_clip1'>📝 COPY</button>" ) );
-	$( "#copy_clip1" ).before( $( "<button onclick='downloadFile(&#39;ver&#39;)' id='download_item' >DOWNLOAD</button>" ) );
+	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' class='copy_clip' id='copy_clip1'>📝 COPY</button>" ) );
+	$( "#copy_clip1" ).before( $( "<button onclick='downloadFile(&#39;ver&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput1" ).after( $( "<div class='mailoutput2'>" ) );
 	$( ".mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%'>DISABLED  <span id='dis_res'></span></p></h3>" ) );
 	$( ".mailoutput2 h3" ).after( $( "<textarea style='display:none' id='disable-output'></textarea>" ) );
 	$( ".mailoutput2 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;'>" ) );
-	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' id='copy_clip2'>📝 COPY</button>" ) );
-	$( "#copy_clip2" ).before( $( "<button onclick='downloadFile(&#39;disable&#39;)' id='download_item' >DOWNLOAD</button>" ) );
+	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' class='copy_clip' id='copy_clip2'>📝 COPY</button>" ) );
+	$( "#copy_clip2" ).before( $( "<button onclick='downloadFile(&#39;disable&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
 	$( ".mailoutput2" ).after( $( "<div class='mailoutput3'>" ) );
 	$( ".mailoutput3" ).prepend( $( "<h3 style='display:flex;align-items:center;height:50px'><p style='width:100%'>NOT FOUND  <span id='notfound_res'></span></p></h3>" ) );
 	$( ".mailoutput3 h3" ).after( $( "<textarea style='display:none' id='notExist-output'></textarea>" ) );
@@ -21961,6 +21961,11 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".btn-executor").css("pointer-events", "none");
 	$(".btn-executor").css("opacity", "0.3");
 	$(".mailinput").css("pointer-events", "none");
+	$(".download_item").css("pointer-events", "none");
+	$(".download_item").css("opacity", "0.3");
+	$(".copy_clip").css("pointer-events", "none");
+	$(".copy_clip").css("opacity", "0.3");
+	
     abp.ui.setBusy($(".header"));
     let totalChecked = 0;
     for (let i = 0; i < smallParts.length; i++) {
@@ -22053,6 +22058,10 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".btn-executor").css("pointer-events", "visible");
 	$(".btn-executor").css("opacity", "1");
 	$(".mailinput").css("pointer-events", "visible");
+	$(".download_item").css("pointer-events", "visible");
+	$(".download_item").css("opacity", "1");
+	$(".copy_clip").css("pointer-events", "visible");
+	$(".copy_clip").css("opacity", "1");
 }
 function report(mails) {
     if (!mails || mails.length == 0) return;

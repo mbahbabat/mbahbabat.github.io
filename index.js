@@ -21961,7 +21961,7 @@ $("#rp-disabled").text(" - ")
 
 			$.ajaxSettings.async = true;
 
-            let smallParts = chunk(mails1, 999);
+            let smallParts = chunk(mails1, 50);
             checkMails(smallParts, mails1.length);
         });
 })();

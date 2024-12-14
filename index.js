@@ -20684,7 +20684,7 @@ const stylecss = document.createElement('link');
 	stylecss.setAttribute("rel", "stylesheet");
     document.head.appendChild(stylecss);
 
-$('<style>').text( " *{margin:0;padding:0;box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }html,body{font-family:Verdana,sans-serif;font-size:14px;line-height:1.5;}html::-webkit-scrollbar,.element::-webkit-scrollbar{display: none;}a{text-decoration: none;background:0 0}mark{background:#ff0;color:#000}img{border-style: none;}@media print{*{text-shadow:none!important;color:#000!important;background:0 0!important;box-shadow:none!important}}body{display:flex;padding:0;margin:0;color:#d9d9d9;font-size:12px;background:#000}.spinner{zoom:100%;}.spinner div div{background:#00cc99!important;}@keyframes slideup {from {bottom: -1025px;}to {bottom: 0px;}}.btn-primary{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn_mob{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn{padding:10px;cursor: pointer;color:#4d4d4d;}.download_btn{padding:5px;cursor: pointer;}hr{width:100%;border: 2px #8c8c8c;border-style:inset;margin: 25px 0px 25px 0px;}.flexi{display:flex;position:absolute;top:0;left:0;width:100%;height:100%;justify-content:center; align-items:center;}@media screen and (min-width: 1025px){.tele_group_link{display:flex!important;}.indicator{display:flex!important;}hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}.download-result{position:relative!important;box-shadow:none!important;padding:0px!important;} .solid2{display:block!important;}}@media screen and (max-width: 767px) {.download-result{border-radius:25px 25px 0px 0px;}.gchecker {border-radius:0!important;width:100%!important;} .result {width:100%!important;border-radius:0!important;border:none!important;} .download-result .hidedown{position:absolute;right:0; display:flex;background:#666666;align-items:center;justify-content:center;width:30px;height:30px;border:2px #8c8c8c;border-style:outset;color:#ff0066;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px;}.download-result .showdown{position:absolute;right:0; display:flex;padding-bottom:10px; background:#666666;align-items:center;justify-content:center;width:30px;height:30px;padding-top:5px;border:2px #8c8c8c;border-style:outset;color:#00ffff;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px; }.check_btn_mob{display:block!important;}  } @media screen and (max-width: 1199px) and (min-width: 768px){.gchecker {border-radius:0!important;width:100%!important;}.tele_group_link{display:flex!important;}.indicator{display:flex!important;}.solid2{display:block!important;}.download-result{position:relative!important;box-shadow:none!important; padding:0px!important;} hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}::-webkit-scrollbar {width: 2px!important;}}@media screen and (max-width: 350px) {body {zoom:80%}}" ).appendTo(document.head);
+$('<style>').text( " *{margin:0;padding:0;box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }html,body{font-family:Verdana,sans-serif;font-size:14px;line-height:1.5;}html::-webkit-scrollbar,.element::-webkit-scrollbar{display: none;}a{text-decoration: none;background:0 0}mark{background:#ff0;color:#000}img{border-style: none;}@media print{*{text-shadow:none!important;color:#000!important;background:0 0!important;box-shadow:none!important}}body{display:flex;padding:0;margin:0;color:#d9d9d9;font-size:12px;background:#000}.spinner{zoom:100%;}.spinner div div{background:#ff0066!important;}@keyframes slideup {from {bottom: -1025px;}to {bottom: 0px;}}.btn-primary{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn_mob{padding:10px;cursor: pointer;color:#4d4d4d;}.check_btn{padding:10px;cursor: pointer;color:#4d4d4d;}.download_btn{padding:5px;cursor: pointer;}hr{width:100%;border: 2px #8c8c8c;border-style:inset;margin: 25px 0px 25px 0px;}.flexi{display:flex;position:absolute;top:0;left:0;width:100%;height:100%;justify-content:center; align-items:center;}@media screen and (min-width: 1025px){.tele_group_link{display:flex!important;}.indicator{display:flex!important;}hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}.download-result{position:relative!important;box-shadow:none!important;padding:0px!important;} .solid2{display:block!important;}}@media screen and (max-width: 767px) {.download-result{border-radius:25px 25px 0px 0px;}.gchecker {border-radius:0!important;width:100%!important;} .result {width:100%!important;border-radius:0!important;border:none!important;} .download-result .hidedown{position:absolute;right:0; display:flex;background:#666666;align-items:center;justify-content:center;width:30px;height:30px;border:2px #8c8c8c;border-style:outset;color:#ff0066;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px;}.download-result .showdown{position:absolute;right:0; display:flex;padding-bottom:10px; background:#666666;align-items:center;justify-content:center;width:30px;height:30px;padding-top:5px;border:2px #8c8c8c;border-style:outset;color:#00ffff;font-weight:bold;border-radius:5px;margin:-10px 0px 0px 10px; }.check_btn_mob{display:block!important;}  } @media screen and (max-width: 1199px) and (min-width: 768px){.gchecker {border-radius:0!important;width:100%!important;}.tele_group_link{display:flex!important;}.indicator{display:flex!important;}.solid2{display:block!important;}.download-result{position:relative!important;box-shadow:none!important; padding:0px!important;} hr.solid1{display:none!important;}.showdown, .hidedown{display:none!important;}::-webkit-scrollbar {width: 2px!important;}}@media screen and (max-width: 350px) {body {zoom:80%}}" ).appendTo(document.head);
 
 var contextmenu3 = window.matchMedia("(min-width: 1025px)");
 		if (contextmenu3.matches){
@@ -21783,28 +21783,28 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( "#server1" ).after( $( "<a href='https://gmailchecker.github.io'><button id='server2' class='btn-primary' style='color:#ffcc66'>SERVER 2</button></a>" ) );	
 	$( ".mailinput h3" ).after( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
 	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
-	$( ".result" ).append( $( "<div class='mailoutput'>" ) );
-	$( ".mailoutput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1''>GOOD  <span id='good_res'></span></p></h3>" ) );
-	$( ".mailoutput h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
+	$( ".result" ).append( $( "<div class='mailoutput' id='mailoutput1'>" ) );
+	$( "#mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1''>GOOD  <span id='good_res'></span></p></h3>" ) );
+	$( "#mailoutput1 h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn" ).append( $( "<button onclick='copy_good()' class='copy_clip' id='copy_clip'>📝 COPY</button>" ) );
 	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;good&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
-	$( ".mailoutput h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
-	$( ".mailoutput" ).after( $( "<div class='mailoutput1'>" ) );
-	$( ".mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>VER  <span id='ver_res'></span></p></h3>" ) );
-	$( ".mailoutput1 h3" ).after( $( "<textarea style='display:none' id='ver-output'></textarea>" ) );
-	$( ".mailoutput1 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
+	$( "#mailoutput1 h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
+	$( "#mailoutput1" ).after( $( "<div class='mailoutput' id='mailoutput2'>" ) );
+	$( "#mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>VER  <span id='ver_res'></span></p></h3>" ) );
+	$( "#mailoutput2 h3" ).after( $( "<textarea style='display:none' id='ver-output'></textarea>" ) );
+	$( "#mailoutput2 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' class='copy_clip' id='copy_clip1'>📝 COPY</button>" ) );
 	$( "#copy_clip1" ).before( $( "<button onclick='downloadFile(&#39;ver&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
-	$( ".mailoutput1" ).after( $( "<div class='mailoutput2'>" ) );
-	$( ".mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>DISABLED  <span id='dis_res'></span></p></h3>" ) );
-	$( ".mailoutput2 h3" ).after( $( "<textarea style='display:none' id='disable-output'></textarea>" ) );
-	$( ".mailoutput2 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
+	$( "#mailoutput2" ).after( $( "<div class='mailoutput' id='mailoutput3'>" ) );
+	$( "#mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>DISABLED  <span id='dis_res'></span></p></h3>" ) );
+	$( "#mailoutput3 h3" ).after( $( "<textarea style='display:none' id='disable-output'></textarea>" ) );
+	$( "#mailoutput3 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' class='copy_clip' id='copy_clip2'>📝 COPY</button>" ) );
 	$( "#copy_clip2" ).before( $( "<button onclick='downloadFile(&#39;disable&#39;)' class='download_item' id='download_item' >DOWNLOAD</button>" ) );
-	$( ".mailoutput2" ).after( $( "<div class='mailoutput3'>" ) );
-	$( ".mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>NOT FOUND  <span id='notfound_res'></span></p></h3>" ) );
-	$( ".mailoutput3 h3" ).after( $( "<textarea style='display:none' id='notExist-output'></textarea>" ) );
-	$( ".mailoutput3 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
+	$( "#mailoutput3" ).after( $( "<div class='mailoutput' id='mailoutput4'>" ) );
+	$( "#mailoutput4" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:1'>NOT FOUND  <span id='notfound_res'></span></p></h3>" ) );
+	$( "#mailoutput4 h3" ).after( $( "<textarea style='display:none' id='notExist-output'></textarea>" ) );
+	$( "#mailoutput4 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 
 	
 	const btn_executor_time = setTimeout(btn_executor, 6000);
@@ -21990,13 +21990,20 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".download_item").css("opacity", "0.3");
 	$(".copy_clip").css("pointer-events", "none");
 	$(".copy_clip").css("opacity", "0.3");
+	$(".progress").css("background", "#000");
+	
 	var mailinputScreen = window.matchMedia("(max-width: 1024px)");
 		if (mailinputScreen.matches){
 		$(".mailinput").css("display", "none");
+		$(".result").css("margin-top", "210px");
 		}
 	var resultScreen = window.matchMedia("(max-width: 1024px)");
 		if (resultScreen.matches){
 		$(".result").css("margin-top", "210px");
+		}
+	var mailoutputScreen = window.matchMedia("(max-width: 1024px)");
+		if (mailoutputScreen.matches){
+		$(".mailoutput .CodeMirror").css("height", "75px");
 		}		
     abp.ui.setBusy($(".header"));
     let totalChecked = 0;
@@ -22095,6 +22102,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".download_item").css("opacity", "1");
 	$(".copy_clip").css("pointer-events", "visible");
 	$(".copy_clip").css("opacity", "1");
+	$(".progress").css("background", "none");
 	var mailinputScreen2 = window.matchMedia("(max-width: 1024px)");
 		if (mailinputScreen2.matches){
 		$(".mailinput").css("display", "block");
@@ -22103,6 +22111,10 @@ async function checkMails(smallParts, totalNeedCheck) {
 		if (resultScreen2.matches){
 		$(".result").css("margin-top", "0px");
 		}
+	var mailoutputScreen = window.matchMedia("(max-width: 1024px)");
+		if (mailoutputScreen.matches){
+		$(".mailoutput .CodeMirror").css("height", "200px");
+		}		
 	$(window).scrollTop( $('body').height() );
 			
 }

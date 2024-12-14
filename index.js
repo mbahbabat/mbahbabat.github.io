@@ -21983,7 +21983,7 @@ async function sleep(ms) {
 
 async function checkMails(smallParts, totalNeedCheck) {
 	$(".btn-executor").css("pointer-events", "none");
-	$(".btn-executor").css("opacity", "0.3");
+	$(".btn-executor").css("opacity", "0");
 	$(".mailinput").css("pointer-events", "none");
 	$(".download_item").css("pointer-events", "none");
 	$(".download_item").css("opacity", "0.3");

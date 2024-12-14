@@ -76,15 +76,6 @@
 
 }
 
-@media only screen and (min-width: 1921px){
-	.gchecker{height:500px;z-index:100}
-.result{position:absolute;top:0;height:100%;padding-top:500px;z-index:1}
-}
-
-@media only screen and (min-width: 4500px){
-	.gchecker{height:1000px;z-index:100}
-.result{position:absolute;top:0;height:100%;padding-top:1000px;z-index:1}
-}
 
 @media only screen and (min-width: 1025px) and (max-width: 1200px){
 .mailoutput h3{zoom:80%}
@@ -111,7 +102,7 @@
 	.header_bottom{justify-content:left!important}
 	.gchecker{flex-direction:column-reverse;padding:10px}
 	.header{height:200px;width:100%;}
-	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:150px}
+	.mailoutput .CodeMirror,.mailoutput1 .CodeMirror,.mailoutput2 .CodeMirror,.mailoutput3 .CodeMirror{height:75px}
 	
 }
 

@@ -3,7 +3,7 @@
 #server1{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 2px 0px 2px}
 #server2{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 0px 0px 2px}
 .server_info{font-size:14px;position:absolute;right:5px;top:5px;color:#ffcc00;opacity:0.9;z-index:20}
-
+#mbahmatur{display:none!important}
 .mailinput ::-webkit-scrollbar {width: 5px;}
 
 ::-webkit-scrollbar {width: 10px;}
@@ -56,7 +56,6 @@
 .downres_item p{font-size:14px!important}
 .rp-down{font-size:14px!important}
 #toast-container{font-size:14px!important}
-#mbahmatur{display:none!important}
 .gchecker{height:350px;z-index:100}
 .result{position:absolute;top:0;height:100%;padding-top:350px;z-index:1}
 

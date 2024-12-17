@@ -21902,7 +21902,7 @@ $("#rp-disabled").text(" - ")
 	$(document).on("click",
         "#paste_clip",
         async function paste() {
-			abp.notify.warn(" Paste from clipboard...");
+			abp.notify.warn(" Paste from clipboard!");
 			document.querySelector('#toon_audio').play();
 			const text = await navigator.clipboard.readText();
 			inputEditor.setValue(text);
@@ -21994,7 +21994,7 @@ async function sleep(ms) {
 }
 
 async function checkMails(smallParts, totalNeedCheck) {
-	abp.notify.warn(" Starting...");
+	abp.notify.info(" Starting...");
 	$(".btn-executor").css("pointer-events", "none");
 	$(".btn-executor").css("opacity", "0");
 	$("#paste_clip").css("opacity", "0.3");

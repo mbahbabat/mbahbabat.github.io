@@ -61,8 +61,8 @@
 .downres_item p{font-size:14px!important}
 .rp-down{font-size:14px!important}
 #toast-container{font-size:14px!important}
-.gchecker{height:300px;z-index:100}
-.result{position:absolute;top:0;height:95%;padding-top:300px;z-index:1}
+.gchecker{height:325px;z-index:100}
+.result{position:absolute;top:0;height:95%;padding-top:325px;z-index:1}
 .mailinput .CodeMirror{position:absolute;height:100%;width:100%;padding-bottom:50px}
 .mailoutput .CodeMirror{position:absolute;height:100%;width:100%;padding-bottom:50px}
 }

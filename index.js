@@ -1886,7 +1886,7 @@ $( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;h
 	$( ".footer" ).append( $( "<p class='appversion'>v1.5</p>" ) );
 	$( ".gchecker" ).append( $( "<div class='header_base'>" ) );
 	$( ".header_base" ).append( $( "<div class='header'>" ) );
-	$( ".gchecker" ).prepend( $( "<image class='snow_image' src='snowfal2.gif' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999997;pointer-events:none;opacity:0.1'></image>" ) );
+	$( ".gchecker" ).prepend( $( "<image class='snow_image' src='dark.jpg' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999997;pointer-events:none;opacity:0.05'></image>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
 	$( ".header" ).append( $( "<p class='server_info'>SERVER : 1</>" ) );

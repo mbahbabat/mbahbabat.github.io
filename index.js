@@ -21779,28 +21779,28 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".mailinput h3" ).after( $( "<textarea style='display:none' id='mail-input' ></textarea>" ) );
 	$( ".result" ).append( $( "<div class='mailoutput' id='mailoutput1'>" ) );
 	$( "#mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px;position:relative'><p style='width:100%;position:absolute;z-index:1''>GOOD  <span class='res_bad'>(</span><span class='res_bad' id='good_res'></span><span class='res_bad'>)</span></p></h3>" ) );
-	$( "#mailoutput1 h3" ).append( $( "<div class='xmas_event' style='display:none;justify-content:center;position:absolute;left:0;top:-12px;width:100%;height:100%;z-index:9'><image src='xmas2.png' style='width:50%;height:75%'>" ) );
+	$( "#mailoutput1 h3" ).append( $( "<div class='xmas_event' style='display:none;justify-content:center;position:absolute;left:0;top:-12px;width:100%;height:100%;z-index:9'><image src='xmas2.png' style='width:150px;height:30px'>" ) );
 	$( "#mailoutput1 h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn" ).append( $( "<button onclick='copy_good()' class='copy_clip' id='copy_clip'><div class='showel'>Copy!</div><image src='copy.png' style='width:16px'></image></button>" ) );
 	$( "#copy_clip" ).before( $( "<button onclick='downloadFile(&#39;good&#39;)' class='download_item' id='download_item' ><p class='showel'>Download!</p><image src='download.png' style='width:16px'></image></button>" ) );
 	$( "#mailoutput1 h3" ).after( $( "<textarea style='display:none' id='mail-output'></textarea>" ) );
 	$( "#mailoutput1" ).after( $( "<div class='mailoutput' id='mailoutput2'>" ) );
 	$( "#mailoutput2" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:10'>VER  <span class='res_bad'>(</span><span class='res_bad' id='ver_res'></span><span class='res_bad'>)</span></p></h3>" ) );
-	$( "#mailoutput2 h3" ).append( $( "<div class='xmas_event' style='display:none;justify-content:center;position:absolute;left:0;top:-12px;width:100%;height:100%;z-index:9'><image src='xmas2.png' style='width:50%;height:75%'>" ) );
+	$( "#mailoutput2 h3" ).append( $( "<div class='xmas_event' style='display:none;justify-content:center;position:absolute;left:0;top:-12px;width:100%;height:100%;z-index:9'><image src='xmas2.png' style='width:150px;height:30px'>" ) );
 	$( "#mailoutput2 h3" ).after( $( "<textarea style='display:none' id='ver-output'></textarea>" ) );
 	$( "#mailoutput2 h3" ).append( $( "<div class='result_btn1' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' class='copy_clip' id='copy_clip1'><div class='showel'>Copy!</div><image src='copy.png' style='width:16px'></image></button>" ) );
 	$( "#copy_clip1" ).before( $( "<button onclick='downloadFile(&#39;ver&#39;)' class='download_item' id='download_item' ><p class='showel'>Download!</p><image src='download.png' style='width:16px'></image></button>" ) );
 	$( "#mailoutput2" ).after( $( "<div class='mailoutput' id='mailoutput3'>" ) );
 	$( "#mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:10'>DISABLED  <span class='res_bad'>(</span><span class='res_bad' id='dis_res'></span><span class='res_bad'>)</span></p></h3>" ) );
-	$( "#mailoutput3 h3" ).append( $( "<div class='xmas_event' style='display:none;justify-content:center;position:absolute;left:0;top:-12px;width:100%;height:100%;z-index:9'><image src='xmas2.png' style='width:50%;height:75%'>" ) );
+	$( "#mailoutput3 h3" ).append( $( "<div class='xmas_event' style='display:none;justify-content:center;position:absolute;left:0;top:-12px;width:100%;height:100%;z-index:9'><image src='xmas2.png' style='width:150px;height:30px'>" ) );
 	$( "#mailoutput3 h3" ).after( $( "<textarea style='display:none' id='disable-output'></textarea>" ) );
 	$( "#mailoutput3 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' class='copy_clip' id='copy_clip2'><div class='showel'>Copy!</div><image src='copy.png' style='width:16px'></image></button>" ) );
 	$( "#copy_clip2" ).before( $( "<button onclick='downloadFile(&#39;disable&#39;)' class='download_item' id='download_item' ><p class='showel'>Download!</p><image src='download.png' style='width:16px'></image></button>" ) );
 	$( "#mailoutput3" ).after( $( "<div class='mailoutput' id='mailoutput4'>" ) );
 	$( "#mailoutput4" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:10'>NOT FOUND  <span class='res_bad'>(</span><span class='res_bad' id='notfound_res'></span><span class='res_bad'>)</span></p></h3>" ) );
-	$( "#mailoutput4 h3" ).append( $( "<div class='xmas_event' style='display:none;justify-content:center;position:absolute;left:0;top:-12px;width:100%;height:100%;z-index:9'><image src='xmas2.png' style='width:50%;height:75%'>" ) );
+	$( "#mailoutput4 h3" ).append( $( "<div class='xmas_event' style='display:none;justify-content:center;position:absolute;left:0;top:-12px;width:100%;height:100%;z-index:9'><image src='xmas2.png' style='width:150px;height:30px'>" ) );
 	$( "#mailoutput4 h3" ).after( $( "<textarea style='display:none' id='notExist-output'></textarea>" ) );
 	$( "#mailoutput4 h3" ).append( $( "<div class='result_btn3' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:9'>" ) );
 
@@ -21811,7 +21811,7 @@ function btn_executor() {
   document.getElementById("btn-executor").style.display="flex";
 }
 
-const xmas_event_time = setTimeout(xmas_event, 10000);
+const xmas_event_time = setTimeout(xmas_event, 6000);
 
 function xmas_event() {
   $(".xmas_event").css("display", "flex");

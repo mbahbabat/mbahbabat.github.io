@@ -57,7 +57,7 @@
 
 
 @media only screen and (min-width: 1025px){
-.header_base{width:70%;height:100%;}
+.header_base{width:70%;height:100%;z-index:99999998;}
 .downres_item p{font-size:14px!important}
 .rp-down{font-size:14px!important}
 #toast-container{font-size:14px!important}
@@ -66,8 +66,12 @@
 .mailinput .CodeMirror{position:absolute;height:100%;width:100%;padding-bottom:50px}
 .mailoutput .CodeMirror{position:absolute;height:100%;width:100%;padding-bottom:50px}
 }
+.snow_image{display:block}
+.snow_image2{display:none}
 
 @media only screen and (max-width: 1024px){
+	.snow_image{display:none}
+	.snow_image2{display:block}
 	.copy_clip:hover .showel{display:none}
 	.download_item:hover .showel{display:none}
 	.header_base{background:#262626;position:fixed;z-index:99999998;top:0;left:0;width:100%;padding:10px}

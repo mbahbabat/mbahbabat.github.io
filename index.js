@@ -22018,9 +22018,9 @@ async function checkMails(smallParts, totalNeedCheck) {
 		$(".result").css("position", "fixed");
 		$(".result").css("padding", "5px 10px 230px 10px");
 		$(".result").css("top", "220px");
-		
 		}
-	var mailinputScreen = window.matchMedia("(max-width: 767px) and (max-height: 400px)");
+		
+	var mailinputScreen = window.matchMedia("(max-width: 767px) and (max-height: 430px)");
 		if (mailinputScreen.matches){
 		$(".header_base").css("position", "fixed");
 		}
@@ -22136,9 +22136,9 @@ async function checkMails(smallParts, totalNeedCheck) {
 		$(window).scrollTop( $(".mailinput").height() );
 		}
 		
-	var mailinputScreen = window.matchMedia("(max-width: 767px) and (max-height: 400px)");
+	var mailinputScreen = window.matchMedia("(max-width: 767px) and (max-height: 430px)");
 		if (mailinputScreen.matches){
-		$(".header_base").css("position", "absolute");
+		$(".header_base").css("position", "relative");
 		}		
 	
 			

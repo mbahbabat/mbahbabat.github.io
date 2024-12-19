@@ -2,6 +2,8 @@
 .flexi,.boxi{background:#262626}
 .gchecker{padding:10px 10px 5px 10px;gap:10px}
 .result{padding:5px 10px 10px 10px;gap:10px}
+
+#intergramRoot .msg{background:red!important}
 #server1{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 2px 0px 2px}
 #server2{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 0px 0px 2px}
 .server_info{font-size:14px;position:absolute;right:5px;top:5px;color:#ffcc00;opacity:0.9;z-index:20}
@@ -113,9 +115,11 @@
 }
 
 @media only screen and (max-width: 767px) and (max-height: 430px){
-.header_base{position:absolute;}
+.header_base{position:relative;}
+.mailinput{margin-top:0px}
 .gchecker{height:430px;width:100%}
-.result{min-height:1000px;width:100%}	
+.result{min-height:430px;width:100%}	
+
 }
 
 @media only screen and (max-width: 900px) and (min-width: 768px){
@@ -123,7 +127,7 @@
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px) and (max-height: 430px){
-.result{position:relative;padding-top:10px;height:500px;}
+.result{position:relative;padding-top:10px;height:175px;}
 }
 
 

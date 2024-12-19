@@ -56,8 +56,8 @@
 
 .header{z-index:99999998;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;position:relative;border:3px #4d4d4d;border-style:inset;border-radius:3px;background: #404040;justify-content:center;}
 .mailinput{display:flex;flex-direction:column;width:30%;height:100%;position:relative;z-index:1;}
-.mailinput .CodeMirror{position:absolute;height:100%;width:100%;opacity:0.9}
-.mailoutput .CodeMirror{position:absolute;width:100%;height:100%;opacity:0.9}
+.mailinput .CodeMirror{position:absolute;height:100%;width:100%;opacity:0.95}
+.mailoutput .CodeMirror{position:absolute;width:100%;height:100%;opacity:0.95}
 
 
 @media only screen and (min-width: 1025px){
@@ -75,8 +75,8 @@
 .downres_item p{width:100px} 
 .gchecker{height:250px;z-index:2}
 .result{position:absolute;bottom:0;left:0;height:100%;width:100%;padding-top:250px;z-index:1}
-.header_base{width:60%;height:100%}
-.mailinput{width:40%;height:100%}
+.header_base{width:50%;height:100%}
+.mailinput{width:50%;height:100%}
 .downres_item p{font-size:14px!important}
 .rp-down{font-size:14px!important}
 #toast-container{font-size:14px!important}

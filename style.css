@@ -1,4 +1,5 @@
 .gchecker{width:100%;position:relative;display:flex;justify-content:center;align-items:center;background:#262626}.result{position:relative;background:#262626;display:flex;width:100%;z-index:1} .indicator{width:100%;display:flex;flex-direction:column;align-items:center} .indi_item{display:flex;justify-content:left;align-items:center;padding:5px 0px 5px 0px;}.indi_item .indi_title{width:75px}.indi_item .indi_spara{width:20px; dislay:flex; justify-content:center;} .indi_item .indi_trans{color:#fff}.download-result{bottom:0;background:#666666;width:100%; display:flex;flex-direction:column;align-items:center; z-index:999;}.downres_item {display:flex;justify-content:left;align-items:center;font-size:10px ;color:#fff}.rp-down{font-weight:bold; text-align:left;display:flex; justify-content:left; align-items:center;min-width:100px;padding-left:5px;font-size:12px } .CodeMirror{border:none!important;font-size:11px!important;z-index:1!important}.CodeMirror-hscrollbar{display:none!important;} .CodeMirror-scrollbar-filler{display:none}.CodeMirror-scroll{background: #000;font-size:11px;border:none!important;color:#bfbfbf}.CodeMirror-gutters{background: #1a1a1a!important;} .btn-executor{width:100%;position:absolute;bottom:10px;right:10px;z-index:999;display:flex; justify-content:right;}@keyframes progress-bar-stripes{from{background-position: .5rem 0;}to{background-position: 0 0;}}.progress{opacity:0.9;font-size: .75rem;display: flex;overflow: hidden;height: 10px;width:100%;position:absolute;bottom:0;left:0;}.progress-bar{display: flex;overflow: hidden;flex-direction: column;transition: width .6s ease; text-align: center;white-space: nowrap; color: #ffffff;background-color: #6600ff;justify-content: center;}@media (prefers-reduced-motion: reduce){.progress-bar{transition: none;}}.progress-bar-striped{background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);background-size: .5rem .5rem;} .progress-bar-animated{animation: progress-bar-stripes 1s linear infinite;}@media (prefers-reduced-motion: reduce){.progress-bar-animated{animation: none;}}.g_checker_logo{display:flex;margin-right:10px}.g_checker_logo_img{width:40px;height:40px;}.title{z-index:10;font-weight:100;color:#fff;font-family: 'Hello AI', sans-serif;opacity:0.5;height:40px}.dark_light{position:absolute;right:25px;top:10px;display:flex;justify-content:center;align-items:center;z-index:2;}.darkmode{}.lightmode{}#dark_light{background:#595959;border:3px #a6a6a6;border-style:outset;display:flex;justify-content:center;align-items:center;border-radius:30px;width:25px;height:25px;margin:2px;font-size:16px;cursor:pointer;}.mailinput h3{position:relative;padding:5px;border:1px #000;border-style:outset outset hidden outset;text-shadow: 1px 1px #000;border-radius:5px 5px 0px 0px;}.mailoutput h3{width:100%;position:relative;padding:5px;border:1px #000;border-style:outset outset hidden outset;text-shadow: 1px 1px #000;border-radius:5px 5px 0px 0px;}#paste_clip{position:absolute;top:60px;right:10px;z-index:100;padding:5px;margin-left:10px;color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #a6a6a6;border-style:outset;border-radius:5px;color:#fff}#copy_clip,#copy_clip1,#copy_clip2,#copy_clip3{position:relative;padding:5px;margin-left:5px;color:#fff;font-size:10px;cursor:pointer;border-radius:5px;font-weight:400}.indi_progress{display:flex;align-items:center;}.indi_progress p{padding:5px 5px 5px 0px;}#clear-editor{color:#fff!important;height:40px;width:75px;background: linear-gradient(to left, #1a1a1a 0%, #333333 100%);border:2px #000;border-style:outset;border-radius:5px;color:#fff;margin:0px 2px 0px 2px}#check-btn{color:#fff!important;height:40px;width:75px;background: linear-gradient(to left, #1a1a1a 0%, #333333 100%);border:2px #000;border-style:outset;border-radius:5px;color:#fff;margin:0px 0px 0px 2px}.indicator h3{margin:0px 0px 15px 0px;text-shadow: 1px 1px #000;}.download-result_head h3{margin:0px 0px 15px 0px;text-shadow: 1px 1px #000;}.download_btn{background: #595959;border:2px #000;border-style:outset;border-radius:5px;color:#fff}.tele_group_link{width:100%;color:#bfbfbf;display:flex; justify-content:center; align-items:center; z-index:999;font-size:11px}.tele_group_link_btn{cursor:pointer;padding:5px;display:flex;align-items:center;border:none;background:none;color:#fff!important;}.tele_group_link_img{width:20px;height:20px;margin-right:5px;}.appversion{display:none;position:absolute;color:#bfbfbf;bottom:5px;right:5px;font-size:10px;}.download-result_head{display:flex;position:relative;width:100%;justify-content:center;}.checking_mail,.lightning{position:absolute;left:0;top:0;z-index:20;width:100%;height:100%;opacity:0.2;pointer-events:none}.cracked_glass{z-index:12;position:absolute;right:0;width:75px;height:100%;opacity:0.7;}@media only screen and (min-width:1025px){#clear-editor:hover{border-width:1px!important;}#check-btn:hover{border-width:1px!important;}.darkmode:hover,.lightmode:hover{border-width:1px!important;}.download_btn:hover{border-width:1px!important;}}.boosted{font-size:10px;}
+.flexi,.boxi{background:#262626}
 .gchecker{padding:10px 10px 5px 10px;gap:10px}
 .result{padding:5px 10px 10px 10px;gap:10px}
 #server1{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 2px 0px 2px}
@@ -80,7 +81,7 @@
 .downres_item p{font-size:14px!important}
 .rp-down{font-size:14px!important}
 #toast-container{font-size:14px!important}
-.result{display:grid;grid-template-columns: auto auto}
+
 .mailoutput{height:100%}
 .copy_clip:hover .showel{display:none}
 .download_item:hover .showel{display:none}
@@ -110,12 +111,15 @@
 	
 }
 
-@media only screen and (max-width: 767px) and (max-height: 400px){
+@media only screen and (max-width: 767px) and (max-height: 430px){
 .header_base{position:absolute;}
-.gchecker{min-height:500px;width:100%}
+.gchecker{height:430px;width:100%}
 .result{min-height:1000px;width:100%}	
 }
 
+@media only screen and (max-width: 1024px) and (min-width: 768px) and (max-height: 430px){
+.result{position:relative;padding-top:10px;height:500px;}
+}
 
 
 

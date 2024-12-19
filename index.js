@@ -21768,7 +21768,7 @@ function showdown(){document.querySelector(".tele_group_link").style.display="no
 document.querySelector(".download-result").style.animation="slideup 0.75s"; document.querySelector(".hidedown").style.display="flex";document.querySelector(".solid2").style.display="none";document.querySelector(".showdown").style.display="none";}
 
 	$( ".gchecker" ).prepend( $( "<div class='mailinput'>" ) );
-	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100% ;position:absolute;z-index:1;color:#fff'>GMAIL INPUT</p></h3>" ) );
+	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100% ;position:absolute;z-index:1;color:#999999'>GMAIL INPUT</p></h3>" ) );
 	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'></div>" ) );
 	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
 	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
@@ -21985,7 +21985,7 @@ async function sleep(ms) {
 }
 
 async function checkMails(smallParts, totalNeedCheck) {
-	abp.notify.info(" Starting...");
+	abp.notify.info(" Checking...");
 	$(".btn-executor").css("pointer-events", "none");
 	$(".btn-executor").css("opacity", "0");
 	$("#paste_clip").css("opacity", "0.3");
@@ -22006,7 +22006,11 @@ async function checkMails(smallParts, totalNeedCheck) {
 			$("#good_res").text(" 0 ");
 			$("#ver_res").text(" 0 ");
 			$("#dis_res").text(" 0 ");
-			$("#notfound_res").text(" 0 ");		
+			$("#notfound_res").text(" 0 ");
+		goodEditor.setValue("Checking...");	
+		verEditor.setValue("Checking...");	
+		notExistEditor.setValue("Checking...");	
+		disableEditor.setValue("Checking...");			
 	
 	var mailinputScreen = window.matchMedia("(max-width: 1024px)");
 		if (mailinputScreen.matches){
@@ -22026,7 +22030,8 @@ async function checkMails(smallParts, totalNeedCheck) {
         while (true) {
             result = await requestCheckMails(mails);
             if (result === false) {
-                abp.notify.info(" 📡 network error! please check your network or try to change server...");
+                abp.notify.info(" 📡 network error!");
+				abp.notify.info(" ⚠️ please check your connection or try to change server...");
                 await sleep(2500);
                 continue;
             } else {
@@ -22059,7 +22064,6 @@ async function checkMails(smallParts, totalNeedCheck) {
         $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
         abp.notify.success("✅ " + totalChecked + " Checked ");
-
 
         let goodValue = [
             ...allResult.good,
@@ -22126,6 +22130,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 		$(".result").css("position", "relative");
 		$(".result").css("padding", "5px 10px 10px 10px");
 		$(".result").css("top", "0px");
+		
 		
 		}	
 	$(window).scrollTop( $('body').height() );

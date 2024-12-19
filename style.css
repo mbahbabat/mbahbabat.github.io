@@ -39,12 +39,13 @@
 .copy_clip:hover .showel{display:block}
 .download_item:hover .showel{display:block}
 
-.mailinput .CodeMirror-linenumber{color:#00ffff}
-#mailoutput1 .CodeMirror-linenumber{color:#00cc66}
-#mailoutput2 .CodeMirror-linenumber{color:#ffcc00}
-#mailoutput3 .CodeMirror-linenumber{color:#ff4d4d}
-#mailoutput4 .CodeMirror-linenumber{color:#3399ff}
+.mailinput .CodeMirror-linenumber{color:#fff}
+#mailoutput1 .CodeMirror-linenumber{color:#fff}
+#mailoutput2 .CodeMirror-linenumber{color:#fff}
+#mailoutput3 .CodeMirror-linenumber{color:#fff}
+#mailoutput4 .CodeMirror-linenumber{color:#fff}
 
+.mailinput h3 p{color:#595959;}
 .mailinput h3{padding:0px 10px 0px 10px}
 #mailoutput1 h3{color:#00cc66;padding:0px 10px 0px 10px}
 #mailoutput2 h3{color:#ffcc00;padding:0px 10px 0px 10px}

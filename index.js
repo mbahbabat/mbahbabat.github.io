@@ -22133,14 +22133,14 @@ async function checkMails(smallParts, totalNeedCheck) {
 		$(".result").css("position", "relative");
 		$(".result").css("padding", "5px 10px 10px 10px");
 		$(".result").css("top", "0px");
-		
-		
+		$(window).scrollTop( $(".mailinput").height() );
 		}
+		
 	var mailinputScreen = window.matchMedia("(max-width: 767px) and (max-height: 400px)");
 		if (mailinputScreen.matches){
 		$(".header_base").css("position", "absolute");
 		}		
-	$(window).scrollTop( $('body').height() );
+	
 			
 }
 function report(mails) {
@@ -22269,5 +22269,7 @@ function getCookie(cookieName) {
 			}
 
 function hidedown(){document.querySelector(".tele_group_link").style.display="flex";document.querySelector(".solid1").style.display="flex";document.querySelector(".tele_group_link").style.display="flex";document.querySelector(".appversion").style.display="block";document.querySelector(".indicator").style.display="flex";document.querySelector(".download-result").style.position="relative";document.querySelector(".download-result").style.padding="0px";document.querySelector(".download-result").style["boxShadow"] = "none";document.querySelector(".download-result").style.animation="none";document.querySelector(".solid2").style.display="block";document.querySelector(".hidedown").style.display="none";document.querySelector(".showdown").style.display="flex";}
+
+
 
 

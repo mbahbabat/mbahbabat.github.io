@@ -85,6 +85,7 @@
 .mailoutput{height:100%}
 .copy_clip:hover .showel{display:none}
 .download_item:hover .showel{display:none}
+
 }
 
 
@@ -115,6 +116,10 @@
 .header_base{position:absolute;}
 .gchecker{height:430px;width:100%}
 .result{min-height:1000px;width:100%}	
+}
+
+@media only screen and (max-width: 900px) and (min-width: 768px){
+.mailoutput h3{zoom:75%}
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px) and (max-height: 430px){

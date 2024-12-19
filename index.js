@@ -22012,7 +22012,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 		notExistEditor.setValue("Checking...");	
 		disableEditor.setValue("Checking...");			
 	
-	var mailinputScreen = window.matchMedia("(max-width: 1024px)");
+	var mailinputScreen = window.matchMedia("(max-width: 767px)");
 		if (mailinputScreen.matches){
 		$(".mailinput").css("display", "none");
 		$(".result").css("position", "fixed");
@@ -22124,7 +22124,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".checking_mail").css("display", "none");
 	document.querySelector('#finish_audio').play();
 	abp.notify.info("COMPLETED!");
-	var mailinputScreen = window.matchMedia("(max-width: 1024px)");
+	var mailinputScreen = window.matchMedia("(max-width: 767px)");
 		if (mailinputScreen.matches){
 		$(".mailinput").css("display", "flex");
 		$(".result").css("position", "relative");

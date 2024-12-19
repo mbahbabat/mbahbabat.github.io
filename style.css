@@ -73,8 +73,8 @@
 .indicat{flex-direction:column;}
 .header_bottom{justify-content:left!important}
 .downres_item p{width:100px} 
-.gchecker{height:30%;}
-.result{height:70%;width:100%}
+.gchecker{height:200px;z-index:2}
+.result{position:absolute;bottom:0;left:0;height:100%;width:100%;padding-top:200px;z-index:1}
 .header_base{width:60%;height:100%}
 .mailinput{width:40%;height:100%}
 .downres_item p{font-size:14px!important}
@@ -82,7 +82,11 @@
 #toast-container{font-size:14px!important}
 .result{display:grid;grid-template-columns: auto auto}
 .mailoutput{height:100%}
+.copy_clip:hover .showel{display:none}
+.download_item:hover .showel{display:none}
 }
+
+
 
 
 @media only screen and (max-width: 767px){
@@ -104,6 +108,12 @@
 	.result{height:100%;}
 	.header{height:200px;width:100%;}
 	
+}
+
+@media only screen and (max-width: 767px) and (max-height: 400px){
+.header_base{position:absolute;}
+.gchecker{min-height:500px;width:100%}
+.result{min-height:1000px;width:100%}	
 }
 
 

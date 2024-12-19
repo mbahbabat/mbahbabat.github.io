@@ -73,8 +73,8 @@
 .indicat{flex-direction:column;}
 .header_bottom{justify-content:left!important}
 .downres_item p{width:100px} 
-.gchecker{height:200px;z-index:2}
-.result{position:absolute;bottom:0;left:0;height:100%;width:100%;padding-top:200px;z-index:1}
+.gchecker{height:250px;z-index:2}
+.result{position:absolute;bottom:0;left:0;height:100%;width:100%;padding-top:250px;z-index:1}
 .header_base{width:60%;height:100%}
 .mailinput{width:40%;height:100%}
 .downres_item p{font-size:14px!important}

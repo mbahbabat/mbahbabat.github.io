@@ -1891,7 +1891,7 @@ $( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;h
 	$( ".header" ).append( $( "<p class='server_info'>SERVER : 1</>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='xmas5.gif'></image>" ) );
 	$( ".header" ).append( $( "<image class='checking_mail' src='run.gif' style='display:none'></image>" ) );
-	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:18;display:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;color:#fff;overflow:hidden'><image src='star.gif' style='width:100%;'></image></div>" ) );
+	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:19;display:none;width:100%;color:#fff;overflow:hidden;font-size:11px;background:#000;padding:2px'>📣 If the service is not working properly, please use another server.</div>" ) );
 	$( ".header" ).append( $( "<div id='starting1' style='position:absolute;top:0;left:0;z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#000;color:#fff'></div>" ) );
 	$( ".header" ).append( $( "<div id='starting2' style='position:absolute;top:0;left:0;z-index:98;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#404040;color:#fff;'></div>" ) );
 	$( ".header" ).append( $( "<div class='header_top' id='header_top' style='position:relative;width:100%;height:50%;display:flex;justify-content:center;align-items:center;'>" ) );
@@ -1909,7 +1909,7 @@ const mbahmatur1a = document.getElementById("mbahmatur");
 setInterval(function() {mbahmatur1a.style.display="none";}, 10000);
 
 const mbahmatur1b = document.getElementById("mbahmatur");
-setInterval(function() {mbahmatur1b.style.display="flex";}, 30000);
+setInterval(function() {mbahmatur1b.style.display="flex";}, 15000);
 
 const myTimeout1 = setTimeout(starting1, 2500);
 

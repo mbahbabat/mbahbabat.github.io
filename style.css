@@ -6,8 +6,8 @@
 #intergramRoot .msg{background:red!important}
 #server1{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 2px 0px 2px}
 #server2{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 0px 0px 2px}
-.server_info{font-size:14px;position:absolute;right:5px;top:5px;color:#ffcc00;opacity:0.9;z-index:20}
-#mbahmatur{display:none!important}
+.server_info{font-size:11px;position:absolute;right:2px;top:2px;color:#ffcc00;opacity:0.9;z-index:20}
+
 .mailinput ::-webkit-scrollbar {width: 5px;}
 #starting2{font-size:30px;font-family: 'Hello AI', sans-serif;}
 ::-webkit-scrollbar {width: 10px;}
@@ -89,12 +89,13 @@
 .download_item:hover .showel{display:none}
 
 }
+@media only screen and (max-width: 1024px){
+	.server_info{z-index:17}
+	#mbahmatur{font-size:10px!important}
 
-
-
+}
 
 @media only screen and (max-width: 767px){
-
 	.copy_clip:hover .showel{display:none}
 	.download_item:hover .showel{display:none}
 	.header_base{position:fixed;z-index:99999998;top:0;left:0;width:100%;padding:10px;background:#262626}

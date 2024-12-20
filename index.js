@@ -22057,8 +22057,10 @@ async function checkMails(smallParts, totalNeedCheck) {
 			} else if (email.status === "Disabled") {
                 allResult.disable.push(email.email);			
             } else if (email.status === "Unregistered") {
+                allResult.notExist.push(email.email);			
+            } else if (email.status === "Error") {
                 allResult.notExist.push(email.email);
-			}					
+			}
         });
 
 
@@ -22149,14 +22151,17 @@ function report(mails) {
     let ver = mails.filter(email => email.status === "Verify").length;
     let dis = mails.filter(email => email.status === "Disabled").length;
     let notExist = mails.filter(email => email.status === "Unregistered").length;
+	let notFound = mails.filter(email => email.status === "Error").length;
     increaseReport("#rp-good", good);
     increaseReport("#rp-ver", ver);
     increaseReport("#rp-disabled", dis);
     increaseReport("#rp-notfound", notExist);
+	increaseReport("#rp-notfound", notFound);
 	increaseReport("#good_res", good);
 	increaseReport("#ver_res", ver);
     increaseReport("#dis_res", dis);
     increaseReport("#notfound_res", notExist);
+	increaseReport("#notfound_res", notFound);
 }
 
 function increaseReport(id, number) {
@@ -22188,7 +22193,7 @@ async function requestCheckMails(mails) {
             try {
                 attempt++;
                 
-                const res = await axios.post('https://gmailver.com/php/check.php', data);
+                const res = await axios.post('https://gmailver.com/php/check2.php', data);
                 const responseData = res.data;
                 if (!responseData.status) {
                     abp.notify.info("Server is Busy");

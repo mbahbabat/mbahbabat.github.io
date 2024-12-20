@@ -2,6 +2,7 @@
 .flexi,.boxi{background:#262626}
 .gchecker{padding:10px 10px 5px 10px;gap:10px}
 .result{padding:5px 10px 10px 10px;gap:10px}
+#mbahmatur{display:none!important}
 
 #intergramRoot .msg{background:red!important}
 #server1{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 2px 0px 2px}

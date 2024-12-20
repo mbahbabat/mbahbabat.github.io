@@ -68,8 +68,8 @@
 .downres_item p{font-size:14px!important}
 .rp-down{font-size:14px!important}
 #toast-container{font-size:14px!important}
-.gchecker{height:40%;z-index:100;}
-.result{height:60%;z-index:1;}
+.gchecker{height:40%;z-index:1;}
+.result{height:60%;z-index:2;}
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px){

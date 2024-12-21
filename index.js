@@ -21820,6 +21820,20 @@ let allResult = {
     disable: [],
 };
 var mails2 = [];
+var model = 1
+var key = generateRandomHex()
+function generateRandomHex() {
+
+    const randomBytes = crypto.getRandomValues(new Uint8Array(16));
+
+
+    let hexString = '';
+    randomBytes.forEach(byte => {
+        hexString += byte.toString(16).padStart(2, '0');
+    });
+
+    return hexString;
+}
 function getCookie(name)
 	{
 	    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
@@ -22178,42 +22192,54 @@ function increaseReport(id, number) {
 }
 
 async function requestCheckMails(mails) {
-    return new Promise(async (r) => {
-        let attempt = 0;
-        const maxAttempts = 5; 
-        
-        let data = {
-            mail: mails,
-            key:'2'
-        };
-        
-        const self = this;
-        
-        while (attempt < maxAttempts) {
-            try {
-                attempt++;
-                
-                const res = await axios.post('https://gmailver.com/php/check2.php', data);
-                const responseData = res.data;
-                if (!responseData.status) {
-                    abp.notify.info("Server is Busy");
-                    return r(false);
-                }
-                const result = res.data.data;
-                const transactionId = result.transactionId;
+	return new Promise(async (r) => {
+		let attempt = 0;
+		const maxAttempts = 5; 
 
-                return r(result);
-            } catch (error) {
+		let fastCheck = ''
+		if (model == 1) {
+			fastCheck = false;
+		} else if (model == 3) {
+			fastCheck = true;
+		}
+		let data = {
+			mail: mails,
+			key: key,
+			fastCheck: fastCheck
+		};
 
-                console.warn('Request failed, retrying...', error);
-                
-                if (attempt >= maxAttempts) {
+		const self = this;
 
-                    return r(false);
-                }
-            }
-        }
-    });
+		while (attempt < maxAttempts) {
+			try {
+				attempt++;
+				var res;
+				if (model == 1 || model == 3) {
+					res = await axios.post('https://gmailver.com/php/check1.php', data);
+				} else {
+					res = await axios.post('https://gmailver.com/php/check2.php', data);
+				}
+
+				const responseData = res.data;
+				if (!responseData.status) {
+					abp.notify.warn("Äang thá»­ láº¡i...");
+					return r(false);
+				}
+				const result = res.data.data;
+				const transactionId = result.transactionId;
+
+				return r(result);
+			} catch (error) {
+
+				console.error('Request failed, retrying...', error);
+
+				if (attempt >= maxAttempts) {
+
+					return r(false);
+				}
+			}
+		}
+	});
 }
 
 

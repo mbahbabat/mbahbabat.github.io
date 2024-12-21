@@ -21971,7 +21971,7 @@ $("#rp-disabled").text(" - ")
 	$(document).on("click",
         "#copy_clip",
         async function copy_good() {
-			abp.notify.warn(" Good Copied!");
+			abp.notify.warn("Copied!");
 			document.querySelector('#toon_audio').play();
 			const goodtocopy = goodEditor.getValue()
 			navigator.clipboard.writeText(goodtocopy);
@@ -21979,7 +21979,7 @@ $("#rp-disabled").text(" - ")
 	$(document).on("click",
         "#copy_clip1",
         async function copy_ver() {
-			abp.notify.warn(" Ver Copied!");
+			abp.notify.warn("Copied!");
 			document.querySelector('#toon_audio').play();
 			const vertocopy = verEditor.getValue()
 			navigator.clipboard.writeText(vertocopy);
@@ -21987,7 +21987,7 @@ $("#rp-disabled").text(" - ")
 	$(document).on("click",
         "#copy_clip2",
         async function copy_disable() {
-			abp.notify.warn(" Disabled Copied!");
+			abp.notify.warn("Copied!");
 			document.querySelector('#toon_audio').play();
 			const disabletocopy = disableEditor.getValue()
 			navigator.clipboard.writeText(disabletocopy);
@@ -21995,7 +21995,7 @@ $("#rp-disabled").text(" - ")
 	$(document).on("click",
         "#copy_clip3",
         async function copy_notExist() {
-			abp.notify.warn(" Not Found Copied!");
+			abp.notify.warn("Copied!");
 			document.querySelector('#toon_audio').play();
 			const notExisttocopy = notExistEditor.getValue()
 			navigator.clipboard.writeText(notExisttocopy);

@@ -15,7 +15,7 @@
 #server2{color:#fff;font-size:10px;cursor:pointer;background: #333333;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 0px 0px 2px}
 .server_info{font-size:11px;position:absolute;right:2px;top:2px;color:#ffcc00;opacity:0.9;z-index:20}
 .btn_executor_top{}
-.btn_executor_bottom{display:flex}
+.btn_executor_bottom{display:flex;}
 
 .mailinput ::-webkit-scrollbar {width: 5px;}
 #starting2{font-size:30px;font-family: 'Hello AI', sans-serif;}
@@ -114,7 +114,7 @@
 	.result{
 	flex-direction:column!important;
 	}
-	.mailinput{width:100%!important;padding-top:10px;padding-bottom:20px}
+	.mailinput{width:100%!important;padding-bottom:20px}
 	.mailoutput{margin:0px}
 	.indicat{flex-direction:column;align-items:flex-start!important;}
 	.downres_item p{width:70px} 

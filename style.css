@@ -123,9 +123,8 @@
 	.result{height:100%;}
 	.header{height:200px;width:100%;}
 	#turbo_indi{margin-right:0px}
-		.btn-executor{flex-direction:column;align-items:flex-end;right:10px;bottom:30px;padding:0px;border-radius:75% 0px 0px 0px;}
-	#check-btn{width:150px;height:75px;text-shadow: 1px 1px #000;border-radius:90% 0px 0px 0px;padding-top:30px;}
-	#turbo-btn,#clear-editor{margin:0px}
+		.btn-executor{right:10px;bottom:30px;padding:0px;}
+
 
 	
 }

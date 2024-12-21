@@ -21769,10 +21769,10 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 
 	$( ".gchecker" ).prepend( $( "<div class='mailinput'>" ) );
 	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100% ;position:absolute;z-index:1;color:#999999'>GMAIL INPUT</p></h3>" ) );
-	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'></div>" ) );
-	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
-	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
-	$( "#clear-editor" ).before( $( "<button id='turbo-btn' class='turbo_btn'>TURBO<p class='turbo_nonactive' style='color:red;margin-left:3px;'>●</p><p class='turbo_active' style='display:none;color:green;margin-left:3px;'>●</p></button>" ) );
+	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'><div class='btn_executor_top'></div><div class='btn_executor_bottom'></div>" ) );
+	$( ".btn_executor_top" ).append( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );	
+	$( ".btn_executor_bottom" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
+	$( "#clear-editor" ).after( $( "<button id='turbo-btn' class='turbo_btn'>TURBO<p class='turbo_nonactive' style='color:red;margin-left:3px;'>●</p><p class='turbo_active' style='display:none;color:green;margin-left:3px;'>●</p></button>" ) );
 	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );	
 	$( ".input_btn" ).append( $( "<a href='https://mbahbabat.github.io' ><button id='server1' class='btn-primary' style='color:#ffcc66'>SERVER 1</button></a>" ) );
 	$( "#server1" ).after( $( "<a href='https://gmailchecker.github.io'><button id='server2' class='btn-primary' style='color:#ffcc66'>SERVER 2</button></a>" ) );	
@@ -21924,6 +21924,8 @@ $("#rp-disabled").text(" - ")
 			document.querySelector(".gchecker").classList.toggle("gchecker1");
 			document.querySelector(".result").classList.toggle("result1");
 			document.querySelector(".res_bad").classList.toggle("res_bad1");
+			document.querySelector(".header_base").classList.toggle("header_base1");
+			document.querySelector(".progress-bar").classList.toggle("progress_bar1");
 			document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
 			$("#rp-good").text(" - ");
 			$("#rp-ver").text(" - ");

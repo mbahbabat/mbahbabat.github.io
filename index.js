@@ -21921,7 +21921,6 @@ $("#rp-disabled").text(" - ")
 			$(".turbo_active").toggle();
 			$(".turbo_nonactive").toggle();
 			$("#turbo_indi").toggle();
-			nums = 100;
 			document.querySelector(".gchecker").classList.toggle("gchecker1");
 			document.querySelector(".result").classList.toggle("result1");
 			document.querySelector(".res_bad").classList.toggle("res_bad1");
@@ -21950,7 +21949,12 @@ $("#rp-disabled").text(" - ")
 			  model = "1";
 			} else {
 			  model = "3";
-}
+			}
+			if (nums === "100") {
+			  nums = "50";
+			} else {
+			  nums = "100";
+			}			
 
 			
         });		

@@ -1899,7 +1899,7 @@ $( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;h
 	$( ".header_top" ).before( $( "<marquee id='maranoun' style='display:none;position:absolute;top:0;left:0;width:100%;height:10px;background:#000;color:yellow;font-size:8px;line-height:8px'> 📢 DOWNLOAD(LIVE) button has been fixed </marquee>" ) );	
 	$( ".header_top" ).append( $( "<div class='g_checker_logo'> <image class='g_checker_logo_img' src='gmail-checker.png'></image></div>" ) );
 	$( ".g_checker_logo" ).after( $( "<h1 class='title'>BULK GMAIL CHECKER</h1>" ) );
-	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;padding:5px'><div class='downres_item'><p style='color:#00cc66'>GOOD</p><div>:</div><span class='rp-down' id='rp-good' style='color:#fff'></span></div><div class='downres_item'><p style='color:#ffcc00'>VER</p><div>: </div><span class='rp-down' id='rp-ver' style='color:#fff' ></span></div><div class='downres_item'><p style='color:#ff8080'>DISABLED</p><div>: </div><span class='rp-down' id='rp-disabled' style='color:#fff'></span></div><div class='downres_item'><p style='color:#4db8ff'>NOT FOUND</p><div>: </div><span class='rp-down' id='rp-notfound' style='color:#fff' ></span></div></div>" ) );
+	$( ".header_bottom" ).append( $( "<div class='indicat' style='display:flex;align-items:center;padding:5px'><div class='downres_item' id='turbo_indi' style='display:none;background:red;height:20px;padding:5px;border-radius:3px;'>TURBO</div><div class='downres_item' id='downres_good'><p style='color:#00cc66'>GOOD</p><div>:</div><span class='rp-down' id='rp-good' style='color:#fff'></span></div><div class='downres_item ' id='downres_ver'><p style='color:#ffcc00'>VER</p><div>: </div><span class='rp-down' id='rp-ver' style='color:#fff' ></span></div><div class='downres_item' id='downres_disabled'><p class='downres_disabled' style='color:#ff8080'>DISABLED</p><p class='downres_trash' style='display:none;color:#ff8080'>BAD</p><div>: </div><span class='rp-down' id='rp-disabled' style='color:#fff'></span></div><div class='downres_item' id='downres_notfound'><p style='color:#4db8ff'>NOT FOUND</p><div>: </div><span class='rp-down' id='rp-notfound' style='color:#fff' ></span></div></div>" ) );
 	$( ".indicat" ).after( $( "<div class='indi_progress'>" ) );$( ".indi_progress" ).append( $( "<div class='progress progress-lg'>" ) );
 	$( ".progress" ).prepend( $( "<div id='mail-progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style='width: 0%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0%</div>" ) );
 
@@ -21772,6 +21772,7 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'></div>" ) );
 	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
 	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
+	$( "#clear-editor" ).before( $( "<button id='turbo-btn' class='turbo_btn'>TURBO<p class='turbo_nonactive' style='color:red;margin-left:3px;'>●</p><p class='turbo_active' style='display:none;color:green;margin-left:3px;'>●</p></button>" ) );
 	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );	
 	$( ".input_btn" ).append( $( "<a href='https://mbahbabat.github.io' ><button id='server1' class='btn-primary' style='color:#ffcc66'>SERVER 1</button></a>" ) );
 	$( "#server1" ).after( $( "<a href='https://gmailchecker.github.io'><button id='server2' class='btn-primary' style='color:#ffcc66'>SERVER 2</button></a>" ) );	
@@ -21790,7 +21791,7 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' class='copy_clip' id='copy_clip1'><div class='showel'>Copy!</div><image src='copy.png' style='width:16px'></image></button>" ) );
 	$( "#copy_clip1" ).before( $( "<button onclick='downloadFile(&#39;ver&#39;)' class='download_item' id='download_item' ><p class='showel'>Download!</p><image src='download.png' style='width:16px'></image></button>" ) );
 	$( "#mailoutput2" ).after( $( "<div class='mailoutput' id='mailoutput3'>" ) );
-	$( "#mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:10'>DISABLED  <span class='res_bad'>(</span><span class='res_bad' id='dis_res'></span><span class='res_bad'>)</span></p></h3>" ) );
+	$( "#mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:10'><p class='h3_disabled'>DISABLED  </p> <p class='h3_trash' style='display:none'>BAD  </p>   <span class='res_bad'>(</span><span class='res_bad' id='dis_res'></span><span class='res_bad'>)</span></p></h3>" ) );
 	$( "#mailoutput3" ).append( $( "<div style='height:100%;width:100%;display:flex;position:relative;'><image class='snow_image' src='dark.jpg' style='width:100%;height:100%;position:absolute;pointer-events:none;opacity:1'></image><textarea style='display:none' id='disable-output'></textarea></div>" ) );
 	$( "#mailoutput3 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' class='copy_clip' id='copy_clip2'><div class='showel'>Copy!</div><image src='copy.png' style='width:16px'></image></button>" ) );
@@ -21820,7 +21821,8 @@ let allResult = {
     disable: [],
 };
 var mails2 = [];
-var model = 1
+var model = 1;
+var nums = 50;
 var key = generateRandomHex()
 function generateRandomHex() {
 
@@ -21905,6 +21907,54 @@ $("#rp-disabled").text(" - ")
 			mails2 = [];			
         });
 	$(document).on("click",
+        "#turbo-btn",
+        function() {
+			$("#mailoutput2").toggle();
+			$("#mailoutput4").toggle();
+			$(".h3_disabled").toggle();
+			$(".h3_trash").toggle();
+			$("#mailoutput3 .download_item").toggle();
+			$("#downres_ver").toggle();
+			$("#downres_notfound").toggle();
+			$(".downres_disabled").toggle();
+			$(".downres_trash").toggle();
+			$(".turbo_active").toggle();
+			$(".turbo_nonactive").toggle();
+			$("#turbo_indi").toggle();
+			nums = 100;
+			document.querySelector(".gchecker").classList.toggle("gchecker1");
+			document.querySelector(".result").classList.toggle("result1");
+			document.querySelector(".res_bad").classList.toggle("res_bad1");
+			document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
+			$("#rp-good").text(" - ");
+			$("#rp-ver").text(" - ");
+			$("#rp-disabled").text(" - ");
+			$("#rp-notfound").text(" - ");
+			$("#good_res").text("");
+			$("#ver_res").text("");
+			$("#dis_res").text("");
+			$("#notfound_res").text("");
+			$(".res_bad").css("opacity", "0");			
+			goodEditor.setValue("");
+			verEditor.setValue("");
+			notExistEditor.setValue("");
+			disableEditor.setValue("");
+			allResult = {
+				ver: [],
+				good: [],
+				notExist: [],
+				disable: [],
+			};
+			mails2 = [];
+			if (model === "3") {
+			  model = "1";
+			} else {
+			  model = "3";
+}
+
+			
+        });		
+	$(document).on("click",
         "#paste_clip",
         async function paste() {
 			abp.notify.warn(" Paste from clipboard!");
@@ -21978,7 +22028,7 @@ $("#rp-disabled").text(" - ")
 
 			$.ajaxSettings.async = true;
 
-            let smallParts = chunk(mails1, 50);
+            let smallParts = chunk(mails1, nums);
             checkMails(smallParts, mails1.length);
         });
 })();

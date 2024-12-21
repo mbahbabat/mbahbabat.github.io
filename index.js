@@ -21772,8 +21772,7 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'><div class='btn_executor_top'></div><div class='btn_executor_bottom'></div>" ) );
 	$( ".btn_executor_top" ).append( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
 	$( ".btn_executor_bottom" ).append( $( "<button id='turbo-btn' class='turbo_btn'>TURBO<p class='turbo_nonactive' style='color:red;margin-left:3px;'>●</p><p class='turbo_active' style='display:none;color:green;margin-left:3px;'>●</p></button>" ) );	
-	$( ".turbo_btn" ).after( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
-	
+	$( ".turbo_btn" ).after( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );
 	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );	
 	$( ".input_btn" ).append( $( "<a href='https://mbahbabat.github.io' ><button id='server1' class='btn-primary' style='color:#ffcc66'>SERVER 1</button></a>" ) );
 	$( "#server1" ).after( $( "<a href='https://gmailchecker.github.io'><button id='server2' class='btn-primary' style='color:#ffcc66'>SERVER 2</button></a>" ) );	
@@ -21909,8 +21908,7 @@ $("#rp-disabled").text(" - ")
         });
 	$(document).on("click",
         "#turbo-btn",
-        function() {
-			inputEditor.focus();		
+        function() {	
 			inputEditor.setValue("example@gmail.com");
 			$("#mailoutput2").toggle();
 			$("#mailoutput4").toggle();

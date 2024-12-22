@@ -22279,7 +22279,7 @@ async function requestCheckMails(mails) {
 
 				const responseData = res.data;
 				if (!responseData.status) {
-					abp.notify.warn("Äang thá»­ láº¡i...");
+					abp.notify.warn("");
 					return r(false);
 				}
 				const result = res.data.data;

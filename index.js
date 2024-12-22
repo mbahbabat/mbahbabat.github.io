@@ -21821,7 +21821,7 @@ let allResult = {
     disable: [],
 };
 var mails2 = [];
-var model = 1;
+var model = 2;
 var nums = 50;
 var key = generateRandomHex()
 function generateRandomHex() {

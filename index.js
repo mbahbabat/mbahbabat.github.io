@@ -21821,7 +21821,7 @@ let allResult = {
     disable: [],
 };
 var mails2 = [];
-var model = 2;
+var model = 1;
 var nums = 50;
 var key = generateRandomHex()
 function generateRandomHex() {
@@ -22272,7 +22272,7 @@ async function requestCheckMails(mails) {
 				attempt++;
 				var res;
 				if (model == 1 || model == 3) {
-					res = await axios.post('https://gmailver.com/php/check1.php', data);
+					res = await axios.post('https://gmailver.com/php/check.php', data);
 				} else {
 					res = await axios.post('https://gmailver.com/php/check2.php', data);
 				}

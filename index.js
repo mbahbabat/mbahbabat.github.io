@@ -21822,7 +21822,7 @@ let allResult = {
     disable: [],
 };
 var mails2 = [];
-var model = 1;
+var model = 2;
 var nums = 50;
 var key = generateRandomHex()
 function generateRandomHex() {
@@ -21948,7 +21948,7 @@ $("#rp-disabled").text(" - ")
 			};
 			mails2 = [];
 			if (model === "3") {
-			  model = "1";
+			  model = "2";
 			} else {
 			  model = "3";
 			}

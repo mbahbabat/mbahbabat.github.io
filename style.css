@@ -123,7 +123,7 @@
 	.indicat{flex-direction:column;align-items:flex-start!important;}
 	.downres_item p{width:70px} 
 	.header_bottom{justify-content:left!important}
-	.gchecker{flex-direction:column-reverse;height:100%}
+	.gchecker{flex-direction:column-reverse;height:100%;z-index:calc(infinity);}
 	.result{height:100%;}
 	.header{height:200px;width:100%;}
 	#turbo_indi{margin-right:0px}

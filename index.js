@@ -22036,8 +22036,8 @@ async function checkMails(smallParts, totalNeedCheck) {
 		if (mailinputScreen.matches){
 		$(".mailinput").css("display", "none");
 		$(".result").css("position", "fixed");
-		$(".result").css("padding", "5px 10px 230px 10px");
-		$(".result").css("top", "220px");
+		$(".result").css("padding", "5px 10px 240px 10px");
+		$(".result").css("top", "230px");
 		}
 		
 	var mailinputScreen = window.matchMedia("(max-width: 767px) and (max-height: 430px)");

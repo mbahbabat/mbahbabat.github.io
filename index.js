@@ -21770,15 +21770,15 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 
 	$( ".gchecker" ).prepend( $( "<div class='mailinput'>" ) );
 	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100% ;position:absolute;z-index:1;color:#999999'>GMAIL INPUT</p></h3>" ) );
-	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'></div>" ) );
-	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
-	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
-	$( "#clear-editor" ).before( $( "<button id='turbo-btn' class='turbo_btn'><svg t='1733635622782' class='icon' style='width:20px' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='9132' id='mx_n_1733635622783' width='200' height='200'><path d='M771.3 465.8L256 1024l150.1-450.3c1.7-5.2-2.1-10.5-7.6-10.5H253c-46.5 0-77.5-48.1-58.3-90.5L392.5 37.5C402.9 14.7 425.7 0 450.8 0h419.6L672.5 346.4c-3 5.3 0.8 12 6.9 12h44.8c55.8 0 84.9 66.4 47.1 107.4z' p-id='9133' fill='#fff'></path></svg>FAST MODE<p class='turbo_nonactive' style='color:#ff3333;margin-left:3px;'>●</p><p class='turbo_active' style='display:none;color:#66ff33;margin-left:3px;'>●</p></button>" ) );
 	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );	
 	$( ".input_btn" ).append( $( "<a href='https://mbahbabat.github.io' ><button id='server1' class='btn-primary' style='color:#ffcc66'>SERVER 1</button></a>" ) );
 	$( "#server1" ).after( $( "<a href='https://gmailchecker.github.io'><button id='server2' class='btn-primary' style='color:#ffcc66'>SERVER 2</button></a>" ) );	
 	$( ".mailinput h3" ).after( $( "<button onclick='paste()' id='paste_clip'>📋 PASTE</button>" ) );
-	$( ".mailinput" ).append( $( "<div style='height:100%;width:100%;display:flex;position:relative;'><image class='snow_image' src='dark.jpg' style='width:100%;height:100%;position:absolute;pointer-events:none;opacity:1'></image><textarea style='display:none' id='mail-input' ></textarea></div>" ) );
+	$( ".mailinput" ).append( $( "<div class='mailinput_base'style='height:100%;width:100%;display:flex;position:relative;'><image class='snow_image' src='dark.jpg' style='width:100%;height:100%;position:absolute;pointer-events:none;opacity:1'></image><textarea style='display:none' id='mail-input' ></textarea></div>" ) );
+	$( ".mailinput_base" ).after( $( "<div class='btn-executor' id='btn-executor' style='display:none'></div>" ) );
+	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
+	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
+	$( "#clear-editor" ).before( $( "<button id='turbo-btn' class='turbo_btn'><svg t='1733635622782' class='icon' style='width:20px' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='9132' id='mx_n_1733635622783' width='200' height='200'><path d='M771.3 465.8L256 1024l150.1-450.3c1.7-5.2-2.1-10.5-7.6-10.5H253c-46.5 0-77.5-48.1-58.3-90.5L392.5 37.5C402.9 14.7 425.7 0 450.8 0h419.6L672.5 346.4c-3 5.3 0.8 12 6.9 12h44.8c55.8 0 84.9 66.4 47.1 107.4z' p-id='9133' fill='#fff'></path></svg>FAST MODE<p class='turbo_nonactive' style='color:#ff3333;margin-left:3px;'>●</p><p class='turbo_active' style='display:none;color:#66ff33;margin-left:3px;'>●</p></button>" ) );	
 	$( ".result" ).append( $( "<div class='mailoutput' id='mailoutput1'>" ) );
 	$( "#mailoutput1" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px;'><p style='width:100%;position:absolute;z-index:1''>GOOD  <span class='res_bad'>(</span><span class='res_bad' id='good_res'></span><span class='res_bad'>)</span></p></h3>" ) );
 	$( "#mailoutput1 h3" ).append( $( "<div class='result_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );

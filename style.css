@@ -72,15 +72,16 @@
 .mailinput .CodeMirror{position:absolute;height:100%;width:100%;opacity:0.9}
 .mailoutput .CodeMirror{position:absolute;width:100%;height:100%;opacity:0.9}
 
-.gchecker{height:40%;z-index:1;}
-.result{height:60%;z-index:2;}
+.gchecker{height:40%;}
+.result{height:60%;}
 
 @media only screen and (min-width: 1025px){
 .header_base{width:70%;height:100%;}
 .downres_item p{font-size:14px!important}
 .rp-down{font-size:14px!important}
 #toast-container{font-size:14px!important}
-
+.gchecker{z-index:1;}
+.result{z-index:2;}
 
 }
 
@@ -123,7 +124,7 @@
 	.indicat{flex-direction:column;align-items:flex-start!important;}
 	.downres_item p{width:70px} 
 	.header_bottom{justify-content:left!important}
-	.gchecker{flex-direction:column-reverse;height:100%;z-index:calc(infinity);}
+	.gchecker{flex-direction:column-reverse;height:100%;}
 	.result{height:100%;}
 	.header{height:200px;width:100%;}
 	#turbo_indi{margin-right:0px}

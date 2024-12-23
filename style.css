@@ -98,6 +98,7 @@
 @media only screen and (max-width: 1024px){
 	.server_info{z-index:17}
 	#mbahmatur{font-size:10px!important}
+	.mailoutput .CodeMirror-lines {pointer-events:none}
 
 }
 

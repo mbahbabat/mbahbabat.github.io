@@ -85,6 +85,8 @@
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px){
+.gchecker{height:350px;}
+.result{height:100%;}	
 .indicat{flex-direction:column;}
 .header_bottom{justify-content:left!important}
 .downres_item p{width:100px} 

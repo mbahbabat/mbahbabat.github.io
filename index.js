@@ -22001,7 +22001,7 @@ async function sleep(ms) {
 async function checkMails(smallParts, totalNeedCheck) {
 	abp.notify.info(" Checking...");
 	$(".btn-executor").css("pointer-events", "none");
-	$(".btn-executor").css("opacity", "0");
+	$(".btn-executor").css("opacity", "0.3");
 	$("#paste_clip").css("opacity", "0.3");
 	$(".input_btn").css("opacity", "0.3");
 	$(".mailinput").css("pointer-events", "none");

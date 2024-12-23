@@ -22063,7 +22063,8 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".download_item").css("opacity", "0.3");
 	$(".copy_clip").css("pointer-events", "none");
 	$(".copy_clip").css("opacity", "0.3");
-	$(".lightning").css("display", "none");
+	$(".lightning").css("opacity", "0");
+	$(".lightning2").css("opacity", "0");
 	$(".checking_mail").css("display", "block");
 	document.querySelector('#shock_audio').play();
 			$(".res_bad").css("opacity", "1");
@@ -22193,7 +22194,8 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".download_item").css("opacity", "1");
 	$(".copy_clip").css("pointer-events", "visible");
 	$(".copy_clip").css("opacity", "1");
-	$(".lightning").css("display", "block");
+	$(".lightning").css("opacity", "0.2");
+	$(".lightning2").css("opacity", "0.1");
 	$(".checking_mail").css("display", "none");
 	document.querySelector('#finish_audio').play();
 	abp.notify.info("COMPLETED!");

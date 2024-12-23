@@ -1888,7 +1888,7 @@ $( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;h
 	$( ".header_base" ).append( $( "<div class='header'>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
-	$( ".header" ).append( $( "<p class='server_info'>SERVER : 1</>" ) );
+	$( ".header" ).append( $( "<p class='server_info'>SERVER : 2</>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='xmas5.gif'></image>" ) );
 	$( ".header" ).append( $( "<image class='checking_mail' src='run.gif' style='display:none'></image>" ) );
 	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:19;display:none;width:100%;color:#fff;overflow:hidden;font-size:11px;background:#000;padding:2px'>📣 If the service is not working properly, please use another server.</div>" ) );
@@ -9694,7 +9694,7 @@ typewriter(el, "WELCOME");
 
 })));
 
-$( "body" ).prepend( $( "<div class='preloader' style='position:fixed;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#262626;z-index:99999999;padding:50px'>" ) );
+$( "body" ).append( $( "<div class='preloader' style='position:fixed;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background:#262626;z-index:calc(infinity);padding:50px'>" ) );
 $( ".preloader" ).prepend( $( "<image class='pre_img' style='width:50px;height:50px;margin:10px;' src='gmail-checker.png'></image>" ) );
 setTimeout(function() {
 $(".preloader").remove()
@@ -21769,10 +21769,10 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 
 	$( ".gchecker" ).prepend( $( "<div class='mailinput'>" ) );
 	$( ".mailinput" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100% ;position:absolute;z-index:1;color:#999999'>GMAIL INPUT</p></h3>" ) );
-	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'><div class='btn_executor_top'></div><div class='btn_executor_bottom'></div>" ) );
-	$( ".btn_executor_top" ).append( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
-	$( ".btn_executor_bottom" ).append( $( "<button id='turbo-btn' class='turbo_btn'>TURBO<p class='turbo_nonactive' style='color:red;margin-left:3px;'>●</p><p class='turbo_active' style='display:none;color:green;margin-left:3px;'>●</p></button>" ) );	
-	$( ".turbo_btn" ).after( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );
+	$( ".mailinput" ).prepend( $( "<div class='btn-executor' id='btn-executor' style='display:none'></div>" ) );
+	$( ".btn-executor" ).append( $( "<button onClick='clear_all()' id='clear-editor' class='btn-primary'>CLEAR</button>" ) );;
+	$( "#clear-editor" ).after( $( "<button onClick='clear_all_run()' id='check-btn' class='check_btn'>START</button>" ) );
+	$( "#clear-editor" ).before( $( "<button id='turbo-btn' class='turbo_btn'>TURBO<p class='turbo_nonactive' style='color:red;margin-left:3px;'>●</p><p class='turbo_active' style='display:none;color:green;margin-left:3px;'>●</p></button>" ) );
 	$( ".mailinput h3" ).append( $( "<div class='input_btn' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );	
 	$( ".input_btn" ).append( $( "<a href='https://mbahbabat.github.io' ><button id='server1' class='btn-primary' style='color:#ffcc66'>SERVER 1</button></a>" ) );
 	$( "#server1" ).after( $( "<a href='https://gmailchecker.github.io'><button id='server2' class='btn-primary' style='color:#ffcc66'>SERVER 2</button></a>" ) );	
@@ -21791,7 +21791,7 @@ document.querySelector(".download-result").style.animation="slideup 0.75s"; docu
 	$( ".result_btn1" ).append( $( "<button onclick='copy_ver()' class='copy_clip' id='copy_clip1'><div class='showel'>Copy!</div><image src='copy.png' style='width:16px'></image></button>" ) );
 	$( "#copy_clip1" ).before( $( "<button onclick='downloadFile(&#39;ver&#39;)' class='download_item' id='download_item' ><p class='showel'>Download!</p><image src='download.png' style='width:16px'></image></button>" ) );
 	$( "#mailoutput2" ).after( $( "<div class='mailoutput' id='mailoutput3'>" ) );
-	$( "#mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:10'><p class='h3_disabled'>DISABLED  </p> <p class='h3_trash' style='display:none'>BAD  </p>   <span class='res_bad'>(</span><span class='res_bad' id='dis_res'></span><span class='res_bad'>)</span></p></h3>" ) );
+	$( "#mailoutput3" ).prepend( $( "<h3 style='display:flex;width:100%;align-items:center;height:50px'><p style='width:100%;position:absolute;z-index:10'><a class='h3_disabled'>DISABLED  </a> <a class='h3_trash' style='display:none'>BAD  </a>   <span class='res_bad'>(</span><span class='res_bad' id='dis_res'></span><span class='res_bad'>)</span></p></h3>" ) );
 	$( "#mailoutput3" ).append( $( "<div style='height:100%;width:100%;display:flex;position:relative;'><image class='snow_image' src='dark.jpg' style='width:100%;height:100%;position:absolute;pointer-events:none;opacity:1'></image><textarea style='display:none' id='disable-output'></textarea></div>" ) );
 	$( "#mailoutput3 h3" ).append( $( "<div class='result_btn2' style='display:flex;width:100%;justify-content:right;align-items:center;z-index:10'>" ) );
 	$( ".result_btn2" ).append( $( "<button onclick='copy_disable()' class='copy_clip' id='copy_clip2'><div class='showel'>Copy!</div><image src='copy.png' style='width:16px'></image></button>" ) );
@@ -21821,7 +21821,7 @@ let allResult = {
     disable: [],
 };
 var mails2 = [];
-var model = 2;
+var model = 1;
 var nums = 50;
 var key = generateRandomHex()
 function generateRandomHex() {
@@ -21908,8 +21908,7 @@ $("#rp-disabled").text(" - ")
         });
 	$(document).on("click",
         "#turbo-btn",
-        function() {	
-			inputEditor.setValue("example@gmail.com");
+        function() {
 			$("#mailoutput2").toggle();
 			$("#mailoutput4").toggle();
 			$(".h3_disabled").toggle();
@@ -21922,11 +21921,6 @@ $("#rp-disabled").text(" - ")
 			$(".turbo_active").toggle();
 			$(".turbo_nonactive").toggle();
 			$("#turbo_indi").toggle();
-			document.querySelector(".gchecker").classList.toggle("gchecker1");
-			document.querySelector(".result").classList.toggle("result1");
-			document.querySelector(".res_bad").classList.toggle("res_bad1");
-			document.querySelector(".header_base").classList.toggle("header_base1");
-			document.querySelector(".progress-bar").classList.toggle("progress_bar1");
 			document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
 			$("#rp-good").text(" - ");
 			$("#rp-ver").text(" - ");
@@ -21957,9 +21951,7 @@ $("#rp-disabled").text(" - ")
 			  nums = "50";
 			} else {
 			  nums = "100";
-			}			
-
-			
+			}	
         });		
 	$(document).on("click",
         "#paste_clip",
@@ -22272,14 +22264,14 @@ async function requestCheckMails(mails) {
 				attempt++;
 				var res;
 				if (model == 1 || model == 3) {
-					res = await axios.post('https://gmailver.com/php/check.php', data);
+					res = await axios.post('https://gmailver.com/php/check1.php', data);
 				} else {
 					res = await axios.post('https://gmailver.com/php/check2.php', data);
 				}
 
 				const responseData = res.data;
 				if (!responseData.status) {
-					abp.notify.warn("");
+					abp.notify.warn("Äang thá»­ láº¡i...");
 					return r(false);
 				}
 				const result = res.data.data;

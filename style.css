@@ -92,7 +92,7 @@
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px){
-.gchecker{height:440px;}
+.gchecker{height:300px;}
 .result{height:100%;}	
 .indicat{flex-direction:column;}
 .header_bottom{justify-content:left!important}
@@ -114,7 +114,6 @@
 	.announcement{zoom:50%}
 	.g_checker_logo{opacity:0.4}
 	.title{opacity:0.4}
-	.downres_item{background:#262626;opacity:0.7;padding:2px 5px 2px 5px ;border-radius:3px;margin:2px;}
 	.header_top{height:40%!important}
 	.header_bottom{height:60%!important}
 
@@ -125,7 +124,7 @@
 	.copy_clip:hover .showel{display:none}
 	.download_item:hover .showel{display:none}
 	.header_base{position:fixed;z-index:calc(infinity);top:0;left:0;width:100%;padding:10px;background:#262626}
-	.mailinput{margin-top:220px}
+	.mailinput{margin-top:190px}
 	.server_info{font-size:10px;top:0!important}
 	.result{flex-direction:column!important;}
 	.mailinput{width:100%!important}
@@ -136,7 +135,7 @@
 	.gchecker{flex-direction:column-reverse;height:100%;}
 	.result{height:100%;}
 	.footer{padding:10px 0px 10px 0px;}
-	.header{height:210px;width:100%;}
+	.header{height:180px;width:100%;}
 	#turbo_indi{margin-right:0px;}
 	.gchecker1{background:#fff!important}
 	.btn-executor{padding:10px 0px 10px 0px;}
@@ -149,7 +148,7 @@
 .header_base{position:relative;}
 .mailinput{margin-top:0px}
 .gchecker{height:500px;width:100%}
-.result{min-height:430px;width:100%}	
+.result{min-height:600px;width:100%}	
 
 }
 
@@ -159,8 +158,8 @@
 
 @media only screen and (min-width: 768px) and (max-height: 600px){
 .boxi{display:block}
-.gchecker{height:250px;z-index:1;}
-.result{height:320px;z-index:2;}
+.gchecker{height:200px;z-index:1;}
+.result{height:350px;z-index:2;}
 }
 
 

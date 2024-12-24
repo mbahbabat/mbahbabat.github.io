@@ -19,7 +19,8 @@
 			$(".snow_image").toggle();
 			$(".lightning").toggle();
 			$(".lightning2").toggle();
-			$(".announcement").toggle();			
+			$(".announcement").toggle();
+			document.querySelector('#turbo_audio').play();		
 			document.querySelector(".turbo_btn").classList.toggle("turbo_btn_active");
 			document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
 			$("#rp-good").text(" - ");

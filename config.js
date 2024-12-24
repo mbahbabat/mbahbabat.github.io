@@ -1,5 +1,5 @@
 	$( ".header" ).append( $( "<p class='server_info'>SERVER : 1</>" ) );
-	var model = 2;
+	var model = 1;
 	var nums = 50;	
 	$(document).on("click",
         "#turbo-btn",
@@ -44,7 +44,7 @@
 			};
 			mails2 = [];
 			if (model === "3") {
-			  model = "2";
+			  model = "1";
 			} else {
 			  model = "3";
 			}

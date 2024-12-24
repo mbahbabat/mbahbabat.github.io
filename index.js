@@ -1878,7 +1878,7 @@
 
 $( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;height:100%;z-index:999;background:#000;display:none;flex-direction:column;justify-content:center;align-items:center;'><h1 style='text-align:center'>Maintenance </h1><h3>''we will be back soon''</h3><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' style='color:#66ccff;position:absolute;bottom:10px;display:flex;align-items:center;font-size:14px;'> <image src='tele_group.png' style='padding:5px;width:40px; height:40px'></image>Gmail Community</a>" ) );
 	$( "body" ).prepend( $( "<div class='flexi'>" ) );
-	$( "body" ).append( $( "<audio id='turbo_audio' src='turbo.mp3' preload='auto'><audio id='finish_audio' src='finish.mp3' preload='auto'><audio id='error_audio' src='error.mp3' preload='auto'><audio id='shock_audio' src='shock.mp3' preload='auto'></audio><audio id='cleared_audio' src='uek.mp3' preload='auto'></audio><audio id='toon_audio' src='uhoh.mp3' preload='auto'></audio>" ) );
+	$( "body" ).append( $( "<audio id='checked_audio' src='checked.mp3' preload='auto'></audio><audio id='turbo_audio' src='turbo.mp3' preload='auto'></audio><audio id='finish_audio' src='finish.mp3' preload='auto'></audio><audio id='error_audio' src='error.mp3' preload='auto'></audio><audio id='shock_audio' src='shock.mp3' preload='auto'></audio><audio id='cleared_audio' src='uek.mp3' preload='auto'></audio><audio id='toon_audio' src='uhoh.mp3' preload='auto'></audio>" ) );
 	$( ".flexi" ).prepend( $( "<div class='boxi'>" ) );
 	$( ".boxi" ).prepend( $( "<div class='gchecker'>" ) );
 	$( ".gchecker" ).after( $( "<div class='result'>" ) );
@@ -22089,6 +22089,7 @@ async function checkMails(smallParts, totalNeedCheck) {
         $("#mail-progress-bar")[0].textContent = `${percent}%`;
 
         abp.notify.success("✅ " + totalChecked + " Checked ");
+		document.querySelector('#checked_audio').play();
 
         let goodValue = [
             ...allResult.good,

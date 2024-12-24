@@ -1,6 +1,6 @@
 	$( ".header" ).append( $( "<p class='server_info'>SERVER : 1</>" ) );
 	var model = 2;
-	var nums = 50;	
+	var nums = 200;	
 	$(document).on("click",
         "#turbo-btn",
         function() {
@@ -20,7 +20,7 @@
 			$(".lightning").toggle();
 			$(".lightning2").toggle();
 			$(".announcement").toggle();
-			document.querySelector('#turbo_audio').play();		
+			document.querySelector('#turbo_audio').play();	
 			document.querySelector(".turbo_btn").classList.toggle("turbo_btn_active");
 			document.querySelector("#mail-progress-bar").style.cssText="width:0!important;transition:2s";
 			$("#rp-good").text(" - ");
@@ -49,7 +49,7 @@
 			  model = "3";
 			}
 			if (nums === "100") {
-			  nums = "50";
+			  nums = "200";
 			} else {
 			  nums = "100";
 			}	

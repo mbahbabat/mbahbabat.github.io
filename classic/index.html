@@ -43,33 +43,28 @@
 	img{border-style: none;}
 	@media print{*{text-shadow:none!important;color:#000!important;background:0 0!important;box-shadow:none!important}}
 	
-	.box1{position:fixed;top:0;left:0;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;background:#e6ccb3}
-	.box2{display:flex;flex-direction:column;gap:10px;position:relative;width:1025px;height:100%;padding:10px;overflow:hidden}
-	header{width:100%;height:50px;position:relative}
+	.box1{position:fixed;top:0;left:0;display:flex;justify-content:center;width:100%;height:100%;background:#e6ccb3}
+	.box2{display:flex;flex-direction:column;width:1025px;height:100%;padding:10px;overflow:hidden;}
+	header{width:100%;position:relative;padding:10px 0 20px 0}
 	.site_url{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;gap:10px;}
 	.site_logo {width:40px}
 	.title{position:relative;font-family: 'Hello AI', sans-serif;color:#666666;padding-bottom:5px;font-size:30px}
 	.engine{display:flex;flex-direction:column;width:100%;height:100%;}
-	footer{display:flex;flex-direction:column;width:100%;background:#dfbe9f;gap:}
-	#theme{display:none}
+	footer{display:flex;width:100%;}
 	
-	.server_btn{width:100%;display:flex;gap:10px;justify-content:center;padding:10px 0px 0px 0px}
-	.server_btn div{color:#996633;font-weight:500;cursor:pointer}
-	.server_btn div span{margin-right:2px;font-size:10px}
-	#server_2{opacity:0.7;font-weight:300;}
-	.tele_group_link{width:100%;display:flex; justify-content:center; align-items:center;font-size:10px;}
+	.tele_group_link{width:100%;display:flex; justify-content:center; align-items:center;}
 	.tele_group_link_btn{cursor:pointer;padding:5px;display:flex;align-items:center;border:none;background:none;color:#996633}
 	.tele_group_link_img{width:15px;height:15px;margin-right:5px;}
-	#author{text-align:center;font-size:10px; color:#996633;padding:5px}
+	#author{text-align:center; color:#996633;padding:3px}
 	#author span{font-size:8px}
-	.executor{display:flex;justify-content:center;align-items:flex-end;width:100%;height:75px;margin-top:10px}
+	.executor{display:flex;justify-content:center;align-items:center;width:100%;height:100px;}
 	.executor_btn{width:100px;height:40px;cursor:pointer}
 	.CodeMirror-hscrollbar{display:none!important}
 	#check_btn,#recheck_btn{background:#c68c53;border:3px #fff; border-style:outset;border-radius:10px;color:#fff}
-	.mode1, .mode2{display:flex;justify-content:center;align-items:center;flex-direction:column;gap:5px;font-size:12px;margin-top:10px}
-	.advanced_mode{position:relative;width:110px;text-align:center;cursor:pointer;padding:5px 0px 5px 0px;color:#392613;opacity:0.7;font-weight:300;}
-	.speed_mode{position:relative;width:110px;text-align:center;cursor:pointer;padding:5px 0px 5px 0px;color:#392613;border:2px #cc9966;border-style:hidden hidden ridge hidden;font-weight:bold;}
-	.mode_on{position:absolute;right:-50px;top:5px;color:#86592d;font-size:8px;background:#d2a679;padding:2px 5px 2px 5px;border-radius:5px;}
+	.mode1, .mode2{display:flex;justify-content:center;align-items:center;flex-direction:column;gap:5px;margin-top:10px}
+	.advanced_mode{position:relative;width:100px;text-align:center;cursor:pointer;color:#392613;opacity:0.7;font-weight:300;padding:2px 0px 2px 0px}
+	.speed_mode{position:relative;width:90px;text-align:center;cursor:pointer;color:#392613;border:2px #cc9966;border-style:hidden hidden ridge hidden;font-weight:bold;padding:2px 0px 2px 0px}
+	.mode_on{position:absolute;right:-50px;top:0px;color:#86592d;font-size:8px;background:#d2a679;padding:2px 5px 2px 5px;border-radius:5px;}
 
 	
 	.mail_input, .good_output, .ver_output, .dis_output, .notfound_output{position:relative;width:100%;height:100%}
@@ -84,9 +79,13 @@
 	.copy_clip{width:75px;height:30px;background:#c68c53;cursor:pointer;border-radius:10px;color:#4d3319}
 	.file_download{width:75px;height:30px;background:#c68c53;cursor:pointer;border-radius:10px;color:#4d3319}
 	
-	.res_tab_menu{display:flex;align-items:center;width:100%;height:75px;background:#996633;color:#fff;border-bottom:5px solid #996633;border-radius:10px 10px 0px 0px;}
-	.res_tab_menu h3{margin-left:10px;width:100%}
+	.res_tab_menu{display:flex;align-items:center;width:100%;height:75px;background:#996633;color:#fff;border-radius:10px 10px 0px 0px;position:relative}
+	.input_title{margin-left:10px;width:100%}
 	.res_btn{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;gap:5px;cursor:pointer;border-left:2px solid #392613;border-bottom:1px solid #392613;font-weight:bold;}
+	.server_btn{width:100%;height:100%;display:flex;justify-content:right;align-items:center;position:absolute;top:0;left:0;padding:10px}
+	.server_btn div{color:#fff;font-weight:500;cursor:pointer;width:85px;text-align:right;}
+	.server_btn div span{margin-right:5px;}
+	#server_2{opacity:0.7;font-weight:300;}
 	#good_res,#good_res_speed{border-radius:10px 0px 0px 0px;}
 	#notfound_res,#bad_res_speed{border-radius:0px 10px 0px 0px;}
 	.badge{display:flex;align-items:center;justify-content:center;background:#734d26;height:20px;border-radius:5px;min-width:50px;text-align:center;font-weight:bold}
@@ -118,15 +117,18 @@
 	
 	@media only screen and (max-width: 767px){
 	.res_tab_menu{zoom:60%;height:100px;}
-	
+	header{zoom:80%}
 	.badge{zoom:150%;margin-bottom:5px}
-	.res_tab_menu h3{zoom:150%;}
+	.input_title, .server_btn{zoom:150%;}
 	}
+	
+	@media only screen and (max-width: 300px){
+	.server_btn{flex-direction:column;justify-content:center;align-items:flex-end}
+	}	
 	
 	@media only screen and (max-height: 350px){
 	.box2{display:block;overflow-y:auto}
-	.engine{display:block;height:350px;}
-
+	.engine{height:350px;}
 	}
 	
 	@media only screen and (min-width: 1025px){
@@ -2046,9 +2048,15 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 	$( ".engine" ).append( $( "<div class='res_tab_menu'>" ) );	
 
-	$( ".res_tab_menu" ).append( $( "<h3>Enter Gmail here...</h3>" ) );	
+	$( ".res_tab_menu" ).append( $( "<div class='input_title'>Enter Gmail here...</div>" ) );	
+	
+	$( ".input_title" ).after( $( "<div class='server_btn'>" ) );	
+	
+	$( ".server_btn" ).append( $( "<div id='server_1'><span>●</span>SERVER 1</div>" ) );
+	
+	$( "#server_1" ).after( $( "<div id='server_2'><span>●</span>SERVER 2</div>" ) );	
 
-	$( ".res_tab_menu h3" ).after( $( "<div class='adv_res'>" ) );	
+	$( ".input_title" ).after( $( "<div class='adv_res'>" ) );
 
 	$( ".adv_res" ).append( $( "<div class='res_btn' id='good_res'>GOOD  <div class='badge'><span id='good_badge'></span></div></div>" ) );
 
@@ -2122,17 +2130,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 	$( ".mode2" ).append( $( "<div class='advanced_mode' id='advanced_mode2'>Advanced Mode<p class='mode_on'>Selected</p></div>" ) );
 
-	$( ".mode2" ).append( $( "<div class='speed_mode' id='speed_mode2'>Fast Mode<p class='mode_on'>Selected</p></div>" ) );
-	
-	$( ".mode2" ).after( $( "<div class='server_btn'>" ) );	
-	
-	$( ".server_btn" ).append( $( "<div id='theme'>THEME</a>" ) );	
-	
-	$( "#theme" ).after( $( "<div id='server_1'><span>●</span>SERVER 1</div>" ) );
-	
-	$( "#server_1" ).after( $( "<div id='sparator_server'>|</div>" ) );
-	
-	$( "#sparator_server" ).after( $( "<div id='server_2'><span>●</span>SERVER 2</div>" ) );		
+	$( ".mode2" ).append( $( "<div class='speed_mode' id='speed_mode2'>Fast Mode<p class='mode_on'>Selected</p></div>" ) );			
 
 	$( ".mode" ).after( $( "<div class='executor'>" ) );
 
@@ -2140,11 +2138,9 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 	$( "#check_btn" ).after( $( "<button class='executor_btn' id='recheck_btn'>Check Again</button>" ) );
 	
-	$( ".box2" ).after( $( "<footer>" ) );
+	$( ".engine" ).after( $( "<footer>" ) );
 
-	$( "footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='tele.gif'></image>Telegram Group</button><a/></div>" ) );
-
-	$( ".tele_group_link" ).after( $( "<p id='author'>by<span>♥</span> mbah Babat for All</p>" ) );		
+	$( "footer" ).append( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='tele.gif'></image>Telegram Group</button><a/></div>" ) );	
 
   function LineView(doc, line, lineN) {
     // The starting line
@@ -21819,9 +21815,6 @@ $("#server2_info").hide();
 $("#server_2 span").hide();
 
 document.querySelector(".progress").style.cssText="color:#996633";
-
-
-
 document.querySelector(".good_output").style.cssText="width:0;height:0";
 document.querySelector(".ver_output").style.cssText="width:0;height:0";
 document.querySelector(".dis_output").style.cssText="width:0;height:0";
@@ -22067,14 +22060,15 @@ inputEditor.setValue("example@gmail.com");
 			document.querySelector(".ver_output").style.cssText="width:0;height:0";
 			document.querySelector(".dis_output").style.cssText="width:0;height:0";
 			document.querySelector(".notfound_output").style.cssText="width:0;height:0";
-			document.querySelector(".res_tab_menu").style.cssText="border-color:#604020";
+			$(".server_btn").show();			
+			document.querySelector(".res_tab_menu").style.cssText="border:none;background:#996633";			
 			$("#good_badge").text("");
 			$("#ver_badge").text("");
 			$("#dis_badge").text("");
 			$("#notfound_badge").text("");
 			$("#good_speed_badge").text("");
 			$("#bad_speed_badge").text("");
-			$(".res_tab_menu h3").show();
+			$(".input_title").show();
 			$(".res_btn").hide();
 			$("#recheck_btn").hide();
 			$("#check_btn").show();
@@ -22200,10 +22194,11 @@ async function checkMails(smallParts, totalNeedCheck) {
 		document.querySelector("#bad_res_speed").style.cssText="background:none;color:#cccccc;opacity:0.5";
 		document.querySelector("#good_res_speed").style.cssText="background:#996633;color:#fff";
 		document.querySelector('#start_audio').play();
-		$(".res_tab_menu h3").hide();
+		$(".input_title").hide();
 		$(".res_btn").show();
 		document.querySelector("#check_btn").style.cssText="pointer-events:none;opacity:0.3";
-		document.querySelector(".res_tab_menu").style.cssText="border-color:#996633;background:#604020";
+		$(".server_btn").hide();			
+		document.querySelector(".res_tab_menu").style.cssText="border-bottom:5px solid #996633;background:#604020";
 		$(".footer_btn").hide();
 		$(".mode").hide();		
 		$("#good_badge").text(" 0 ");

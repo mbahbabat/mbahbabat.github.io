@@ -7,7 +7,7 @@
 .result{padding:5px 10px 0px 10px;gap:10px}
 .footer{padding:5px 0px 5px 0px;background:#262626}
 .turbo_btn_active{border-color:#fff!important}
-.active_server{position:absolute;top:0;left:0;pointer-events:none;opacity:1;z-index:-1}
+.active_server{position:absolute;top:0;left:0;pointer-events:none;opacity:0.3;z-index:-1}
 #mbahmatur{display:none!important}
 .indicat2{display:flex}
 #turbo_indi{text-shadow: none}
@@ -18,9 +18,9 @@
 .lightning{opacity:0.2;z-index:93;}
 .lightning2{display:none;position:absolute;left:0;top:0;z-index:93;width:100%;height:100%;opacity:0.2;pointer-events:none}
 #intergramRoot .msg{background:red!important}
-#server1{position:relative;color:#00cc99;font-size:10px;cursor:pointer;background: none;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 2px 0px 2px;text-shadow: 1px 1px #000;}
-#server2{position:relative;color:#fff;font-size:10px;cursor:pointer;background: none;border:2px #000;border-style:outset;border-radius:5px;padding:5px;margin:0px 0px 0px 2px;text-shadow: 1px 1px #000;}
-.server_info1,.server_info2{font-size:11px;position:absolute;right:2px;top:2px;color:#fff;z-index:94}
+#server1{position:relative;color:#00cc99;font-size:10px;cursor:pointer;background: none;border:2px #000;border-style:outset;border-radius:5px;padding:5px 10px 5px 10px;margin:0px 2px 0px 2px;text-shadow: 1px 1px #000;}
+#server2{position:relative;color:#fff;font-size:10px;cursor:pointer;background: none;border:2px #000;border-style:outset;border-radius:5px;padding:5px 10px 5px 10px;margin:0px 0px 0px 2px;text-shadow: 1px 1px #000;}
+.server_info1,.server_info2{font-size:11px;position:absolute;right:2px;top:2px;color:#00cc99;z-index:94}
 
 .mailinput ::-webkit-scrollbar {width: 5px;}
 #starting2{font-size:30px;font-family: 'Hello AI', sans-serif;}

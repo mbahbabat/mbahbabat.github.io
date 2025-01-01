@@ -7,11 +7,11 @@
 .result{padding:5px 10px 0px 10px;gap:10px}
 .footer{padding:5px 0px 5px 0px;background:#262626}
 .turbo_btn_active{border-color:#fff!important}
-.active_server{position:absolute;top:0;left:0;pointer-events:none;opacity:0.3;z-index:-1}
+.active_server{position:absolute;top:0;left:0;pointer-events:none;opacity:0.5;z-index:-1}
 #mbahmatur{display:none!important}
 .indicat2{display:flex}
 #turbo_indi{text-shadow: none}
-#turbo_indi{margin-right:50px;opacity:0.9}
+#turbo_indi{margin-right:50px;opacity:0.7}
 .joinus{width:100px;height:30px;margin-right:5px;}
 .snow_image{display:none}
 .checking_mail{opacity:0.3;z-index:93;}
@@ -118,7 +118,7 @@
 	.announcement{zoom:50%}
 	.rp-down{justify-content:left;}
 	#toast-container{top:20px!important}
-
+	#turbo_indi{margin:0 0 20px 0;zoom:75%}
 }
 
 @media only screen and (max-width: 767px){
@@ -138,7 +138,6 @@
 	.result{height:100%;}
 	.footer{padding:10px 0px 10px 0px;}
 	.header{height:180px;width:100%;}
-	#turbo_indi{margin-right:0px;}
 	.gchecker1{background:#fff!important}
 	.btn-executor{padding:10px 0px 10px 0px;}
 	#clear-editor,#turbo-btn1,#turbo-btn2,#check-btn{height:60px}

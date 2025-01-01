@@ -1889,6 +1889,7 @@ $( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;h
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
 	$( ".darkmode" ).after( $( "<div class='lightmode' id='dark_light' onclick='lightmode()'>☼</div>" ) );
 	$( ".header" ).append( $( "<image class='lightning' src='anim.gif'></image>" ) );
+	$( ".header" ).append( $( "<image class='lightning1' src='hny.gif'></image>" ) );
 	$( ".header" ).append( $( "<image class='lightning2' src='lightning.gif'></image>" ) );	
 	$( ".header" ).append( $( "<image class='checking_mail' src='run2.gif' style='display:none'></image>" ) );
 	$( ".header" ).append( $( "<div id='mbahmatur' style='position:absolute;top:0;left:0;z-index:19;display:none;width:100%;color:#fff;overflow:hidden;font-size:11px;background:#000;padding:2px'>📣 If the service is not working properly, please use another server.</div>" ) );
@@ -22016,6 +22017,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".copy_clip").css("pointer-events", "none");
 	$(".copy_clip").css("opacity", "0.3");
 	$(".lightning").css("opacity", "0");
+	$(".lightning1").css("opacity", "0");
 	$(".lightning2").css("opacity", "0");
 	$(".checking_mail").css("display", "block");
 	document.querySelector('#shock_audio').play();
@@ -22148,6 +22150,7 @@ async function checkMails(smallParts, totalNeedCheck) {
 	$(".copy_clip").css("pointer-events", "visible");
 	$(".copy_clip").css("opacity", "1");
 	$(".lightning").css("opacity", "0.3");
+	$(".lightning1").css("opacity", "0.3");
 	$(".lightning2").css("opacity", "0.2");
 	$(".checking_mail").css("display", "none");
 	document.querySelector('#finish_audio').play();

@@ -20,6 +20,7 @@
 			$("#turbo_indi").toggle();
 			$(".snow_image").toggle();
 			$(".lightning").toggle();
+			$(".lightning1").toggle();
 			$(".lightning2").toggle();
 			$(".announcement").toggle();
 			document.querySelector('#turbo_audio').play();	
@@ -73,6 +74,7 @@
 			$("#turbo_indi").toggle();
 			$(".snow_image").toggle();
 			$(".lightning").toggle();
+			$(".lightning1").toggle();
 			$(".lightning2").toggle();
 			$(".announcement").toggle();
 			document.querySelector('#turbo_audio').play();	
@@ -132,6 +134,7 @@
 			$("#turbo_indi").hide();
 			$(".snow_image").hide();
 			$(".lightning").show();
+			$(".lightning1").show();
 			$(".lightning2").hide();
 			$(".announcement").show();
 			document.querySelector('#mode_audio').play();	
@@ -186,6 +189,7 @@
 			$("#turbo_indi").hide();
 			$(".snow_image").hide();
 			$(".lightning").show();
+			$(".lightning1").show();			
 			$(".lightning2").hide();
 			$(".announcement").show();
 			document.querySelector('#mode_audio').play();	

@@ -16,6 +16,7 @@
 .snow_image{display:none}
 .checking_mail{opacity:0.3;z-index:93;}
 .lightning{opacity:0.2;z-index:93;}
+.lightning1{position:absolute;left:0;top:0;z-index:93;width:100%;height:100%;opacity:0.2;pointer-events:none}
 .lightning2{display:none;position:absolute;left:0;top:0;z-index:93;width:100%;height:100%;opacity:0.2;pointer-events:none}
 #intergramRoot .msg{background:red!important}
 #server1{position:relative;color:#00cc99;font-size:10px;cursor:pointer;background: none;border:2px #000;border-style:outset;border-radius:5px;padding:5px 10px 5px 10px;margin:0px 2px 0px 2px;text-shadow: 1px 1px #000;}

@@ -21916,10 +21916,8 @@ $("#active_server2").hide();
         async function paste() {
 			abp.notify.warn(" Paste from clipboard!");
 			document.querySelector('#toon_audio').play();
-			navigator.clipboard.readText().then(function(a) {
-			console.log(a); 
-			inputEditor.setValue(a);
-			});
+			const text = await navigator.clipboard.readText();
+			inputEditor.setValue(text);
 			inputEditor.focus();
 			inputEditor.setCursor(inputEditor.lineCount(), 0);			
         });

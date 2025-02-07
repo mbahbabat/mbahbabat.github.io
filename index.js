@@ -22692,6 +22692,7 @@ document.getElementById('submit-key').addEventListener('click', function() {
 		$("#popup_key .popup-buttons").hide();
 		$("#popup_key .getToken").hide();
 		$("#join_now").hide();
+		$("#locked").hide();
 		$(".active_token").show();
 		$("#activate_btn").hide();
 		$(".theme_switch").show();
@@ -22773,6 +22774,7 @@ function checkValidKey() {
                 showGreeting(freetoken[storedKey]);
 				$("#activate_btn").hide();
 				$(".theme_switch").show();
+				$("#locked").hide();
                 return;
             }
         } else {

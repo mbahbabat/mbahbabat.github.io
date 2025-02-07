@@ -1882,6 +1882,8 @@
 
 	$( "body" ).append( $( "<div class='box1'>" ) );
 	
+	$( "body" ).prepend( $( "<div  id='locked' style='position:fixed;width:100%;height:100%;display:flex;justify-content:center;align-items:center;pointer-events:none;z-index:calc(infinity);'><image src='locked.png' style='width:250px;height:250px;opacity:0.2'></div>" ) );
+	
 	$( "body" ).prepend( $( "<div class='overlay' id='overlay'></div> <div class='popup_key' id='popup_key'><div class='active_token' style='display:none;text-align:center'><h2>Activation Successful!</h2><p style='display:none'>The activation key is only valid until the 30th of every month.</p></div><h3 style='margin-bottom:10px'>🔑 Activation Key</h3><input type='text' id='key-input' placeholder='enter activation key here...'><p id='error-message' style='color: red; display: none;'>Invalid Key</p><div class='popup-buttons'><button id='submit-key' class='btn btn-primary'>Activate</button><button id='close-popup' class='btn btn-secondary'>Close</button></div><p class='getToken' style='margin-top:10px;font-size:10px;font-weight:200'>Without activation key: <br>1. Max 50 emails per check<br>2. Very slow checking.<br>3. Only 10 times are allowed per day.<br><br>Enter activation key for <span style='font-weight:bold'>unlimited access.</span><br>Get free activation key in our Telegram group.</p><div id='join_now' style='display:flex;justify-content:center;align-items:center;flex-direction:column;margin-top:10px;gap:3px'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' style='border-bottom:1px solid #000'>Join Now</a></div></div>" ) );
 		
 	$( ".box1" ).append( $( "<div class='box2'>" ) );
@@ -22541,6 +22543,7 @@ document.getElementById('submit-key').addEventListener('click', function() {
 		$("#popup_key #error-message").hide();
 		$("#popup_key .popup-buttons").hide();
 		$("#popup_key .getToken").hide();
+		$("#locked").hide();
 		$(".active_token").show();
 		$("#activate_btn").hide();
 		$(".theme_switch").show();
@@ -22614,6 +22617,7 @@ function checkValidKey() {
                 showGreeting(freetoken[storedKey]);
 				$("#activate_btn").hide();
 				$(".theme_switch").show();
+				$("#locked").hide();
                 return;
             }
         } else {

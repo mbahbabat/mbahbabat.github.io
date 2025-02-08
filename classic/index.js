@@ -1994,7 +1994,7 @@
 
 	$( "#activate_btn" ).after( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='tele.gif'></image>Community</button><a/></div>" ) );	
 	
-	$( ".tele_group_link" ).after( $( "<div class='theme_switch' style='display:none;color:#000;font-size:10px;font-weight:500;'>Switch to <a href='https://mbahbabat.github.io/' style='color:#009973;font-weight:900;text-decoration-line: underline;'>Modern Theme</a></div>" ) );
+	$( ".tele_group_link" ).after( $( "<div class='theme_switch' style='display:none;color:#000;font-size:8px;font-weight:500;padding:5px'>Switch to <a href='../' style='font-size:10px;border-bottom:1px solid black'>Modern Theme</a></div>" ) );
 
   function LineView(doc, line, lineN) {
     // The starting line
@@ -22191,13 +22191,15 @@ async function checkMailsProcess(smallParts, totalNeedCheck) {
 				if (model == 1) {
 				  model = 2;
 				  document.querySelector('#disconnect_audio').play();
+				  abp.notify.warn(" Slow network detected");
 				} else if (model == 2) {
 				  model = 1;
 				  document.querySelector('#disconnect_audio').play();
+				  abp.notify.warn(" Slow network detected");
 				} else if (model == 3) {
 				  await sleep(5000);
 				  document.querySelector('#disconnect_audio').play();
-				  abp.notify.warn(" Something went wrong, try using advanced mode");
+				  abp.notify.warn(" Slow network detected");
 				  break;
 				  
 				}
@@ -22213,7 +22215,7 @@ async function checkMailsProcess(smallParts, totalNeedCheck) {
         if (!result || result.length == 0) {
             abp.ui.clearBusy();
 		await sleep(5000);
-		abp.notify.info("OPERATION FAILED!");
+		abp.notify.info("CHECK FAILED!");
 		document.querySelector(".good_output").style.cssText="width:100%;height:100%";
 		document.querySelector(".dis_output").style.cssText="width:100%;height:100%";
 		goodEditor.setValue("fail");	
@@ -22222,7 +22224,7 @@ async function checkMailsProcess(smallParts, totalNeedCheck) {
 		$("#check_btn").hide();
 		$("#recheck_btn").show();
 		await sleep(2500);	
-		abp.notify.warn(" Something went wrong, please try again later");
+		abp.notify.warn(" An error occurred. Try using advanced mode");	
             return;
         }
         report(result);

@@ -22083,14 +22083,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     inputEditor.focus();
                     inputEditor.setCursor(inputEditor.lineCount(), 0);
                 } else {
-                    alert("Clipboard API not supported, Please try using another browser");
+                    alert("Clipboard API not supported");
                 }
             } catch (err) {
-                alert("Failed to read clipboard contents: " + err);
+                alert("Try using another browser, e.g. Chrome or Firefox " + err);
             }
         }
     });
-});
+});	
 
 	$(document).on("click",
         "#copy_clip",

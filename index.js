@@ -22122,13 +22122,13 @@ $("#active_server2").hide();
 			}
 			const validKey = getCookie("validKey");
 			if (validKey) {
-				if (mails.filter(x => x).length > 100000) return alert("❌ Restricted! Please enter up to 50 emails.");
+				if (mails.filter(x => x).length > 100000) return alert("❌ Not allowed! Max 100000 mails/check");
 				nums = 100;
 			} else {
 
 				if (mails.filter(x => x).length > 50) {
-					abp.notify.info("Activate now for unlimited access");
-					abp.notify.warn("❌ Restricted! Max 50 emails");
+					abp.notify.info("Activate now for unlimited access!");
+					abp.notify.warn("❌ Not allowed! Max 50 mails/check in trial mode");
 					return;
 				}
 				nums = 10;

@@ -22077,10 +22077,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target.id === "paste_clip") {
             document.querySelector('#toon_audio').play();
             try {
-                const text = await navigator.clipboard.readText();
-                inputEditor.setValue(text);
-                inputEditor.focus();
-                inputEditor.setCursor(inputEditor.lineCount(), 0);
+                if (navigator.clipboard) {
+                    const text = await navigator.clipboard.readText();
+                    inputEditor.setValue(text);
+                    inputEditor.focus();
+                    inputEditor.setCursor(inputEditor.lineCount(), 0);
+                } else {
+                    alert("Clipboard API not supported, Please try using another browser");
+                }
             } catch (err) {
                 alert("Failed to read clipboard contents: " + err);
             }

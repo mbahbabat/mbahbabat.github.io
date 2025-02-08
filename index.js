@@ -1890,7 +1890,7 @@ $( "body" ).prepend( $( "<div class='mt_page' style='position:fixed;width:100%;h
 	$( ".result" ).after( $( "<div class='footer'>" ) );
 	$( ".footer" ).append( $( "<div id='activate_btn'><button id='enter_key' style='background: linear-gradient(to right, #00e6ac 0%, #009999  100%);color:#fff;margin-top:5px;padding:10px;border-style: Outset; border-width: 3px; border-top-color: #00cc99; border-right-color: #008060; border-bottom-color: #33ffcc; border-left-color: #99ffe6;border-radius: 10px;text-shadow:1px 1px #008060'>Activate Now</button><p style='text-align:center;color:#000;font-size:8px;padding:5px'>Status: <span style='font-weight:bold;color:#009973'>🔒 LOCKED</span></p></div>" ) );	
 	$( "#activate_btn" ).after( $( "<div class='tele_group_link'><a href='https://t.me/GMAIL_GLOBAL_CHAT/' target='_blank' ><button class='tele_group_link_btn'><image class='tele_group_link_img' src='tele.gif'></image>Community</button><a/></div>" ) );
-	$( ".tele_group_link" ).after( $( "<div class='theme_switch' style='display:none;color:#000;font-size:10px;font-weight:500;'>Switch to <a href='https://mbahbabat.github.io/classic/' style='color:#996633;font-weight:900;text-decoration-line: underline;'>Classic Theme</a></div>" ) );
+	$( ".tele_group_link" ).after( $( "<div class='theme_switch' style='display:none;color:#000;font-size:8px;font-weight:500;padding:5px'>Switch to <a href='classic' style='font-size:10px;font-weight:900;border-bottom:1px solid black'>Classic Theme</a></div>" ) );
 	$( ".gchecker" ).append( $( "<div class='header_base'>" ) );
 	$( ".header_base" ).append( $( "<div class='header'>" ) );
 	$( ".gchecker" ).prepend( $( "<div class='dark_light'>" ) );
@@ -22266,9 +22266,20 @@ async function checkMailsProcess(smallParts, totalNeedCheck) {
             if (result === false) {
 				if (model == 1) {
 				  model = 2;
+				  document.querySelector('#disconnect_audio').play();
+				  abp.notify.warn(" Slow network detected");
 				} else if (model == 2) {
 				  model = 1;	
+				  document.querySelector('#disconnect_audio').play();
+				  abp.notify.warn(" Slow network detected");
+				}else if (model == 3) {
+				  await sleep(5000);
+				  document.querySelector('#disconnect_audio').play();				  
+				  abp.notify.warn(" Slow network detected");
+				  break;
+				  
 				}
+				await sleep(1000);
 				continue;
             } else {
                 break;
@@ -22305,7 +22316,7 @@ async function checkMailsProcess(smallParts, totalNeedCheck) {
 	$(".lightning1").css("opacity", "0.3");
 	$(".lightning2").css("opacity", "0.2");
 	$(".checking_mail").css("display", "none");
-	abp.notify.info("OPERATION FAILED!");
+	abp.notify.info("CHECK FAILED!");
 	var mailinputScreen = window.matchMedia("(max-width: 767px)");
 		if (mailinputScreen.matches){
 		$(".mailinput").css("display", "flex");
@@ -22320,7 +22331,7 @@ async function checkMailsProcess(smallParts, totalNeedCheck) {
 		$(".header_base").css("position", "relative");
 		}	
 			await sleep(5000);
-			abp.notify.warn(" Something went wrong, please try again later");		
+			abp.notify.warn(" An error occurred. Try using advanced mode");	
             abp.ui.clearBusy();
             return;
         }

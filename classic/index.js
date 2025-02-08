@@ -22052,7 +22052,7 @@ inputEditor.setValue("example@gmail.com");
  			var mails1 = inputEditor.getValue().split("\n");
 			mails2 = inputEditor.getValue().split("\n");
 			if (mails.filter(x => x).length === 0) {
-				abp.notify.info(" ❌ Please enter your email address!");
+				abp.notify.info(" ❌ Please enter an email!");
 				document.querySelector('#error_audio').play();
 				return;
 			}
@@ -22069,7 +22069,7 @@ inputEditor.setValue("example@gmail.com");
 				}
 				nums = 10;
 			}
-			transactionId = null;
+					transactionId = null;
 			$("#mail-progress-bar")[0].style.width = "0%";
 			$("#mail-progress-bar")[0].textContent = "0%";
 			mails.length = 0;
@@ -22082,9 +22082,8 @@ inputEditor.setValue("example@gmail.com");
 			}
 			console.log(mails)
 			if(ok == 0){
-				abp.notify.error("  For example: username@gmail.com");
-				abp.notify.warn("  Make sure your email type is Google Mail (Gmail)");
-				abp.notify.info(" ⚠️ No email address detected!");
+				abp.notify.info("  e.g. user@gmail.com");
+				abp.notify.warn(" ⚠️ No email detected. Please ensure the email you entered is a Gmail address");
 				document.querySelector('#error_audio').play();
 				return;
 			}

@@ -22070,16 +22070,23 @@ $("#active_server2").hide();
 				disable: [],
 			};
 			mails2 = [];			
-        });	
-	$(document).on("click",
-        "#paste_clip",
-        async function paste() {
-			document.querySelector('#toon_audio').play();
-			const text = await navigator.clipboard.readText();
-			inputEditor.setValue(text);
-			inputEditor.focus();
-			inputEditor.setCursor(inputEditor.lineCount(), 0);			
-        });	
+        });
+	
+document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("click", async function paste(event) {
+        if (event.target.id === "paste_clip") {
+            document.querySelector('#toon_audio').play();
+            try {
+                const text = await navigator.clipboard.readText();
+                inputEditor.setValue(text);
+                inputEditor.focus();
+                inputEditor.setCursor(inputEditor.lineCount(), 0);
+            } catch (err) {
+                alert("Failed to read clipboard contents: " + err);
+            }
+        }
+    });
+});
 
 	$(document).on("click",
         "#copy_clip",

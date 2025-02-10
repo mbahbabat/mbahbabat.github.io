@@ -21,6 +21,177 @@
     src: local('Hello AI'), url('helloai.woff') format('woff');
 }
 	</style>
+	  <style>
+        :root {
+            --primary: #5865F2;
+            --background: #36393F;
+            --header: #2F3136;
+            --input-bg: #40444B;
+            --text: #DCDDDE;
+        }
+
+
+
+        .chat-wrapper {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
+            border-radius: 12px;
+            background: var(--background);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            z-index: 2147484;
+        }
+
+        .chat-header {
+            padding: 12px 16px;
+            background: var(--header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            position: relative;
+            border-radius: 12px 12px 0 0;
+            color: #fff;
+        }
+
+        .unread-badge {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            background: #ED4245;
+            color: white;
+            font-size: 12px;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0 6px;
+            z-index: 2147485;
+        }
+
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-input {
+            padding: 16px;
+            background: var(--header);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .message-input {
+            flex: 1;
+            background: var(--input-bg);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--text);
+            font-size: 14px;
+            margin-right: 8px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px;
+            border-radius: 15px;
+            background: var(--header);
+            color: var(--text);
+            animation: messageIn 0.3s ease-out;
+            word-break: break-word;
+        }
+
+        .message.self {
+            background: var(--primary);
+            margin-left: auto;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .username {
+            font-weight: bold;
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .minimized-view {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            z-index: 2147484;
+        }
+
+        .chat-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            padding: 8px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .chat-btn:hover {
+            opacity: 1;
+        }
+
+        .send-btn {
+            background: var(--primary);
+            border-radius: 8px;
+            padding: 10px 16px;
+        }
+		
+		.username{margin-right:10px}
+
+        @media screen and (max-width: 767px) {
+            .minimized-view {
+                display: flex;
+				bottom:100px;
+            }
+            .chat-wrapper {
+                display: none;
+                bottom: 0px !important;
+                right: 0px !important;
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+            .unread-badge {
+                display: flex;
+            }
+        }
+    </style>	
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T0FBXCK6YT"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
@@ -30,9 +201,252 @@
 	  gtag('config', 'G-T0FBXCK6YT');
 	</script>
 </head>
-<body>	
+<body>
+<div class="chat-wrapper">
+        <div class="chat-header">
+            <div class="chat-title">💬 WORLD CHAT</div>
+            <div>
+                <button class="chat-btn" id="minimize-btn"><i class="fas fa-times">x</i></button>
+            </div>
+            <div class="unread-badge">0</div>
+        </div>
+        
+        <div class="chat-body" id="chat-body"></div>
+        
+        <form class="chat-input" id="message-form">
+            <input type="text" class="message-input" placeholder="Type a message..." id="message-input">
+            <button class="chat-btn send-btn" type="submit"><i class="fas fa-paper-plane">SEND</i></button>
+        </form>
+    </div>
+
+    <div class="minimized-view" id="minimized-view">
+        <i class="fas fa-comment">💬</i>
+        <div class="unread-badge">0</div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+   <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+        import { 
+            getAuth, 
+            signInAnonymously,
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-auth.js";
+        import { 
+            getDatabase, 
+            ref, 
+            push, 
+            onValue, 
+            serverTimestamp,
+            query,
+            limitToLast,
+            set,
+            get
+        } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyASZQif9_uzsHLR0698IorvDWzPMm2qOeA",
+            authDomain: "chati-5d4b5.firebaseapp.com",
+            databaseURL: "https://chati-5d4b5-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "chati-5d4b5",
+            storageBucket: "chati-5d4b5.firebasestorage.app",
+            messagingSenderId: "305738360994",
+            appId: "1:305738360994:web:615f8bcac8e8a633e04ffb",
+            measurementId: "G-MS2W9FKMFW"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        // Fungsi generate username dari UID
+        const generateUsernameFromUID = (uid) => {
+            const hash = uid.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            return `~anonymous${(hash % 9000 + 1000).toString().padStart(4, '0')}`;
+        };
+
+        // Fungsi generate warna dari UID
+        const uidToColor = (uid) => {
+            let hash = 0;
+            for (let i = 0; i < uid.length; i++) {
+                hash = uid.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const hue = Math.abs(hash % 360);
+            return `hsl(${hue}, 70%, 60%)`;
+        };
+
+        // Simpan username ke database
+        const initializeUser = async (user) => {
+            const userRef = ref(database, `users/${user.uid}`);
+            const snapshot = await get(userRef);
+            
+            const validKey = getCookie('validKey');
+            let username;
+
+            if (validKey) {
+                const [storedKey, expirationDate] = validKey.split('|');
+                if (new Date() <= new Date(expirationDate) && freetoken[storedKey] || admintoken[storedKey]) {
+                    username = freetoken[storedKey] || admintoken[storedKey];
+                }
+            }
+
+            if (!snapshot.exists()) {
+                if (!username) {
+                    username = generateUsernameFromUID(user.uid);
+                }
+                await set(userRef, {
+                    username: username,
+                    created: serverTimestamp()
+                });
+            } else if (username) {
+                // Update username jika ada valid key
+                await set(userRef, {
+                    ...snapshot.val(),
+                    username: username
+                });
+            }
+        };
+
+        // Get username dari UID
+        const getUsername = async (uid) => {
+            const validKey = getCookie('validKey');
+            if (validKey) {
+                const [storedKey, expirationDate] = validKey.split('|');
+                if (new Date() <= new Date(expirationDate) && freetoken[storedKey] || admintoken[storedKey]) {
+                    return freetoken[storedKey] || admintoken[storedKey];
+                }
+            }
+            const userRef = ref(database, `users/${uid}`);
+            const snapshot = await get(userRef);
+            return snapshot.val()?.username || generateUsernameFromUID(uid);
+        };
+
+        // Inisialisasi Interact.js
+        interact('.chat-header').draggable({
+            cursorChecker() { return 'move'; },
+            listeners: {
+                move(event) {
+                    const target = event.target.closest('.chat-wrapper');
+                    const x = (parseFloat(target.style.left) || 0) + event.dx;
+                    const y = (parseFloat(target.style.top) || 0) + event.dy;
+                    
+                    target.style.left = `${x}px`;
+                    target.style.top = `${y}px`;
+                }
+            }
+        });
+
+        let isMinimized = false;
+        let unreadMessages = 0;
+        let currentUser = null;
+
+        const chatWrapper = document.querySelector('.chat-wrapper');
+        const minimizedView = document.getElementById('minimized-view');
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+        const chatBody = document.getElementById('chat-body');
+
+        // Fungsi toggle chat
+        function toggleChat() {
+            isMinimized = !isMinimized;
+            chatWrapper.style.display = isMinimized ? 'none' : 'flex';
+            minimizedView.style.display = isMinimized ? 'flex' : 'none';
+            
+            if(!isMinimized) {
+                unreadMessages = 0;
+                updateBadge();
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+        }
+
+        // Update badge
+        function updateBadge() {
+            document.querySelectorAll('.unread-badge').forEach(badge => {
+                badge.textContent = unreadMessages;
+                badge.style.display = unreadMessages > 0 ? 'flex' : 'none';
+            });
+        }
+
+        // Event listeners
+        document.getElementById('minimize-btn').addEventListener('click', toggleChat);
+        minimizedView.addEventListener('click', toggleChat);
+
+        // Firebase Auth
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                await initializeUser(user);
+                currentUser = user;
+                initializeChat();
+            } else {
+                signInAnonymously(auth).catch(error => {
+                    console.error('Autentikasi gagal:', error);
+                });
+            }
+        });
+
+        // Inisialisasi chat
+        function initializeChat() {
+            const messagesRef = query(ref(database, 'messages'), limitToLast(100));
+            
+            onValue(messagesRef, async (snapshot) => {
+                chatBody.innerHTML = '';
+                
+                snapshot.forEach((childSnapshot) => {
+                    const message = childSnapshot.val();
+                    const isSelf = message.uid === currentUser.uid;
+                    const usernameColor = uidToColor(message.uid);
+                    
+                    const messageEl = document.createElement('div');
+                    messageEl.className = `message ${isSelf ? 'self' : ''}`;
+                    messageEl.innerHTML = `
+                        <div class="message-header">
+                            <span class="username" style="color: ${usernameColor}">
+                                ${message.username}
+                            </span>
+                            <span>${new Date(message.timestamp).toLocaleTimeString()}</span>
+                        </div>
+                        <div>${message.text}</div>
+                    `;
+                    chatBody.appendChild(messageEl);
+					
+                });
+                
+                if(!isMinimized) {
+                    chatBody.scrollTop = chatBody.scrollHeight;
+					document.querySelector('#chat_audio').play();
+                } else {
+                    unreadMessages++;
+                    updateBadge();
+					document.querySelector('#chat_audio').play();
+                }
+            });
+
+            // Handle pengiriman pesan
+            messageForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const message = messageInput.value.trim();
+                
+                if(message && currentUser) {
+                    try {
+                        const username = await getUsername(currentUser.uid);
+                        
+                        await push(ref(database, 'messages'), {
+                            text: message,
+                            timestamp: serverTimestamp(),
+                            uid: currentUser.uid,
+                            username: username
+                        });
+                        messageInput.value = '';
+                    } catch (error) {
+                        console.error('Gagal mengirim pesan:', error);
+                    }
+                }
+            });
+        }
+    </script>	
 <script src="https://mbahbabat.github.io/token1.js"></script>
 <script src="https://mbahbabat.github.io/token2.js"></script>
+<script src="https://mbahbabat.github.io/admin.js"></script>
 <script src="index.js"></script>
 <script src="toastr.min.js"></script>
 <script src="abp.toastr.js"></script>	

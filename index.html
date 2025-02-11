@@ -589,26 +589,28 @@
 	
 // Fungsi untuk mendeteksi dan merender URL
 const renderUrls = (text) => {
+    // Pastikan text selalu berupa string
+    const processedText = text || '';
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.replace(urlRegex, (url) => {
+    return processedText.replace(urlRegex, (url) => {
         return `<a href="${url}" target="_blank" class="chat-link">${url}</a>`;
     });
-};	
+};
 
     // Fungsi render pesan
     const createMessageElement = (message, isSelf, depth = 0) => {
         const messageEl = document.createElement('div');
         messageEl.className = `message ${isSelf ? 'self' : ''} ${depth > 0 ? 'reply' : ''}`;
         const processedText = renderUrls(message.text);
-        const replyContent = message.replyTo ? `
-            <div class="reply-indicator">
-                <i class="fas fa-reply"></i>
-                Replying to <span style="color: ${uidToColor(message.replyTo.uid)}">${message.replyTo.username}</span>
-            </div>
-            <div class="reply-content">
-                ${message.replyTo.text.substring(0, 50)}${message.replyTo.text.length > 50 ? '...' : ''}
-            </div>
-        ` : '';
+		 const replyContent = message.replyTo ? `
+			<div class="reply-indicator">
+				<i class="fas fa-reply"></i>
+				Replying to <span style="color: ${uidToColor(message.replyTo.uid)}">${message.replyTo.username}</span>
+			</div>
+			<div class="reply-content">
+				${(message.replyTo.text || '').substring(0, 50)}${message.replyTo.text?.length > 50 ? '...' : ''}
+			</div>
+		` : '';
 
         messageEl.innerHTML = `
             <div class="message-header">

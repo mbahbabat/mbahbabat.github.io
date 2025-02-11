@@ -32,9 +32,6 @@
 	</style>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	  <style>
-	a{
-	color:#00ccff;
-	}	  
         :root {
             --primary: #666699;
             --background: #36393F;
@@ -42,7 +39,15 @@
             --input-bg: #40444B;
             --text: #DCDDDE;
         }
+		
+		a{
+			color:#9999ff;
+		}
 
+		a:hover{
+			color:#00ccff;
+		}	
+		
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
@@ -305,6 +310,22 @@
 			display: none;
 		}
 
+		#scroll-to-bottom{
+			position: absolute;
+			bottom: 100px;
+			right: 20px;
+			border-radius: 100%;
+			width: 30px;
+			height: 30px;
+			opacity: 0.3;
+			background: var(--primary);
+			color: #fff;
+		}
+		
+		#scroll-to-bottom:hover{
+			opacity: 1;
+		}
+
         @media screen and (max-width: 767px) {
             .minimized-view {
                 display: flex;
@@ -314,7 +335,6 @@
             }
 			
             .chat-wrapper {
-                display: none;
                 bottom: 0px !important;
                 right: 0px !important;
                 width: 100%;
@@ -365,6 +385,9 @@
                 <button class="chat-btn send-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
             </div>
         </form>
+		<button id="scroll-to-bottom">
+			<i class="fas fa-arrow-down"></i>
+		</button>
     </div>
 
     <div class="minimized-view" id="minimized-view">
@@ -379,7 +402,17 @@
 	  if (window.matchMedia("(max-width: 1024px)").matches) {
 		document.getElementById("minimize-btn").click();
 	  }
-	});  
+	});
+	
+	const tombolScroll = document.getElementById('scroll-to-bottom');
+	const barToScroll = document.getElementById('chat-body');
+
+	tombolScroll.addEventListener('click', () => {
+	  barToScroll.scrollTo({
+		top: barToScroll.scrollHeight,
+		behavior: 'smooth'
+	  });
+	}); 
    
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
     import { 

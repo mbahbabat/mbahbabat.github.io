@@ -501,6 +501,18 @@
 	  });
 	});
 	
+		$(document).on("click",
+        ".reply-btn",
+        function() {
+		document.querySelector("#scroll-to-bottom").style.cssText="bottom:150px";
+			});	
+			
+		$(document).on("click",
+        "#cancel-reply",
+        function() {
+		document.querySelector("#scroll-to-bottom").style.cssText="bottom:100px";
+			});		
+	
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
     import { 
         getAuth, 

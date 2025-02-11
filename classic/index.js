@@ -21735,6 +21735,10 @@ console.log(userid2);
 const freetoken = { ...userid1, ...userid2};
 console.log(freetoken);
 
+console.log(admin);
+const admintoken = { ...admin};
+console.log(admintoken);
+
 function smartToken(str) {
     const generate = str.split('').map(char => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
     const x115 = `1651846${generate}`;
@@ -22533,12 +22537,12 @@ document.getElementById('submit-key').addEventListener('click', function() {
     const keyInput = document.getElementById('key-input').value;
     const useridval = smartToken(keyInput);
 
-    if (freetoken[useridval]) {
+    if (freetoken[useridval] || admintoken[useridval]) {
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 30);
         const keyWithExpiration = `${useridval}|${expirationDate.toISOString()}`;
         setCookie('validKey', keyWithExpiration, 30);
-        showGreeting(freetoken[useridval]);
+        showGreeting(freetoken[useridval] || admintoken[useridval]);
 		$("#popup_key h3").hide();
 		$("#popup_key input").hide();
 		$("#popup_key #error-message").hide();
@@ -22612,10 +22616,10 @@ function checkValidKey() {
         const [storedKey, expirationDate] = validKey.split('|');
         const currentDate = new Date();
         if (currentDate <= new Date(expirationDate)) {
-            if (freetoken[storedKey]) {
+            if (freetoken[storedKey] || admintoken[storedKey]) {
                 removeShowPopupButton();
                 createVerifyButton();
-                showGreeting(freetoken[storedKey]);
+                showGreeting(freetoken[storedKey] || admintoken[storedKey]);
 				$("#activate_btn").hide();
 				$(".theme_switch").show();
 				$("#locked").hide();

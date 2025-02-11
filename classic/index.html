@@ -13,12 +13,12 @@
 	<meta name="theme-color" content="#bf8040">
 	<meta name="msapplication-navbutton-color" content="#bf8040">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#bf8040">
-	<link rel="shortcut icon" href="gmail-checker.png">
+	<link rel="shortcut icon" href="gmailchecker.webp">
 	<meta name="og:title" content="Gmail Checker">
 	<meta name="title" content="Gmail Checker">
 	<meta name="og:type" content="website">
 	<meta name="og:url" content="https://mbahbabat.github.io/classic/">
-	<meta name="og:image" content="https://mbahbabat.github.io/gmail-checker.png"><title>Gmail Checker - Classic</title>
+	<meta name="og:image" content="gmailchecker.webp"><title>Gmail Checker - Classic</title>
 	<link href="https://fonts.cdnfonts.com/css/hello-ai" rel="stylesheet">
 	<style>
 	@import url('https://fonts.cdnfonts.com/css/hello-ai');
@@ -115,25 +115,29 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 2147484;
         }		
-		
+		#intergramRoot{display:none}
 	</style>
-<style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	  <style>
         :root {
-            --primary: #5865F2;
+            --primary: #666699;
             --background: #36393F;
             --header: #2F3136;
             --input-bg: #40444B;
             --text: #DCDDDE;
         }
 
-
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
         .chat-wrapper {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 10px;
+            right: 10px;
             width: 400px;
-            height: 600px;
+            height: 500px;
             border-radius: 12px;
             background: var(--background);
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
@@ -153,11 +157,15 @@
             border-radius: 12px 12px 0 0;
             color: #fff;
         }
+		
+		.chat-title{
+			font-weight: bold;
+		}
 
         .unread-badge {
             position: absolute;
-            top: 0px;
-            right: 0px;
+            top: -8px;
+            right: -8px;
             background: #ED4245;
             color: white;
             font-size: 12px;
@@ -187,6 +195,7 @@
             gap: 8px;
             align-items: center;
             border-radius: 0 0 12px 12px;
+            flex-direction: column;
         }
 
         .message-input {
@@ -197,17 +206,18 @@
             padding: 12px;
             color: var(--text);
             font-size: 14px;
-            margin-right: 8px;
+            width: 100%;
         }
 
         .message {
             max-width: 80%;
-            padding: 12px;
+            padding: 10px;
             border-radius: 15px;
             background: var(--header);
             color: var(--text);
             animation: messageIn 0.3s ease-out;
             word-break: break-word;
+            position: relative;
         }
 
         .message.self {
@@ -215,15 +225,120 @@
             margin-left: auto;
         }
 
+        .message.reply {
+            margin-left: 40px;
+            max-width: calc(80% - 40px);
+        }
+
+        .message.reply::before {
+            content: "";
+            position: absolute;
+            left: -25px;
+            top: 15px;
+            bottom: -15px;
+            width: 2px;
+            background: var(--text);
+            opacity: 0.1;
+        }
+
         .message-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
             font-size: 0.9em;
+			border-radius: 5px;
         }
 
         .username {
-            font-weight: bold;
+            font-weight: 200;
+			margin-right: 10px;
+			text-shadow: 1px 1px #000;
+			font-size: 1.2em;
+        }
+		
+        .reply-btn {
+			opacity: 0.5;
+			cursor: pointer;
+        }
+
+		.message-actions span{
+			color: #fff;
+			text-shadow: 1px 1px #000;
+			font-size: 0.8em;
+			font-weight: 200;
+		}
+
+		#reply-text{
+			color:#fff;
+		}		
+		
+
+        .reply-indicator {
+            font-size: 0.7em;
+            color: var(--text);
+            opacity: 0.7;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .reply-content {
+            background: rgba(0,255,255,0.05);
+            border-radius: 8px;
+            padding: 8px;
+            margin: 5px 0;
+			font-size: 0.7em;
+        }
+
+        .file-preview {
+            padding: 8px;
+            background: var(--input-bg);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: none;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-preview.active {
+            display: flex;
+        }
+
+        .reply-preview {
+            background: var(--input-bg);
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            display: none;
+            width: 100%;
+            justify-content: space-between;
+        }
+		
+		.time-stamp {
+            display: flex;
+			justify-content:right;
+			font-size: 0.7em;
+			font-weight: 200;
+			margin-top: 5px;
+        }
+		
+        .attachment-btn {
+            position: relative;
+        }
+
+        .file-name {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+            width: 100%;
         }
 
         @keyframes messageIn {
@@ -254,11 +369,13 @@
             color: var(--text);
             cursor: pointer;
             padding: 8px;
-            opacity: 0.7;
+            opacity: 0.5;
             transition: opacity 0.2s;
         }
 
-        .chat-btn:hover {
+        .chat-btn:hover,.reply-btn:hover {
+            opacity: 1;
+        } {
             opacity: 1;
         }
 
@@ -268,13 +385,18 @@
             padding: 10px 16px;
         }
 		
-		.username{margin-right:10px}
+		.attachment-btn{
+			display: none;
+		}
 
         @media screen and (max-width: 767px) {
             .minimized-view {
                 display: flex;
-				bottom:100px;
+				bottom:150px;
+				width: 40px;
+				height: 40px;
             }
+			
             .chat-wrapper {
                 display: none;
                 bottom: 0px !important;
@@ -283,18 +405,24 @@
                 height: 100%;
                 border-radius: 0;
             }
+			
+			.chat-header, .chat-input{
+				border-radius: 0;
+			}
+			
             .unread-badge {
                 display: flex;
             }
         }
-    </style>	
+    </style>
 </head>
 <body>
-<div class="chat-wrapper">
+    <div class="chat-wrapper">
         <div class="chat-header">
+			<image src="gmailchecker.webp" width="20px" height="20px">
             <div class="chat-title">💬 WORLD CHAT</div>
             <div>
-                <button class="chat-btn" id="minimize-btn"><i class="fas fa-times">x</i></button>
+                <button class="chat-btn" id="minimize-btn"><i class="fas fa-times"></i></button>
             </div>
             <div class="unread-badge">0</div>
         </div>
@@ -302,35 +430,64 @@
         <div class="chat-body" id="chat-body"></div>
         
         <form class="chat-input" id="message-form">
-            <input type="text" class="message-input" placeholder="Type a message..." id="message-input">
-            <button class="chat-btn send-btn" type="submit"><i class="fas fa-paper-plane">SEND</i></button>
+            <div class="reply-preview" id="reply-preview">
+                <span id="reply-text"></span>
+                <button type="button" class="chat-btn" id="cancel-reply">&times;</button>
+            </div>
+            <div class="file-preview" id="file-preview">
+                <span class="file-name"></span>
+                <button type="button" class="chat-btn" id="cancel-file">&times;</button>
+            </div>
+            <div class="input-row">
+                <div class="attachment-btn">
+                    <input type="file" id="file-input" hidden />
+                    <button type="button" class="chat-btn" id="file-btn">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                </div>
+                <input type="text" class="message-input" placeholder="Type a message..." id="message-input">
+                <button class="chat-btn send-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
+            </div>
         </form>
     </div>
 
     <div class="minimized-view" id="minimized-view">
-        <i class="fas fa-comment">💬</i>
+        <i class="fas fa-comment"></i>
         <div class="unread-badge">0</div>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
    <script type="module">
-
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
-        import { 
-            getAuth, 
-            signInAnonymously,
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-auth.js";
-        import { 
-            getDatabase, 
-            ref, 
-            push, 
-            onValue, 
-            serverTimestamp,
-            query,
-            limitToLast,
-            set,
-            get
-        } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
+ 	document.addEventListener("DOMContentLoaded", function() {
+	  if (window.matchMedia("(max-width: 1024px)").matches) {
+		document.getElementById("minimize-btn").click();
+	  }
+	});
+	
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+    import { 
+        getAuth, 
+        signInAnonymously,
+        onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-auth.js";
+    import { 
+        getDatabase, 
+        ref, 
+        push, 
+        onValue, 
+        serverTimestamp,
+        query,
+        limitToLast,
+        set,
+        get
+    } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
+    import { 
+        getStorage, 
+        ref as storageRef,
+        uploadBytes,
+        getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-storage.js";
 
 		function xyz(str) {
             let ops = '';
@@ -351,27 +508,29 @@
         const fch = "7b226170694b6579223a2241497a61537941535a516966395f757a73484c5230363938496f727644577a504d6d32714f6541222c2261757468446f6d61696e223a2263686174692d35643462352e66697265626173656170702e636f6d222c22646174616261736555524c223a2268747470733a2f2f63686174692d35643462352d64656661756c742d727464622e617369612d736f75746865617374312e666972656261736564617461626173652e617070222c2270726f6a6563744964223a2263686174692d3564346235222c2273746f726167654275636b6574223a2263686174692d35643462352e666972656261736573746f726167652e617070222c226d6573736167696e6753656e6465724964223a22333035373338333630393934222c226170704964223a22313a3330353733383336303939343a7765623a36313566386263616338653861363333653034666662222c226d6561737572656d656e744964223a22472d4d53325739464b4d4657227d";
 
         const fcsd = hts(fch);
-        const firebaseConfig = JSON.parse(fcsd);
+        const fc = JSON.parse(fcsd);
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const database = getDatabase(app);
+// Initialize Firebase
+	const app = initializeApp(fc);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+    const storage = getStorage(app);
 
-        // Fungsi generate username dari UID
-        const generateUsernameFromUID = (uid) => {
-            const hash = uid.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-            return `~anonymous${(hash % 9000 + 1000).toString().padStart(4, '0')}`;
-        };
+    // Fungsi utilitas
+    const generateUsernameFromUID = (uid) => {
+        const hash = uid.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return `~anonymous ( #${(hash % 9000 + 1000).toString().padStart(4, '0')} )`;
+    };
 
-        // Fungsi generate warna dari UID
-        const uidToColor = (uid) => {
-            let hash = 0;
-            for (let i = 0; i < uid.length; i++) {
-                hash = uid.charCodeAt(i) + ((hash << 5) - hash);
-            }
-            const hue = Math.abs(hash % 360);
-            return `hsl(${hue}, 70%, 60%)`;
-        };
+    const uidToColor = (uid) => {
+        let hash = 0;
+        for (let i = 0; i < uid.length; i++) {
+            hash = uid.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const hue = Math.abs(hash % 360);
+        return `hsl(${hue}, 70%, 60%)`;
+    };
+	
 
         // Simpan username ke database
         const initializeUser = async (user) => {
@@ -434,114 +593,238 @@
             }
         });
 
-        let isMinimized = false;
-        let unreadMessages = 0;
-        let currentUser = null;
+    // UI Controller
+    let isMinimized = false;
+    let unreadMessages = 0;
+    let currentUser = null;
+    let selectedFile = null;
+    let replyingTo = null;
 
-        const chatWrapper = document.querySelector('.chat-wrapper');
-        const minimizedView = document.getElementById('minimized-view');
-        const messageForm = document.getElementById('message-form');
-        const messageInput = document.getElementById('message-input');
-        const chatBody = document.getElementById('chat-body');
+    const chatWrapper = document.querySelector('.chat-wrapper');
+    const minimizedView = document.getElementById('minimized-view');
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+    const chatBody = document.getElementById('chat-body');
 
-        // Fungsi toggle chat
-        function toggleChat() {
-            isMinimized = !isMinimized;
-            chatWrapper.style.display = isMinimized ? 'none' : 'flex';
-            minimizedView.style.display = isMinimized ? 'flex' : 'none';
-            
-            if(!isMinimized) {
-                unreadMessages = 0;
-                updateBadge();
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }
+    // Fungsi tampilan
+    const toggleChat = () => {
+        isMinimized = !isMinimized;
+        chatWrapper.style.display = isMinimized ? 'none' : 'flex';
+        minimizedView.style.display = isMinimized ? 'flex' : 'none';
+        
+        if(!isMinimized) {
+            unreadMessages = 0;
+            updateBadge();
+            chatBody.scrollTop = chatBody.scrollHeight;
         }
+    };
 
-        // Update badge
-        function updateBadge() {
-            document.querySelectorAll('.unread-badge').forEach(badge => {
-                badge.textContent = unreadMessages;
-                badge.style.display = unreadMessages > 0 ? 'flex' : 'none';
+    const updateBadge = () => {
+        document.querySelectorAll('.unread-badge').forEach(badge => {
+            badge.textContent = unreadMessages;
+            badge.style.display = unreadMessages > 0 ? 'flex' : 'none';
+        });
+    };
+	
+// Fungsi untuk mendeteksi dan merender URL
+const renderUrls = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, (url) => {
+        return `<a href="${url}" target="_blank" class="chat-link">${url}</a>`;
+    });
+};	
+
+    // Fungsi render pesan
+    const createMessageElement = (message, isSelf, depth = 0) => {
+        const messageEl = document.createElement('div');
+        messageEl.className = `message ${isSelf ? 'self' : ''} ${depth > 0 ? 'reply' : ''}`;
+        const processedText = renderUrls(message.text);
+        const replyContent = message.replyTo ? `
+            <div class="reply-indicator">
+                <i class="fas fa-reply"></i>
+                Replying to <span style="color: ${uidToColor(message.replyTo.uid)}">${message.replyTo.username}</span>
+            </div>
+            <div class="reply-content">
+                ${message.replyTo.text.substring(0, 50)}${message.replyTo.text.length > 50 ? '...' : ''}
+            </div>
+        ` : '';
+
+        messageEl.innerHTML = `
+            <div class="message-header">
+                <span class="username" style="color: ${uidToColor(message.uid)}">
+                    ${message.username}
+                </span>
+                <span>
+					<div class="message-actions">
+						<div class="reply-btn">
+							<span>Reply</span>
+						</div>
+					</div>
+				</span>
+            </div>
+            ${replyContent}
+			<div>${processedText}</div>
+            ${message.fileUrl ? `
+            <div class="file-attachment">
+                <a href="${message.fileUrl}" target="_blank">
+                    <i class="fas fa-file"></i> ${message.fileName}
+                </a>
+            </div>` : ''}
+            <div class="time-stamp">
+				<span>${new Date(message.timestamp).toLocaleTimeString()}</span>
+            </div>
+        `;
+
+        messageEl.querySelector('.reply-btn').addEventListener('click', () => {
+            replyingTo = {
+                id: message.id,
+                uid: message.uid,
+                username: message.username,
+                text: message.text
+            };
+            document.getElementById('reply-preview').style.display = 'flex';
+            document.getElementById('reply-text').innerHTML = 
+                `Replying to <span style="color: ${uidToColor(message.uid)}">${message.username}</span>: ${message.text.substring(0, 30)}...`;
+        });
+
+        return messageEl;
+    };
+
+    // Event listeners
+    document.getElementById('minimize-btn').addEventListener('click', toggleChat);
+    minimizedView.addEventListener('click', toggleChat);
+
+    document.getElementById('file-btn').addEventListener('click', () => {
+        document.getElementById('file-input').click();
+    });
+
+    document.getElementById('file-input').addEventListener('change', (e) => {
+        selectedFile = e.target.files[0];
+        document.getElementById('file-preview').classList.add('active');
+        document.querySelector('.file-name').textContent = selectedFile.name;
+    });
+
+    document.getElementById('cancel-file').addEventListener('click', () => {
+        selectedFile = null;
+        document.getElementById('file-preview').classList.remove('active');
+    });
+
+    document.getElementById('cancel-reply').addEventListener('click', () => {
+        replyingTo = null;
+        document.getElementById('reply-preview').style.display = 'none';
+    });
+
+    // Firebase Auth
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            await initializeUser(user);
+            currentUser = user;
+            initializeChat();
+        } else {
+            signInAnonymously(auth).catch(error => {
+                console.error('Autentikasi gagal:', error);
             });
         }
+    });
 
-        // Event listeners
-        document.getElementById('minimize-btn').addEventListener('click', toggleChat);
-        minimizedView.addEventListener('click', toggleChat);
+    // Inisialisasi chat
+    const initializeChat = () => {
+        const messagesRef = query(ref(database, 'messages'), limitToLast(100));
+        
+        onValue(messagesRef, async (snapshot) => {
+            const messages = [];
+            const repliesMap = new Map();
 
-        // Firebase Auth
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                await initializeUser(user);
-                currentUser = user;
-                initializeChat();
+            snapshot.forEach(childSnapshot => {
+                const message = childSnapshot.val();
+                message.id = childSnapshot.key;
+                
+                if (message.replyTo?.id) {
+                    if (!repliesMap.has(message.replyTo.id)) {
+                        repliesMap.set(message.replyTo.id, []);
+                    }
+                    repliesMap.get(message.replyTo.id).push(message);
+                } else {
+                    messages.push(message);
+                }
+            });
+
+            chatBody.innerHTML = '';
+            const renderMessageWithReplies = (message, depth = 0) => {
+                const isSelf = message.uid === currentUser.uid;
+                const messageEl = createMessageElement(message, isSelf, depth);
+                chatBody.appendChild(messageEl);
+
+                if (repliesMap.has(message.id)) {
+                    repliesMap.get(message.id).forEach(reply => {
+                        renderMessageWithReplies(reply, depth + 1);
+                    });
+                }
+            };
+
+            messages.forEach(message => renderMessageWithReplies(message));
+            
+            if(!isMinimized) {
+				document.querySelector('#chat_audio').play();
+                chatBody.scrollTop = chatBody.scrollHeight;
             } else {
-                signInAnonymously(auth).catch(error => {
-                    console.error('Autentikasi gagal:', error);
-                });
+				document.querySelector('#chat_audio').play();
+                unreadMessages++;
+                updateBadge();
             }
         });
 
-        // Inisialisasi chat
-        function initializeChat() {
-            const messagesRef = query(ref(database, 'messages'), limitToLast(100));
+        messageForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const messageText = messageInput.value.trim();
             
-            onValue(messagesRef, async (snapshot) => {
-                chatBody.innerHTML = '';
-                
-                snapshot.forEach((childSnapshot) => {
-                    const message = childSnapshot.val();
-                    const isSelf = message.uid === currentUser.uid;
-                    const usernameColor = uidToColor(message.uid);
+            if ((messageText || selectedFile) && currentUser) {
+                try {
+                    let fileUrl = null;
+                    let fileName = null;
                     
-                    const messageEl = document.createElement('div');
-                    messageEl.className = `message ${isSelf ? 'self' : ''}`;
-                    messageEl.innerHTML = `
-                        <div class="message-header">
-                            <span class="username" style="color: ${usernameColor}">
-                                ${message.username}
-                            </span>
-                            <span>${new Date(message.timestamp).toLocaleTimeString()}</span>
-                        </div>
-                        <div>${message.text}</div>
-                    `;
-                    chatBody.appendChild(messageEl);
-					
-                });
-                
-                if(!isMinimized) {
-                    chatBody.scrollTop = chatBody.scrollHeight;
-					document.querySelector('#chat_audio').play();
-                } else {
-                    unreadMessages++;
-                    updateBadge();
-					document.querySelector('#chat_audio').play();
-                }
-            });
-
-            // Handle pengiriman pesan
-            messageForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const message = messageInput.value.trim();
-                
-                if(message && currentUser) {
-                    try {
-                        const username = await getUsername(currentUser.uid);
-                        
-                        await push(ref(database, 'messages'), {
-                            text: message,
-                            timestamp: serverTimestamp(),
-                            uid: currentUser.uid,
-                            username: username
-                        });
-                        messageInput.value = '';
-                    } catch (error) {
-                        console.error('Gagal mengirim pesan:', error);
+                    if (selectedFile) {
+                        const storageReference = storageRef(storage, 
+                            `files/${currentUser.uid}/${Date.now()}_${selectedFile.name}`);
+                        await uploadBytes(storageReference, selectedFile);
+                        fileUrl = await getDownloadURL(storageReference);
+                        fileName = selectedFile.name;
                     }
+
+                    const username = await getUsername(currentUser.uid);
+                    
+                    const messageData = {
+                        text: messageText,
+                        timestamp: serverTimestamp(),
+                        uid: currentUser.uid,
+                        username: username,
+                        fileUrl: fileUrl,
+                        fileName: fileName,
+                        replyTo: replyingTo ? {
+                            id: replyingTo.id,
+                            uid: replyingTo.uid,
+                            username: replyingTo.username,
+                            text: replyingTo.text
+                        } : null
+                    };
+
+                    await push(ref(database, 'messages'), messageData);
+                    
+                    // Reset form
+                    messageInput.value = '';
+                    selectedFile = null;
+                    replyingTo = null;
+                    document.getElementById('file-preview').classList.remove('active');
+                    document.getElementById('reply-preview').style.display = 'none';
+                } catch (error) {
+                    console.error('Gagal mengirim pesan:', error);
                 }
-            });
-        }
-    </script>	
+            }
+        });
+    };
+
+
+</script>	
 <script src="https://mbahbabat.github.io/token1.js"></script>
 <script src="https://mbahbabat.github.io/token2.js"></script>
 <script src="https://mbahbabat.github.io/admin.js"></script>

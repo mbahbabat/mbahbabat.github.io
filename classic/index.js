@@ -22115,12 +22115,23 @@ async function sleep(ms) {
 }
 
 async function checkMails(smallParts, totalNeedCheck) {
-    let checkCount = getCookie("checkCount");
+	
+    const UIP = await getUIP();
+    if (!UIP) {
+        alert("Error");
+        return;
+    }
+
+    const CIP = `checkCount_${UIP}`;
+    let checkCount = getCookie(CIP);
     if (checkCount === null) {
         checkCount = 0;
     }
     checkCount = parseInt(checkCount) + 1;
-    setCookie("checkCount", checkCount, 12);
+
+    setCookie(CIP, checkCount, 12);
+
+    console.log(`IP: ${UIP}, Jumlah Check: ${checkCount}`);
 
     const validKey = getCookie("validKey");
     if (validKey) {
@@ -22128,13 +22139,13 @@ async function checkMails(smallParts, totalNeedCheck) {
         return;
     }
 
-    if (checkCount > 4) {
-		showPopup();
-		$("#check_btn").remove();
-		$("#login_key").show();
+    if (checkCount > 5) {
+        showPopup();
+        $("#check-btn").remove(); 
+        $("#login_key").show(); 
+		alert("Daily limit exceeded. Come back tomorrow. Join our community to get a free key!");
         return;
     }
-
 
     checkMailsProcess(smallParts, totalNeedCheck);
 }

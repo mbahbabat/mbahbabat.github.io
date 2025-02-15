@@ -1892,7 +1892,7 @@
 			
 	$( ".box2" ).append( $( "<header>" ) );	
 	
-	$( ".box2" ).append( $( "<audio id='mode_audio' src='mode.mp3' preload='auto'></audio><audio id='checked_audio' src='checked.mp3' preload='auto'></audio><audio id='turbo_audio' src='turbo.mp3' preload='auto'></audio><audio id='finish_audio' src='finish.mp3' preload='auto'></audio><audio id='error_audio' src='error.mp3' preload='auto'></audio><audio id='start_audio' src='start.mp3' preload='auto'></audio><audio id='clear_audio' src='clear.mp3' preload='auto'></audio><audio id='copypaste_audio' src='copypaste.mp3' preload='auto'></audio><audio id='disconnect_audio' src='disconnect.mp3' preload='auto'></audio>" ) );	
+	$( ".box2" ).append( $( "<audio id='chat_audio' src='chat1.mp3' preload='auto'></audio><audio id='mode_audio' src='mode.mp3' preload='auto'></audio><audio id='checked_audio' src='checked.mp3' preload='auto'></audio><audio id='turbo_audio' src='turbo.mp3' preload='auto'></audio><audio id='finish_audio' src='finish.mp3' preload='auto'></audio><audio id='error_audio' src='error.mp3' preload='auto'></audio><audio id='start_audio' src='start.mp3' preload='auto'></audio><audio id='clear_audio' src='clear.mp3' preload='auto'></audio><audio id='copypaste_audio' src='copypaste.mp3' preload='auto'></audio><audio id='disconnect_audio' src='disconnect.mp3' preload='auto'></audio>" ) );	
 	
 	$( "header" ).append( $( "<a class = 'site_url' href='https://mbahbabat.github.io/classic/'>" ) );
 

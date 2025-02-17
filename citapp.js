@@ -1,3 +1,18 @@
+ function addCSSFile(cssFilePath) {
+    // Membuat elemen <link>
+    const linkElement = document.createElement('link');
+
+    // Menetapkan atribut-atribut untuk elemen <link>
+    linkElement.rel = 'stylesheet'; // Menetapkan rel sebagai "stylesheet"
+    linkElement.href = cssFilePath; // Menetapkan path ke file CSS
+
+    // Menambahkan elemen <link> ke dalam <head> dokumen
+    document.head.appendChild(linkElement);
+}
+
+// Panggil fungsi untuk menambahkan file CSS
+addCSSFile('https://mbahbabat.github.io/style.css');
+ 
  // Fungsi untuk membuat elemen chat-wrapper
 function createChatWrapper() {
     // Membuat elemen utama div dengan class 'chat-wrapper'

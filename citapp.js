@@ -1,4 +1,149 @@
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+ // Fungsi untuk membuat elemen chat-wrapper
+function createChatWrapper() {
+    // Membuat elemen utama div dengan class 'chat-wrapper'
+    const chatWrapper = document.createElement('div');
+    chatWrapper.className = 'chat-wrapper';
+
+    // Membuat elemen header
+    const chatHeader = document.createElement('div');
+    chatHeader.className = 'chat-header';
+
+    // Menambahkan gambar/logo
+    const logo = document.createElement('img');
+    logo.src = 'gmailchecker.webp';
+    logo.width = 30;
+    logo.height = 30;
+    chatHeader.appendChild(logo);
+
+    // Membuat div untuk judul dan counter online
+    const opxDiv = document.createElement('div');
+    opxDiv.id = 'opx';
+
+    const chatTitle = document.createElement('div');
+    chatTitle.className = 'chat-title';
+    chatTitle.textContent = '💬 WORLD CHAT';
+    opxDiv.appendChild(chatTitle);
+
+    const onlineCounter = document.createElement('span');
+    onlineCounter.id = 'online-counter';
+    onlineCounter.textContent = '0';
+    opxDiv.appendChild(onlineCounter);
+
+    chatHeader.appendChild(opxDiv);
+
+    // Membuat tombol minimize
+    const minimizeBtn = document.createElement('button');
+    minimizeBtn.className = 'chat-btn';
+    minimizeBtn.id = 'minimize-btn';
+    minimizeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    chatHeader.appendChild(minimizeBtn);
+
+    // Menambahkan badge unread
+    const unreadBadge = document.createElement('div');
+    unreadBadge.className = 'unread-badge';
+    unreadBadge.textContent = '0';
+    chatHeader.appendChild(unreadBadge);
+
+    chatWrapper.appendChild(chatHeader);
+
+    // Membuat container untuk pinned message
+    const pinnedMessageContainer = document.createElement('div');
+    pinnedMessageContainer.id = 'pinned-message-container';
+    chatWrapper.appendChild(pinnedMessageContainer);
+
+    // Membuat panel online
+    const onlinePanel = document.createElement('div');
+    onlinePanel.id = 'online-panel';
+
+    const onlineList = document.createElement('div');
+    onlineList.id = 'online-list';
+    onlinePanel.appendChild(onlineList);
+
+    const onlinePanelMin = document.createElement('button');
+    onlinePanelMin.id = 'online-panel-min';
+    onlinePanelMin.className = 'online-panel-btn';
+    onlinePanelMin.innerHTML = '<i class="fa fa-chevron-up"></i>';
+    onlinePanel.appendChild(onlinePanelMin);
+
+    const onlinePanelMax = document.createElement('button');
+    onlinePanelMax.id = 'online-panel-max';
+    onlinePanelMax.className = 'online-panel-btn';
+    onlinePanelMax.innerHTML = '<i class="fa fa-chevron-down"></i>';
+    onlinePanel.appendChild(onlinePanelMax);
+
+    chatWrapper.appendChild(onlinePanel);
+
+    // Membuat chat body
+    const chatBody = document.createElement('div');
+    chatBody.className = 'chat-body';
+    chatBody.id = 'chat-body';
+    chatWrapper.appendChild(chatBody);
+
+    // Membuat reply preview
+    const replyPreview = document.createElement('div');
+    replyPreview.id = 'reply-preview';
+
+    const replyText = document.createElement('span');
+    replyText.id = 'reply-text';
+    replyPreview.appendChild(replyText);
+
+    const cancelReply = document.createElement('button');
+    cancelReply.id = 'cancel-reply';
+    cancelReply.className = 'chat-btn';
+    cancelReply.textContent = 'Cancel';
+    replyPreview.appendChild(cancelReply);
+
+    chatWrapper.appendChild(replyPreview);
+
+    // Membuat form input pesan
+    const messageForm = document.createElement('form');
+    messageForm.className = 'chat-input';
+    messageForm.id = 'message-form';
+
+    const messageInput = document.createElement('input');
+    messageInput.type = 'text';
+    messageInput.className = 'message-input';
+    messageInput.placeholder = 'Send a message...';
+    messageInput.id = 'message-input';
+    messageForm.appendChild(messageInput);
+
+    const sendButton = document.createElement('button');
+    sendButton.className = 'chat-btn send-btn';
+    sendButton.type = 'submit';
+    sendButton.innerHTML = '<i class="fas fa-paper-plane"></i>';
+    messageForm.appendChild(sendButton);
+
+    chatWrapper.appendChild(messageForm);
+
+    // Membuat tombol scroll to bottom
+    const scrollToBottom = document.createElement('button');
+    scrollToBottom.id = 'scroll-to-bottom';
+    scrollToBottom.innerHTML = '<i class="fas fa-arrow-down"></i>';
+    chatWrapper.appendChild(scrollToBottom);
+
+    // Membuat tampilan minimized
+    const minimizedView = document.createElement('div');
+    minimizedView.className = 'minimized-view';
+    minimizedView.id = 'minimized-view';
+
+    const commentIcon = document.createElement('i');
+    commentIcon.className = 'fas fa-comment';
+    minimizedView.appendChild(commentIcon);
+
+    const unreadBadgeMinimized = document.createElement('div');
+    unreadBadgeMinimized.className = 'unread-badge';
+    unreadBadgeMinimized.textContent = '0';
+    minimizedView.appendChild(unreadBadgeMinimized);
+
+    // Menambahkan elemen ke body
+    document.body.appendChild(chatWrapper);
+    document.body.appendChild(minimizedView);
+}
+
+// Panggil fungsi untuk membuat elemen chat
+createChatWrapper();
+
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
     import { 
         getAuth, 
         signInAnonymously,

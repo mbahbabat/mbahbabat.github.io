@@ -6,10 +6,40 @@
             --text: #DCDDDE;
         }
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-        }
+
+
+		/* Untuk user sendiri */
+		.you-user {
+		  background: #666699 !important;
+		}
+
+		/* Untuk admin */
+		.admin-user {
+		  background: rgba(255, 51, 0, 0.15);
+		  border-left: 3px solid #ff3300;
+		}
+
+		/* Indicator online admin */
+		.admin-indicator {
+		  color: #ff3300 !important;
+		}
+
+		/* Badge admin */
+		.admin-badge {
+		  background: #ff3300;
+		  color: white;
+		  padding: 2px 6px;
+		  border-radius: 4px;
+		  font-size: 0.8em;
+		  margin-left: auto;
+		  animation: pulse 2s infinite;
+		}
+
+		@keyframes pulse {
+		  0% { opacity: 0.8; }
+		  50% { opacity: 1; }
+		  100% { opacity: 0.8; }
+		}
 
 		.country-flag {
 			vertical-align: middle;
@@ -235,6 +265,7 @@
 			 white-space: nowrap;
 			 overflow: hidden;
 			 text-overflow: ellipsis;
+			 color: #fff;
 		}
 		
 		#pin-by{
@@ -464,14 +495,6 @@
 			font-weight: bold;
 		}
 
-		.admin-badge {
-			background: #ed4245;
-			color: white;
-			padding: 2px 6px;
-			border-radius: 4px;
-			font-size: 0.8em;
-			margin-left: auto;
-		}	
 
 		.user-info {
 			display: inline-flex;

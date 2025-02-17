@@ -11,7 +11,7 @@
 }
 
 // Panggil fungsi untuk menambahkan file CSS
-addCSSFile('https://mbahbabat.github.io/style.css');
+addCSSFile('https://mbahbabat.github.io/styleApp.css');
  
  // Fungsi untuk membuat elemen chat-wrapper
 function createChatWrapper() {

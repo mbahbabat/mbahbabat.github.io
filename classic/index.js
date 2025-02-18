@@ -21680,26 +21680,9 @@ window.intergramCustomizations = {
 							alwaysUseFloatingButton: true
 						};
 
-console.log(userid1);
-console.log(userid2);
+
 const freetoken = { ...userid1, ...userid2};
-console.log(freetoken);
-
-console.log(admin);
 const admintoken = { ...admin};
-console.log(admintoken);
-
-function smartToken(str) {
-    const generate = str.split('').map(char => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
-    const x115 = `1651846${generate}`;
-    const x215 = x115.slice(30);
-    const x341 = `2118456${x215}`;
-    const x174 = x341.slice(30);
-    const x001 = `3215845${x174}`;
-    const x000 = x001.slice(30);
-    return x000;
-}
-
 
 $(".res_btn").hide();
 $("#recheck_btn").hide();
@@ -21810,6 +21793,18 @@ function() {
 		document.querySelector(".dis_output").style.cssText="width:100%;height:100%";		
 
         });		
+
+
+function smartToken(str) {
+    const generate = str.split('').map(char => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+    const x115 = `1651846${generate}`;
+    const x215 = x115.slice(30);
+    const x341 = `2118456${x215}`;
+    const x174 = x341.slice(30);
+    const x001 = `3215845${x174}`;
+    const x000 = x001.slice(30);
+    return x000;
+}
 
 let goodEditor = null;
 let verEditor = null;

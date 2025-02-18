@@ -206,12 +206,12 @@ createChatWrapper();
     };
 
 
-    const isAdmin = () => {
-        const validKey = getCookie('validKey');
-        if (!validKey) return false;
-        const [storedKey, expiration] = validKey.split('|');
-        return new Date() <= new Date(expiration) && !!admintoken[storedKey];
-    };
+	const isAdmin = () => {
+		const validKey = getCookie('validKey');
+		if (!validKey) return false;
+		const [storedKey, expiration] = validKey.split('|');
+		return new Date() <= new Date(expiration) && !!admintoken[storedKey];
+	};
 
 
     const uidToColor = (uid) => {
@@ -285,12 +285,12 @@ createChatWrapper();
     };
 
 	
-	function updateOnlineList(onlineData) {
+function updateOnlineList(onlineData) {
   const onlineList = document.getElementById('online-list');
   onlineList.innerHTML = '';
-
   const users = onlineData ? Object.entries(onlineData) : [];
-
+  
+  // Urutkan pengguna
   users.sort(([uid1], [uid2]) => {
     if (uid1 === currentUser?.uid) return -1;
     if (uid2 === currentUser?.uid) return 1;
@@ -300,12 +300,14 @@ createChatWrapper();
   users.forEach(([uid, user]) => {
     const username = user.username || 'Anonymous';
     const country = user.country || '';
-    const isAdmin = user.isAdmin || false; // Asumsi ada field isAdmin di data user
+    const isAdmin = user.isAdmin || false; // Pastikan properti isAdmin ada
     const isYou = uid === currentUser?.uid;
+
+    console.log(`User: ${username}, isAdmin: ${isAdmin}`); // Debugging
 
     const listItem = document.createElement('div');
     listItem.className = 'online-user';
-    
+
     // Tambahkan class khusus untuk styling
     if (isYou) listItem.classList.add('you-user');
     if (isAdmin) listItem.classList.add('admin-user');
@@ -315,9 +317,9 @@ createChatWrapper();
       <span class="user-info">
         ${country ? countryCodeToFlagEmoji(country) : ''}
         ${username}
-        ${isYou ? '<span class="you-badge">(me)</span>' : ''}
+        ${isYou ? '<span class="you-badge">Me</span>' : ''}
+        ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}
       </span>
-      ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}
     `;
     
     onlineList.appendChild(listItem);
@@ -604,14 +606,16 @@ createChatWrapper();
 						country: currentUserCountry,
 						created: serverTimestamp(),
 						lastLogin: serverTimestamp(),
-						online: true
+						online: true,
+						isAdmin: userIsAdmin
 					});
 					
 					const onlineRef = ref(database, `onlineUsers/${user.uid}`);
 					await set(onlineRef, {
 						username: username,
 						country: currentUserCountry,
-						lastActive: serverTimestamp()
+						lastActive: serverTimestamp(),
+						isAdmin: userIsAdmin
 					});
 					
 					onDisconnect(onlineRef).remove();

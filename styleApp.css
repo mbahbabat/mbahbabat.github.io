@@ -10,29 +10,38 @@
 
 		/* Untuk user sendiri */
 		.you-user {
-		  background: #666699 !important;
+			border-left: 3px solid #005c99 ;
+			background: rgba(0, 0, 0, 0.15) ;
 		}
-
+		
 		/* Untuk admin */
 		.admin-user {
-		  background: rgba(255, 51, 0, 0.15);
-		  border-left: 3px solid #ff3300;
+			border-left: 3px solid #ff3300 ;
+			background: rgba(255, 51, 0, 0.15) ;
 		}
 
-		/* Indicator online admin */
-		.admin-indicator {
-		  color: #ff3300 !important;
-		}
 
 		/* Badge admin */
 		.admin-badge {
-		  background: #ff3300;
-		  color: white;
-		  padding: 2px 6px;
-		  border-radius: 4px;
-		  font-size: 0.8em;
-		  margin-left: auto;
-		  animation: pulse 2s infinite;
+			position: absolute;
+			right: 20px;
+			background: #ff3300;
+			color: white ;
+			padding: 2px 6px ;
+			border-radius: 4px ;
+			font-size: 0.8em ;
+			margin-left: auto ;
+		}
+		
+		.you-badge {
+			position: absolute;
+			right: 20px;
+			background: #005c99;
+			color: white ;
+			padding: 2px 6px;
+			border-radius: 4px ;
+			font-size: 0.8em ;
+			margin-left: auto ;
 		}
 
 		@keyframes pulse {
@@ -174,12 +183,7 @@
 			text-shadow: 1px 1px #000;
 			font-size: 1.2em;
         }
-		
-		.you-badge {
-		color: #4CAF50;
-		font-weight: bold;
-		margin-left: 5px;
-		}
+	
 
 	.system-message {
 		background: #e3f2fd;
@@ -430,6 +434,7 @@
 		#minimize-btn{
 			font-size: 24px;
 		}
+
 		
 		#online-list{
 			max-height: 150px;

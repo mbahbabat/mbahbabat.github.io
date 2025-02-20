@@ -618,7 +618,10 @@ function updateOnlineList(onlineData) {
 						isAdmin: userIsAdmin
 					});
 					
-					onDisconnect(onlineRef).remove();
+					const disconnectRef = ref(database, `onlineUsers/${user.uid}`);
+					onDisconnect(disconnectRef).remove().then(() => {
+					  setTimeout(() => disconnectRef.cancel(), 10000);
+					});
 
 					const onlineUsersRef = ref(database, 'onlineUsers');
 					onValue(onlineUsersRef, (snapshot) => {
@@ -646,11 +649,19 @@ function updateOnlineList(onlineData) {
 					console.error("Error initializing user:", error);
 				}
 			} else {
+			  const maxRetries = 3;
+			  let attempts = 0;
+			  const tryAnonymousAuth = async () => {
 				try {
-					await signInAnonymously(auth);
+				  await signInAnonymously(auth);
 				} catch (error) {
-					console.error("Anonymous sign-in failed:", error);
+				  if (attempts < maxRetries) {
+					attempts++;
+					setTimeout(tryAnonymousAuth, 2000);
+				  }
 				}
+			  };
+			  tryAnonymousAuth();
 			}
 		});
 

@@ -618,30 +618,68 @@ function updateOnlineList(onlineData) {
 						isAdmin: userIsAdmin
 					});
 					
-					const disconnectRef = ref(database, `onlineUsers/${user.uid}`);
-					onDisconnect(disconnectRef).remove().then(() => {
-					  setTimeout(() => disconnectRef.cancel(), 10000);
-					});
+const onlineUsersRef = ref(database, 'onlineUsers');
+				onValue(onlineUsersRef, (snapshot) => {
+				  const onlineData = snapshot.val() || {};
+				  const onlineUsers = [];
 
-					const onlineUsersRef = ref(database, 'onlineUsers');
-					onValue(onlineUsersRef, (snapshot) => {
-						const onlineData = snapshot.val() || {};
-						const onlineUsers = [];
-					
+				  // Tambahkan semua pengguna online saat ini ke dalam array
+				  Object.keys(onlineData).forEach(uid => {
+					onlineUsers.push(onlineData[uid].username);
+				  });
 
-			
-					Object.keys(onlineData).forEach(uid => {
-						onlineUsers.push(onlineData[uid].username);
-					});
-					
-		
-					const onlineCount = Object.keys(onlineData).length;
-					document.getElementById('online-counter').innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
-					
-			
-						updateOnlineList(onlineData);
-						
-					});
+				  let isPageVisible = document.visibilityState === 'visible';
+				  let updateTimeout;
+
+				  document.addEventListener('visibilitychange', function() {
+					if (document.visibilityState === 'visible') {
+					  console.log('Halaman terlihat');
+					  isPageVisible = true;
+					  if (!updateTimeout) {
+						updateTimeout = setTimeout(updateTimestamp, 60000); // Penundaan 1 menit
+					  }
+					} else {
+					  console.log('Halaman tidak terlihat');
+					  isPageVisible = false;
+					  clearTimeout(updateTimeout);
+					  updateTimeout = null;
+					}
+				  });
+
+				  setInterval(() => {
+					if (isPageVisible) {
+					  updateTimestamp();
+					}
+				  }, 2 * 60 * 1000); // Mengatur interval ke 2 menit
+
+				  function updateTimestamp() {
+					if (currentUser) {
+					  const onlineRef = ref(database, `onlineUsers/${currentUser.uid}`);
+					  get(onlineRef).then((snapshot) => {
+						if (snapshot.exists()) {
+						  const userData = snapshot.val();
+						  
+						  // Menambahkan username ke dalam array onlineUsers
+						  onlineUsers.push(userData.username);
+
+						  set(onlineRef, { ...userData, lastActive: serverTimestamp() });
+						  console.log('User masih aktif, memperbarui timestamp');
+						  console.log('Online users:', onlineUsers);
+						}
+					  });
+					  onDisconnect(onlineRef).remove(); // Menambahkan ini di dalam if block
+					}
+
+					updateTimeout = setTimeout(() => {
+					  updateTimeout = null;
+					}, 2 * 60 * 1000); // Interval reset diatur menjadi 2 menit
+				  }
+
+				  const onlineCount = Object.keys(onlineData).length;
+				  document.getElementById('online-counter').innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
+
+				  updateOnlineList(onlineData); // Pastikan ini dipanggil setelah `onValue`
+				});
 
 					initializeChat();
 					

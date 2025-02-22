@@ -257,7 +257,6 @@ createChatWrapper();
 		try {
 			await remove(pinnedMessageRef);
 		} catch (error) {
-			console.error('Gagal unpin pesan:', error);
 			alert('Gagal unpin pesan! Pastikan Anda admin.');
 		}
 	};	
@@ -302,8 +301,6 @@ function updateOnlineList(onlineData) {
     const country = user.country || '';
     const isAdmin = user.isAdmin || false; // Pastikan properti isAdmin ada
     const isYou = uid === currentUser?.uid;
-
-    console.log(`User: ${username}, isAdmin: ${isAdmin}`); // Debugging
 
     const listItem = document.createElement('div');
     listItem.className = 'online-user';
@@ -466,7 +463,6 @@ function updateOnlineList(onlineData) {
                 });
             }
         } catch (error) {
-            console.error('Gagal mem-pin pesan:', error);
             alert('Gagal mem-pin pesan! Pastikan Anda admin.');
         }
     };
@@ -478,7 +474,6 @@ function updateOnlineList(onlineData) {
         try {
             await remove(ref(database, `messages/${messageId}`));
         } catch (error) {
-            console.error('Gagal menghapus pesan:', error);
             alert('Gagal menghapus pesan! Pastikan Anda admin.');
         }
     };
@@ -490,7 +485,6 @@ function updateOnlineList(onlineData) {
         try {
             await remove(pinnedMessageRef);
         } catch (error) {
-            console.error('Gagal unpin pesan:', error);
             alert('Gagal unpin pesan! Pastikan Anda admin.');
         }
     };
@@ -586,7 +580,6 @@ onAuthStateChanged(auth, async (user) => {
         const data = await response.json();
         currentUserCountry = data.country_code2 ? data.country_code2.toLowerCase() : '';
       } catch (error) {
-        console.error('Gagal mendapatkan negara:', error);
         // Fallback ke API alternatif
         try {
           const backup = await fetch(ipgeo);
@@ -620,65 +613,55 @@ onAuthStateChanged(auth, async (user) => {
       setInterval(async () => {
         const onlineUsersRef = ref(database, 'onlineUsers');
         await set(onlineUsersRef, {}); // Mengosongkan onlineUsers
-        console.log('onlineUsers telah direset.');
       }, 2 * 60 * 60 * 1000); // 2 jam dalam milidetik
 
       // Memperbarui status online pengguna setiap 2 menit
+      let isPageVisible = document.visibilityState === 'visible';
+      let updateTimeout;
+
+      document.addEventListener('visibilitychange', function () {
+        isPageVisible = document.visibilityState === 'visible';
+        if (isPageVisible) {
+          updateTimestamp(); // Langsung tambahkan pengguna ke onlineUsers saat halaman terlihat
+        }
+      });
+
+      // Fungsi untuk memperbarui timestamp
+      function updateTimestamp() {
+        if (currentUser && isPageVisible) {
+          const onlineRef = ref(database, `onlineUsers/${currentUser.uid}`);
+          get(onlineRef).then((snapshot) => {
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+              set(onlineRef, { ...userData, lastActive: serverTimestamp() });
+            } else {
+              // Jika data pengguna tidak ada, tambahkan kembali ke onlineUsers
+              set(onlineRef, {
+                username: username,
+                country: currentUserCountry,
+                lastActive: serverTimestamp(),
+                isAdmin: userIsAdmin
+              });
+            }
+          });
+          onDisconnect(onlineRef).remove(); // Menghapus pengguna saat disconnect
+        }
+      }
+
+      // Interval untuk memperbarui timestamp setiap 2 menit
+      setInterval(() => {
+        if (isPageVisible) {
+          updateTimestamp();
+        }
+      }, 2 * 60 * 1000); // Mengatur interval ke 2 menit
+
+      // Listener untuk memantau perubahan di onlineUsers
       const onlineUsersRef = ref(database, 'onlineUsers');
       onValue(onlineUsersRef, (snapshot) => {
         const onlineData = snapshot.val() || {};
-        const onlineUsers = [];
-        Object.keys(onlineData).forEach(uid => {
-          onlineUsers.push(onlineData[uid].username);
-        });
-
-        let isPageVisible = document.visibilityState === 'visible';
-
-        document.addEventListener('visibilitychange', function () {
-          if (document.visibilityState === 'visible') {
-            console.log('Halaman terlihat');
-            isPageVisible = true;
-
-            // Langsung tambahkan pengguna ke onlineUsers saat halaman terlihat
-            updateTimestamp();
-          } else {
-            console.log('Halaman tidak terlihat');
-            isPageVisible = false;
-          }
-        });
-
-        setInterval(() => {
-          if (isPageVisible) {
-            updateTimestamp();
-          }
-        }, 2 * 60 * 1000); // Mengatur interval ke 2 menit
-
-        function updateTimestamp() {
-          if (currentUser) {
-            const onlineRef = ref(database, `onlineUsers/${currentUser.uid}`);
-            get(onlineRef).then((snapshot) => {
-              if (snapshot.exists()) {
-                const userData = snapshot.val();
-                onlineUsers.push(userData.username);
-                set(onlineRef, { ...userData, lastActive: serverTimestamp() });
-                console.log('User masih aktif, memperbarui timestamp');
-                console.log('Online users:', onlineUsers);
-              } else {
-                // Jika data pengguna tidak ada, tambahkan kembali ke onlineUsers
-                set(onlineRef, {
-                  username: username,
-                  country: currentUserCountry,
-                  lastActive: serverTimestamp(),
-                  isAdmin: userIsAdmin
-                });
-                console.log('Pengguna ditambahkan kembali ke onlineUsers.');
-              }
-            });
-            onDisconnect(onlineRef).remove(); // Menghapus pengguna saat disconnect
-          }
-        }
-
         const onlineCount = Object.keys(onlineData).length;
+
+        // Update jumlah pengguna online di UI
         document.getElementById('online-counter').innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
         updateOnlineList(onlineData); // Pastikan ini dipanggil setelah `onValue`
       });
@@ -743,7 +726,6 @@ onAuthStateChanged(auth, async (user) => {
                 document.getElementById('reply-preview').style.display = 'none';
                 
             } catch (error) {
-                console.error('Gagal mengirim pesan:', error);
                 alert('Error: Gagal mengirim pesan. Pastikan Anda terautentikasi.');
             }
         }

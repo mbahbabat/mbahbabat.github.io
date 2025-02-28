@@ -239,12 +239,18 @@
 						<div class="select-save-res">
 							<span class="title">Select result:</span>
 							<div class="select-result-radio">
-								<input type="radio" id="live-save-radio" name="save-option" value="live-save" checked>
-								<label for="live-save-radio">Live</label>
-								<input type="radio" id="ver-save-radio" name="save-option" value="ver-save">
-								<label for="ver-save-radio">Ver</label>
-								<input type="radio" id="disabled-save-radio" name="save-option" value="disabled-save">
-								<label for="disabled-save-radio">Disabled</label>
+								<div class="select-result-radio-child">
+									<input type="radio" id="live-save-radio" name="save-option" value="live-save" checked>
+									<label for="live-save-radio">Live</label>
+								</div>
+								<div class="select-result-radio-child">
+									<input type="radio" id="ver-save-radio" name="save-option" value="ver-save">
+									<label for="ver-save-radio">Ver</label>
+								</div>
+								<div class="select-result-radio-child">
+									<input type="radio" id="disabled-save-radio" name="save-option" value="disabled-save">
+									<label for="disabled-save-radio">Disabled</label>
+								</div>
 							</div>
 						</div>
 						<div class="save-result">
@@ -349,13 +355,13 @@
 
 // Sembunyikan semua elemen saat halaman dimuat
 document.querySelectorAll('*').forEach(function(element) {
-  element.style.opacity = '0';
+  element.style.visibility = 'hidden';
 });
 
 // Tunggu 5 detik, lalu tampilkan semua elemen
 setTimeout(function() {
   document.querySelectorAll('*').forEach(function(element) {
-    element.style.opacity = '100%';
+    element.style.visibility = 'visible';
   });
 }, 700);
 

@@ -967,6 +967,9 @@ $(".user-info").show()
 
     if (!isValid) {
       document.getElementById('error-key').style.display = 'block';
+		setTimeout(function() {
+		  document.getElementById('error-key').style.display = 'none';
+		}, 3000);
     }
   });
 
@@ -1000,6 +1003,9 @@ $(".user-info").show()
     if (!newUsername) {
         errorMessage.textContent = "Username cannot be empty.";
         errorMessage.style.display = 'block';
+		setTimeout(function() {
+		document.getElementById('username-error-message').style.display = 'none';
+		}, 3000);
         return;
     }
 
@@ -1007,6 +1013,9 @@ $(".user-info").show()
     if (newUsername.length < 7) { // '@' + 6 karakter = total 7 karakter
         errorMessage.textContent = "Username requires at least 6 characters. ";
         errorMessage.style.display = 'block';
+		setTimeout(function() {
+		document.getElementById('username-error-message').style.display = 'none';
+		}, 3000);
         return;
     }
 
@@ -1014,6 +1023,9 @@ $(".user-info").show()
     if (newUsername.toLowerCase() === '@admin') {
         errorMessage.textContent = "Username 'admin' is not allowed";
         errorMessage.style.display = 'block';
+		setTimeout(function() {
+		document.getElementById('username-error-message').style.display = 'none';
+		}, 3000);
         return;
     }
 

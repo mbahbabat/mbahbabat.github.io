@@ -888,6 +888,7 @@
   border-radius: 10px;
   animation: fadeIn 0.1s, blink 1s infinite;
   transition: opacity 1s;
+  z-index: 999999999;
 }	
 
 #error-key {
@@ -900,4 +901,5 @@
   border-radius: 10px;
   animation: fadeIn 0.1s, blink 1s infinite;
   transition: opacity 1s;
+  z-index: 999999999;
 }

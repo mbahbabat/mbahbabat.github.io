@@ -42,13 +42,17 @@ img{border-style: none;}
 }
 
 @media screen and ( max-width: 1023px ){
+
+	
 	#chatApp{
 		position: fixed; 
+		display: flex;
 		top: 0; 
 		left: 0; 
 		z-index: 999999999; 
 		width: 100%; 
 		height: 100%;
+		overflow : auto;
 	}	
 	
 	.community-link-mob{
@@ -159,7 +163,7 @@ img{border-style: none;}
 	body{
 		position: relative!important;
 		display: block!important;
-		overflow: scroll;
+		overflow: scroll!important;
 		height: 550px!important;
 	}
 }
@@ -168,7 +172,7 @@ img{border-style: none;}
 	body{
 		position: relative!important;
 		display: block!important;
-		overflow: scroll;
+		overflow: scroll!important;
 		height: 450px!important;
 	}
 }

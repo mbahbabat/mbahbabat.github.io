@@ -755,7 +755,7 @@ async function fetchGeoLocation() {
 	document.addEventListener('DOMContentLoaded', () => {
 	  setTimeout(() => {
 		barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
-	  }, 2000); // delay 500ms
+	  }, 5000); // delay 500ms
 	});
 
 
@@ -797,16 +797,12 @@ async function fetchSmartTokenLogic() {
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
       const smartTokenLogic = snapshot.val();
-      console.log("SmartToken logic:", smartTokenLogic);
       const smartToken = eval(`(${smartTokenLogic})`);
-      console.log("SmartToken loaded successfully!");
       return smartToken;
     } else {
-      console.error("SmartToken logic not found in Firebase.");
-      alert("SmartToken logic not found in Firebase.");
+      alert("SmartToken logic not found");
     }
   } catch (error) {
-    console.error("Error fetching SmartToken logic:", error);
     alert("Error fetching SmartToken logic. Check the console for details.");
   }
 }
@@ -881,8 +877,6 @@ async function validateKey(useridval) {
       return false;
     }
   } catch (error) {
-    // Tangani error jika terjadi masalah saat mengakses Firebase
-    console.error("Gagal memvalidasi kunci:", error);
     return false;
   }
 }
@@ -999,7 +993,7 @@ $(".user-info").show()
     }
 
     // Validasi: Username tidak boleh 'admin'
-    if (newUsername.toLowerCase() === '@admin') {
+    if (newUsername.toLowerCase() === '@administrator') {
         errorMessage.textContent = "Username 'admin' is not allowed";
         errorMessage.style.display = 'block';
 		setTimeout(function() {
@@ -1123,23 +1117,28 @@ function showUsername(username) {
  
  
  
+let lastWidth = window.innerWidth;
+
 function aturTampilan() {
-  if (window.matchMedia('(min-width: 1024px)').matches) {
-    $("#chatApp").show();
-    $("#online-user").show();
-	$(".online-user-mob").hide();
-	$("#minimize-btn").hide();
-	setTimeout(() => {
-		barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
-	  }, 2000); // delay 500ms	
-  } else {
-    $("#chatApp").hide();
-    $("#online-user").hide();
-	$(".online-user-mob").hide()
-	setTimeout(() => {
-		barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
-	  }, 2000); // delay 500ms;
-  }
+    const currentWidth = window.innerWidth;
+
+    // Hanya jalankan jika lebar layar berubah signifikan
+    if (Math.abs(currentWidth - lastWidth) > 50) {
+        if (window.matchMedia('(min-width: 1024px)').matches) {
+            $("#chatApp").show();
+            $("#online-user").show();
+            $(".online-user-mob").hide();
+            $("#minimize-btn").hide();
+        } else {
+            $("#chatApp").hide();
+            $("#online-user").hide();
+            $(".online-user-mob").hide();
+            $("#minimize-btn").show();
+        }
+
+        // Update lebar layar terakhir
+        lastWidth = currentWidth;
+    }
 }
 
 // Jalankan saat halaman dimuat
@@ -1148,6 +1147,19 @@ aturTampilan();
 // Jalankan saat ukuran jendela diubah
 window.addEventListener('resize', aturTampilan);
 
+if (desktopScreenChat.matches) {
+    $("#chatApp").show();
+    $("#online-user").show();
+	$(".online-user-mob").hide();
+	$("#minimize-btn").hide();
+}
+
+if (mobileScreenChat.matches) {
+    $("#chatApp").hide();
+    $("#online-user").hide();
+	$(".online-user-mob").hide()
+	$("#minimize-btn").show();
+}
 
 $(document).on("click",
         ".reply-btn",
@@ -1219,35 +1231,6 @@ $(document).on("click",
         }, 1000); // Sinkronkan dengan durasi transisi CSS
     }, 2500); // Ubah nilai ini sesuai kebutuhan (misalnya, waktu muat data)
 });
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Normalize the current URL by removing trailing slashes and converting to lowercase
-  const currentUrl = window.location.href.replace(/\/$/, '').toLowerCase();
-
-  // Define the redirection rules
-  const redirectionRules = [
-    { match: 'https://mbahbabat.github.io/classic', target: 'https://mbahbabat.github.io/' },
-    { match: 'https://mbahbabat.github.io/modern', target: 'https://mbahbabat.github.io/' },
-    { match: 'https://gmailchecker.github.io/classic', target: 'https://gmailchecker.github.io/' },
-    { match: 'https://gmailchecker.github.io/modern', target: 'https://gmailchecker.github.io/' }
-  ];
-
-  // Check if the current URL matches any of the rules
-  for (const rule of redirectionRules) {
-    if (currentUrl === rule.match.toLowerCase()) {
-      window.location.href = rule.target;
-      break; // Stop checking further rules once a match is found
-    }
-  }
-});
-
-
-
-
-
-
-
 
 
 

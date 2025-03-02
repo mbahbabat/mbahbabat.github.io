@@ -369,12 +369,27 @@
 </body>
 <script>
 //body
+let counter = 0;
+const maxAttempts = 500;
+const interval = 1; // 1 detik
+
 window.addEventListener('load', function() {
-  setTimeout(function() {
-    document.body.style.display = 'flex';
-    document.body.style.position = 'fixed';
-  }, 100); 
+  const attemptToDisplayBody = function() {
+    if (counter < maxAttempts) {
+      setTimeout(function() {
+        document.body.style.display = 'flex';
+        document.body.style.position = 'fixed';
+        counter++;
+        attemptToDisplayBody();
+      }, interval);
+    } else {
+      console.log('welcome to Blue Gmail Checker');
+    }
+  };
+
+  attemptToDisplayBody();
 });
+
 
 </script>
 <script type="module" src="js/citapp.js"></script>

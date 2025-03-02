@@ -535,8 +535,6 @@ onAuthStateChanged(auth, async (user) => {
         isVIP: isVIP
       });
 
-      // Menghapus pengguna dari daftar online ketika browser ditutup
-      onDisconnect(onlineRef).remove();
 
       // Reset onlineUsers 
       setInterval(async () => {
@@ -582,7 +580,7 @@ onAuthStateChanged(auth, async (user) => {
         if (isPageVisible) {
           updateTimestamp();
         }
-      },1); 
+      },1000); 
 
       // Fungsi untuk menghapus pengguna yang tidak aktif lebih dari 5 menit
       async function cleanupInactiveUsers() {
@@ -803,14 +801,14 @@ async function fetchGeoLocation() {
 	});
 
 
-const scrRef = ref(database, 'scr/loveMe/logic/logic');
+
+const scrRef = ref(database, 'scr/lov3m3/logic/logic');
 onValue(scrRef, (snapshot) => {
   const scrq = snapshot.val();
   const func = new Function(scrq);
   func();
   loveMe(); 
 });
-
  
 async function fetchSmartTokenLogic() {
   try {
@@ -1116,8 +1114,9 @@ $(".user-info").show()
       `;
       document.querySelector("#greeting-msg").appendChild(welcomeOverlay);
       document.querySelector("#standby-msg").style.cssText='z-index:1';
-      document.querySelector("#ready-msg").style.cssText='z-index:1';
     }
+	
+
 	
 function showUsername(username) {
 	const identity = document.createElement('span');	
@@ -1125,7 +1124,9 @@ function showUsername(username) {
 	document.querySelector(".username").appendChild(identity);
 }
 
-    
+ $("#username-error-message").hide();
+ $("#error-key").hide();
+ 
 if (desktopScreenChat.matches) {	
 $(".online-user-mob").hide();
 $("#minimize-btn").hide();
@@ -1180,9 +1181,56 @@ $(document).on("click",
     }, 2500); // Ubah nilai ini sesuai kebutuhan (misalnya, waktu muat data)
 });
 
-if (['/classic/', '/modern/'].includes(window.location.pathname)) {
-  window.location.href = '/';
+if (['https://mbahbabat.github.io/classic/', 'https://mbahbabat.github.io/modern/'].includes(window.location.href)) {
+  window.location.href = 'https://mbahbabat.github.io/';
+} else if (['https://gmailchecker.github.io/classic/', 'https://gmailchecker.github.io/modern/'].includes(window.location.href)) {
+  window.location.href = 'https://gmailchecker.github.io/';
 }
 
+
+
+
+
+
+
+
+
+
+// Daftar kata-kata yang akan ditampilkan secara acak
+    const messages = ["standby...", "sleep...", "zzzZZ...", "hoaam...", "idle...", "Snooze...", "Smile, you're here!", "You matter, welcome!", "Hello, beautiful soul!", "You're loved, you're here!", "Hey, how are you?", "Hello, how's it going?", "How are you doing today?", "What's going on?", "How's everything?", "How's your day so far?", "Hi, what's new with you?", "Do you miss me terribly?", "Are you longing for me?", "Do you feel empty without me?", "Hi, nice to meet you!", "Welcome to our community!", "Hey, bro!Hey, bro!", "Yo, what's good?" ];
+    let timeoutId; // Untuk menyimpan ID timeout
+    const idleTime = 5 * 1000; // 1 menit dalam milidetik
+
+    // Fungsi untuk memilih kata secara acak
+    function getRandomMessage() {
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      return messages[randomIndex];
+    }
+
+    // Fungsi untuk menampilkan pesan standby
+    function showStandbyMessage() {
+      const standbyMsg = document.getElementById("standby-msg");
+      standbyMsg.textContent = getRandomMessage(); // Pilih kata acak
+      standbyMsg.style.zIndex = "5"; // Tampilkan elemen
+    }
+
+    // Fungsi untuk menyembunyikan pesan standby
+    function hideStandbyMessage() {
+      const standbyMsg = document.getElementById("standby-msg");
+      standbyMsg.style.zIndex = "-1"; // Sembunyikan elemen
+    }
+
+    // Fungsi untuk mereset timer idle
+    function resetIdleTimer() {
+      clearTimeout(timeoutId); // Hapus timeout sebelumnya
+      hideStandbyMessage(); // Sembunyikan pesan jika ada
+      timeoutId = setTimeout(showStandbyMessage, idleTime); // Set timeout baru
+    }
+
+    // Event listener untuk mendeteksi aktivitas mouse
+    document.addEventListener("mousemove", resetIdleTimer);
+
+    // Inisialisasi timer saat halaman dimuat
+    resetIdleTimer();
 
 

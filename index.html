@@ -133,8 +133,11 @@
 						<span class="title-result" style="display: none">RESULT</span>
 						<div class="mail-input-header">
 							<span class="title">MAIL INPUT</span>
-							<button id="upload-btn" class="gC-btn">Upload</button>
-							<input type="file" id="file-upload" style="display:none"/>
+							<div class="input-btn">
+								<button id="paste-btn" class="gC-btn">Paste</button>
+								<button id="upload-btn" class="gC-btn">Upload</button>
+								<input type="file" id="file-upload" style="display:none"/>
+							</div>
 						</div>
 					</div>
                     <div class="cm-relative">
@@ -190,8 +193,7 @@
                     	<div class="monitor-c">
                         	<div class="monitor-msg" id="greeting-msg"></div>
                         	<div class="monitor-msg" id="system-msg"></div>
-                            <div class="monitor-msg" id="ready-msg"></div>
-                            <div class="monitor-msg" id="standby-msg"></div>
+                            <div class="monitor-msg" id="standby-msg">standby...</div>
                             <div class="res-counter">
                                 <div class="counter-type" id="live-counter" >
                                     <span class="title">LIVE</span>
@@ -255,16 +257,16 @@
 						</div>
 						<div class="save-result">
 							<div class="save-option-mobile" id="live-save">
-								<button class="gC-btn" id="copy-live-mob">Copy</button>
-								<button class="gC-btn" id="save-live-mob">Save</button>
+								<button class="gC-big-btn" id="copy-live-mob">Copy</button>
+								<button class="gC-big-btn" id="save-live-mob">Save</button>
 							</div>	
 							<div class="save-option-mobile" id="ver-save" style="display:none">	
-								<button class="gC-btn" id="copy-ver-mob">Copy</button>
-								<button class="gC-btn" id="save-ver-mob">Save</button>
+								<button class="gC-big-btn" id="copy-ver-mob">Copy</button>
+								<button class="gC-big-btn" id="save-ver-mob">Save</button>
 							</div>
 							<div class="save-option-mobile" id="disabled-save" style="display:none">	
-								<button class="gC-btn" id="copy-disabled-mob">Copy</button>
-								<button class="gC-btn" id="save-disabled-mob">Save</button>
+								<button class="gC-big-btn" id="copy-disabled-mob">Copy</button>
+								<button class="gC-big-btn" id="save-disabled-mob">Save</button>
 							</div>	
 						</div>
 					</div>
@@ -315,12 +317,24 @@
 				</div>
 			</div>
 		</div>
+		<div class="audio-library">
+			<audio id='chat-audio' src='audio/chat.mp3' preload='auto'></audio>
+			<audio id='disconnect-audio' src='audio/disconnect.mp3' preload='auto'></audio>
+			<audio id='mode-audio' src='audio/mode.mp3' preload='auto'></audio>
+			<audio id='checked-audio' src='audio/checked.mp3' preload='auto'></audio>
+			<audio id='switch-audio' src='audio/switch.mp3' preload='auto'></audio>
+			<audio id='finish-audio' src='audio/finish.mp3' preload='auto'></audio>
+			<audio id='error-audio' src='audio/error.mp3' preload='auto'></audio>
+			<audio id='run-audio' src='audio/run.mp3' preload='auto'></audio>
+			<audio id='reset-audio' src='audio/reset.mp3' preload='auto'></audio>
+			<audio id='copyPaste-audio' src='audio/copyPaste.mp3' preload='auto'></audio>
+		</div>
 	</main>
 	<footer>
     	<div class="foot-c" id="community">
             <button class="community-link">
               	<a href="https://t.me/GMAIL_GLOBAL_CHAT" target="_blank" rel="noopener noreferrer">
-                	<i class="fab fa-telegram"></i> Community
+                	<i class="fab fa-telegram"></i><span>Community</span> 
               	</a>
             </button>
 		</div>
@@ -340,35 +354,31 @@
             <button class="tw-share">
               	<i class="fab fa-twitter"></i><span>Share</span>
             </button>
+			<button class="community-link-mob" style="display: none;">
+              	<a href="https://t.me/GMAIL_GLOBAL_CHAT" target="_blank" rel="noopener noreferrer">
+                	<i class="fab fa-telegram"></i><span>Community</span> 
+              	</a>
+            </button>
         </div>
 	</footer>
 </body>
 <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
-<script type="module" src="js/citapp.js"></script>
-<script src="js/origin.js"></script>
 
 </body>
 <script>
-
-
-// Sembunyikan semua elemen saat halaman dimuat
-document.querySelectorAll('*').forEach(function(element) {
-  element.style.visibility = 'hidden';
+//body
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.body.style.display = 'flex';
+    document.body.style.position = 'fixed';
+  }, 100); 
 });
 
-// Tunggu 5 detik, lalu tampilkan semua elemen
-setTimeout(function() {
-  document.querySelectorAll('*').forEach(function(element) {
-    element.style.visibility = 'visible';
-  });
-}, 700);
-
-
-
 </script>
-
+<script type="module" src="js/citapp.js"></script>
+<script src="js/origin.js"></script>
 </html>
 
 

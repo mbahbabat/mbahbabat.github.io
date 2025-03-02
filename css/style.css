@@ -17,14 +17,12 @@ img{border-style: none;}
 
 
 
-@media screen and ( min-width: 1024px ) and ( max-width: 1359px ){
+@media screen and ( min-width: 1025px ) and ( max-width: 1359px ){
 	.cm-relative .CodeMirror{
 		font-size: 9px!important;
 	}
 	
-	.gC-btn{
-		padding: 2.5px 5px!important;
-	}
+
 	
 	.m-left{
 		min-width: 175px!important;
@@ -43,9 +41,17 @@ img{border-style: none;}
 
 }
 
-@media screen and ( max-width: 1023px ){
+@media screen and ( max-width: 1024px ){
+	.community-link-mob{
+		display: flex!important;
+		background: linear-gradient(to left, transparent 0%, #ff9900 100%);
+		color: #fff!important;
+	}
 
-
+	.community-link-mob a{
+		color: #fff!important;
+	}
+	
 	.m-r-top{
 		display:none!important;
 	}	
@@ -84,8 +90,8 @@ img{border-style: none;}
 	}
 	
 	.monitor{
-		min-height: 100px!important;
-		max-height: 100px!important;
+		min-height: 90px!important;
+		max-height: 90px!important;
 	}	
 	
 	.mail-result{
@@ -114,31 +120,21 @@ img{border-style: none;}
 	}
 	
 	#community{
-		margin-left: 5px;
+		display:none!important;
 	}
 	
 }
 
 @media screen and ( max-width: 800px ){
 	footer{
-		zoom: 50%;
+		zoom: 75%;
+		min-height: 60px!important;
 		justify-content: space-between;
 	}
 	
 	footer .foot-c{
 		width: auto!important;
-	}
-	
-	#community{
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		max-width: 120px;
-	}
-	
-	#share-button{
-		margin-right: 120px;
-	}
+	}	
 	
 	#share-button button{
 		flex-direction: column;
@@ -146,6 +142,41 @@ img{border-style: none;}
 	}
 
 }
+
+@media screen and ( max-width: 350px ){
+	footer{
+		zoom: 60%;
+	}
+}
+
+@media screen and ( max-width: 275px ){
+	.fb-share, .tw-share, .ig-share, .wa-share{
+		display: none!important;
+	}
+}
+
+@media only screen and ( min-width: 1025px ) and ( max-height: 650px ){
+	body{
+		position: relative!important;
+		display: block!important;
+		overflow: scroll;
+		height: 550px!important;
+	}
+}
+
+@media only screen and ( max-width: 1024px ) and ( max-height: 550px ){
+	body{
+		position: relative!important;
+		display: block!important;
+		overflow: scroll;
+		height: 450px!important;
+	}
+}
+
+
+
+
+
 
     .live {
       background-color: rgba(0, 0, 0, 0.1) !important;
@@ -163,7 +194,6 @@ img{border-style: none;}
       background-color: rgba(0, 0, 0, 0.1) !important;
       color: #0099cc !important;
     }
-
 
 .loading-screen {
     position: fixed;
@@ -211,12 +241,6 @@ img{border-style: none;}
 }
 
 
-
-body {
-  font-family: 'Open Sans', sans-serif;
-  
-}
-
 .gC-btn{
 	padding: 5px 10px;
 }
@@ -231,12 +255,12 @@ input[type="radio"] {
   height: 10px; 
   border: 2px solid #000; 
   border-radius: 50%; 
-  background-color: #000; 
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 input[type="radio"]:checked {
-  background-color: #ff33cc;
-  border-color: #000; 
+  background-color: #00cc99;
+  border-color: #fff; 
 }
 
 input{
@@ -305,9 +329,7 @@ input::placeholder {
 #disabled-res .cm-relative ::-webkit-scrollbar-thumb {background: #ff0000; border:3px #000;border-style:outset; }
 #notExist-res .cm-relative ::-webkit-scrollbar-thumb {background: #00ffff; border:3px #000;border-style:outset; }
 
-text-area{
-    display: none;
-}
+
 
 .cm-relative .CodeMirror-gutters{
     height: 100%;
@@ -380,9 +402,9 @@ text-area{
 
  
 body{
-	display: flex;
+	display: block;
   	flex-direction: column;
-  	position: fixed;
+  	position: relative;
   	right: 0;
   	top: 0;    
   	width: 100%;
@@ -391,6 +413,7 @@ body{
   	padding-left: 50px;
     color: #b3b3b3;
 	background: #000;
+	font-family: 'Open Sans', sans-serif;
 }
 
 body::before{
@@ -449,20 +472,23 @@ footer .foot-c{
       display: flex;
       justify-content: left;
       align-items: center;
+	  padding: 5px;
 }
 
 #community button {
-      padding: 10px;
+	  padding: 5px;
       cursor: pointer;
       border: none;
       border-radius: 5px;
       display: flex;
       align-items: center;
+      color: #fff;
+	  justify-content: center;
       background: linear-gradient(to left, transparent 0%, #ff9900 100%);
 }
 
-#community button a{
-	color: #fff;
+#community button a {
+	  color: #fff;
 }
 
 #copyright{
@@ -623,11 +649,21 @@ button i {
     background: rgba(50, 50, 50, 1); 
 }
 
+.input-btn{
+	width: 100%;
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	gap: 5px;
+	padding: 5px;
+}
+
 .cm-fam .cmf{
 	display: flex;
 	width: 100%;
 	justify-content: right;
 	padding: 5px;
+	gap: 5px;
     background: rgba(50, 50, 50, 1);  
 }
 
@@ -857,16 +893,22 @@ welcome-overlay{
 .mobile-panel{
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 15px;
 	position: relative;
 	height: 100%;
+	justify-content: center;
+	padding: 5px;
 }
 
 .save-option-mobile{
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	gap: 5px;
+	gap: 7.5px;
+}
+
+.gC-big-btn{
+	padding: 10px 20px;
 }
 
 .select-result-radio{
@@ -887,7 +929,6 @@ welcome-overlay{
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	height: 30px;
 	gap: 5px;
 }
 
@@ -909,7 +950,7 @@ welcome-overlay{
 
 #reset-btn-mob{
 	position: absolute;
-	bottom: 5px;
+	top: 0;
 	right: 5px;
 	background: red;
 	color: #fff;

@@ -235,15 +235,17 @@ var mobileScreenChat = window.matchMedia("(max-width: 1023px)");
 									<span>${message.isVIP ? '<i style="color:#9966ff;margin-right:5px" class="fa fa-check-circle"></i><span class="vip-badge-chat">VIP</span>' : ''}</span>
 								</div>							
 							</div>
-							<div class="time-stamp">
+							<div class="message-btn">
 								<div class="message-actions">
 									${isAdmin ? `
 									<i class="fas fa-thumbtack action-btn pin-btn"></i>
 									<i class="fas fa-trash action-btn delete-btn"></i>
 									` : ''}
 									<span class="action-btn reply-btn">Reply</span>
-								</div>							
-								<span>${new Date(message.timestamp).toLocaleTimeString()}</span>							
+								</div>	
+								<div class="time-stamp">								
+									<span>${new Date(message.timestamp).toLocaleTimeString()}</span>
+								</div>									
 							</div>			
 						</div>
 					</div>

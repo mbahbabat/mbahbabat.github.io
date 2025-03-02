@@ -17,7 +17,7 @@ img{border-style: none;}
 
 
 
-@media screen and ( min-width: 1025px ) and ( max-width: 1359px ){
+@media screen and ( min-width: 1024px ) and ( max-width: 1359px ){
 	.cm-relative .CodeMirror{
 		font-size: 9px!important;
 	}
@@ -41,7 +41,7 @@ img{border-style: none;}
 
 }
 
-@media screen and ( max-width: 1024px ){
+@media screen and ( max-width: 1023px ){
 	.community-link-mob{
 		display: flex!important;
 		background: linear-gradient(to left, transparent 0%, #ff9900 100%);

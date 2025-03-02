@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="css/style.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 	<header>
@@ -368,26 +369,8 @@
 
 </body>
 <script>
-//body
-let counter = 0;
-const maxAttempts = 500;
-const interval = 1; // 1 detik
-
-window.addEventListener('load', function() {
-  const attemptToDisplayBody = function() {
-    if (counter < maxAttempts) {
-      setTimeout(function() {
-        document.body.style.display = 'flex';
-        document.body.style.position = 'fixed';
-        counter++;
-        attemptToDisplayBody();
-      }, interval);
-    } else {
-      console.log('welcome to Blue Gmail Checker');
-    }
-  };
-
-  attemptToDisplayBody();
+document.addEventListener('DOMContentLoaded', function () {
+    document.body.classList.add('loaded');
 });
 
 

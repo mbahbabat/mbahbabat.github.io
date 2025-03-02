@@ -1026,6 +1026,18 @@ $(".user-info").show()
 		}, 3000);
         return;
     }
+	
+	// Validasi: Hanya karakter alfanumerik dan '_' yang diperbolehkan setelah '@'
+		const usernameWithoutAt = newUsername.slice(1); // Menghapus '@' dari username
+		const regex = /^[a-zA-Z0-9_]+$/; // Regex untuk memeriksa karakter yang valid
+		if (!regex.test(usernameWithoutAt)) {
+			errorMessage.textContent = "Username invalid! contains special characters";
+			errorMessage.style.display = 'block';
+			setTimeout(function() {
+				document.getElementById('username-error-message').style.display = 'none';
+			}, 3000);
+			return;
+		}	
 
     // Periksa apakah username tersedia
     const isAvailable = await isUsernameAvailable(newUsername);

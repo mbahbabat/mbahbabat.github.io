@@ -7,9 +7,22 @@ a{text-decoration: none;background:0 0}
 mark{background:#ff0;color:#000}
 img{border-style: none;}
 
-.progress{font-size:10px;overflow: hidden;width:100%;background:rgba(0, 0, 0, 0.3);display:flex;align-items:center ;color: #fff;border-radius:5px; padding: 0 5px;}	 	
-.progress-bar{transition: width .6s ease; text-align: center;white-space: nowrap;background-color: #ff9900;padding:5px 0px 5px 0px;margin-left:2px}	
-.progress-bar-striped{background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);background-size: .5rem .5rem;} 	.progress-bar-animated{animation: progress-bar-stripes 1s linear infinite;} 	
+.progress{font-size:10px;overflow: hidden;width:100%;background:rgba(0, 0, 0, 0.3);display:flex;align-items:center ;color: #fff;border-radius:5px;}	 	
+.progress-bar{
+  transition: width .6s ease;
+  text-align: center;
+  white-space: nowrap;
+  background-image: linear-gradient(to right, #0066cc, #00ccff, #66ffff, #004d66) !important;
+  padding: 5px 0px 5px 0px;
+  margin-left: 2px;
+  border-radius: 5px;
+
+}	
+.progress-bar-striped{
+  background-image: linear-gradient(to right, #0066cc, #00ccff, #66ffff, #1aff1a) !important;
+}
+	
+.progress-bar-animated{animation: progress-bar-stripes 1s linear infinite;} 	
 @media (prefers-reduced-motion: reduce){ 	.progress-bar-animated{animation: none;} 	} 	
 @keyframes progress-bar-stripes{from{background-position: .5rem 0;}to{background-position: 0 0;}} 	
 @media (prefers-reduced-motion: reduce){ 	.progress-bar{transition: none;} 	}	
@@ -57,7 +70,7 @@ img{border-style: none;}
 	
 	.community-link-mob{
 		display: flex!important;
-		background: linear-gradient(to left, transparent 0%, #ff9900 100%);
+		background: linear-gradient(to left, transparent 0%, #33ccff 100%);
 		color: #fff!important;
 	}
 
@@ -424,7 +437,7 @@ body.loaded {
 
 body::before{
 	content:"";
-	background-image: linear-gradient(to right, #ff9900, #3399ff, #ff9900)!important;
+	background-image: linear-gradient(to right, #000, #3399ff, #00ffff, #000)!important;
 	position: fixed;
   	right: 0;
   	top: 0;    
@@ -487,7 +500,7 @@ footer .foot-c{
       border-radius: 5px;
       display: flex;
       align-items: center;
-      background: linear-gradient(to left, transparent 0%, #ff9900 100%);
+      background: linear-gradient(to left, transparent 0%, #33ccff 100%);
 }
 
 #community button a {
@@ -582,7 +595,7 @@ button i {
 	height: 100%;
     overflow: hidden;
     position: relative;
-	filter: brightness(0.7);
+	pointer-events: none;
 }
 
 .animation-img{
@@ -654,7 +667,6 @@ button i {
 	width: 100%;
 	justify-content: left;
 	padding: 10px;
-    background: rgba(50, 50, 50, 1); 
 }
 
 .input-btn{
@@ -680,8 +692,7 @@ button i {
     flex-direction: column;
 	width: 100%;
 	justify-content: center;
-	padding: 5px;
-    background: rgba(50, 50, 50, 1);  
+	padding: 5px; 
 }
 
 #mail-input .cmh{
@@ -698,9 +709,10 @@ button i {
     flex-direction: column;
     width: 100%;
   	height: 100%;
-    background: rgba(50, 50, 50, 1);
+    background: rgba(50, 50, 50, 0.6);
 	flex: 1 1 0%;
 	overflow: hidden;
+	backdrop-filter: blur(10px);
 }
 
 #mzone{
@@ -767,7 +779,7 @@ button i {
 }
 
 #change-username-btn{
-	color: #3366cc;
+	color: #fff;
 	cursor: pointer;
 	font-style: italic;
 }
@@ -862,6 +874,7 @@ welcome-overlay{
   	height: 100%;
     z-index: 1 ;
     background: #00394d;
+	gap: 5px;
 }
 
 #total-count{

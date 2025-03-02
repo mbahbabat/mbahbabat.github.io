@@ -610,6 +610,7 @@ button i {
 
 .m-r-top{
 	display: flex;
+	flex-wrap: wrap;
 	gap: 5px;    
     width: 100%;
   	height: 100%;
@@ -617,6 +618,7 @@ button i {
 
 .m-r-btm{
   	display: flex;
+	flex-wrap: wrap;
   	gap: 5px;
   	width: 100%;
   	min-height: 300px;
@@ -628,6 +630,8 @@ button i {
     flex-direction: column;
     width: 100%;
   	height: 100%;
+	flex: 1 1 0%;
+	overflow: hidden;
 }
 
 .cm-relative{
@@ -695,6 +699,8 @@ button i {
     width: 100%;
   	height: 100%;
     background: rgba(50, 50, 50, 1);
+	flex: 1 1 0%;
+	overflow: hidden;
 }
 
 #mzone{

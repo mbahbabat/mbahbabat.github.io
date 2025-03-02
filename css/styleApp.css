@@ -426,16 +426,11 @@
 		backdrop-filter: blur(5px);
 		background-color: rgba(255, 255, 255, 0.1);	
 		border-left: 4px solid #ffd700;
-		position:absolute;
 		width:100%;
-		z-index:5;
-		top: 40px;
 		border-radius: 4px;
-
 	}
 
         .pinned-message {
-
             border-left: 4px solid #ffd700;
             padding: 3px;
 			z-index:9999999;
@@ -447,11 +442,14 @@
 		}
 		
 		.pinned-message .msg-text{
-			max-height: 20px;
+			max-height: 30px;
 			 white-space: nowrap;
 			 overflow: hidden;
 			 text-overflow: ellipsis;
 			 color: #fff;
+			 background: rgba(255, 255, 255, 0.1);	
+			 border-radius: 5px;
+			 padding: 5px;
 		}
 		
 		#pin-by{
@@ -824,7 +822,7 @@
 
 		#scroll-to-bottom{
 			position: absolute;
-			bottom: 100px;
+			bottom: 50px;
 			right: 20px;
 			border-radius: 100%;
 			width: 30px;
@@ -854,6 +852,7 @@
 }
 
 #online-user {
+	display: block;
 	position: relative;
 	width: 100%;
 	height: 100%;

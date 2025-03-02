@@ -38,7 +38,6 @@ var mobileScreenChat = window.matchMedia("(max-width: 1023px)");
 
     const pinnedMessageRef = ref(database, 'pinnedMessage');
 
-    let isMinimized = false;
     let unreadMessages = 0;
     let currentUser = null;
     let isAdmin = false;
@@ -81,8 +80,7 @@ var mobileScreenChat = window.matchMedia("(max-width: 1023px)");
 		});
 	}
 
-    const chatWrapper = document.querySelector('#chatApp');
-    const minimizedView = document.getElementById('minimized-view');
+
     const messageForm = document.getElementById('message-form');
     const messageInput = document.getElementById('message-input');
     const chatBody = document.getElementById('chat-body');
@@ -100,17 +98,7 @@ var mobileScreenChat = window.matchMedia("(max-width: 1023px)");
 	};	
 
 
-    const toggleChat = () => {
-        isMinimized = !isMinimized;
-        chatWrapper.style.display = isMinimized ? 'none' : 'flex';
-        minimizedView.style.display = isMinimized ? 'flex' : 'none';
-        
-        if(!isMinimized) {
-            unreadMessages = 0;
-            updateBadge();
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
-    };
+
 	
 
 
@@ -419,12 +407,7 @@ var mobileScreenChat = window.matchMedia("(max-width: 1023px)");
 			displayedMessageIds.add(message.id);
 		});
 
-		if (!isMinimized) {
-			setTimeout(() => chatBody.scrollTop = chatBody.scrollHeight, 300);
-		} else {
-			unreadMessages++;
-			updateBadge();
-		}
+
 	});
     
         onValue(pinnedMessageRef, (snapshot) => {
@@ -678,9 +661,6 @@ async function fetchGeoLocation() {
   return '';
 }
 
-   document.getElementById('minimize-btn').addEventListener('click', toggleChat);
-    minimizedView.addEventListener('click', toggleChat);
-
     document.getElementById('cancel-reply').addEventListener('click', () => {
         replyingTo = null;
         document.getElementById('reply-preview').style.display = 'none';
@@ -761,12 +741,6 @@ async function fetchGeoLocation() {
 });
 
 
-
- 	document.addEventListener("DOMContentLoaded", function() {
-	  if (window.matchMedia("(max-width: 1023px)").matches) {
-		toggleChat();
-	  }
-	});
 	
 	const tombolScroll = document.getElementById('scroll-to-bottom');
 	const barToScroll = document.getElementById('chat-body');	
@@ -778,6 +752,11 @@ async function fetchGeoLocation() {
 	  });
 	}); 
 	
+	document.addEventListener('DOMContentLoaded', () => {
+	  setTimeout(() => {
+		barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
+	  }, 2000); // delay 500ms
+	});
 
 
 	document.addEventListener("contextmenu", function(event) {
@@ -1141,14 +1120,60 @@ function showUsername(username) {
  $("#username-error-message").hide();
  $("#error-key").hide();
  
-if (desktopScreenChat.matches) {	
-$(".online-user-mob").hide();
-$("#minimize-btn").hide();
+ 
+ 
+ 
+function aturTampilan() {
+  if (window.matchMedia('(min-width: 1024px)').matches) {
+    $("#chatApp").show();
+    $("#online-user").show();
+	$(".online-user-mob").hide();
+	$("#minimize-btn").hide();
+	setTimeout(() => {
+		barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
+	  }, 2000); // delay 500ms	
+  } else {
+    $("#chatApp").hide();
+    $("#online-user").hide();
+	$(".online-user-mob").hide()
+	setTimeout(() => {
+		barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
+	  }, 2000); // delay 500ms;
+  }
 }
 
-if (mobileScreenChat.matches) {	
-$(".online-desktopScreen").hide();
-$("#online-panel").hide();
+// Jalankan saat halaman dimuat
+aturTampilan();
+
+// Jalankan saat ukuran jendela diubah
+window.addEventListener('resize', aturTampilan);
+
+
+$(document).on("click",
+        ".reply-btn",
+        function() {
+			document.getElementById('scroll-to-bottom').style.cssText="bottom:100px"
+		});	
+
+$(document).on("click",
+        "#cancel-reply",
+        function() {
+			document.getElementById('scroll-to-bottom').style.cssText="bottom:50px"
+		});	
+
+$(document).on("click",
+        "#minimized-view",
+        function() {
+			$("#chatApp").show();
+			$(".online-user-mob").show();
+		});	
+$(document).on("click",
+        "#minimize-btn",
+        function() {
+			$("#chatApp").hide();
+			$(".online-user-mob").hide();
+		});	
+		
 $(document).on("click",
         "#show-online",
         function() {
@@ -1164,7 +1189,7 @@ $(document).on("click",
 			$("#close-online").hide()
 			$("#show-online").show()
 		});	
-}		
+		
 
 $(document).on("click",
         "#change-username-btn",
@@ -1195,11 +1220,27 @@ $(document).on("click",
     }, 2500); // Ubah nilai ini sesuai kebutuhan (misalnya, waktu muat data)
 });
 
-if (['https://mbahbabat.github.io/classic/', 'https://mbahbabat.github.io/modern/'].includes(window.location.href)) {
-  window.location.href = 'https://mbahbabat.github.io/';
-} else if (['https://gmailchecker.github.io/classic/', 'https://gmailchecker.github.io/modern/'].includes(window.location.href)) {
-  window.location.href = 'https://gmailchecker.github.io/';
-}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Normalize the current URL by removing trailing slashes and converting to lowercase
+  const currentUrl = window.location.href.replace(/\/$/, '').toLowerCase();
+
+  // Define the redirection rules
+  const redirectionRules = [
+    { match: 'https://mbahbabat.github.io/classic', target: 'https://mbahbabat.github.io/' },
+    { match: 'https://mbahbabat.github.io/modern', target: 'https://mbahbabat.github.io/' },
+    { match: 'https://gmailchecker.github.io/classic', target: 'https://gmailchecker.github.io/' },
+    { match: 'https://gmailchecker.github.io/modern', target: 'https://gmailchecker.github.io/' }
+  ];
+
+  // Check if the current URL matches any of the rules
+  for (const rule of redirectionRules) {
+    if (currentUrl === rule.match.toLowerCase()) {
+      window.location.href = rule.target;
+      break; // Stop checking further rules once a match is found
+    }
+  }
+});
 
 
 
@@ -1213,7 +1254,7 @@ if (['https://mbahbabat.github.io/classic/', 'https://mbahbabat.github.io/modern
 // Daftar kata-kata yang akan ditampilkan secara acak
     const messages = ["standby...", "sleep...", "zzzZZ...", "hoaam...", "idle...", "Snooze...", "Smile, you're here!", "You matter, welcome!", "Hello, beautiful soul!", "You're loved, you're here!", "Hey, how are you?", "Hello, how's it going?", "How are you doing today?", "What's going on?", "How's everything?", "How's your day so far?", "Hi, what's new with you?", "Do you miss me terribly?", "Are you longing for me?", "Do you feel empty without me?", "Hi, nice to meet you!", "Welcome to our community!", "Hey, bro!Hey, bro!", "Yo, what's good?" ];
     let timeoutId; // Untuk menyimpan ID timeout
-    const idleTime = 5 * 1000; // 1 menit dalam milidetik
+    const idleTime = 10 * 1000; // 1 menit dalam milidetik
 
     // Fungsi untuk memilih kata secara acak
     function getRandomMessage() {

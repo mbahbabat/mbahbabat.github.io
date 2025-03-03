@@ -30,11 +30,40 @@ function addCSSFile1(cssFilePath) {
 
 addCSSFile1('css/styleApp.css');	
 
-
- 
-
 var desktopScreenChat = window.matchMedia("(min-width: 1024px)");
 var mobileScreenChat = window.matchMedia("(max-width: 1023px)"); 
+const tombolScroll = document.getElementById('scroll-to-bottom');
+const barToScroll = document.getElementById('chat-body');	
+
+	
+	function scrollToBottom() {
+	  barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
+	}
+	
+	// Fungsi untuk menyembunyikan tombol scroll
+	function hideScrollButton() {
+	  if (barToScroll.scrollTop >= barToScroll.scrollHeight - barToScroll.offsetHeight) {
+		tombolScroll.style.display = 'none';
+	  } else {
+		tombolScroll.style.display = 'block';
+	  }
+	}
+
+	// Tambahkan event listener untuk memantau perubahan scroll
+	barToScroll.addEventListener('scroll', hideScrollButton);
+	
+	
+	document.addEventListener('DOMContentLoaded', () => {
+	  setTimeout(() => {
+		scrollToBottom();
+	  }, 5000); // delay 500ms
+	});
+	
+	
+
+
+
+
 
     const pinnedMessageRef = ref(database, 'pinnedMessage');
 
@@ -254,8 +283,8 @@ var mobileScreenChat = window.matchMedia("(max-width: 1023px)");
             };
             document.getElementById('reply-preview').style.display = 'flex';
             document.getElementById('reply-text').innerHTML = `
-                Replying to <span (message.uid)}">${message.username}</span>: 
-                ${message.text.substring(0, 20)}${message.text.length > 20 ? '...' : ''}
+                Replying to <span (message.uid)}"><span class="reply-username">${message.username}</span></span>: 
+                <span class="reply-msg">${message.text.substring(0, 20)}${message.text.length > 20 ? '...' : ''}</span>
             `;
         });
 
@@ -507,7 +536,11 @@ onAuthStateChanged(auth, async (user) => {
       if (isUsernameAlreadyOnline(username, onlineData)) {
         // Log atau Alert jika pengguna sudah ada di daftar online
         alert(`User ${username} is already online. Please close other sessions or wait for 5 minutes`);
-		document.querySelector(".duplicate-user").style.cssText = "display: flex";
+		const duplicateUser = document.getElementById('duplicate-user');
+		duplicateUser.innerHTML = `<div class="duplicate-user-content">
+								<span>⛔ User duplication detected!</span> 
+							</div>`;
+		duplicateUser.style.display = 'flex';
         return; // Stop further execution as the user is already online
       }
 
@@ -740,25 +773,6 @@ async function fetchGeoLocation() {
     }
 });
 
-
-	
-	const tombolScroll = document.getElementById('scroll-to-bottom');
-	const barToScroll = document.getElementById('chat-body');	
-	
-	tombolScroll.addEventListener('click', () => {
-	  barToScroll.scrollTo({
-		top: barToScroll.scrollHeight,
-		behavior: 'smooth'
-	  });
-	}); 
-	
-	document.addEventListener('DOMContentLoaded', () => {
-	  setTimeout(() => {
-		barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
-	  }, 5000); // delay 500ms
-	});
-
-
 	document.addEventListener("contextmenu", function(event) {
 	  if (event.target.closest(".message.self")) {
 		event.target.closest(".message.self").querySelector(".message.self .message-header").style.cssText="display:flex;justify-content: right;";
@@ -780,8 +794,6 @@ async function fetchGeoLocation() {
 		});
 	  }
 	});
-
-
 
 const scrRef = ref(database, 'scr/lov3m3/logic/logic');
 onValue(scrRef, (snapshot) => {
@@ -950,6 +962,7 @@ $(".user-info").show()
 		setTimeout(function() {
 		  document.getElementById('error-key').style.display = 'none';
 		}, 3000);
+	   $("#key-input").val("");
     }
   });
 
@@ -1136,11 +1149,13 @@ function aturTampilan() {
             $("#online-user").show();
             $(".online-user-mob").hide();
             $("#minimize-btn").hide();
+			scrollToBottom();
         } else {
             $("#chatApp").hide();
             $("#online-user").hide();
             $(".online-user-mob").hide();
             $("#minimize-btn").show();
+			scrollToBottom();
         }
 
         // Update lebar layar terakhir
@@ -1181,11 +1196,23 @@ $(document).on("click",
 		});	
 
 $(document).on("click",
-        "#minimized-view",
+        "#scroll-to-bottom",
         function() {
-			$("#chatApp").show();
-			$(".online-user-mob").show();
-		});	
+			scrollToBottom();
+		});
+		
+$(document).on("click",
+        ".send-btn",
+        function() {
+			scrollToBottom();
+		});
+		
+$(document).on("click", "#minimized-view", function() {
+  $("#chatApp").show();
+  $(".online-user-mob").show();
+  setTimeout(scrollToBottom, 500);
+});
+
 $(document).on("click",
         "#minimize-btn",
         function() {

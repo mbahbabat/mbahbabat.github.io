@@ -25,9 +25,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<link rel="stylesheet" href="css/style.css">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+	<script src="js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<header>
@@ -51,14 +51,10 @@
 		<div id="loading-screen" class="loading-screen">
 			<div class="loader">
 				<div class="spinner"></div>
-				<p>Loading...</p>
+				<p>BLUE GMAIL CHECKER</p>
 			</div>
 		</div>
-		<div class="duplicate-user">
-			<div class="duplicate-user-content">
-				<span>⛔ User duplication detected!</span> 
-			</div>
-		</div>
+		<div id="duplicate-user"></div>
 		<div class="fxd-ls">
         	<div class="logo">
             	<image id="logo-img"src="gC.webp"></image>
@@ -297,6 +293,7 @@
 						</div>
 						<div id="pinned-message-container"></div>
 						<div class="chat-body" id="chat-body"></div>
+						<button id="scroll-to-bottom"><i class="fas fa-arrow-down"></i></button>
 						<div id="reply-preview">
 							<span id="reply-text"></span>
 							<button id="cancel-reply" class="chat-btn">Cancel</button>
@@ -305,7 +302,6 @@
 							<input type="text" class="message-input" placeholder="Send a message..." id="message-input">
 							<button class="chat-btn send-btn" type="submit">Send</button>
 						</form>
-						<button id="scroll-to-bottom"><i class="fas fa-arrow-down"></i></button>
 					</div>
 				</div>
 				<div class="m-r-btm-child" id="online-user">
@@ -366,17 +362,13 @@
 <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
-
-</body>
+<script type="module" src="js/citapp.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     document.body.classList.add('loaded');
 });
-
-
 </script>
-<script type="module" src="js/citapp.js"></script>
-<script src="js/origin.js"></script>
+</body>
 </html>
 
 

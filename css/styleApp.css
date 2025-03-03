@@ -7,10 +7,11 @@
         }
 
 
-
+		#key-input{
+			color: #00ccff;
+		}
 		/* Untuk user sendiri */
 		.you-user {
-			border-left: 3px solid #005c99 ;
 			background: rgba(0, 0, 0, 0.15) ;
 		}
 		
@@ -116,9 +117,32 @@
             background: linear-gradient(to bottom left, #3399ff 0%, #ff9900 100%);
 			border: 5px ridge #000;	
 			gap: 10px;		
-			position:relative;
+			position: relative;
+			zoom: 80%;
         }
-
+		
+		
+		@media screen and ( min-width: 1024px ) and ( max-width: 1359px ){
+			#online-panel{
+				zoom: 85%;
+			}
+		}
+		@media screen and ( max-width: 1023px ){
+			.chat-body {
+				zoom: 110%;
+			}
+			#scroll-to-bottom{
+				zoom: 200%;
+			}
+			
+			.chat-input{
+				zoom: 150%;
+			}
+			
+			.reply-preview{
+				zoom: 100%;
+			}
+		}
         .chat-input {
 			width: 100%;
             padding: 5px;
@@ -127,6 +151,7 @@
 			justify-content: space-between;
             gap: 8px;
             align-items: center;
+			position: relative;
         }
 
         .message-input {
@@ -152,7 +177,7 @@
 			display: flex;
 			align-items: center;
 			justify-content:center;
-			font-size: 14px;
+			font-size: 12px;
 			animation: heartbeat 1s infinite;
 		}		
 		
@@ -257,7 +282,7 @@
 			transform: scale(1);
 		  }
 		  50% {
-			transform: scale(1.01);
+			transform: scale(1.001);
 		  }
 		  100% {
 			transform: scale(1);
@@ -289,6 +314,8 @@
             animation: messageIn 0.3s ease-out;
             word-break: break-word;
             position: relative;
+			border-radius: 10px;
+			overflow:hidden;
 		}
 		
 		.msg-content-c{
@@ -393,13 +420,13 @@
         .reply-indicator {
 			padding: 3px;
 			border-left: 5px solid #2196F3;
-			background-color: rgba(0, 0, 0, 0.2);
+			background-color: rgba(200, 100, 100, 0.2);
 			transition: all 0.2s;
 			font-size: 10px;
 			display: flex;
 			flex-direction: column;
 			gap: 2px;
-			box-shadow: 0px 0px 5px 0px rgba(255,150,150,0.5);
+			box-shadow: 0px 0px 5px 0px rgba(255,255,255,0.5);
         }
 
 		.reply-indicator .country-flag{
@@ -408,8 +435,19 @@
 		}
 		
         .reply-content {
-
+			background-color: rgba(0, 0, 0, 0.2);
+			padding: 3px;
+			margin: 3px 5px 3px 5px;
+			border-radius: 5px;
         }
+		
+		.reply-username{
+			color: orange;
+		}
+		
+		.reply-msg{
+			color: #fff;
+		}
 		
 		.reply-btn{
 			color: orange;
@@ -434,6 +472,7 @@
             border-left: 4px solid #ffd700;
             padding: 3px;
 			position: relative;
+			zoom: 75%;
         }
 		
 		#pin-msh-title{
@@ -447,9 +486,10 @@
 			 overflow: hidden;
 			 text-overflow: ellipsis;
 			 color: #fff;
-			 background: rgba(125, 25, 25, 0.3);	
+			 background: rgba(25, 125, 125, 0.3);	
 			 border-radius: 5px;
 			 padding: 5px;
+			 margin: 5px 0 0 10px;
 		}
 		
 		.pinned-message:hover .msg-text{
@@ -457,9 +497,16 @@
 		}
 		
 		#pin-by{
-			 font-size: 0.8em;
+			 font-size: 12px;
 			 margin-left: 10px;
-			 color: #fff;
+			 color: #fff;	 
+		}
+		
+		#pin-by span{
+			margin-left: 5px;
+			color: #00ccff;
+			font-size: 14px;
+			text-shadow: 1px 1px #000;
 		}
 		
 		#unpin-message{
@@ -485,14 +532,18 @@
             display: none;
 			color: #8585ad;
 			position: relative;
+			zoom: 75%;
         }
 		
 		#cancel-reply{
 			position: absolute;
-			right: 10px;
-			bottom: 0px;
-			color: #ffcc66;
+			right: 5px;
+			bottom: 7px;
+			color: #fff;
+			background: rgba(255, 0, 0, 0.9) ; 
+			box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 		}
+		
 
         @keyframes messageIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -528,8 +579,17 @@
             cursor: pointer;
             opacity: 0.7;
             transition: opacity 0.2s;
-			background: linear-gradient(to left, #ffcc00 0%, #996600 100%);
-			color: #000;
+			background-image: linear-gradient(to right, 
+			rgba(0, 50, 100, 0.7), 
+			rgba(0, 60, 120, 0.7), 
+			rgba(0, 70, 140, 0.7), 
+			rgba(0, 80, 160, 0.7), 
+			rgba(0, 90, 180, 0.7), 
+			rgba(0, 100, 200, 0.7), 
+			rgba(0, 110, 220, 0.7), 
+			rgba(0, 120, 240, 0.7), 
+			rgba(0, 130, 250, 0.7));
+			color: #fff;
 			padding: 3px 6px;
 			border-radius: 5px;
         }
@@ -795,6 +855,7 @@
 			border-radius: 4px;
 			transition: background 0.2s;
 			position: relative;
+			cursor: pointer;
 		}
 
 		.online-user:hover {
@@ -827,14 +888,24 @@
 		#scroll-to-bottom{
 			position: absolute;
 			bottom: 50px;
-			right: 20px;
-			border-radius: 100%;
-			width: 30px;
-			height: 30px;
-			opacity: 0.7;
-			background: var(--primary);
+			right: 27px;
+			border-radius: 50%;
 			color: #fff;
-		}		
+			width: 20px;
+			height: 20px;
+			background-color: rgba(0, 150, 150, 0.5);
+			opacity: 0.8;
+		}	
+		
+		#scroll-to-bottom:hover{
+			background-color: rgba(0, 150, 150, 0.8);
+			opacity: 1;
+		}
+
+		#scroll-to-bottom i{
+			font-size: 8px;
+			text-align: center;
+		}
 
 
 .replyTo-header{

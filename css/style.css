@@ -33,7 +33,7 @@ img{border-style: none;}
   -webkit-tap-highlight-color: transparent;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: none;
 }
 
@@ -69,9 +69,6 @@ input:focus {
 		max-height: 200px!important;
 	}
 	
-	.chat-body{
-		zoom: 70%;
-	}
 
 }
 
@@ -241,11 +238,21 @@ input:focus {
     justify-content: center;
     align-items: center;
     z-index:calc(infinity);
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+#loading-page{
+background-color: rgba(0, 0, 0, 0.1);	
 }
 
 .loader {
     text-align: center;
+}
+
+#loading-page .loader {
+    display: flex;
+	align-items: center;
+	gap: 5px;
 }
 
 .spinner {
@@ -301,11 +308,16 @@ input{
 	background: rgba(255, 255, 255, 0.3);
 }
 
-textarea{
-	opacity:0;
-}
+
 
 input::placeholder {
+  color: #fff;
+  font-size: 10px;
+  font-style: italic;
+  padding-left: 10px;
+}
+
+textarea::placeholder {
   color: #fff;
   font-size: 10px;
   font-style: italic;

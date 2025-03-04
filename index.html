@@ -3,16 +3,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-	<meta name="description" content="Blue Gmail Checker is a powerful tool designed to verify Gmail addresses in bulk, without requiring login credentials. Our platform ensures a safe and efficient way to check the validity of multiple Gmail accounts simultaneously">
+	<meta name="description" content="Blue Gmail Checker">
 	<meta http-equiv="expires" content="0">
 	<meta name="referrer" content="never">
-	<meta name="keywords" content="Blue Gmail Checker,Gmail Checker, Email marketing, List building, Lead generation, Email validation, Spam prevention, Gmail list verification, Verify Gmail addresses, Gmail account checker, Mass Gmail checker, Gmail validation, Email verification tool, Gmail verifier, Bulk Gmail verification, Bulk Gmail Checker, Email Verifier, Gmail Verifier, Mail Checker, Verify Gmail, Check Gmail, Gmail Validation, Email Validation">
+	<meta name="keywords" content="GmailChecker,GmailCheck,Gmail Check,MailCheck,Mail Check,Mail,Mailbox,Email,Gmail,Gmali,Mali,Gmail Checker,Gmail PHP,Gmail Verifier PHP,Gmail Checker PHP,Gmail Checker Script,Mail PHP,Email PHP,Mail Checker PHP,Email Checker PHP,Gnail Cheker,Gmail Cheker,Gnail Cheker,Gmal Checkr,Gmail Checkr,Mail Checker,Mail Cheker,Mail Checkr,Google Checker,Need Gmail,Need Mail,Need Email,Buy Mail,Buy Gmail,Buy Email,Google Checker,Bulk Mail,Gmail Check,Gmail Test,Gmail Tester,Mail Test,Mail Tester,Mail Check,Email Check,Email Test,Email Tester,Bulk Gmail,Bulk Email,Free Mail,Temporary Mail,Sell Gmail,Free Gmail,Sell Mail,Sell Email,Verify Mail,Verify Gmail,Verify Email,Verify,Mail Verify,Gmail Verify,Email Verify,Create Gmail,Create Mail,Create Email,Mail Checker,Email Checker,Bulk Gmail Checker,Bulk Mail Checker,Bulk Email Checker,Free Bulk Gmail Checker,Free Bulk Gmail Verifier,Bulk Google Checker,Gmail Tool,Email Tool,Gmail Checker Github,Fresh Gmail,Fresh Email,Fresh Mail,Google Checker Github,Mail Checker Github,Email Checker Github,Bulk Gmail Checker Github,Bulk Mail Checker Github,Bulk Email Checker Github,Mail Free,Gmail Free,Email Free,Free Bulk Gmail Checker Github,Free Bulk Gmail Verifier Github,Bulk Google Checker Github,Gmail Tool Github, Email Tool Github,bulkgmail,bulk gmail,bulkmail,bulk mail,bulkemail,bulk email,bulk google,bulkgoogle">
 	<meta name="author" content="Gmooy">
 	<meta name="title" content="Blue Gmail Checker">
 	<meta name="theme-color" content="#003d66">	
 	<meta name="msapplication-navbutton-color" content="#003d66">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#003d66">
-    <title>Blue Gmail Checker</title>
+    <title>Gmail Checker</title>
 	<link rel="shortcut icon" href="gC.webp">
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T0FBXCK6YT"></script>
 	<script>
@@ -48,10 +48,17 @@
 		</div>
 	</header>
 	<main>
-		<div id="loading-screen" class="loading-screen">
+		<div id="loading-core" class="loading-screen">
 			<div class="loader">
 				<div class="spinner"></div>
-				<p>BLUE GMAIL CHECKER</p>
+				<p>LOADING</p>
+			</div>
+		</div>	
+		<div id="loading-page" class="loading-screen">
+			<div class="loader">
+				<p>BLUE</p>
+				<image id="logo-img"src="gC.webp" width="30px" height="30px"></image>
+				<p>MAIL CHECKER</p>
 			</div>
 		</div>
 		<div id="duplicate-user"></div>
@@ -168,7 +175,6 @@
 					<div class="ver-key">
 						<div class="exec-key">
 							<input type='text' id='key-input' placeholder='🔐 enter the activation key here...'>
-							<p id='error-key' style='color: red; display: none;'>Invalid Key!</p>
 							<p id='succes-key' style='color: green; display: none;'>Activated</p>
 							<button id='submit-key' class='gC-btn'>Activate</button>
 						</div>					
@@ -188,7 +194,6 @@
 							<input type="text" id="new-username-input" placeholder="enter new username..." minlength="6" required>
 							<button id='submit-username' class='gC-btn'>Change</button>
 							<button id='username-cancel' class='gC-btn'>Cancel</button>
-							<div id="username-error-message"></div>
 						</div>
 					</div>
 					<div class="monitor">
@@ -279,11 +284,12 @@
 							<div class="chat-title">Community Chat</div>
 							<button class="chat-btn" id="minimize-btn">&times;</button>
 						</div>
+						<div id="pinned-message-container"></div>
 						<div class="online-user-mob">
 							<div class="online-mobileScreen">
-								<div style="display: flex; justify-content: right; width: 100%;">
-									<button style="display: none; width: 100%" id="show-online">show online</button>
-									<button style="width: 100%;" id="close-online">&times; hide online</button>
+								<div class="on-off-online-panel">
+									<button id="show-online">show online</button>
+									<button id="close-online">&times; hide online</button>
 								</div>
 								<div id="online-panel">
 									<span id="online-counter-mob">0</span>
@@ -291,7 +297,6 @@
 								</div>
 							</div>
 						</div>
-						<div id="pinned-message-container"></div>
 						<div class="chat-body" id="chat-body"></div>
 						<button id="scroll-to-bottom"><i class="fas fa-arrow-down"></i></button>
 						<div id="reply-preview">
@@ -299,7 +304,7 @@
 							<button id="cancel-reply" class="chat-btn">Cancel</button>
 						</div>
 						<form class="chat-input" id="message-form">
-							<input type="text" class="message-input" placeholder="Send a message..." id="message-input">
+							<textarea class="message-input" id="message-input" placeholder="Send a message..." rows="1"></textarea>
 							<button class="chat-btn send-btn" type="submit">Send</button>
 						</form>
 					</div>

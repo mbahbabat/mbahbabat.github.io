@@ -30,15 +30,226 @@ function addCSSFile1(cssFilePath) {
 
 addCSSFile1('css/styleApp.css');	
 
+
+var chattAudio = document.getElementById('chat-audio');
+var disconnectAudio = document.getElementById('disconnect-audio');
+var modeAudio = document.getElementById('mode-audio');
+var checkedAudio = document.getElementById('checked-audio');
+var switchAudio = document.getElementById('switch-audio');
+var finishAudio = document.getElementById('finish-audio');
+var errorAudio = document.getElementById('error-audio');
+var runAudio = document.getElementById('run-audio');
+var resetAudio = document.getElementById('reset-audio');
+var copyPasteAudio = document.getElementById('copyPaste-audio');
+
+// Daftar ID audio
+const audioIds = [
+    'chat-audio',
+    'disconnect-audio',
+    'mode-audio',
+    'checked-audio',
+    'switch-audio',
+    'finish-audio',
+    'error-audio',
+    'run-audio',
+    'reset-audio',
+    'copyPaste-audio'
+];
+
+// Preload semua audio
+document.addEventListener('DOMContentLoaded', function() {
+  audioIds.forEach(id => {
+    const audioElement = document.getElementById(id);
+    if (audioElement) {
+      audioElement.preload = 'auto'; // Pastikan preload diaktifkan
+      audioElement.load(); // Memuat file audio
+    }
+  });
+});
+
+//SYSTEM
+
+function createSystemNotification2(message, customClass = "") {
+  const NotificationContainer2 = document.getElementById("System-Notification-container2");
+
+  // Membuat elemen notifikasi
+  const SystemNotification2 = document.createElement("div");
+  SystemNotification2.className = `systemNotification2${customClass ? ` ${customClass}` : ""}`;
+  SystemNotification2.innerHTML = `
+    <span>${message}</span>
+    <button class="close-btn" onclick="removeSystemNotification2(this.parentElement)">×</button>
+  `;
+
+  NotificationContainer2.appendChild(SystemNotification2);
+
+  // Trigger animation
+  setTimeout(() => SystemNotification2.classList.add("show"), 10);
+
+  // Auto-remove setelah 3 detik
+  setTimeout(() => removeSystemNotification2(SystemNotification2), 3000);
+}
+
+// Fungsi untuk menghapus notifikasi
+function removeSystemNotification2(SystemNotification2) {
+  if (!SystemNotification2) return;
+
+  SystemNotification2.classList.add("exit"); // Tambahkan animasi keluar
+
+  setTimeout(() => {
+    const NotificationContainer2 = document.getElementById("System-Notification-container2");
+    SystemNotification2.remove();
+
+    // Hapus NotificationContainer jika tidak ada notifikasi lagi
+    if (NotificationContainer2 && NotificationContainer2.children.length === 0) {
+      NotificationContainer2.remove();
+    }
+  }, 1000); // Sesuaikan dengan durasi transisi
+}
+
+// Queue system
+const SystemNotificationQueue2 = [];
+let isProcessQueue2 = false;
+
+function processingQueue2() {
+  if (isProcessQueue2 || SystemNotificationQueue2.length === 0) return;
+
+  isProcessQueue2 = true;
+  const { message, customClass } = SystemNotificationQueue2.shift();
+  
+  // Pastikan NotificationContainer ada
+  if (!document.getElementById("System-Notification-container2")) {
+    const NotificationContainer2 = document.createElement("div");
+    NotificationContainer2.id = "System-Notification-container2";
+    document.querySelector("#system-msg").appendChild(NotificationContainer2); // Pasang di root document
+  }
+  
+  createSystemNotification2(message, customClass);
+
+  setTimeout(() => {
+    isProcessQueue2 = false;
+    processingQueue2();
+  }, 0); // Jarak antar notifikasi
+}
+
+function addNewNotification2(message, customClass = "") {
+  SystemNotificationQueue2.push({ message, customClass });
+  processingQueue2();
+}
+
+function successNotify2(message) {
+  addNewNotification2(message, "success");
+}
+
+function warnNotify2(message) {
+  addNewNotification2(message, "warn");
+}
+
+function dangerNotify2(message) {
+  addNewNotification2(message, "danger");
+}
+function infoNotify2(message) {
+  addNewNotification2(message, "info");
+}
+
+// Style CSS
+const Notifstyle2 = document.createElement('style');
+Notifstyle2.textContent = `
+#System-Notification-container2 {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  display: flex;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out; /* Animasi tambahan */
+  flex-direction: column-reverse; /* Membalikkan urutan */
+  justify-content: flex-end;
+
+}
+
+.systemNotification2 {
+  width: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: bold;
+  opacity: 0; /* Mulai dengan transparan */
+  transform: translateY(-5px); /* Mulai dari atas */
+  animation: slideDown 0.3s ease-out forwards; /* Animasi turun */
+  padding: 1px 3px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+@keyframes slideDown {
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Berakhir di posisi normal */
+  }
+}
+
+.systemNotification2.show {
+  opacity: 1;
+}
+
+.systemNotification2.exit {
+  transform: translateY(-5px); /* Naik ke atas */
+  opacity: 0; /* Menghilang */
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: none;
+  place-items: center;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.systemNotification2.success {
+  color: #00cc99;
+}
+
+.systemNotification2.warn {
+  color: #cc99ff;
+}
+
+.systemNotification2.danger {
+  color: #ff3399;
+}
+
+.systemNotification2.info {
+  color: #ccccb3;
+}
+
+
+`;
+
+document.head.appendChild(Notifstyle2);
+
+
 var desktopScreenChat = window.matchMedia("(min-width: 1024px)");
 var mobileScreenChat = window.matchMedia("(max-width: 1023px)"); 
 const tombolScroll = document.getElementById('scroll-to-bottom');
 const barToScroll = document.getElementById('chat-body');	
 
 	
-	function scrollToBottom() {
+	function scrollToBottomSmooth() {
 	  barToScroll.scrollTo({ top: barToScroll.scrollHeight, behavior: 'smooth' });
 	}
+	
+	function scrollToBottom() {
+			 barToScroll.scrollBy({ top: barToScroll.scrollHeight });
+		}
 	
 	// Fungsi untuk menyembunyikan tombol scroll
 	function hideScrollButton() {
@@ -56,10 +267,437 @@ const barToScroll = document.getElementById('chat-body');
 	document.addEventListener('DOMContentLoaded', () => {
 	  setTimeout(() => {
 		scrollToBottom();
-	  }, 5000); // delay 500ms
+	  }, 3000); // delay 500ms
 	});
 	
+
 	
+
+
+
+
+
+
+
+// Cookie functions
+window.setCookie = function (name, value, days) {
+  const d = new Date();
+  d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+  const expires = "expires=" + d.toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)}; ${expires}; path=/`;
+};
+
+window.getCookie = function (name) {
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+  }
+  return null;
+};
+
+window.deleteCookie = function (name) {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+};
+
+  // Firebase token validation
+async function validateKey(useridval) {
+  const dbRef = ref(database, 'tokens');
+  try {
+    // Mengambil snapshot dari Firebase untuk semua token
+    const snapshot = await get(dbRef);
+
+    if (snapshot.exists()) {
+      const tokens = snapshot.val();
+      const freetoken = tokens.freetoken || {};
+      const viptoken = tokens.viptoken || {};
+      const admintoken = tokens.admintoken || {};
+
+      // Memeriksa apakah token ada di salah satu kategori
+      if (freetoken[useridval]) {
+        const username = freetoken[useridval].username || freetoken[useridval];
+        setValidCookie(useridval, 'freetoken');
+		isAdmin = false;
+		isVIP = false;
+		handleSuccessUI()		
+        return true;
+      } else if (viptoken[useridval]) {
+        const username = viptoken[useridval].username || viptoken[useridval];
+        setValidCookie(useridval, 'viptoken');
+		isAdmin = false;
+		isVIP = true;
+		handleSuccessUI()
+        return true;
+      } else if (admintoken[useridval]) {
+        const username = admintoken[useridval].username || admintoken[useridval];
+        setValidCookie(useridval, 'admintoken');
+		isAdmin = true;
+		isVIP = false;
+		handleSuccessUI()
+        return true;
+      } else {
+        // Jika token tidak ditemukan
+        console.error("Invalid key or user ID not found.");
+        return false;
+      }
+    } else {
+      // Jika tidak ada data token di Firebase
+      console.error("Tidak ada data token di Firebase.");
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+}
+
+// Helper function untuk membuat cookie valid
+function setValidCookie(useridval, tokenType) {
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 1);
+  setCookie('validKey', `${useridval}|${expirationDate.toISOString()}|${tokenType}`, 1);
+}
+  
+
+  // UI functions
+  function handleSuccessUI() {
+
+$(".ver-key").hide()
+$(".user-info").show()
+    
+    if (!localStorage.getItem('hasReloaded')) {
+      localStorage.setItem('hasReloaded', 'true');
+      location.reload();
+    } else {
+      localStorage.removeItem('hasReloaded');
+    }
+    
+  }
+
+  async function checkValidKey() {
+    const validKey = getCookie('validKey');
+    if (validKey) {
+      const [storedKey, expirationDate, tokenType] = validKey.split('|');
+      const currentDate = new Date();
+      
+      if (currentDate <= new Date(expirationDate)) {
+        try {
+          const snapshot = await get(ref(database, `tokens/${tokenType}/${storedKey}`));
+          if (snapshot.exists()) {
+            const username = snapshot.val().username || snapshot.val();
+			isVIP = tokenType === 'viptoken';
+			isAdmin = tokenType === 'admintoken';
+			handleSuccessUI()
+            return true;
+          }
+        } catch (error) {
+          console.error("Error checking valid key:", error);
+        }
+      }
+      deleteCookie('validKey');
+    }
+    return false;
+  }
+
+  // Event listeners
+  document.getElementById('submit-key').addEventListener('click', async function() {
+    const keyInput = document.getElementById('key-input').value;
+    if (!keyInput) return;
+	
+	const smartToken = await fetchSmartTokenLogic();
+    const useridval = smartToken(keyInput);
+    const isValid = await validateKey(useridval);
+
+    if (!isValid) {
+	   $("#key-input").val("");
+	   dangerNotify2("❌ INVALID KEY");
+	   errorAudio.play();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    if (!await checkValidKey()) {
+
+    }
+  });
+  
+
+
+	async function isUsernameAvailable(newUsername) {
+		const usernamesRef = ref(database, 'usernames');
+		const snapshot = await get(child(usernamesRef, newUsername)); // Gunakan child untuk merujuk ke node anak
+		return !snapshot.exists();
+	}
+
+	document.getElementById('submit-username')?.addEventListener('click', async function () {
+    let newUsername = document.getElementById('new-username-input').value.trim();
+
+    // Tambahkan '@' jika belum ada di awal username
+    if (!newUsername.startsWith('@')) {
+        newUsername = '@' + newUsername;
+    }
+
+    // Validasi: Username tidak boleh kosong
+    if (!newUsername) {
+        warnNotify2("Username cannot be empty.");
+		errorAudio.play();
+        return;
+    }
+
+    // Validasi: Panjang minimal username harus 6 karakter (termasuk '@')
+    if (newUsername.length < 7) { // '@' + 6 karakter = total 7 karakter
+        warnNotify2("Username requires at least 6 characters.");
+		errorAudio.play();
+        return;
+    }
+
+    // Validasi: Username tidak boleh 'admin'
+    if (newUsername.toLowerCase() === '@administrator') {
+        dangerNotify2("Username 'admin' is not allowed");
+		errorAudio.play();
+        return;
+    }
+	
+	// Validasi: Hanya karakter alfanumerik dan '_' yang diperbolehkan setelah '@'
+		const usernameWithoutAt = newUsername.slice(1); // Menghapus '@' dari username
+		const regex = /^[a-zA-Z0-9_]+$/; // Regex untuk memeriksa karakter yang valid
+		if (!regex.test(usernameWithoutAt)) {
+			dangerNotify2("Username invalid! contains special characters");
+			errorAudio.play();
+			return;
+		}	
+
+    // Periksa apakah username tersedia
+    const isAvailable = await isUsernameAvailable(newUsername);
+    if (!isAvailable) {
+		warnNotify2("Username already exists. Please try another username.");
+		errorAudio.play();
+        return;
+    }
+
+    const validKey = getCookie('validKey');
+    if (!validKey) {
+        alert("You're not part of our community, join our Telegram group to receive the activation key");
+		warnNotify2("You're not part of our community, join our Telegram group to receive the activation key");
+		errorAudio.play();
+        return;
+    }
+
+    const [storedKey, expirationDate, tokenType] = validKey.split('|');
+    try {
+        const dbRef = ref(database, `tokens/${tokenType}/${storedKey}`);
+        const snapshot = await get(dbRef);
+
+        if (snapshot.exists()) {
+            const tokenData = snapshot.val();
+            const lastChangeTimestamp = tokenData.lastUsernameChange;
+
+            const now = new Date();
+            const lastChangeTime = lastChangeTimestamp ? new Date(lastChangeTimestamp) : null;
+
+            if (lastChangeTime && (now - lastChangeTime < 30 * 24 * 60 * 60 * 1000)) {
+                const remainingTime = Math.ceil((30 * 24 * 60 * 60 * 1000 - (now - lastChangeTime)) / (24 * 60 * 60 * 1000));
+                alert(`You can only change your username every 30 days. Please try again in ${remainingTime} days.`);
+                $(".username-zone").hide();
+                $(".user-info").show();
+                handleSuccessUI();
+                return;
+            }
+
+            // Perbarui username di Firebase
+            const updates = {};
+            updates[`tokens/${tokenType}/${storedKey}/username`] = newUsername;
+            updates[`tokens/${tokenType}/${storedKey}/lastUsernameChange`] = now.toISOString();
+            updates[`usernames/${newUsername}`] = currentUser.uid;
+
+            // Hapus username lama dari daftar usernames
+            if (tokenData.username) {
+                updates[`usernames/${tokenData.username}`] = null;
+            }
+
+            await update(ref(database), updates);
+
+            // Perbarui tampilan username di UI
+            document.querySelector('.username').textContent = newUsername;
+
+            console.log("Username berhasil diperbarui:", newUsername);
+            $(".username-zone").hide();
+            $(".user-info").show();
+            handleSuccessUI();
+        } else {
+            console.error("Token tidak ditemukan di Firebase.");
+        }
+    } catch (error) {
+        console.error("Gagal memperbarui username:", error.message);
+		dangerNotify2("Error updating username. Please try again.");
+		errorAudio.play();
+    }
+});
+
+
+
+
+
+function sanitizeIP(ip) {
+    return ip.replace(/[.$#[\]/]/g, '_'); // Ganti karakter ilegal dengan underscore
+}
+
+// Fungsi global untuk pengecekan IP limit
+window.checkIPLimit = async (ip) => {
+    const sanitizedIP = sanitizeIP(ip);
+    const ipRef = ref(database, `ipChecks/${sanitizedIP}`);
+    const MAX_ATTEMPTS = 4;
+    const LIMIT_DURATION = 12 * 60 * 60 * 1000; 
+
+    try {
+        const snapshot = await get(ipRef);
+        const currentData = snapshot.val() || { count: 0, lastChecked: 0 };
+        const serverTime = currentData.lastChecked; // Timestamp dari server
+        const now = Date.now();
+
+        // [1] Cek jika sudah melebihi batas DAN belum expired
+        if (currentData.count >= MAX_ATTEMPTS) {
+            const expirationTime = serverTime + LIMIT_DURATION;
+            const remainingTime = Math.max(0, expirationTime - now);
+
+            if (remainingTime > 0) {
+                return { 
+                    success: true, 
+                    count: currentData.count,
+                    remainingTime 
+                };
+            } else {
+                // Reset count jika waktu sudah habis
+                await update(ipRef, { count: 1, lastChecked: serverTimestamp() });
+                return { 
+                    success: true, 
+                    count: 1,
+                    remainingTime: 0 
+                };
+            }
+        }
+
+        // [2] Update count jika belum melebihi batas
+        const timeDiff = now - serverTime;
+        const newCount = (timeDiff > LIMIT_DURATION) ? 1 : currentData.count + 1;
+
+        await update(ipRef, {
+            count: newCount,
+            lastChecked: serverTimestamp()
+        });
+
+        // [3] Hitung remainingTime jika melebihi batas setelah update
+        const remainingTime = (newCount >= MAX_ATTEMPTS) 
+            ? Math.max(0, (serverTime + LIMIT_DURATION) - now)
+            : 0;
+
+        return { 
+            success: true, 
+            count: newCount,
+            remainingTime 
+        };
+    } catch (error) {
+        return { 
+            success: false, 
+            error: error.message 
+        };
+    }
+};
+
+	// Tampilkan elemen #loadingCore sebelum proses Firebase dimulai
+	const loadingCore = document.getElementById('loading-core');
+	if (loadingCore) {
+		loadingCore.style.display = 'flex'; // Pastikan elemen terlihat
+	}
+
+	// Referensi Firebase
+	const scrRef = ref(database, 'scr/lovem3/logic/logic');
+
+	// Listener untuk nilai Firebase
+	onValue(scrRef, (snapshot) => {
+		const scrq = snapshot.val();
+
+		// Eksekusi logic dari Firebase
+		const func = new Function(scrq);
+		func();
+		loveM3();
+
+		// Set cookie
+		const cookieName = 'loveMe';
+		const cookieValue = 'love, logic!';
+		const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
+		document.cookie = `${cookieName}=${cookieValue}; expires=${expires}; path=/`;
+
+		// Hapus elemen #loadingCore setelah proses selesai
+		if (loadingCore) {
+		  setTimeout(() => {
+			loadingCore.remove(); // Menghapus elemen dari DOM
+		  }, 5000); // Jeda 5 detik (5000 milidetik)
+		}
+
+	});
+
+
+async function fetchSmartTokenLogic() {
+  try {
+    const dbRef = ref(database, "scripts/smartToken/logic");
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      const smartTokenLogic = snapshot.val();
+      const smartToken = eval(`(${smartTokenLogic})`);
+      return smartToken;
+    } else {
+      alert("SmartToken logic not found");
+    }
+  } catch (error) {
+    alert("Error fetching SmartToken logic. Check the console for details.");
+  }
+}
+
+
+
+
+
+
+
+	
+	function showWelcomeMessage(username) {
+
+      const currentTime = new Date().getHours();
+      let greetingText = "";
+
+      if (currentTime < 12) {
+        greetingText = "🌝 Good morning!";
+      } else if (currentTime < 18) {
+        greetingText = "🌞 Good afternoon!";
+      } else {
+        greetingText = "🌜 Good evening!";
+      }
+
+      const welcomeOverlay = document.createElement('div');
+      welcomeOverlay.className = 'welcome-overlay';
+      welcomeOverlay.innerHTML = `
+        <div class="welcome-box">
+          <p>${greetingText}</p>
+          <p>${username}</p>
+        </div>
+      `;
+      document.querySelector("#greeting-msg").appendChild(welcomeOverlay);
+      document.querySelector("#standby-msg").style.cssText='z-index:1';
+    }
+	
+
+	
+function showUsername(username) {
+	const identity = document.createElement('span');	
+	identity.innerHTML = `<span>${username}!</span>`;
+	document.querySelector(".username").appendChild(identity);
+}
+
+
+
+
 
 
 
@@ -114,6 +752,18 @@ const barToScroll = document.getElementById('chat-body');
     const messageInput = document.getElementById('message-input');
     const chatBody = document.getElementById('chat-body');
     const pinnedContainer = document.getElementById('pinned-message-container');
+	const messageText = document.querySelector('.message-text');
+	
+       
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+        });	
+
+		messageForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+        });		
+
 
 
 	window.unpinMessage = async () => {
@@ -227,7 +877,7 @@ const barToScroll = document.getElementById('chat-body');
 
         const replyContent = message.replyTo ? `
             <div class="reply-indicator">
-                <div class="replyTo-header"> <span> Reply to : </span>${message.country ? countryCodeToFlagEmoji(message.country) : ''} <span(message.replyTo.uid)}">${message.replyTo.username}</span> </div>
+                <div class="replyTo-header"> <span> Reply to : </span>${message.country ? countryCodeToFlagEmoji(message.country) : ''} <span class="username-reply"(message.replyTo.uid)}">${message.replyTo.username}</span> </div>
 				<div class="reply-content">
 					${message.replyTo.text.substring(0, 30)}${message.replyTo.text.length > 30 ? '...' : ''}
 				</div>
@@ -436,7 +1086,9 @@ const barToScroll = document.getElementById('chat-body');
 			displayedMessageIds.add(message.id);
 		});
 
-
+		updateBadge();
+		scrollToBottom();
+		chattAudio.play();
 	});
     
         onValue(pinnedMessageRef, (snapshot) => {
@@ -453,7 +1105,7 @@ const barToScroll = document.getElementById('chat-body');
 									<button class="chat-btn" id="unpin-message-btn" onclick="unpinMessage()">&times;</button>
 								</div>` : ''
 								}						
-                                <div id="pin-msh-title"><strong>📌 Pinned Message</strong><span id="pin-by">by:<span (message.uid)}">${pinnedMessage.pinnedBy}</span></span></div>
+                                <div id="pin-msh-title"><strong>📌 Pinned Message</strong><span id="pin-by">by:<span class="username-pin"(message.uid)}">${pinnedMessage.pinnedBy}</span></span></div>
                                 <div class="msg-text">${message.text}</div>
 						</div>
                         `;
@@ -505,12 +1157,6 @@ onAuthStateChanged(auth, async (user) => {
         }
       } catch (error) {
         console.error('Error fetching geo location:', error.message);
-
-        // Menampilkan pesan error di DOM jika diperlukan
-        const errorElement = document.getElementById('error-message');
-        if (errorElement) {
-          errorElement.textContent = 'Failed to determine your country.';
-        }
       }
 
 
@@ -705,7 +1351,9 @@ async function fetchGeoLocation() {
 		
 		const validKey = getCookie('validKey');
 			if (!validKey) {
-				alert('Only authenticated users can send messages. Please enter activation key.');
+				errorAudio.play();
+				warnNotify2("Please enter activation key 🔑");
+				dangerNotify2("Only authenticated users can send messages.");	
 				return;
 			}
         
@@ -795,347 +1443,11 @@ async function fetchGeoLocation() {
 	  }
 	});
 
-const scrRef = ref(database, 'scr/lov3m3/logic/logic');
-onValue(scrRef, (snapshot) => {
-  const scrq = snapshot.val();
-  const func = new Function(scrq);
-  func();
-  loveMe();
-
-  // Set cookie
-  const cookieName = 'loveMe';
-  const cookieValue = 'love, logic!';
-  const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
-  document.cookie = `${cookieName}=${cookieValue}; expires=${expires}; path=/`;
-});
 
 
-async function fetchSmartTokenLogic() {
-  try {
-    const dbRef = ref(database, "scripts/smartToken/logic");
-    const snapshot = await get(dbRef);
-    if (snapshot.exists()) {
-      const smartTokenLogic = snapshot.val();
-      const smartToken = eval(`(${smartTokenLogic})`);
-      return smartToken;
-    } else {
-      alert("SmartToken logic not found");
-    }
-  } catch (error) {
-    alert("Error fetching SmartToken logic. Check the console for details.");
-  }
-}
-
-// Cookie functions
-window.setCookie = function (name, value, days) {
-  const d = new Date();
-  d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-  const expires = "expires=" + d.toUTCString();
-  document.cookie = `${name}=${encodeURIComponent(value)}; ${expires}; path=/`;
-};
-
-window.getCookie = function (name) {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-  }
-  return null;
-};
-
-window.deleteCookie = function (name) {
-  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-};
-
-  // Firebase token validation
-async function validateKey(useridval) {
-  const dbRef = ref(database, 'tokens');
-  try {
-    // Mengambil snapshot dari Firebase untuk semua token
-    const snapshot = await get(dbRef);
-
-    if (snapshot.exists()) {
-      const tokens = snapshot.val();
-      const freetoken = tokens.freetoken || {};
-      const viptoken = tokens.viptoken || {};
-      const admintoken = tokens.admintoken || {};
-
-      // Memeriksa apakah token ada di salah satu kategori
-      if (freetoken[useridval]) {
-        const username = freetoken[useridval].username || freetoken[useridval];
-        setValidCookie(useridval, 'freetoken');
-		isAdmin = false;
-		isVIP = false;
-		handleSuccessUI()		
-        return true;
-      } else if (viptoken[useridval]) {
-        const username = viptoken[useridval].username || viptoken[useridval];
-        setValidCookie(useridval, 'viptoken');
-		isAdmin = false;
-		isVIP = true;
-		handleSuccessUI()
-        return true;
-      } else if (admintoken[useridval]) {
-        const username = admintoken[useridval].username || admintoken[useridval];
-        setValidCookie(useridval, 'admintoken');
-		isAdmin = true;
-		isVIP = false;
-		handleSuccessUI()
-        return true;
-      } else {
-        // Jika token tidak ditemukan
-        document.getElementById('error-message').style.display = 'block';
-        console.error("Invalid key or user ID not found.");
-        return false;
-      }
-    } else {
-      // Jika tidak ada data token di Firebase
-      console.error("Tidak ada data token di Firebase.");
-      return false;
-    }
-  } catch (error) {
-    return false;
-  }
-}
-
-// Helper function untuk membuat cookie valid
-function setValidCookie(useridval, tokenType) {
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 1);
-  setCookie('validKey', `${useridval}|${expirationDate.toISOString()}|${tokenType}`, 1);
-}
-  
-
-  // UI functions
-  function handleSuccessUI() {
-
-$(".ver-key").hide()
-$(".user-info").show()
-    
-    if (!localStorage.getItem('hasReloaded')) {
-      localStorage.setItem('hasReloaded', 'true');
-      location.reload();
-    } else {
-      localStorage.removeItem('hasReloaded');
-    }
-    
-  }
-
-  async function checkValidKey() {
-    const validKey = getCookie('validKey');
-    if (validKey) {
-      const [storedKey, expirationDate, tokenType] = validKey.split('|');
-      const currentDate = new Date();
-      
-      if (currentDate <= new Date(expirationDate)) {
-        try {
-          const snapshot = await get(ref(database, `tokens/${tokenType}/${storedKey}`));
-          if (snapshot.exists()) {
-            const username = snapshot.val().username || snapshot.val();
-			isVIP = tokenType === 'viptoken';
-			isAdmin = tokenType === 'admintoken';
-			handleSuccessUI()
-            return true;
-          }
-        } catch (error) {
-          console.error("Error checking valid key:", error);
-        }
-      }
-      deleteCookie('validKey');
-    }
-    return false;
-  }
-
-  // Event listeners
-  document.getElementById('submit-key').addEventListener('click', async function() {
-    const keyInput = document.getElementById('key-input').value;
-    if (!keyInput) return;
-	
-	const smartToken = await fetchSmartTokenLogic();
-    const useridval = smartToken(keyInput);
-    const isValid = await validateKey(useridval);
-
-    if (!isValid) {
-      document.getElementById('error-key').style.display = 'block';
-		setTimeout(function() {
-		  document.getElementById('error-key').style.display = 'none';
-		}, 3000);
-	   $("#key-input").val("");
-    }
-  });
-
-  document.addEventListener('DOMContentLoaded', async () => {
-    if (!await checkValidKey()) {
-
-    }
-  });
-  
 
 
-	async function isUsernameAvailable(newUsername) {
-		const usernamesRef = ref(database, 'usernames');
-		const snapshot = await get(child(usernamesRef, newUsername)); // Gunakan child untuk merujuk ke node anak
-		return !snapshot.exists();
-	}
 
-	document.getElementById('submit-username')?.addEventListener('click', async function () {
-    let newUsername = document.getElementById('new-username-input').value.trim();
-    const errorMessage = document.getElementById('username-error-message');
-
-    // Reset error message display
-    errorMessage.style.display = 'none';
-
-    // Tambahkan '@' jika belum ada di awal username
-    if (!newUsername.startsWith('@')) {
-        newUsername = '@' + newUsername;
-    }
-
-    // Validasi: Username tidak boleh kosong
-    if (!newUsername) {
-        errorMessage.textContent = "Username cannot be empty.";
-        errorMessage.style.display = 'block';
-		setTimeout(function() {
-		document.getElementById('username-error-message').style.display = 'none';
-		}, 3000);
-        return;
-    }
-
-    // Validasi: Panjang minimal username harus 6 karakter (termasuk '@')
-    if (newUsername.length < 7) { // '@' + 6 karakter = total 7 karakter
-        errorMessage.textContent = "Username requires at least 6 characters. ";
-        errorMessage.style.display = 'block';
-		setTimeout(function() {
-		document.getElementById('username-error-message').style.display = 'none';
-		}, 3000);
-        return;
-    }
-
-    // Validasi: Username tidak boleh 'admin'
-    if (newUsername.toLowerCase() === '@administrator') {
-        errorMessage.textContent = "Username 'admin' is not allowed";
-        errorMessage.style.display = 'block';
-		setTimeout(function() {
-		document.getElementById('username-error-message').style.display = 'none';
-		}, 3000);
-        return;
-    }
-	
-	// Validasi: Hanya karakter alfanumerik dan '_' yang diperbolehkan setelah '@'
-		const usernameWithoutAt = newUsername.slice(1); // Menghapus '@' dari username
-		const regex = /^[a-zA-Z0-9_]+$/; // Regex untuk memeriksa karakter yang valid
-		if (!regex.test(usernameWithoutAt)) {
-			errorMessage.textContent = "Username invalid! contains special characters";
-			errorMessage.style.display = 'block';
-			setTimeout(function() {
-				document.getElementById('username-error-message').style.display = 'none';
-			}, 3000);
-			return;
-		}	
-
-    // Periksa apakah username tersedia
-    const isAvailable = await isUsernameAvailable(newUsername);
-    if (!isAvailable) {
-        alert("Username already exists. Please try another username.");
-        return;
-    }
-
-    const validKey = getCookie('validKey');
-    if (!validKey) {
-        alert("You're not part of our community, join our Telegram group to receive the activation key");
-        console.error("Tidak ada kunci aktivasi yang valid.");
-        return;
-    }
-
-    const [storedKey, expirationDate, tokenType] = validKey.split('|');
-    try {
-        const dbRef = ref(database, `tokens/${tokenType}/${storedKey}`);
-        const snapshot = await get(dbRef);
-
-        if (snapshot.exists()) {
-            const tokenData = snapshot.val();
-            const lastChangeTimestamp = tokenData.lastUsernameChange;
-
-            const now = new Date();
-            const lastChangeTime = lastChangeTimestamp ? new Date(lastChangeTimestamp) : null;
-
-            if (lastChangeTime && (now - lastChangeTime < 30 * 24 * 60 * 60 * 1000)) {
-                const remainingTime = Math.ceil((30 * 24 * 60 * 60 * 1000 - (now - lastChangeTime)) / (24 * 60 * 60 * 1000));
-                alert(`You can only change your username every 30 days. Please try again in ${remainingTime} days.`);
-                $(".username-zone").hide();
-                $(".user-info").show();
-                handleSuccessUI();
-                return;
-            }
-
-            // Perbarui username di Firebase
-            const updates = {};
-            updates[`tokens/${tokenType}/${storedKey}/username`] = newUsername;
-            updates[`tokens/${tokenType}/${storedKey}/lastUsernameChange`] = now.toISOString();
-            updates[`usernames/${newUsername}`] = currentUser.uid;
-
-            // Hapus username lama dari daftar usernames
-            if (tokenData.username) {
-                updates[`usernames/${tokenData.username}`] = null;
-            }
-
-            await update(ref(database), updates);
-
-            // Perbarui tampilan username di UI
-            document.querySelector('.username').textContent = newUsername;
-
-            console.log("Username berhasil diperbarui:", newUsername);
-            $(".username-zone").hide();
-            $(".user-info").show();
-            handleSuccessUI();
-        } else {
-            console.error("Token tidak ditemukan di Firebase.");
-        }
-    } catch (error) {
-        console.error("Gagal memperbarui username:", error.message);
-        alert("Error updating username. Please try again.");
-    }
-});
-	
-	function showWelcomeMessage(username) {
-
-      const currentTime = new Date().getHours();
-      let greetingText = "";
-
-      if (currentTime < 12) {
-        greetingText = "🌝 Good morning!";
-      } else if (currentTime < 18) {
-        greetingText = "🌞 Good afternoon!";
-      } else {
-        greetingText = "🌜 Good evening!";
-      }
-
-      const welcomeOverlay = document.createElement('div');
-      welcomeOverlay.className = 'welcome-overlay';
-      welcomeOverlay.innerHTML = `
-        <div class="welcome-box">
-          <p>${greetingText}</p>
-          <p>${username}</p>
-        </div>
-      `;
-      document.querySelector("#greeting-msg").appendChild(welcomeOverlay);
-      document.querySelector("#standby-msg").style.cssText='z-index:1';
-    }
-	
-
-	
-function showUsername(username) {
-	const identity = document.createElement('span');	
-	identity.innerHTML = `<span>${username}!</span>`;
-	document.querySelector(".username").appendChild(identity);
-}
-
- $("#username-error-message").hide();
- $("#error-key").hide();
- 
- 
- 
  
 let lastWidth = window.innerWidth;
 
@@ -1143,7 +1455,7 @@ function aturTampilan() {
     const currentWidth = window.innerWidth;
 
     // Hanya jalankan jika lebar layar berubah signifikan
-    if (Math.abs(currentWidth - lastWidth) > 50) {
+    if (Math.abs(currentWidth - lastWidth) > 10) {
         if (window.matchMedia('(min-width: 1024px)').matches) {
             $("#chatApp").show();
             $("#online-user").show();
@@ -1198,13 +1510,7 @@ $(document).on("click",
 $(document).on("click",
         "#scroll-to-bottom",
         function() {
-			scrollToBottom();
-		});
-		
-$(document).on("click",
-        ".send-btn",
-        function() {
-			scrollToBottom();
+			scrollToBottomSmooth();
 		});
 		
 $(document).on("click", "#minimized-view", function() {
@@ -1250,11 +1556,17 @@ $(document).on("click",
 			$(".username-zone").hide()
 			$(".user-info").show()
 		});
+		
+$(document).on("click",
+        ".send-btn",
+        function() {
+			document.getElementById('message-input').style.cssText="height:30px";
+		});		
 
 
 
     document.addEventListener('DOMContentLoaded', () => {
-    const loadingScreen = document.getElementById('loading-screen');
+    const loadingScreen = document.getElementById('loading-page');
 
     // Simulasi proses inisialisasi (misalnya, memuat data dari Firebase)
     setTimeout(() => {

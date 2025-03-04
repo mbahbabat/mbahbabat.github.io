@@ -1145,20 +1145,12 @@ onAuthStateChanged(auth, async (user) => {
 	  showUsername(username);
 
  // Mendapatkan informasi negara pengguna
-      let currentUserCountry = '';
       try {
         currentUserCountry = await fetchGeoLocation();
 
-
-        // Contoh penggunaan hasil di DOM
-        const countryElement = document.getElementById('user-country');
-        if (countryElement) {
-          countryElement.textContent = currentUserCountry || '';
-        }
       } catch (error) {
         console.error('Error fetching geo location:', error.message);
       }
-
 
       // Menyimpan informasi pengguna ke database
       const userRef = ref(database, `users/${user.uid}`);
@@ -1329,7 +1321,7 @@ async function fetchGeoLocation() {
       const response = await fetch(url);
       if (!response.ok) throw new Error('API request failed');
       const data = await response.json();
-      const countryCode = data.country_code2?.toLowerCase();
+      const countryCode = data.country_code2 ? data.country_code2.toLowerCase() : '';
       if (countryCode) return countryCode;
     } catch (error) {
       console.warn(`Failed to fetch with API key ${codeN}:`, error.message);

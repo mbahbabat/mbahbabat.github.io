@@ -1368,6 +1368,9 @@ async function fetchGeoLocation() {
 				errorAudio.play();
 				warnNotify2("Please enter activation key 🔑");
 				dangerNotify2("Only authenticated users can send messages.");	
+				if (mobileScreenChat.matches) {
+				alert("Only authenticated users can send messages. Please enter activation key 🔑");
+				}
 				return;
 			}
         

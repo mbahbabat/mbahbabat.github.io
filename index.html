@@ -149,11 +149,19 @@
 							</div>
 						</div>
 					</div>
-                    <div class="cm-relative">
+                    <div class="cm-relative" id="cm-relative-input" >
 						<textarea id="mailInput-cm"></textarea>
 						<div class="mail-result">
 							<div class="cm-relative">
 								<textarea id="mailResult-cm"></textarea>
+							</div>
+						</div>
+						<div id="scurity-duplicate-mail">
+							<div id="scurity-duplicate-mail-c">
+								<div id="duplicate-count-c"></div>
+								<textarea id="duplicate-emails"></textarea>
+								<div id="line-numbers"></div>
+								<button id="remove-duplicates">Remove duplicate to continue</button>
 							</div>
 						</div>
                     </div>		
@@ -372,8 +380,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     document.body.classList.add('loaded');
 });
+
 </script>
 </body>
 </html>
-
-

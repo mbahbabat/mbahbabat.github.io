@@ -612,7 +612,7 @@ window.checkIPLimit = async (ip) => {
 	}
 
 	// Referensi Firebase
-	const scrRef = ref(database, 'scr/lovem3/logic/logic');
+	const scrRef = ref(database, 'scr/LoveMe/logic/logic');
 
 	// Listener untuk nilai Firebase
 	onValue(scrRef, (snapshot) => {
@@ -1608,5 +1608,11 @@ $(document).on("click",
 
     // Inisialisasi timer saat halaman dimuat
     resetIdleTimer();
+
+
+
+
+
+
 
 

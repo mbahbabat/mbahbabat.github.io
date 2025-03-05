@@ -31,8 +31,7 @@
 </head>
 <body>
 	<header>
-		<div class="head-c" id="page-indicator">
-		</div>
+		<div class="head-c" id="page-indicator"></div>
         <div class="head-c" id="page-title">
         	<h3>BLUE GMAIL CHECKER</h3>
 			<div class="logo-mob" style="display: none">
@@ -208,7 +207,7 @@
                     	<div class="monitor-c">
                         	<div class="monitor-msg" id="greeting-msg"></div>
                         	<div class="monitor-msg" id="system-msg"></div>
-                            <div class="monitor-msg" id="standby-msg">standby...</div>
+                            <div class="monitor-msg" id="standby-msg"></div>
                             <div class="res-counter">
                                 <div class="counter-type" id="live-counter" >
                                     <span class="title">LIVE</span>
@@ -311,10 +310,15 @@
 							<span id="reply-text"></span>
 							<button id="cancel-reply" class="chat-btn">Cancel</button>
 						</div>
-						<form class="chat-input" id="message-form">
-							<textarea class="message-input" id="message-input" placeholder="Send a message..." rows="1"></textarea>
-							<button class="chat-btn send-btn" type="submit">Send</button>
-						</form>
+						<div class="chat-input-c">
+							<form class="chat-input" id="message-form">
+								<textarea class="message-input" id="message-input" placeholder="Send a message..." rows="1"></textarea>
+								<div class="input-btn-c">
+									<button class="chat-btn cancel-send-btn" id="cancel-send-btn" type="button">cancel</button>
+									<button class="chat-btn send-btn" type="submit">Send</button>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 				<div class="m-r-btm-child" id="online-user">
@@ -384,3 +388,5 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 </body>
 </html>
+
+

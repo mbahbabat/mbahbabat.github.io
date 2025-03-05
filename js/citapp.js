@@ -667,14 +667,20 @@ async function fetchSmartTokenLogic() {
       const currentTime = new Date().getHours();
       let greetingText = "";
 
-      if (currentTime < 12) {
+      if (currentTime < 3) {
+        greetingText = "🌜 Good night!";
+      } else if (currentTime < 11) {
         greetingText = "🌝 Good morning!";
-      } else if (currentTime < 18) {
+      } else if (currentTime < 15) {
+        greetingText = "🌞 Good day!";
+      } else if (currentTime < 17) {
         greetingText = "🌞 Good afternoon!";
-      } else {
-        greetingText = "🌜 Good evening!";
+      } else if (currentTime < 19) {
+        greetingText = "🌝 Good evening!";
+      } else{
+        greetingText = "🌜 Good night!";
       }
-
+	  
       const welcomeOverlay = document.createElement('div');
       welcomeOverlay.className = 'welcome-overlay';
       welcomeOverlay.innerHTML = `
@@ -1436,6 +1442,21 @@ async function fetchGeoLocation() {
 	});
 
 
+	$('#cancel-send-btn').hide();
+	$('#message-input').on('input', function() {
+	  $('#cancel-send-btn').toggle($(this).height() > 20);
+	  $('#scroll-to-bottom').css('opacity', 0);
+	});
+	
+	function resetInput() {
+	  $('#scroll-to-bottom').css('opacity', 1);
+	  $('#message-input').height(15).val('');
+	  $('#cancel-send-btn').hide();
+	}
+
+	$('#cancel-send-btn, .send-btn').on('click', resetInput);
+
+
 
 
 
@@ -1487,73 +1508,39 @@ if (mobileScreenChat.matches) {
 	$("#minimize-btn").show();
 }
 
-$(document).on("click",
-        ".reply-btn",
-        function() {
-			document.getElementById('scroll-to-bottom').style.cssText="bottom:100px"
-		});	
+$(document).on("click", ".reply-btn, #cancel-reply", function() {
+  var bottom = $(this).hasClass("reply-btn") ? "100px" : "50px";
+  $("#scroll-to-bottom").css("bottom", bottom);
+});
 
-$(document).on("click",
-        "#cancel-reply",
-        function() {
-			document.getElementById('scroll-to-bottom').style.cssText="bottom:50px"
-		});	
-
-$(document).on("click",
-        "#scroll-to-bottom",
-        function() {
-			scrollToBottomSmooth();
-		});
+$(document).on("click", "#scroll-to-bottom", scrollToBottomSmooth);
 		
 $(document).on("click", "#minimized-view", function() {
-  $("#chatApp").show();
-  $(".online-user-mob").show();
+  $("#chatApp, .online-user-mob").show();
+  $("header, footer").hide();
   setTimeout(scrollToBottom, 500);
 });
 
-$(document).on("click",
-        "#minimize-btn",
-        function() {
-			$("#chatApp").hide();
-			$(".online-user-mob").hide();
-		});	
+$(document).on("click", "#minimize-btn", function() {
+  $("#chatApp, .online-user-mob").hide();
+  $("header, footer").show();
+});
+
+
 		
-$(document).on("click",
-        "#show-online",
-        function() {
-			$("#online-panel").show();
-			$("#close-online").show()
-			$("#show-online").hide()
-			
-		});	
-$(document).on("click",
-        "#close-online",
-        function() {
-			$("#online-panel").hide();
-			$("#close-online").hide()
-			$("#show-online").show()
-		});	
+$(document).on("click", "#show-online, #close-online", function() {
+  $("#online-panel").toggle();
+  $("#close-online, #show-online").toggle();
+});
+
 		
 
-$(document).on("click",
-        "#change-username-btn",
-        function() {
-			$(".username-zone").show()
-			$(".user-info").hide()
-		});
+$(document).on("click", "#change-username-btn, #username-cancel", function() {
+  $(".username-zone, .user-info").toggle();
+});
 
-$(document).on("click",
-        "#username-cancel",
-        function() {
-			$(".username-zone").hide()
-			$(".user-info").show()
-		});
 		
-$(document).on("click",
-        ".send-btn",
-        function() {
-			document.getElementById('message-input').style.cssText="height:30px";
-		});		
+
 
 
 
@@ -1573,7 +1560,7 @@ $(document).on("click",
 
 
 // Daftar kata-kata yang akan ditampilkan secara acak
-    const messages = ["standby...", "sleep...", "zzzZZ...", "hoaam...", "idle...", "Snooze...", "Smile, you're here!", "You matter, welcome!", "Hello, beautiful soul!", "You're loved, you're here!", "Hey, how are you?", "Hello, how's it going?", "How are you doing today?", "What's going on?", "How's everything?", "How's your day so far?", "Hi, what's new with you?", "Do you miss me terribly?", "Are you longing for me?", "Do you feel empty without me?", "Hi, nice to meet you!", "Welcome to our community!", "Hey, bro!Hey, bro!", "Yo, what's good?" ];
+    const messages = ["standby...", "sleep...", "zzzZZ...", "hoaam...", "idle...", "Snooze...", "Smile, you're here!", "You matter, welcome!", "Hello, beautiful soul!", "You're loved, you're here!", "Hey, how are you?", "Hello, how's it going?", "How are you doing today?", "What's going on?", "How's everything?", "How's your day so far?", "Hi, what's new with you?", "Do you miss me terribly?", "Are you longing for me?", "Do you feel empty without me?", "Hi, nice to meet you!", "Welcome to our community!", "Hey, bro!", "Yo, what's good?" ];
     let timeoutId; // Untuk menyimpan ID timeout
     const idleTime = 10 * 1000; // 1 menit dalam milidetik
 

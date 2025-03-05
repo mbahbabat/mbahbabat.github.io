@@ -605,6 +605,22 @@ window.checkIPLimit = async (ip) => {
     }
 };
 
+	if (mobileScreenChat.matches) {
+	  console.log('optimasi tampilan mobile');
+	  var klik = 0;
+	  var interval = setInterval(function() {
+		console.log('optimasi ke-' + (klik + 1));
+		document.body.click();
+		klik++;
+		if (klik >= 5) {
+		  console.log('optimasi selesai');
+		  clearInterval(interval);
+		}
+	  }, 1000); // 1000 ms = 1 detik
+	}
+
+
+
 	// Tampilkan elemen #loadingCore sebelum proses Firebase dimulai
 	const loadingCore = document.getElementById('loading-core');
 	if (loadingCore) {
@@ -633,7 +649,7 @@ window.checkIPLimit = async (ip) => {
 		if (loadingCore) {
 		  setTimeout(() => {
 			loadingCore.remove(); // Menghapus elemen dari DOM
-		  }, 5000); // Jeda 5 detik (5000 milidetik)
+		  }, 6000); 
 		}
 
 	});

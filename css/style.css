@@ -371,7 +371,7 @@ textarea::placeholder {
 
 .cm-relative ::-webkit-scrollbar {width: 14px; }
 .cm-relative ::-webkit-scrollbar-track {background: transparent; }
-.cm-relative ::-webkit-scrollbar-thumb {background: #fff; border:3px #000;border-style:outset; cursor:pointer; border-radius:50%}
+.cm-relative ::-webkit-scrollbar-thumb {background: #fff; border:3px #000;border-style:outset; cursor:pointer; border-radius:15px}
 #live-res .cm-relative ::-webkit-scrollbar-thumb {background: #53ff1a; border:3px #000;border-style:outset; }
 #ver-res .cm-relative ::-webkit-scrollbar-thumb {background: #ffff00; border:3px #000;border-style:outset; }
 #disabled-res .cm-relative ::-webkit-scrollbar-thumb {background: #ff0000; border:3px #000;border-style:outset; }

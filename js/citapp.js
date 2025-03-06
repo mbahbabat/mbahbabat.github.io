@@ -1214,7 +1214,7 @@ onAuthStateChanged(auth, async (user) => {
         alert(`User ${username} is already online. Please close other sessions or wait for 5 minutes`);
 		const duplicateUser = document.getElementById('duplicate-user');
 		duplicateUser.innerHTML = 	`<div class="duplicate-user-content">
-										<span>⛔ IP duplication detected!</span> 
+										<span>⛔ User duplication detected!</span> 
 										<span>Hello ${username}, Please close other sessions or wait! </span> 
 									</div>`;
 		duplicateUser.style.display = 'flex';
@@ -1237,7 +1237,7 @@ onAuthStateChanged(auth, async (user) => {
 	  if (currentUserIP && isIPAlreadyOnline(currentUserIP, onlineData)) {
 		  const duplicateUser = document.getElementById('duplicate-user');
 		  duplicateUser.innerHTML = `<div class="duplicate-user-content">
-										<span>⛔ IP duplication detected!</span> 
+										<span>⛔ User duplication detected!</span> 
 										<span>Hello ${username}, Please close other sessions or wait! </span> 
 									</div>`;
 		  duplicateUser.style.display = 'flex';
@@ -1300,7 +1300,7 @@ onAuthStateChanged(auth, async (user) => {
         const onlineUsersSnapshot = await get(onlineUsersRef);
         const onlineUsers = onlineUsersSnapshot.val();
         const now = Date.now();
-        const cutoff = now - 5 * 60 * 1000; 
+        const cutoff = now - 2 * 60 * 1000; 
 
         for (const userId in onlineUsers) {
           const user = onlineUsers[userId];

@@ -1211,7 +1211,6 @@ onAuthStateChanged(auth, async (user) => {
 
       if (isUsernameAlreadyOnline(username, onlineData)) {
         // Log atau Alert jika pengguna sudah ada di daftar online
-        alert(`User ${username} is already online. Please close other sessions or wait for 5 minutes`);
 		const duplicateUser = document.getElementById('duplicate-user');
 		duplicateUser.innerHTML = 	`<div class="duplicate-user-content">
 										<span>⛔ User duplication detected!</span> 
@@ -1292,38 +1291,34 @@ onAuthStateChanged(auth, async (user) => {
               });
             }
           });
-          onDisconnect(onlineRef).remove();
+		  
         }
       }
 	  
-      async function cleanupInactiveUsers() {
-        const onlineUsersSnapshot = await get(onlineUsersRef);
-        const onlineUsers = onlineUsersSnapshot.val();
-        const now = Date.now();
-        const cutoff = now - 2 * 60 * 1000; 
+	  
+      // Reset onlineUsers 
+      setInterval(async () => {
+        const onlineUsersRef = ref(database, 'onlineUsers');
+        await set(onlineUsersRef, {}); // Mengosongkan onlineUsers
+      }, 5 * 60 * 1000); 
 
-        for (const userId in onlineUsers) {
-          const user = onlineUsers[userId];
-          if (user.lastActive < cutoff) {
-            await remove(ref(database, `onlineUsers/${userId}`));
-          }
+
+      let isPageVisible = document.visibilityState === 'visible';
+
+      document.addEventListener('visibilitychange', function () {
+        isPageVisible = document.visibilityState === 'visible';
+        if (isPageVisible) {
+          updateTimestamp(); // Langsung tambahkan pengguna ke onlineUsers saat halaman terlihat
         }
-      }
-	 setInterval(function() {
-		cleanupInactiveUsers();
-		}, 1000);
+      });
 			
-			
-		let isPageVisible = document.visibilityState === 'visible';
-
-		document.addEventListener('visibilitychange', function () {
-		  isPageVisible = document.visibilityState === 'visible';
-		  setInterval(function () {
-			if (isPageVisible) {
-			  updateTimestamp();
-			}
-		  }, 1000);
-		});
+      setInterval(() => {
+        if (isPageVisible) {
+          updateTimestamp();
+        }
+      },1000); 
+	  
+	  onDisconnect(onlineRef).remove();
 
 
             onValue(onlineUsersRef, (snapshot) => {

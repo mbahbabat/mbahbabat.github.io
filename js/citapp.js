@@ -1267,58 +1267,69 @@ onAuthStateChanged(auth, async (user) => {
       });
 
 
-      // Fungsi untuk memperbarui timestamp
-      function updateTimestamp() {
-        if (currentUser && isPageVisible) {
-          const onlineRef = ref(database, `onlineUsers/${currentUser.uid}`);
-          get(onlineRef).then((snapshot) => {
-            if (snapshot.exists()) {
-              const userData = snapshot.val();
-              set(onlineRef, { 
-			  ...userData, 
-			  lastActive: serverTimestamp(),
-			  ip: currentUserIP // Update IP jika berubah
-			});
-            } else {
-              // Jika data pengguna tidak ada, tambahkan kembali ke onlineUsers
-              set(onlineRef, {
-                username: username,
-                country: currentUserCountry,
-				ip: currentUserIP,
-                lastActive: serverTimestamp(),
-                isAdmin: isAdmin,
-                isVIP: isVIP
-              });
-            }
-          });
-		  
-        }
-      }
-	  
-	  
-      // Reset onlineUsers 
-      setInterval(async () => {
-        const onlineUsersRef = ref(database, 'onlineUsers');
-        await set(onlineUsersRef, {}); // Mengosongkan onlineUsers
-      }, 5 * 60 * 1000); 
+	// Fungsi untuk memperbarui timestamp
+	async function updateTimestamp() {
+	  if (currentUser && isPageVisible) {
+		const onlineRef = ref(database, `onlineUsers/${currentUser.uid}`);
+		const snapshot = await get(onlineRef);
+		if (snapshot.exists()) {
+		  const userData = snapshot.val();
+		  await set(onlineRef, { 
+			...userData, 
+			lastActive: serverTimestamp(),
+			ip: currentUserIP // Update IP jika berubah
+		  });
+		} else {
+		  // Jika data pengguna tidak ada, tambahkan kembali ke onlineUsers
+		  await set(onlineRef, {
+			username: username,
+			country: currentUserCountry,
+			ip: currentUserIP,
+			lastActive: serverTimestamp(),
+			isAdmin: isAdmin,
+			isVIP: isVIP
+		  });
+		}
+
+		// Mengatur onDisconnect di sini dengan referensi yang benar
+		onDisconnect(onlineRef).remove();
+	  }
+	}
 
 
-      let isPageVisible = document.visibilityState === 'visible';
+	setInterval(async () => {
+	  const snapshot = await get(onlineUsersRef);
+	  if (snapshot.exists()) {
+		const users = snapshot.val();
+		const now = Date.now();
+		for (const uid in users) {
+		  if (users.hasOwnProperty(uid)) {
+			const user = users[uid];
+			const lastActive = user.lastActive ? new Date(user.lastActive) : now;
+			// Hapus pengguna yang tidak aktif lebih dari 5 menit
+			if (now - lastActive > 5 * 60 * 1000) {
+			  await set(ref(database, `onlineUsers/${uid}`), null);
+			}
+		  }
+		}
+	  }
+	}, 5 * 60 * 1000);
 
-      document.addEventListener('visibilitychange', function () {
-        isPageVisible = document.visibilityState === 'visible';
-        if (isPageVisible) {
-          updateTimestamp(); // Langsung tambahkan pengguna ke onlineUsers saat halaman terlihat
-        }
-      });
-			
-      setInterval(() => {
-        if (isPageVisible) {
-          updateTimestamp();
-        }
-      },1000); 
-	  
-	  onDisconnect(onlineRef).remove();
+	let isPageVisible = document.visibilityState === 'visible';
+
+	document.addEventListener('visibilitychange', function () {
+	  isPageVisible = document.visibilityState === 'visible';
+	  if (isPageVisible) {
+		updateTimestamp(); 
+	  }
+	});
+
+	// Perbarui timestamp setiap detik jika halaman terlihat
+	setInterval(() => {
+	  if (isPageVisible) {
+		updateTimestamp();
+	  }
+	}, 1000);
 
 
             onValue(onlineUsersRef, (snapshot) => {

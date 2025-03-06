@@ -1150,6 +1150,17 @@ function isUsernameAlreadyOnline(username, onlineData) {
     return false;
 }
 
+// Fungsi untuk memeriksa apakah IP sudah ada di daftar online
+function isIPAlreadyOnline(ip, onlineData) {
+  if (!ip) return false; // Skip jika IP tidak tersedia
+  for (let uid in onlineData) {
+    if (onlineData[uid].ip === ip) {
+      return true;
+    }
+  }
+  return false;
+}
+
 // Modifikasi bagian di mana pengguna ditambahkan ke daftar online
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -1169,12 +1180,21 @@ onAuthStateChanged(auth, async (user) => {
       } catch (error) {
         console.error('Error fetching geo location:', error.message);
       }
+	  
+	  let currentUserIP;
+		try {
+		  currentUserIP = await getIPUser();
+		} catch (error) {
+		  console.error('Error fetching IP:', error.message);
+		  currentUserIP = null;
+		}
 
       // Menyimpan informasi pengguna ke database
       const userRef = ref(database, `users/${user.uid}`);
       await set(userRef, {
         username: username,
         country: currentUserCountry,
+		ip: currentUserIP,
         created: serverTimestamp(),
         lastLogin: serverTimestamp(),
         online: true,
@@ -1193,38 +1213,60 @@ onAuthStateChanged(auth, async (user) => {
         // Log atau Alert jika pengguna sudah ada di daftar online
         alert(`User ${username} is already online. Please close other sessions or wait for 5 minutes`);
 		const duplicateUser = document.getElementById('duplicate-user');
-		duplicateUser.innerHTML = `<div class="duplicate-user-content">
-								<span>⛔ User duplication detected!</span> 
-							</div>`;
+		duplicateUser.innerHTML = 	`<div class="duplicate-user-content">
+										<span>⛔ IP duplication detected!</span> 
+										<span>Hello ${username}, Please close other sessions or wait! </span> 
+									</div>`;
 		duplicateUser.style.display = 'flex';
+		if (mobileScreenChat.matches) {
+		  console.log('optimasi tampilan mobile');
+		  var klik = 0;
+		  var interval = setInterval(function() {
+			console.log('optimasi ke-' + (klik + 1));
+			document.body.click();
+			klik++;
+			if (klik >= 3) {
+			  console.log('optimasi selesai');
+			  clearInterval(interval);
+			}
+		  }, 500); // 1000 ms = 1 detik
+		}
         return; // Stop further execution as the user is already online
       }
+
+	  if (currentUserIP && isIPAlreadyOnline(currentUserIP, onlineData)) {
+		  const duplicateUser = document.getElementById('duplicate-user');
+		  duplicateUser.innerHTML = `<div class="duplicate-user-content">
+										<span>⛔ IP duplication detected!</span> 
+										<span>Hello ${username}, Please close other sessions or wait! </span> 
+									</div>`;
+		  duplicateUser.style.display = 'flex';
+			  if (mobileScreenChat.matches) {
+			  console.log('optimasi tampilan mobile');
+			  var klik = 0;
+			  var interval = setInterval(function() {
+				console.log('optimasi ke-' + (klik + 1));
+				document.body.click();
+				klik++;
+				if (klik >= 3) {
+				  console.log('optimasi selesai');
+				  clearInterval(interval);
+				}
+			  }, 500); // 1000 ms = 1 detik
+			}
+		  return;
+		}
 
       const onlineRef = ref(database, `onlineUsers/${user.uid}`);
       await set(onlineRef, {
         username: username,
         country: currentUserCountry,
+		ip: currentUserIP,
         lastActive: serverTimestamp(),
         isAdmin: isAdmin,
         isVIP: isVIP
       });
 
-
-      // Reset onlineUsers 
-      setInterval(async () => {
-        const onlineUsersRef = ref(database, 'onlineUsers');
-        await set(onlineUsersRef, {}); // Mengosongkan onlineUsers
-      }, 5 * 60 * 1000); 
-
-      // Memperbarui status online pengguna setiap 2 menit
-      let isPageVisible = document.visibilityState === 'visible';
-
-      document.addEventListener('visibilitychange', function () {
-        isPageVisible = document.visibilityState === 'visible';
-        if (isPageVisible) {
-          updateTimestamp(); // Langsung tambahkan pengguna ke onlineUsers saat halaman terlihat
-        }
-      });
 
       // Fungsi untuk memperbarui timestamp
       function updateTimestamp() {
@@ -1233,35 +1275,32 @@ onAuthStateChanged(auth, async (user) => {
           get(onlineRef).then((snapshot) => {
             if (snapshot.exists()) {
               const userData = snapshot.val();
-              set(onlineRef, { ...userData, lastActive: serverTimestamp() });
+              set(onlineRef, { 
+			  ...userData, 
+			  lastActive: serverTimestamp(),
+			  ip: currentUserIP // Update IP jika berubah
+			});
             } else {
               // Jika data pengguna tidak ada, tambahkan kembali ke onlineUsers
               set(onlineRef, {
                 username: username,
                 country: currentUserCountry,
+				ip: currentUserIP,
                 lastActive: serverTimestamp(),
                 isAdmin: isAdmin,
                 isVIP: isVIP
               });
             }
           });
-          onDisconnect(onlineRef).remove(); // Menghapus pengguna saat disconnect
+          
         }
       }
-
-      // Interval untuk memperbarui timestamp 
-      setInterval(() => {
-        if (isPageVisible) {
-          updateTimestamp();
-        }
-      },1000); 
-
-      // Fungsi untuk menghapus pengguna yang tidak aktif lebih dari 5 menit
+	  
       async function cleanupInactiveUsers() {
         const onlineUsersSnapshot = await get(onlineUsersRef);
         const onlineUsers = onlineUsersSnapshot.val();
         const now = Date.now();
-        const cutoff = now - 5 * 60 * 1000; // 5 menit dalam milidetik
+        const cutoff = now - 5 * 60 * 1000; 
 
         for (const userId in onlineUsers) {
           const user = onlineUsers[userId];
@@ -1270,9 +1309,22 @@ onAuthStateChanged(auth, async (user) => {
           }
         }
       }
+	 setInterval(function() {
+		cleanupInactiveUsers();
+		}, 1000);
+			
+			
+		let isPageVisible = document.visibilityState === 'visible';
 
-      // Interval untuk membersihkan pengguna yang tidak aktif setiap 5 menit
-      setInterval(cleanupInactiveUsers, 5 * 60 * 1000);
+		document.addEventListener('visibilitychange', function () {
+		  isPageVisible = document.visibilityState === 'visible';
+		  setInterval(function () {
+			if (isPageVisible) {
+			  updateTimestamp();
+			}
+		  }, 1000);
+		});
+
 
             onValue(onlineUsersRef, (snapshot) => {
                 const onlineData = snapshot.val() || {};
@@ -1287,13 +1339,13 @@ onAuthStateChanged(auth, async (user) => {
                     }
 					if (onlineCounterMobMini) {
                         onlineCounterMobMini.innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
-                        updateOnlineList(onlineData); // Pastikan ini dipanggil setelah `onValue`
+                        updateOnlineList(onlineData); 
                     }
                 } else if (desktopScreenChat.matches) {
                     const onlineCounterDesk = document.getElementById('online-counter-desk');
                     if (onlineCounterDesk) {
                         onlineCounterDesk.innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
-                        updateOnlineList(onlineData); // Pastikan ini dipanggil setelah `onValue`
+                        updateOnlineList(onlineData); 
                     }
                 }
             });
@@ -1320,6 +1372,17 @@ onAuthStateChanged(auth, async (user) => {
     tryAnonymousAuth();
   }
 });
+
+
+async function getIPUser() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip; 
+    } catch (error) {
+        return null;
+    }
+}
 
 async function fetchGeoLocation() {
   const codeNs = [

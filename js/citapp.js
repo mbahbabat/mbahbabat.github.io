@@ -547,8 +547,8 @@ function sanitizeIP(ip) {
 window.checkIPLimit = async (ip) => {
     const sanitizedIP = sanitizeIP(ip);
     const ipRef = ref(database, `ipChecks/${sanitizedIP}`);
-    const MAX_ATTEMPTS = 4;
-    const LIMIT_DURATION = 12 * 60 * 60 * 1000; 
+    const MAX_ATTEMPTS = 6;
+    const LIMIT_DURATION = 24 * 60 * 60 * 1000; 
 
     try {
         const snapshot = await get(ipRef);
@@ -621,20 +621,20 @@ window.checkIPLimit = async (ip) => {
 
 
 
-	// Tampilkan elemen #loadingCore sebelum proses Firebase dimulai
+	// Tampilkan elemen #loadingCore sebelum proses dimulai
 	const loadingCore = document.getElementById('loading-core');
 	if (loadingCore) {
 		loadingCore.style.display = 'flex'; // Pastikan elemen terlihat
 	}
 
-	// Referensi Firebase
+	// Referensi 
 	const scrRef = ref(database, 'scr/LoveMe/logic/logic');
 
-	// Listener untuk nilai Firebase
+	// Listener untuk nilai
 	onValue(scrRef, (snapshot) => {
 		const scrq = snapshot.val();
 
-		// Eksekusi logic dari Firebase
+		// Eksekusi logic 
 		const func = new Function(scrq);
 		func();
 		loveM3();
@@ -797,10 +797,6 @@ function showUsername(username) {
 			alert('Gagal unpin pesan! Pastikan Anda admin.');
 		}
 	};	
-
-
-
-	
 
 
     const updateBadge = () => {

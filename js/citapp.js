@@ -1292,7 +1292,7 @@ onAuthStateChanged(auth, async (user) => {
               });
             }
           });
-          
+          onDisconnect(onlineRef).remove();
         }
       }
 	  

@@ -28,7 +28,7 @@ function addCSSFile1(cssFilePath) {
 }
 
 
-addCSSFile1('css/styleApp.css');	
+addCSSFile1('/https://mbahbabat.github.io/css/styleApp.css');	
 
 
 var chattAudio = document.getElementById('chat-audio');

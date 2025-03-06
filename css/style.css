@@ -1037,6 +1037,14 @@ welcome-overlay{
 	left:0;
 }
 
+.duplicate-user-content{
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
 #cm-relative-input{
 			position: relative;
 		}

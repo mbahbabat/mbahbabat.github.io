@@ -620,7 +620,6 @@ window.checkIPLimit = async (ip) => {
 	}
 
 
-
 	// Tampilkan elemen #loadingCore sebelum proses dimulai
 	const loadingCore = document.getElementById('loading-core');
 	if (loadingCore) {
@@ -653,6 +652,34 @@ window.checkIPLimit = async (ip) => {
 		}
 
 	});
+
+// Fungsi global untuk mengirim report ke chat
+window.sendReportToChat = async (reportData) => {
+  const { good, ver, dis, notExist, notFound, totalCalculated } = reportData;
+  
+  const messagesRef = ref(database, 'messages');
+  const messageText = `📣 Live Status Report :
+  
+   🤑 LIVE: ${good}
+   😐 VERIFY: ${ver}
+   👹 DISABLED: ${dis}
+   🥶️ NOT EXIST: ${notExist + notFound}
+  
+  TOTAL RESULT: ${totalCalculated} `;
+
+  // Kirim pesan ke chat menggunakan Firebase
+  await push(messagesRef, {
+    text: messageText,
+    uid: currentUser.uid,
+    username: await getUsername(currentUser.uid),
+    timestamp: serverTimestamp(),
+	country: currentUserCountry,
+	isAdmin: isAdmin,
+	isVIP: isVIP
+  });
+};
+
+
 
 
 async function fetchSmartTokenLogic() {
@@ -1646,7 +1673,7 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 // Daftar kata-kata yang akan ditampilkan secara acak
     const messages = ["standby...", "sleep...", "zzzZZ...", "hoaam...", "idle...", "Snooze...", "Smile, you're here!", "You matter, welcome!", "Hello, beautiful soul!", "You're loved, you're here!", "Hey, how are you?", "Hello, how's it going?", "How are you doing today?", "What's going on?", "How's everything?", "How's your day so far?", "Hi, what's new with you?", "Do you miss me terribly?", "Are you longing for me?", "Do you feel empty without me?", "Hi, nice to meet you!", "Welcome to our community!", "Hey, bro!", "Yo, what's good?" ];
     let timeoutId; // Untuk menyimpan ID timeout
-    const idleTime = 10 * 1000; // 1 menit dalam milidetik
+    const idleTime = 20 * 1000; // 1 menit dalam milidetik
 
     // Fungsi untuk memilih kata secara acak
     function getRandomMessage() {
@@ -1679,7 +1706,6 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
     // Inisialisasi timer saat halaman dimuat
     resetIdleTimer();
-
 
 
 

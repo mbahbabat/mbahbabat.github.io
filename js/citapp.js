@@ -1565,7 +1565,7 @@ async function fetchGeoLocation() {
 	  $('#cancel-send-btn').hide();
 	}
 
-	$('#cancel-send-btn, .send-btn').on('click', resetInput);
+	$('#cancel-send-btn').on('click', resetInput);
 
 
 
@@ -1706,7 +1706,6 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
     // Inisialisasi timer saat halaman dimuat
     resetIdleTimer();
-
 
 
 

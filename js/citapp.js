@@ -1062,7 +1062,7 @@ function showUsername(username) {
 	const displayedMessageIds = new Set();
 
 	// Tambahkan event listener untuk mendeteksi pesan baru
-	const messagesRef = query(ref(database, 'messages'), limitToLast(100));
+	const messagesRef = query(ref(database, 'messages'), limitToLast(10000));
 	onValue(messagesRef, (snapshot) => {
 		chatBody.innerHTML = '';
 		const messages = [];

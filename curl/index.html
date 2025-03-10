@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CURL Executor Interface is a web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
-    <meta name="keywords" content="cURL executor, API testing, cURL command, web-based cURL, API debugging, developer tools">
+    <meta name="description" content="CURL Online, CURL Executor Interface is a web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
+    <meta name="keywords" content="CURL Online, Live CURL , CURL executor, API testing, cURL command, web-based cURL, API debugging, developer tools">
     <meta name="author" content="Gmooy">
     <meta property="og:title" content="CURL Executor Interface">
     <meta property="og:description" content="A web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
@@ -14,15 +14,31 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="CURL Executor Interface">
     <meta name="twitter:description" content="A web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
-    <meta name="twitter:image" content="gC.webp"> <!-- Replace with your image URL -->
+    <meta name="twitter:image" content="gC.webp"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>CURL Executor Interface - Execute cURL Commands Online</title>
     <style>
+		*{margin:0;padding:0;box-sizing:border-box;}
+		*,*:before,*:after{box-sizing: inherit;}
+		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+		html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }
+		html,body{font-family:Verdana,sans-serif;font-size:14px;line-height:1.5;}
+		html::-webkit-scrollbar,.element::-webkit-scrollbar{display: none;}
+		a{text-decoration: none;background:0 0}
+		mark{background:#ff0;color:#000}
+		img{border-style: none;}
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 20px;
             background-color: #f9fafb;
             color: #333;
         }
+		
+		button i {
+			  font-size: 18px;
+			  margin-right: 8px;
+		}
+		
         h1 {
             text-align: center;
             color: #2563eb;
@@ -68,6 +84,8 @@
             font-family: monospace;
             font-size: 14px;
             line-height: 1.5;
+			height: 250px;
+			overflow: auto;
         }
         .loading {
             display: none;
@@ -94,16 +112,66 @@
             animation: spin 1s linear infinite;
             margin-left: 10px;
         }
+		footer{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		#share-button {
+			 display: flex;
+			 gap: 10px;
+			 padding: 5px;
+		}
+
+		#share-button button {
+			 padding: 5px;
+			 cursor: pointer;
+			 border: none;
+			 border-radius: 5px;
+			 display: flex;
+			 align-items: center;
+			 color: #fff;
+			 justify-content: center;
+		}
+
+		.fb-share { background-color: #1877f2; }
+		.wa-share { background-color: #25d366; }
+		.ig-share { background-color: #e4405f; }
+		.tw-share { background-color: #1da1f2; }
     </style>
 </head>
 <body>
+	<header>
     <h1>CURL Executor Interface</h1>
+	</header>
+	<main>
     <label for="curlCommand">Enter CURL Command:</label><br>
     <textarea id="curlCommand" placeholder="Example: curl -X POST https://api.example.com/data -H 'Content-Type: application/json' -d '{\"key\":\"value\"}'"></textarea><br>
     <button onclick="executeCurl()">Execute</button>
     <div class="loading" id="loading">Processing...</div>
     <h2>Output:</h2>
     <div id="output"></div>
+	</main>
+	<footer>
+        <div class="foot-c" id="copyright">
+			&copy; 2025 Gmooy. All Rights Reserved.
+		</div>
+        <div class="foot-c" id="share-button">
+            <button class="fb-share">
+              	<i class="fab fa-facebook"></i><span>Share</span>
+            </button>
+            <button class="wa-share">
+              	<i class="fab fa-whatsapp"></i><span>Share</span>
+            </button>
+            <button class="ig-share">
+              	<i class="fab fa-instagram"></i><span>Share</span>
+            </button>
+            <button class="tw-share">
+              	<i class="fab fa-twitter"></i><span>Share</span>
+            </button>
+        </div>
+	</footer>
 
     <script>
         function executeCurl() {

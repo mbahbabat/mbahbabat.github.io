@@ -1,392 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-	<meta name="description" content="Blue Gmail Checker">
-	<meta http-equiv="expires" content="0">
-	<meta name="referrer" content="never">
-	<meta name="keywords" content="GmailChecker,GmailCheck,Gmail Check,MailCheck,Mail Check,Mail,Mailbox,Email,Gmail,Gmali,Mali,Gmail Checker,Gmail PHP,Gmail Verifier PHP,Gmail Checker PHP,Gmail Checker Script,Mail PHP,Email PHP,Mail Checker PHP,Email Checker PHP,Gnail Cheker,Gmail Cheker,Gnail Cheker,Gmal Checkr,Gmail Checkr,Mail Checker,Mail Cheker,Mail Checkr,Google Checker,Need Gmail,Need Mail,Need Email,Buy Mail,Buy Gmail,Buy Email,Google Checker,Bulk Mail,Gmail Check,Gmail Test,Gmail Tester,Mail Test,Mail Tester,Mail Check,Email Check,Email Test,Email Tester,Bulk Gmail,Bulk Email,Free Mail,Temporary Mail,Sell Gmail,Free Gmail,Sell Mail,Sell Email,Verify Mail,Verify Gmail,Verify Email,Verify,Mail Verify,Gmail Verify,Email Verify,Create Gmail,Create Mail,Create Email,Mail Checker,Email Checker,Bulk Gmail Checker,Bulk Mail Checker,Bulk Email Checker,Free Bulk Gmail Checker,Free Bulk Gmail Verifier,Bulk Google Checker,Gmail Tool,Email Tool,Gmail Checker Github,Fresh Gmail,Fresh Email,Fresh Mail,Google Checker Github,Mail Checker Github,Email Checker Github,Bulk Gmail Checker Github,Bulk Mail Checker Github,Bulk Email Checker Github,Mail Free,Gmail Free,Email Free,Free Bulk Gmail Checker Github,Free Bulk Gmail Verifier Github,Bulk Google Checker Github,Gmail Tool Github, Email Tool Github,bulkgmail,bulk gmail,bulkmail,bulk mail,bulkemail,bulk email,bulk google,bulkgoogle">
-	<meta name="author" content="Gmooy">
-	<meta name="title" content="Blue Gmail Checker">
-	<meta name="theme-color" content="#003d66">	
-	<meta name="msapplication-navbutton-color" content="#003d66">
-	<meta name="apple-mobile-web-app-status-bar-style" content="#003d66">
-    <title>Gmail Checker</title>
-	<link rel="shortcut icon" href="gC.webp">
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T0FBXCK6YT"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-T0FBXCK6YT');
-	</script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-	<script src="js/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CURL Executor Interface is a web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
+    <meta name="keywords" content="cURL executor, API testing, cURL command, web-based cURL, API debugging, developer tools">
+    <meta name="author" content="Gmooy">
+    <meta property="og:title" content="CURL Executor Interface">
+    <meta property="og:description" content="A web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
+    <meta property="og:image" content="gC.webp"> 
+    <meta property="og:url" content="https://mbahbabat.github.io/curl"> 
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CURL Executor Interface">
+    <meta name="twitter:description" content="A web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
+    <meta name="twitter:image" content="gC.webp"> <!-- Replace with your image URL -->
+    <title>CURL Executor Interface - Execute cURL Commands Online</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f9fafb;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        #curlCommand {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 2px solid #d1d5db;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: none;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #1e40af;
+        }
+        #output {
+            white-space: pre-wrap;
+            background-color: #ffffff;
+            padding: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow: auto;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            color: #2563eb;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .loading.show {
+            display: block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading::after {
+            content: " ";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #2563eb;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-	<header>
-		<div class="head-c" id="page-indicator"></div>
-        <div class="head-c" id="page-title">
-        	<h3>BLUE GMAIL CHECKER</h3>
-			<div class="logo-mob" style="display: none">
-            	<image id="logo-img"src="gC.webp"></image>
-			</div>
-		</div>
-        <div class="head-c" id="about">
-		</div>
-		<div class="minimized-view" id="minimized-view">
-			<i class="fas fa-comment"></i>
-			<div class="unread-badge">0</div>
-			<span id="online-counter-mob-mini">0</span>
-		</div>
-	</header>
-	<main>
-		<div id="loading-core" class="loading-screen">
-			<div class="loader">
-				<div class="spinner"></div>
-				<p>LOADING</p>
-			</div>
-		</div>	
-		<div id="loading-page" class="loading-screen">
-			<div class="loader">
-				<p>BLUE</p>
-				<image id="logo-img"src="gC.webp" width="30px" height="30px"></image>
-				<p>MAIL CHECKER</p>
-			</div>
-		</div>
-		<div id="duplicate-user"></div>
-		<div class="fxd-ls">
-        	<div class="logo">
-            	<image id="logo-img"src="gC.webp"></image>
-			</div>
-            <div class="menu">
-            	<div class="menu-child">
+    <h1>CURL Executor Interface</h1>
+    <label for="curlCommand">Enter CURL Command:</label><br>
+    <textarea id="curlCommand" placeholder="Example: curl -X POST https://api.example.com/data -H 'Content-Type: application/json' -d '{\"key\":\"value\"}'"></textarea><br>
+    <button onclick="executeCurl()">Execute</button>
+    <div class="loading" id="loading">Processing...</div>
+    <h2>Output:</h2>
+    <div id="output"></div>
 
-            	</div>
-          		<div class="menu-child">
+    <script>
+        function executeCurl() {
+            const curlCommand = document.getElementById('curlCommand').value;
+            const output = document.getElementById('output');
+            const loading = document.getElementById('loading');
+            
+            if (!curlCommand) {
+                output.innerHTML = 'Please enter a cURL command';
+                return;
+            }
 
-       			</div>
-       			<div class="menu-child">
+            loading.classList.add('show');
+            output.innerHTML = '';
 
-         		</div>		
-			</div>
-		</div>
-		<div class="m-left">
-			<div class="animation-list">
-            	<image class="animation-img" id="stby"src="img/stby-blue.gif"></image>
-                <image class="animation-img" id="run"src="img/run4.gif"></image>
-            </div>
-		</div>
-		<div class="m-right">
-			<div class="m-r-top">
-				<div class="cm-fam" id="live-res">
-					<div class="cmh">
-						<span class="title">LIVE</span>
-					</div>
-                    <div class="cm-relative">
-						<textarea id="live-cm"></textarea>
-                    </div>
-					<div class="cmf">
-						<button class="gC-btn" id="copy-live">Copy</button>
-						<button class="gC-btn" id="save-live">Save</button>
-					</div>
-				</div>	
-				<div class="cm-fam" id="ver-res">
-					<div class="cmh">
-						<span class="title">VER</span>
-					</div>
-                    <div class="cm-relative">
-						<textarea id="ver-cm"></textarea>
-                    </div>
-					<div class="cmf">
-						<button class="gC-btn" id="copy-ver">Copy</button>
-						<button class="gC-btn" id="save-ver">Save</button>
-					</div>
-				</div>
-				<div class="cm-fam" id="disabled-res">
-					<div class="cmh">
-						<span class="title">DISABLED</span>
-					</div>
-                    <div class="cm-relative">
-						<textarea id="disabled-cm"></textarea>
-                    </div>
-					<div class="cmf">
-						<button class="gC-btn" id="copy-disabled">Copy</button>
-						<button class="gC-btn" id="save-disabled">Save</button>
-					</div>
-				</div>
-				<div class="cm-fam" id="notExist-res">
-					<div class="cmh">
-						<span class="title">NOT EXIST</span>
-					</div>
-                    <div class="cm-relative">
-						<textarea id="notExist-cm"></textarea>
-                    </div>
-					<div class="cmf">
-						<button class="gC-btn" id="copy-notExist">Copy</button>
-						<button class="gC-btn" id="save-notExist">Save</button>
-					</div>
-				</div>				
-			</div>
+            fetch('https://curl.mbahbabat.workers.dev/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ curlCommand })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let result = '';
+                if (data.error) {
+                    result += `Error: ${data.error}\n`;
+                }
+                result += `HTTP Status Code: ${data.http_code}\n`;
+                result += `Headers:\n${data.headers}\n`;
+                result += `Response:\n${data.response}`;
 
-			<div class="m-r-btm">
-				<div class="m-r-btm-child" id="mail-input">
-					<div class="cmh">
-						<span class="title-result" style="display: none">RESULT</span>
-						<div class="mail-input-header">
-							<span class="title">MAIL INPUT</span>
-							<div class="input-btn">
-								<button id="upload-btn" class="gC-btn">Upload</button>
-								<button id="paste-btn" class="gC-btn">Paste</button>
-								<input type="file" id="file-upload" style="display:none"/>
-							</div>
-						</div>
-					</div>
-                    <div class="cm-relative" id="cm-relative-input" >
-						<textarea id="mailInput-cm"></textarea>
-						<div class="mail-result">
-							<div class="cm-relative">
-								<textarea id="mailResult-cm"></textarea>
-							</div>
-						</div>
-						<div id="scurity-duplicate-mail">
-							<div id="scurity-duplicate-mail-c">
-								<div id="duplicate-count-c"></div>
-								<textarea id="duplicate-emails"></textarea>
-								<div id="line-numbers"></div>
-								<button id="remove-duplicates">Remove duplicate to continue</button>
-							</div>
-						</div>
-                    </div>		
-					<div class="cmf">
-						<div class="run-indicator">
-						  <div class="lamp" id="lamp1"></div>
-						  <div class="lamp" id="lamp2"></div>
-						  <div class="lamp" id="lamp3"></div>
-						  <div class="lamp" id="lamp4"></div>
-						  <div class="lamp" id="lamp5"></div>
-						  <div class="lamp" id="lamp6"></div>
-						</div>
-                        <div class="progress progress-lg">
-                            <div id="mail-progress-bar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Progress:</div>
-                        </div>
-					</div>
-				</div>
-				<div class="m-r-btm-child" id="mzone">
-					<div class="ver-key">
-						<div class="exec-key">
-							<input type='text' id='key-input' placeholder='🔐 enter the activation key here...'>
-							<p id='succes-key' style='color: green; display: none;'>Activated</p>
-							<button id='submit-key' class='gC-btn'>Activate</button>
-						</div>					
-					</div>
-					<div class="user-info">
-						<div id="user-greeting">
-							<span class="greeting">Hello,</span>
-							<span class="username"></span>
-						</div>
-						<div id="username-link">
-							<span id='change-username-text'>Change Username</span> 
-							<span id='change-username-btn'>here...</span>
-						</div>
-					</div>
-					<div class="username-zone">
-						<div id="username-changer">
-							<input type="text" id="new-username-input" placeholder="enter new username..." minlength="6" required>
-							<button id='submit-username' class='gC-btn'>Change</button>
-							<button id='username-cancel' class='gC-btn'>Cancel</button>
-						</div>
-					</div>
-					<div class="monitor">
-                    	<div class="monitor-c">
-                        	<div class="monitor-msg" id="greeting-msg"></div>
-                        	<div class="monitor-msg" id="system-msg"></div>
-                            <div class="monitor-msg" id="standby-msg"></div>
-                            <div class="res-counter">
-                                <div class="counter-type" id="live-counter" >
-                                    <span class="title">LIVE</span>
-                                    <span class="count-type" id="live-count">-</span>
-                                </div>
-                                <div class="counter-type" id="ver-counter">
-                                    <span class="title">VER</span>
-                                    <span class="count-type" id="ver-count">-</span>
-                                </div>
-                                <div class="counter-type" id="disabled-counter">
-                                    <span class="title">DISABLED</span>
-                                    <span class="count-type" id="disabled-count" >-</span>                                        
-                                </div>
-                                <div class="counter-type" id="notExist-counter">
-                                   <span class="title">NOT EXIST</span>
-                                   <span class="count-type" id="notExist-count" >-</span>
-                                </div>
-                            </div>
-							<div class="totalRes-counter">
-							  <span class="title">Total Result:</span>
-							  <span class="count-type" id="total-count">-</span>
-							</div> 
-						</div>
-					</div> 
-					<div class="server-selection">
-						<span class="title">Select server:</span>
-						<div class="radio-server-c">
-							<div class="radio-server">
-								<input type="radio" id="server1" name="server" value="server1">
-								<label for="server1">Server 1</label>
-							</div>
-							<div class="radio-server">
-								<input type="radio" id="server2" name="server" value="server2" checked>
-								<label for="server2">Server 2</label>
-							</div>
-						</div>
-					</div>	
-					<div class="executor">
-						<button class="gC-btn" id="reset-btn">Reset</button>
-						<button class="gC-btn" id="stop-btn">Stop</button>
-                        <button class="gC-btn" id="run-btn">Run</button>
-					</div>
-					<div class="mobile-panel" style="display: none">
-						<button class="gC-btn" id="reset-btn-mob">Reset</button>
-						<div class="select-save-res">
-							<span class="title">Select result:</span>
-							<div class="select-result-radio">
-								<div class="select-result-radio-child">
-									<input type="radio" id="live-save-radio" name="save-option" value="live-save" checked>
-									<label for="live-save-radio">Live</label>
-								</div>
-								<div class="select-result-radio-child">
-									<input type="radio" id="ver-save-radio" name="save-option" value="ver-save">
-									<label for="ver-save-radio">Ver</label>
-								</div>
-								<div class="select-result-radio-child">
-									<input type="radio" id="disabled-save-radio" name="save-option" value="disabled-save">
-									<label for="disabled-save-radio">Disabled</label>
-								</div>
-							</div>
-						</div>
-						<div class="save-result">
-							<div class="save-option-mobile" id="live-save">
-								<button class="gC-big-btn" id="copy-live-mob">Copy</button>
-								<button class="gC-big-btn" id="save-live-mob">Save</button>
-							</div>	
-							<div class="save-option-mobile" id="ver-save" style="display:none">	
-								<button class="gC-big-btn" id="copy-ver-mob">Copy</button>
-								<button class="gC-big-btn" id="save-ver-mob">Save</button>
-							</div>
-							<div class="save-option-mobile" id="disabled-save" style="display:none">	
-								<button class="gC-big-btn" id="copy-disabled-mob">Copy</button>
-								<button class="gC-big-btn" id="save-disabled-mob">Save</button>
-							</div>	
-						</div>
-					</div>
-				</div>
-				<div class="m-r-btm-child" id="chatApp">
-					<div class="chat-wrapper">
-						<div class="chat-header">
-							<div class="chat-title">Community Chat</div>
-							<button class="chat-btn" id="minimize-btn">&times;</button>
-						</div>
-						<div id="pinned-message-container"></div>
-						<div class="online-user-mob">
-							<div class="online-mobileScreen">
-								<div class="on-off-online-panel">
-									<button id="show-online">show online</button>
-									<button id="close-online">&times; hide online</button>
-								</div>
-								<div id="online-panel">
-									<span id="online-counter-mob">0</span>
-									<div id="online-list-mob"></div>
-								</div>
-							</div>
-						</div>
-						<div class="chat-body" id="chat-body"></div>
-						<button id="scroll-to-bottom"><i class="fas fa-arrow-down"></i></button>
-						<div id="reply-preview">
-							<span id="reply-text"></span>
-							<button id="cancel-reply" class="chat-btn">Cancel</button>
-						</div>
-						<div class="chat-input-c">
-							<form class="chat-input" id="message-form">
-								<textarea class="message-input" id="message-input" placeholder="Send a message..." rows="1"></textarea>
-								<div class="input-btn-c">
-									<button class="chat-btn cancel-send-btn" id="cancel-send-btn" type="button">cancel</button>
-									<button class="chat-btn send-btn" type="submit">Send</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="m-r-btm-child" id="online-user">
-					<div class="online-desktopScreen">
-						<span id="online-counter-desk">0</span>
-						<div id="online-panel">
-							<div id="online-list-desk"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="audio-library">
-			<audio id='chat-audio' src='audio/chat.mp3' preload='auto'></audio>
-			<audio id='disconnect-audio' src='audio/disconnect.mp3' preload='auto'></audio>
-			<audio id='mode-audio' src='audio/mode.mp3' preload='auto'></audio>
-			<audio id='checked-audio' src='audio/checked.mp3' preload='auto'></audio>
-			<audio id='switch-audio' src='audio/switch.mp3' preload='auto'></audio>
-			<audio id='finish-audio' src='audio/finish.mp3' preload='auto'></audio>
-			<audio id='error-audio' src='audio/error.mp3' preload='auto'></audio>
-			<audio id='run-audio' src='audio/run.mp3' preload='auto'></audio>
-			<audio id='reset-audio' src='audio/reset.mp3' preload='auto'></audio>
-			<audio id='copyPaste-audio' src='audio/copyPaste.mp3' preload='auto'></audio>
-		</div>
-	</main>
-	<footer>
-    	<div class="foot-c" id="community">
-            <button class="community-link">
-              	<a href="https://t.me/GMAIL_GLOBAL_CHAT" target="_blank" rel="noopener noreferrer">
-                	<i class="fab fa-telegram"></i><span>Community</span> 
-              	</a>
-            </button>
-		</div>
-        <div class="foot-c" id="copyright">
-			&copy; 2024 Gmooy. All Rights Reserved.
-		</div>
-        <div class="foot-c" id="share-button">
-            <button class="fb-share">
-              	<i class="fab fa-facebook"></i><span>Share</span>
-            </button>
-            <button class="wa-share">
-              	<i class="fab fa-whatsapp"></i><span>Share</span>
-            </button>
-            <button class="ig-share">
-              	<i class="fab fa-instagram"></i><span>Share</span>
-            </button>
-            <button class="tw-share">
-              	<i class="fab fa-twitter"></i><span>Share</span>
-            </button>
-			<button class="community-link-mob" style="display: none;">
-              	<a href="https://t.me/GMAIL_GLOBAL_CHAT" target="_blank" rel="noopener noreferrer">
-                	<i class="fab fa-telegram"></i><span>Community</span> 
-              	</a>
-            </button>
-        </div>
-	</footer>
-</body>
-<script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
-<script type="module" src="js/citapp.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.body.classList.add('loaded');
-});
-
-</script>
+                output.textContent = result;
+            })
+            .catch(error => {
+                output.textContent = `Fetch Error: ${error}`;
+            })
+            .finally(() => {
+                loading.classList.remove('show');
+            });
+        }
+    </script>
 </body>
 </html>
-
-

@@ -196,16 +196,15 @@
             })
             .then(response => response.json())
             .then(data => {
-                let result = '';
-                if (data.error) {
-                    result += `Error: ${data.error}\n`;
-                }
-                result += `HTTP Status Code: ${data.http_code}\n`;
-                result += `Headers:\n${data.headers}\n`;
-                result += `Response:\n${data.response}`;
-
-                output.textContent = result;
-            })
+				let result = '';
+				if (data.error) {
+					result += `Error: ${data.error}\n`;
+				}
+				result += `HTTP Status Code: ${data.http_code}\n`;
+				result += `Headers:\n${data.headers}\n`;  // Langsung tampilkan string
+				result += `Response:\n${data.response}`;
+				output.textContent = result;
+			})
             .catch(error => {
                 output.textContent = `Fetch Error: ${error}`;
             })

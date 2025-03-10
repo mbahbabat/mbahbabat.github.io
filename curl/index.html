@@ -15,10 +15,14 @@
     <meta name="twitter:title" content="CURL Executor Interface">
     <meta name="twitter:description" content="A web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
     <meta name="twitter:image" content="gC.webp"> 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/http/http.min.js"></script>
     <title>CURL Executor Interface - Execute cURL Commands Online</title>
     <style>
-		*{margin:0;padding:0;box-sizing:border-box;}
+        *{margin:0;padding:0;box-sizing:border-box;}
 		*,*:before,*:after{box-sizing: inherit;}
 		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 		html{-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing:border-box; }
@@ -34,19 +38,13 @@
             color: #333;
         }
 		
-		button i {
-			  font-size: 18px;
-			  margin-right: 8px;
-		}
-		
-        h1 {
+        h2 {
             text-align: center;
             color: #2563eb;
         }
         label {
             font-weight: bold;
             display: block;
-            margin-bottom: 10px;
         }
         #curlCommand {
             width: 100%;
@@ -59,34 +57,11 @@
             resize: none;
         }
         button {
-            margin-top: 15px;
             padding: 10px 20px;
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
         }
-        button:hover {
-            background-color: #1e40af;
-        }
-        #output {
-            white-space: pre-wrap;
-            background-color: #ffffff;
-            padding: 15px;
-            border: 1px solid #d1d5db;
-            border-radius: 5px;
-            margin-top: 20px;
-            max-height: 500px;
-            overflow: auto;
-            font-family: monospace;
-            font-size: 14px;
-            line-height: 1.5;
-			height: 250px;
-			overflow: auto;
-        }
+		.run{
+			margin-bottom:10px;
+		}
         .loading {
             display: none;
             text-align: center;
@@ -112,80 +87,110 @@
             animation: spin 1s linear infinite;
             margin-left: 10px;
         }
-		footer{
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: column;
-		}
-		#share-button {
-			 display: flex;
-			 gap: 10px;
-			 padding: 5px;
+        footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        #share-button {
+            display: flex;
+            gap: 10px;
+            padding: 5px;
+        }
+        #share-button button {
+            padding: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            justify-content: center;
+        }
+        .fb-share { background-color: #1877f2; }
+        .wa-share { background-color: #25d366; }
+        .ig-share { background-color: #e4405f; }
+        .tw-share { background-color: #1da1f2; }
+		
+		button i {
+			  font-size: 18px;
+			  margin-right: 8px;
 		}
 
-		#share-button button {
-			 padding: 5px;
-			 cursor: pointer;
-			 border: none;
-			 border-radius: 5px;
-			 display: flex;
-			 align-items: center;
-			 color: #fff;
-			 justify-content: center;
-		}
+        /* CodeMirror Styles */
+        .CodeMirror {
+            height: 250px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+        }
+			
 
-		.fb-share { background-color: #1877f2; }
-		.wa-share { background-color: #25d366; }
-		.ig-share { background-color: #e4405f; }
-		.tw-share { background-color: #1da1f2; }
+        /* Buttons above result */
+        .result-buttons {
+            display: flex;
+        }
+
     </style>
 </head>
 <body>
-	<header>
-    <h1>CURL Executor Interface</h1>
-	</header>
-	<main>
-    <label for="curlCommand">Enter CURL Command:</label><br>
-    <textarea id="curlCommand" placeholder="Example: curl -X POST https://api.example.com/data -H 'Content-Type: application/json' -d '{\"key\":\"value\"}'"></textarea><br>
-    <button onclick="executeCurl()">Execute</button>
-    <div class="loading" id="loading">Processing...</div>
-    <h2>Output:</h2>
-    <div id="output"></div>
-	</main>
-	<footer>
+    <header>
+        <h2>CURL Executor Interface</h2>
+    </header>
+    <main>
+        <label for="curlCommand">Enter CURL Command:</label><br>
+        <textarea id="curlCommand" placeholder="Example: curl -X POST https://api.example.com/data -H 'Content-Type: application/json' -d '{\"key\":\"value\"}'"></textarea><br>
+        <button class="run" onclick="executeCurl()">Execute</button>
+        <div class="loading" id="loading">Processing...</div>
+        <div class="result-buttons">
+            <button onclick="showHeaders()">View Headers</button>
+            <button onclick="showResponse()">View Response</button>
+        </div>
+        <div id="output"></div>
+    </main>
+    <footer>
         <div class="foot-c" id="copyright">
-			&copy; 2025 Gmooy. All Rights Reserved.
-		</div>
+            &copy; 2025 Gmooy. All Rights Reserved.
+        </div>
         <div class="foot-c" id="share-button">
             <button class="fb-share">
-              	<i class="fab fa-facebook"></i><span>Share</span>
+                <i class="fab fa-facebook"></i><span>Share</span>
             </button>
             <button class="wa-share">
-              	<i class="fab fa-whatsapp"></i><span>Share</span>
+                <i class="fab fa-whatsapp"></i><span>Share</span>
             </button>
             <button class="ig-share">
-              	<i class="fab fa-instagram"></i><span>Share</span>
+                <i class="fab fa-instagram"></i><span>Share</span>
             </button>
             <button class="tw-share">
-              	<i class="fab fa-twitter"></i><span>Share</span>
+                <i class="fab fa-twitter"></i><span>Share</span>
             </button>
         </div>
-	</footer>
+    </footer>
 
     <script>
+        // Initialize CodeMirror instances
+        const outputEditor = CodeMirror(document.getElementById('output'), {
+            mode: "javascript",
+            lineNumbers: true,
+            readOnly: true,
+        });
+
+        let headersData = '';
+        let responseData = '';
+
         function executeCurl() {
             const curlCommand = document.getElementById('curlCommand').value;
-            const output = document.getElementById('output');
             const loading = document.getElementById('loading');
-            
+
             if (!curlCommand) {
-                output.innerHTML = 'Please enter a cURL command';
+                outputEditor.setValue('Please enter a cURL command');
                 return;
             }
 
             loading.classList.add('show');
-            output.innerHTML = '';
+            outputEditor.setValue('');
 
             fetch('https://curl.mbahbabat.workers.dev/', {
                 method: 'POST',
@@ -196,21 +201,36 @@
             })
             .then(response => response.json())
             .then(data => {
-				let result = '';
-				if (data.error) {
-					result += `Error: ${data.error}\n`;
-				}
-				result += `HTTP Status Code: ${data.http_code}\n`;
-				result += `Headers:\n${data.headers}\n`;  // Langsung tampilkan string
-				result += `Response:\n${data.response}`;
-				output.textContent = result;
-			})
+                let result = '';
+                if (data.error) {
+                    result += `Error: ${data.error}\n`;
+                }
+                result += `HTTP Status Code: ${data.http_code}\n\n`;
+
+                // Store headers and response data
+                headersData = data.headers || 'No headers available';
+                responseData = data.response || 'No response available';
+
+                outputEditor.setValue(responseData);
+            })
             .catch(error => {
-                output.textContent = `Fetch Error: ${error}`;
+                outputEditor.setValue(`Fetch Error: ${error}`);
             })
             .finally(() => {
                 loading.classList.remove('show');
             });
+        }
+
+        // Show Headers in CodeMirror
+        function showHeaders() {
+            outputEditor.setOption('mode', 'http');
+            outputEditor.setValue(headersData);
+        }
+
+        // Show Response in CodeMirror
+        function showResponse() {
+            outputEditor.setOption('mode', 'javascript');
+            outputEditor.setValue(responseData);
         }
     </script>
 </body>

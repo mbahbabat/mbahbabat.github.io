@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CURL Executor Interface is a web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
+    <meta name="keywords" content="cURL executor, API testing, cURL command, web-based cURL, API debugging, developer tools">
+    <meta name="author" content="Gmooy">
+    <meta property="og:title" content="CURL Executor Interface">
+    <meta property="og:description" content="A web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
+    <meta property="og:image" content="gC.webp"> 
+    <meta property="og:url" content="https://mbahbabat.github.io/curl"> 
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CURL Executor Interface">
+    <meta name="twitter:description" content="A web-based tool to execute cURL commands and view the results in real-time. Perfect for developers and API testers.">
+    <meta name="twitter:image" content="gC.webp"> <!-- Replace with your image URL -->
+    <title>CURL Executor Interface - Execute cURL Commands Online</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f9fafb;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        #curlCommand {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 2px solid #d1d5db;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: none;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #1e40af;
+        }
+        #output {
+            white-space: pre-wrap;
+            background-color: #ffffff;
+            padding: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow: auto;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            color: #2563eb;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .loading.show {
+            display: block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading::after {
+            content: " ";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #2563eb;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CURL Executor Interface</h1>
+    <label for="curlCommand">Enter CURL Command:</label><br>
+    <textarea id="curlCommand" placeholder="Example: curl -X POST https://api.example.com/data -H 'Content-Type: application/json' -d '{\"key\":\"value\"}'"></textarea><br>
+    <button onclick="executeCurl()">Execute</button>
+    <div class="loading" id="loading">Processing...</div>
+    <h2>Output:</h2>
+    <div id="output"></div>
+
+    <script>
+        function executeCurl() {
+            const curlCommand = document.getElementById('curlCommand').value;
+            const output = document.getElementById('output');
+            const loading = document.getElementById('loading');
+            
+            if (!curlCommand) {
+                output.innerHTML = 'Please enter a cURL command';
+                return;
+            }
+
+            loading.classList.add('show');
+            output.innerHTML = '';
+
+            fetch('https://curl.mbahbabat.workers.dev/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ curlCommand })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let result = '';
+                if (data.error) {
+                    result += `Error: ${data.error}\n`;
+                }
+                result += `HTTP Status Code: ${data.http_code}\n`;
+                result += `Headers:\n${data.headers}\n`;
+                result += `Response:\n${data.response}`;
+
+                output.textContent = result;
+            })
+            .catch(error => {
+                output.textContent = `Fetch Error: ${error}`;
+            })
+            .finally(() => {
+                loading.classList.remove('show');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -9,27 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-	<script src="https://unpkg.com/libphonenumber-js@1.x/bundle/libphonenumber-js.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 	<script src="https://telegram.org/js/telegram-web-app.js"></script>
-	<script src="js/jquery-3.6.0.min.js"></script>
-	<script>
-	  let exchangeRate = 1; // Nilai default
-
-	  async function getExchangeRate() {
-		try {
-		  const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ronin&vs_currencies=usd');
-		  const data = await response.json();
-		  exchangeRate = data.ronin.usd;
-		} catch (error) {
-		  console.error('Gagal mengambil kurs:', error);
-		}
-	  }
-
-	  // Update kurs setiap 5 menit
-	  getExchangeRate();
-	  setInterval(getExchangeRate, 300000);
-	</script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -242,13 +222,6 @@
                 data-request-access="write"></script>
     </div>
 
-    <!-- Username Form -->
-    <div id="usernameForm" class="container" style="display: none;">
-        <h2>Create username</h2>
-        <input type="text" id="usernameInput" placeholder="Username (min 6 karakter)">
-        <button onclick="saveUsername()">Save</button>
-        <p id="usernameError" style="color: red;"></p>
-    </div>
 
     <!-- Dashboard -->
 	<div id="my-account" class="container dashboard" style="display: none;">
@@ -306,25 +279,6 @@
 		
 		<div id="dashboard" class="container dashboard" style="display: none;">
 			<h2>User Dashboard</h2>
-			<div>
-			<div>
-				<p>Current esername: <span id="currentUsername"></span>
-				<button onclick="toggleEditUsername()">Edit</button></p>
-				<div id="editUsernameForm" style="display: none;">
-					<input type="text" id="newUsername" placeholder="Username baru">
-					<button onclick="updateUsername()">Save</button>
-					<p id="usernameEditError" style="color: red;"></p>
-				</div>
-			</div>
-				<input type="text" id="displayName" placeholder="Nama Lengkap">
-					<div style="display: flex; gap: 5px; margin: 5px 0;">
-						<select id="countryCode" style="width: 120px;">
-							<option value="">Select Country</option>
-						</select>
-						<input type="tel" id="contact" placeholder="Contoh: 8123456789" style="flex: 1;">
-					</div>
-				<button onclick="saveProfile()">Save</button>
-			</div>
 			<div id="userInfo"></div>
 			<button onclick="logout()">Logout</button>
 		</div>
@@ -492,25 +446,19 @@
 		
 
         const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const database = firebase.database();
-		
-        // Track auth state
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                checkUsername(user.uid);
-                document.getElementById('loginSection').style.display = 'none';
-            } else {
-                document.getElementById('loginSection').style.display = 'block';
-                document.getElementById('my-account').style.display = 'none';
-                document.getElementById('usernameForm').style.display = 'none';
-            }
-        });
-		
-        async function onTelegramAuth(user) {
+		const database = firebase.database();
+
+
+
+    async function onTelegramAuth(user) {
+        try {
             if (!user) return;
             
-            // Simpan user ke Firebase
+            // Update UI langsung
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('my-account').style.display = 'block';
+            
+            // Simpan data ke Firebase
             const userData = {
                 id: user.id,
                 first_name: user.first_name,
@@ -518,277 +466,68 @@
                 username: user.username,
                 photo_url: user.photo_url,
                 auth_date: user.auth_date,
-                hash: user.hash,
-                balance: 0, // Saldo awal dalam bintang
+                balance: 0,
                 currency: 'stars',
                 created_at: Date.now()
             };
 
-            try {
-                await database.ref('users/' + user.id).set(userData);
-                localStorage.setItem('telegram_user', JSON.stringify(userData));
-                showDashboard(user.id);
-            } catch (error) {
-                console.error('Login error:', error);
-            }
-        }
-		
-		// Cek status login
-        function checkLogin() {
-            const user = localStorage.getItem('telegram_user');
-            if (user) {
-                showDashboard(JSON.parse(user).id);
-            }
-        }
-
-        async function checkUsername(uid) {
-            const userRef = database.ref('users/' + uid);
+            await database.ref('users/' + user.id).update(userData);
+            localStorage.setItem('telegram_user', JSON.stringify(userData));
             
-            userRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (!data || !data.username) {
-                    document.getElementById('usernameForm').style.display = 'block';
-                } else {
-                    showDashboard(uid);
-                }
-            });
+            // Tampilkan dashboard
+            showDashboard(user.id);
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Gagal login: ' + error.message);
         }
+    }
 
-        function validateUsername(username) {
-            const regex = /^[a-zA-Z0-9_]+$/;
-            if (username.length < 6) return false;
-            if (!regex.test(username)) return false;
-            return true;
+    // Cek login saat halaman dimuat
+    function checkLogin() {
+        const userData = localStorage.getItem('telegram_user');
+        if (userData) {
+            const user = JSON.parse(userData);
+            showDashboard(user.id);
         }
+    }
+    
+    // Tampilkan dashboard
+    async function showDashboard(userId) {
+        const userRef = database.ref('users/' + userId);
+        userRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
 
-        async function isUsernameAvailable(usernameWithAt) {
-			try {
-				const snapshot = await database.ref(`usernames/${usernameWithAt}`).once('value');
-				return !snapshot.exists();
-			} catch (error) {
-				console.error('Error checking username:', error);
-				return false;
-			}
-		}
-
-		async function saveUsername() {
-			const usernameInput = document.getElementById('usernameInput');
-			let username = usernameInput.value.trim();
-			
-			if (!username.startsWith('@')) {
-				username = '@' + username;
-			}
-			
-			const cleanUsername = username.slice(1);
-			
-			// Validasi format
-			if (!validateUsername(cleanUsername)) {
-				document.getElementById('usernameError').textContent = 
-					'Username harus 6+ karakter dan hanya mengandung huruf, angka, underscore';
-				return;
-			}
-			
-			// Cek ketersediaan dengan error handling
-			try {
-				const available = await isUsernameAvailable(username);
-				if (!available) {
-					document.getElementById('usernameError').textContent = 'Username sudah digunakan';
-					return;
-				}
-			} catch (error) {
-				document.getElementById('usernameError').textContent = 'Gagal memeriksa username';
-				return;
-			}
-			
-			const user = auth.currentUser;
-			const updates = {
-				[`users/${user.uid}/username`]: username,
-				[`usernames/${username}`]: user.uid
-			};
-			
-			try {
-				await database.ref().update(updates);
-				document.getElementById('usernameForm').style.display = 'none';
-				showDashboard(user.uid);
-			} catch (error) {
-				console.error('Gagal menyimpan username:', error);
-				document.getElementById('usernameError').textContent = 'Gagal menyimpan username: ' + error.message;
-			}
-		}
-		
-		let currentUserData = null;
-
-		async function updateUsername() {
-			const newUsernameInput = document.getElementById('newUsername').value.trim();
-			const user = auth.currentUser;
-			
-			// Format username baru
-			const newUsername = newUsernameInput.startsWith('@') 
-				? newUsernameInput 
-				: '@' + newUsernameInput;
-			
-			// Dapatkan username lama
-			const currentUsername = currentUserData.username;
-			
-			// Validasi perubahan
-			if (newUsername === currentUsername) {
-				document.getElementById('usernameEditError').textContent = 'Username sama dengan yang lama';
-				return;
-			}
-			
-			// Validasi format
-			const cleanNewUsername = newUsername.slice(1);
-			if (!validateUsername(cleanNewUsername)) {
-				document.getElementById('usernameEditError').textContent = 
-					'Username harus 6+ karakter dan hanya boleh mengandung huruf, angka, dan underscore';
-				return;
-			}
-			
-			// Cek ketersediaan username baru DENGAN @
-			if (!(await isUsernameAvailable(newUsername))) {
-				document.getElementById('usernameEditError').textContent = 'Username sudah digunakan';
-				return;
-			}
-			
-			// Persiapkan update
-			const updates = {
-				[`users/${user.uid}/username`]: newUsername,
-				[`usernames/${newUsername}`]: user.uid,
-				[`usernames/${currentUsername}`]: null
-			};
-			
-			// Eksekusi update
-			database.ref().update(updates)
-				.then(() => {
-					toggleEditUsername();
-					showDashboard(user.uid);
-				})
-				.catch(error => {
-					console.error('Error updating username:', error);
-					alert('Gagal memperbarui username: ' + error.message);
-				});
-		}
-
-		// Fungsi pengecekan username DENGAN @
-		async function isUsernameAvailable(usernameWithAt) {
-			const snapshot = await database.ref(`usernames/${usernameWithAt}`).once('value');
-			return !snapshot.exists();
-		}
-		
-		
-		function toggleEditUsername() {
-			const form = document.getElementById('editUsernameForm');
-			form.style.display = form.style.display === 'none' ? 'block' : 'none';
-			document.getElementById('usernameEditError').textContent = '';
-		}
-
-		async function showDashboard(userId) {
-            const userRef = database.ref('users/' + userId);
-            userRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (!data) return;
-
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('my-account').style.display = 'block';
-                
-                // Update tampilan dengan data user Telegram
-                document.getElementById('currentUsername').textContent = data.username || 'Nama tidak tersedia';
-                document.getElementById('userInfo').innerHTML = `
-                    <h3>Profil Pengguna</h3>
-                    <p>Nama: ${data.first_name} ${data.last_name}</p>
-                    <p>Username: @${data.username}</p>
+            // Update tampilan profil
+            document.getElementById('userInfo').innerHTML = `
+                <div class="profile-header">
+                    <img src="${data.photo_url}" 
+                         alt="Profile Photo" 
+                         style="width:100px; height:100px; border-radius:50%;">
+                    <h3>${data.first_name} ${data.last_name}</h3>
+                    <p>@${data.username}</p>
                     <p>Saldo: ${data.balance} ⭐</p>
-                `;
-            });
-        }
+                </div>
+                <div class="profile-details">
+                    <p>ID: ${data.id}</p>
+                    <p>Bergabung: ${new Date(data.created_at).toLocaleDateString()}</p>
+                </div>
+            `;
+            
+            // Tampilkan section yang diperlukan
+            document.getElementById('dashboard').style.display = 'block';
+        });
+    }
 
-			function saveProfile() {
-				const user = auth.currentUser;
-				const userRef = database.ref('users/' + user.uid); // Tambahkan ini
-				
-				const countryCode = document.getElementById('countryCode').value;
-				const phoneNumber = document.getElementById('contact').value;
-				
-				try {
-					const parsedNumber = libphonenumber.parsePhoneNumber(phoneNumber, countryCode);
-					
-					if (!parsedNumber || !parsedNumber.isValid()) {
-						alert('Format nomor telepon tidak valid!');
-						return;
-					}
-					
-					const updates = {
-						name: document.getElementById('displayName').value.trim(),
-						contact: parsedNumber.formatInternational()
-					};
-					
-					if(!updates.name) {
-						alert('Nama tidak boleh kosong');
-						return;
-					}
-					
-					userRef.update(updates).then(() => {
-						alert('Profil berhasil diperbarui!');
-					}).catch(error => {
-						console.error('Error saving profile:', error);
-						alert('Gagal menyimpan profil: ' + error.message);
-					});
-				} catch (error) {
-					alert('Error memproses nomor telepon: ' + error.message);
-				}
-			}
-				
-				
-			function initCountryCodes() {
-			const countrySelect = document.getElementById('countryCode');
-			const countries = libphonenumber.getCountries();
-			
-			countries.forEach(countryCode => {
-				const option = document.createElement('option');
-				const countryName = new Intl.DisplayNames(['id'], { type: 'region' }).of(countryCode);
-				const phoneCode = libphonenumber.getCountryCallingCode(countryCode);
-				
-				option.value = countryCode;
-				option.textContent = `${countryCode} +${phoneCode} ${countryName}`;
-				countrySelect.appendChild(option);
-			});
-		}
+    // Logout
+    function logout() {
+        localStorage.removeItem('telegram_user');
+        database.ref('users/' + userId).off(); // Hentikan listener
+        window.location.reload();
+    }
 
-	window.addEventListener('DOMContentLoaded', initCountryCodes);
-
-	// Validasi real-time
-	document.getElementById('contact').addEventListener('input', function(e) {
-		const countryCode = document.getElementById('countryCode').value;
-		const phoneNumber = this.value;
-		
-		try {
-			const parsedNumber = libphonenumber.parsePhoneNumber(phoneNumber, countryCode);
-			
-			if (parsedNumber && parsedNumber.isValid()) {
-				this.style.borderColor = '#28a745';
-				document.getElementById('countryCode').value = parsedNumber.country;
-				this.value = parsedNumber.nationalNumber;
-			} else {
-				this.style.borderColor = '#dc3545';
-			}
-		} catch {
-			this.style.borderColor = '#dc3545';
-		}
-	});	
-	
-	async function isAdmin() {
-	  const user = auth.currentUser;
-	  if (!user) return false;
-	  
-	  const adminRef = database.ref(`admins/${user.uid}`);
-	  const snapshot = await adminRef.once('value');
-	  return snapshot.exists();
-	}
-		
-	function logout() {
-            localStorage.removeItem('telegram_user');
-            window.location.reload();
-        }
+    // Panggil checkLogin saat halaman dimuat
+    window.addEventListener('load', checkLogin);
 
 function resetProductForm() {
   // Reset semua input form produk
@@ -819,7 +558,7 @@ function resetProductForm() {
 }	
 	
 async function saveProduct() {
-  const user = auth.currentUser;
+  const user = JSON.parse(localStorage.getItem('telegram_user'));
   if (!user) {
     alert('Anda harus login!');
     return;
@@ -869,7 +608,7 @@ async function saveProduct() {
 
 
 async function loadSellerProducts() {
-  const user = auth.currentUser;
+  const user = JSON.parse(localStorage.getItem('telegram_user'));
   if (!user) return;
 
   const productsRef = database.ref('products').orderByChild('seller').equalTo(user.uid);
@@ -1173,7 +912,7 @@ function showProductDetail(productId) {
 
 
 async function releaseProduct(productId) {
-  const user = auth.currentUser;
+  const user = JSON.parse(localStorage.getItem('telegram_user'));
   if (!user) return;
 
   try {
@@ -1426,7 +1165,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 
 async function addToCart(productId) {
-  const user = auth.currentUser;
+  const user = JSON.parse(localStorage.getItem('telegram_user'));
   if (!user) return alert('Harus login!');
 
   try {
@@ -1567,7 +1306,7 @@ async function removeFromCart(productId) {
 
 
 async function checkout() {
-  const user = auth.currentUser;
+  const user = JSON.parse(localStorage.getItem('telegram_user'));
   if (!user) return alert('Harus login!');
   
   try {

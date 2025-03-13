@@ -358,7 +358,6 @@
 		.msg-content{
 			width: 100%;
             color: var(--text);
-            animation: messageIn 0.3s ease-out;
             word-break: break-word;
             position: relative;
 			border-radius: 10px;

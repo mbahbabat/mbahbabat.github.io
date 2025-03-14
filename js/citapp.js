@@ -14,7 +14,14 @@
     remove, 
     onDisconnect, 
     update, 
-    child 
+    child,
+	orderByChild,
+	equalTo,
+	off,
+	limitToFirst,
+	endAt,
+	startAt
+
 } from './fire.js';
 
 
@@ -914,7 +921,7 @@ function showUsername(username) {
 	}	
 
 
-
+let messageElements = new Map();
     const createMessageElement = (message, isSelf) => {
         const messageEl = document.createElement('div');
         messageEl.className = `message ${isSelf ? 'self' : ''}`;
@@ -983,9 +990,45 @@ function showUsername(username) {
             `;
         });
 
+		function setupReplyClickHandler(replyContentEl, originalMessageId) {
+			replyContentEl.addEventListener('click', async () => {
+				let originalElement = document.querySelector(`[data-message-id="${originalMessageId}"]`);
+				
+				// Jika belum ada di DOM, load dari database
+				if (!originalElement) {
+					const messageRef = ref(database, `messages/${originalMessageId}`);
+					const snapshot = await get(messageRef);
+					
+					if (snapshot.exists()) {
+						const msg = snapshot.val();
+						await loadMessagesAroundTimestamp(msg.timestamp, originalMessageId);
+						originalElement = document.querySelector(`[data-message-id="${originalMessageId}"]`);
+					}
+				}
+
+				if (originalElement) {
+					// Scroll ke posisi dengan offset header
+					const headerHeight = document.querySelector('.chat-header').offsetHeight;
+					const targetY = originalElement.offsetTop - headerHeight - 100;
+					
+					chatBody.scrollTo({
+						top: targetY,
+						behavior: 'smooth'
+					});
+
+					// Highlight dengan animasi
+					originalElement.style.transition = 'background-color 0.3s';
+					originalElement.style.backgroundColor = '#fff3cd';
+					
+					setTimeout(() => {
+						originalElement.style.backgroundColor = '';
+					}, 2000);
+				}
+			});
+		}
 		if (message.replyTo) {
 				const replyContentEl = messageEl.querySelector('.reply-content');
-				
+				setupReplyClickHandler(replyContentEl, message.replyTo.id);
 	
 				replyContentEl.style.cursor = 'pointer';
 				replyContentEl.title = "Click to jump to original message";
@@ -1057,45 +1100,123 @@ function showUsername(username) {
     };
 
 
-    const initializeChat = () => {
-// Tambahkan array untuk melacak ID pesan yang sudah ditampilkan
-	const displayedMessageIds = new Set();
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { 
+      func.apply(this, args);
+    }, timeout);
+  };
+}
 
-	// Tambahkan event listener untuk mendeteksi pesan baru
-	const messagesRef = query(ref(database, 'messages'), limitToLast(10000));
-	onValue(messagesRef, (snapshot) => {
-		chatBody.innerHTML = '';
-		const messages = [];
-		let lastDate = null;
-		snapshot.forEach(childSnapshot => {
-			messages.push({
-				id: childSnapshot.key,
-				...childSnapshot.val(),
-				isAdmin: childSnapshot.val().isAdmin || false,
-				isVIP: childSnapshot.val().isVIP || false
-			});
-		});
-		messages.sort((a, b) => a.timestamp - b.timestamp);
-		messages.forEach(message => {
-			const currentDate = formatDate(message.timestamp);
-			if (currentDate !== lastDate) {
-				const dateSeparator = document.createElement('div');
-				dateSeparator.className = 'date-separator';
-				dateSeparator.innerHTML = `
-					<div class="date-line"></div>
-					<span>${currentDate}</span>
-					<div class="date-line"></div>
-				`;
-				chatBody.appendChild(dateSeparator);
-				lastDate = currentDate;
-			}
+async function loadMessagesAroundTimestamp(targetTimestamp, targetMessageId) {
+    const MARGIN = 300000; // 5 menit sebelum & sesudah
+    const messagesQuery = query(
+        ref(database, 'messages'),
+        orderByChild('timestamp'),
+        startAt(targetTimestamp - MARGIN),
+        endAt(targetTimestamp + MARGIN),
+        limitToLast(30)
+    );
+    
+    const snapshot = await get(messagesQuery);
+    const messages = [];
+    
+    snapshot.forEach(child => {
+        const msg = { id: child.key, ...child.val() };
+        messages.push(msg);
+    });
 
-			const isSelf = message.uid === currentUser?.uid;
-			const messageElement = createMessageElement(message, isSelf);
-			chatBody.appendChild(messageElement);
+    messages.sort((a, b) => a.timestamp - b.timestamp);
+    
+    // Tambahkan ke DOM jika belum ada
+    const fragment = document.createDocumentFragment();
+    messages.forEach(msg => {
+        if (!messageElements.has(msg.id)) {
+            const element = createMessageElement(msg);
+            messageElements.set(msg.id, element);
+            fragment.appendChild(element);
+        }
+    });
+    
+    chatBody.appendChild(fragment);
 
-			// Cek apakah pesan adalah balasan, ditujukan untuk pengguna saat ini, dan belum pernah ditampilkan
-			if (message.replyTo && message.replyTo.uid === currentUser.uid && !isSelf && !displayedMessageIds.has(message.id) && message.timestamp > lastLoginTime) {
+}
+
+const initializeChat = () => {
+    const displayedMessageIds = new Set();
+    let oldestTimestamp = null;
+    let newestTimestamp = null;
+    let currentMessagesRef = null;
+    let isScrolling = false;
+    let isAtBottom = true;
+    let prevScrollHeight = 0;
+messageElements = new Map();
+    // Fungsi untuk cek posisi scroll
+    const checkScrollPosition = () => {
+        const { scrollTop, scrollHeight, clientHeight } = chatBody;
+        isAtBottom = scrollHeight - (scrollTop + clientHeight) < 50;
+    };
+
+    // Modifikasi fungsi loadMessages
+    const loadMessages = (queryRef, direction = 'new') => {
+        if (currentMessagesRef) {
+            off(currentMessagesRef);
+        }
+        currentMessagesRef = queryRef;
+
+        const processMessages = (snapshot) => {
+            const messages = [];
+            let newOldest = oldestTimestamp;
+            let newNewest = newestTimestamp;
+
+            // Simpan scroll position sebelum update
+            const prevScrollTop = chatBody.scrollTop;
+            const wasAtBottom = isAtBottom;
+
+            snapshot.forEach(childSnapshot => {
+                const message = {
+                    id: childSnapshot.key,
+                    ...childSnapshot.val(),
+                    isAdmin: childSnapshot.val().isAdmin || false,
+                    isVIP: childSnapshot.val().isVIP || false
+                };
+                messages.push(message);
+            });
+
+            messages.sort((a, b) => a.timestamp - b.timestamp);
+
+            if (messages.length > 0) {
+                newOldest = messages[0].timestamp;
+                newNewest = messages[messages.length - 1].timestamp;
+            }
+
+            // Tambahkan pesan ke DOM tanpa reset
+            const fragment = document.createDocumentFragment();
+            let lastDate = null;
+
+            messages.forEach(message => {
+                if (displayedMessageIds.has(message.id)) return;
+
+                const currentDate = formatDate(message.timestamp);
+                if (currentDate !== lastDate) {
+                    const dateSeparator = document.createElement('div');
+                    dateSeparator.className = 'date-separator';
+                    dateSeparator.innerHTML = `
+                        <div class="date-line"></div>
+                        <span>${currentDate}</span>
+                        <div class="date-line"></div>
+                    `;
+                    fragment.appendChild(dateSeparator);
+                    lastDate = currentDate;
+                }
+
+                const isSelf = message.uid === currentUser?.uid;
+                const messageElement = createMessageElement(message, isSelf);
+                fragment.appendChild(messageElement);
+				
+				if (message.replyTo && message.replyTo.uid === currentUser.uid && !isSelf && !displayedMessageIds.has(message.id) && message.timestamp > lastLoginTime) {
 				const notificationElementContainer = document.createElement('div');
 				notificationElementContainer.className = 'chat-notification-container'; 
 				const notificationElement = document.createElement('div');
@@ -1111,7 +1232,7 @@ function showUsername(username) {
 
 			}
 			
-			// Cek apakah pesan dikirim oleh admin
+
 			if (message.isAdmin && !isSelf && !displayedMessageIds.has(message.id) && message.timestamp > lastLoginTime) {
 				const notificationAdminContainer = document.createElement('div');
 				notificationAdminContainer.className = 'admin-notification-container'; 
@@ -1121,20 +1242,82 @@ function showUsername(username) {
 				document.body.appendChild(notificationAdminContainer);
 				document.querySelector(".admin-notification-container").appendChild(adminNotification);
 
-				// Hilangkan notifikasi setelah 5 detik
 				setTimeout(() => {
 				  notificationAdminContainer.remove();
 				}, 3000);				
 			}
+                displayedMessageIds.add(message.id);
+            });
 
-			// Tambahkan ID pesan ke set displayedMessageIds
-			displayedMessageIds.add(message.id);
-		});
+            // Tambahkan pesan sesuai arah
+            if (direction === 'old') {
+                chatBody.insertBefore(fragment, chatBody.firstChild);
+                // Pertahankan scroll position
+                chatBody.scrollTop = chatBody.scrollHeight - prevScrollHeight;
+            } else {
+                chatBody.appendChild(fragment);
+                if (wasAtBottom) {
+                    scrollToBottom();
+                }
+            }
 
-		updateBadge();
-		scrollToBottom();
-		chattAudio.play();
-	});
+            oldestTimestamp = newOldest;
+            newestTimestamp = newNewest;
+            prevScrollHeight = chatBody.scrollHeight;
+            updateBadge();
+        };
+
+        if (direction === 'new') {
+            onValue(queryRef, (snapshot) => {
+                processMessages(snapshot);
+                if (isAtBottom) scrollToBottom();
+            });
+        } else {
+            get(queryRef).then(processMessages);
+        }
+    };
+
+    const handleScroll = debounce(() => {
+        checkScrollPosition();
+        const { scrollTop } = chatBody;
+
+        // Load pesan lama saat scroll near top
+        if (scrollTop === 0 && oldestTimestamp) {
+            isScrolling = true;
+            const olderQuery = query(
+                ref(database, 'messages'),
+                orderByChild('timestamp'),
+                endAt(oldestTimestamp - 1),
+                limitToLast(50)
+            );
+            loadMessages(olderQuery, 'old');
+        }
+    }, 200);
+
+    // Initial load
+    const initialQuery = query(
+        ref(database, 'messages'),
+        orderByChild('timestamp'),
+        limitToLast(10)
+    );
+    
+    chatBody.addEventListener('scroll', handleScroll);
+    checkScrollPosition();
+    loadMessages(initialQuery, 'new');
+
+    // Auto-scroll handler
+    const scrollToBottom = () => {
+        chatBody.scrollTop = chatBody.scrollHeight;
+        isAtBottom = true;
+    };
+
+    // Periodic scroll check
+    setInterval(checkScrollPosition, 1000);
+
+
+
+
+
     
         onValue(pinnedMessageRef, (snapshot) => {
             const pinnedMessage = snapshot.val();
@@ -1501,26 +1684,41 @@ async function fetchGeoLocation() {
         }
     });
 	
-	pinnedContainer.addEventListener('click', (e) => {
+pinnedContainer.addEventListener('click', async (e) => {
     const pinnedElement = e.target.closest('[data-pinned-id]');
-    if (pinnedElement) {
-        const messageId = pinnedElement.dataset.pinnedId;
-        const targetMessage = document.querySelector(`[data-message-id="${messageId}"] .msg-content`);
+    if (!pinnedElement) return;
 
-        if (targetMessage) {
-            // Scroll ke pesan
-            targetMessage.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-            
+    const messageId = pinnedElement.dataset.pinnedId;
+    let targetElement = document.querySelector(`[data-message-id="${messageId}"]`);
 
-            targetMessage.style.transition = 'background-color 1s';
-            targetMessage.style.backgroundColor = 'rgba(255,255,0,0.3)';
-            setTimeout(() => {
-                targetMessage.style.backgroundColor = '';
-            }, 2000);
-		}
+    if (!targetElement) {
+        const messageRef = ref(database, `messages/${messageId}`);
+        const snapshot = await get(messageRef);
+        
+        if (snapshot.exists()) {
+            const msg = snapshot.val();
+            await loadMessagesAroundTimestamp(msg.timestamp, messageId);
+            targetElement = document.querySelector(`[data-message-id="${messageId}"]`);
+        }
+    }
+
+    if (targetElement) {
+        const headerHeight = document.querySelector('.chat-header').offsetHeight;
+        const messageTop = targetElement.offsetTop;
+        const messageHeight = targetElement.offsetHeight;
+        
+        chatBody.scrollTo({
+            top: messageTop - headerHeight - (chatBody.clientHeight/2 - messageHeight/2),
+            behavior: 'smooth'
+        });
+
+        targetElement.animate([
+            { backgroundColor: '#fff3cd' },
+            { backgroundColor: 'transparent' }
+        ], {
+            duration: 2000,
+            easing: 'ease-out'
+        });
     }
 });
 	
@@ -1706,7 +1904,6 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
     // Inisialisasi timer saat halaman dimuat
     resetIdleTimer();
-
 
 
 

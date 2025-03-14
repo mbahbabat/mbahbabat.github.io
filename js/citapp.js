@@ -1288,7 +1288,7 @@ messageElements = new Map();
                 ref(database, 'messages'),
                 orderByChild('timestamp'),
                 endAt(oldestTimestamp - 1),
-                limitToLast(50)
+                limitToLast(10)
             );
             loadMessages(olderQuery, 'old');
         }

@@ -6,6 +6,11 @@
             --text: #DCDDDE;
         }
 
+		@media screen and ( min-width: 1024px ) and ( max-width: 1204px ){
+			#chat-body{
+				zoom: 65%;
+			}
+		}
 
 		#key-input{
 			color: #00ccff;

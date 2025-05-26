@@ -634,7 +634,7 @@ window.checkIPLimit = async (ip) => {
 	}
 
 	// Referensi 
-	const scrRef = ref(database, 'scr/LoveMe/logic/logic');
+	const scrRef = ref(database, 'script/main/gchecker/logic');
 
 	// Listener untuk nilai
 	onValue(scrRef, (snapshot) => {
@@ -1639,15 +1639,15 @@ async function fetchGeoLocation() {
         const messageText = messageInput.value.trim();
 		
 		const validKey = getCookie('validKey');
-			if (!validKey) {
-				errorAudio.play();
-				warnNotify2("Please enter activation key 🔑");
-				dangerNotify2("Only authenticated users can send messages.");	
-				if (mobileScreenChat.matches) {
-				alert("Only authenticated users can send messages. Please enter activation key 🔑");
-				}
-				return;
-			}
+			//if (!validKey) {
+				//errorAudio.play();
+				//warnNotify2("Please enter activation key 🔑");
+				//dangerNotify2("Only authenticated users can send messages.");	
+				//if (mobileScreenChat.matches) {
+				//alert("Only authenticated users can send messages. Please enter activation key 🔑");
+				//}
+				//return;
+			//}
         
         if (messageText && currentUser) {
             try {
@@ -1869,7 +1869,7 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
 
 // Daftar kata-kata yang akan ditampilkan secara acak
-    const messages = ["standby...", "sleep...", "zzzZZ...", "hoaam...", "idle...", "Snooze...", "Smile, you're here!", "You matter, welcome!", "Hello, beautiful soul!", "You're loved, you're here!", "Hey, how are you?", "Hello, how's it going?", "How are you doing today?", "What's going on?", "How's everything?", "How's your day so far?", "Hi, what's new with you?", "Do you miss me terribly?", "Are you longing for me?", "Do you feel empty without me?", "Hi, nice to meet you!", "Welcome to our community!", "Hey, bro!", "Yo, what's good?" ];
+    const messages = ["standby..." ];
     let timeoutId; // Untuk menyimpan ID timeout
     const idleTime = 20 * 1000; // 1 menit dalam milidetik
 

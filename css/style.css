@@ -878,20 +878,20 @@ welcome-overlay{
 
 @media screen and ( min-width: 1024px ){
 	.monitor-c{
-		background: #0066cc;
+		background: #0066cc!important;
 	}
 	
 	.monitor-msg{
-		background: #0066cc;
+		background: #0066cc!important;
 	}	
 
 	.res-counter{
 
-		background: #0066cc;
+		background: #0066cc!important;
 	}
 
 	.totalRes-counter{
-		background: #0066cc;
+		background: #0066cc!important;
 	}	
 }	
 

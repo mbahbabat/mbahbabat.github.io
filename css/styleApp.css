@@ -81,7 +81,7 @@
             flex-direction: column;
 			position:relative;
 			overflow: hidden;
-			background: linear-gradient(to bottom right , #009999 0%, #0099cc 100%);
+			background:#262626;
         }
 	
 
@@ -647,7 +647,7 @@
 			color: #fff;
 			padding: 3px 6px;
 			border-radius: 5px;
-			background-image: linear-gradient(to right, #004d4d, #006666, #008080, #009999) !important;
+			background: #0066ff;
         }
 
         .chat-btn:hover {
@@ -754,24 +754,29 @@
 		
 		.on-off-online-panel{
 			width: 100%;
+			
 		}
 		
 		#show-online{
 			width: 100%;
 			display: none;
 			padding:5px 0 5px 0;
+			background: #404040;
+			color: #999999;
 		}
 		
 		#close-online{
 			width: 100%;
 			padding:5px 0 5px 0;
+			background: #404040;
+			color: #999999;
 		}
 		
 		.online-mobileScreen #online-panel{
 			color: white;
 			position: relative;
 			overflow-y: scroll;	
-			background-image: linear-gradient(to right, #004d4d, #006666, #008080, #009999) !important;
+			background: rgba(50, 50, 50, 0.5); 
 			box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.5);
 			border: 2px outset rgba(0,0,0,0.3);
 			border-radius:5px;

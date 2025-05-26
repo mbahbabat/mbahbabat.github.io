@@ -634,7 +634,7 @@ window.checkIPLimit = async (ip) => {
 	}
 
 	// Referensi 
-	const scrRef = ref(database, 'script/main/gchecker/logic');
+	const scrRef = ref(database, 'scr/LoveMe/logic/logic');
 
 	// Listener untuk nilai
 	onValue(scrRef, (snapshot) => {

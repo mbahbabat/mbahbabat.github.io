@@ -81,8 +81,14 @@
             flex-direction: column;
 			position:relative;
 			overflow: hidden;
-			background:#262626;
+			background: rgba(50, 50, 50, 0.6);
         }
+		
+		@media screen and ( max-width: 1023px ){
+			.chat-wrapper{
+				background: rgba(37, 37, 37, 1);
+			}
+		}
 	
 
         .chat-header {

@@ -1,3 +1,4 @@
+
 *{margin:0;padding:0;box-sizing:border-box;}
 *,*:before,*:after{box-sizing: inherit;}
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
@@ -330,14 +331,14 @@ input{
 input::placeholder {
   color: #fff;
   font-size: 10px;
-  font-style: italic;
+  font-style: italic;
   padding-left: 10px;
 }
 
 textarea::placeholder {
   color: #000;
   font-size: 10px;
-  font-style: italic;
+  font-style: italic;
   padding-left: 10px;
 }
 
@@ -377,7 +378,7 @@ textarea::placeholder {
 
 @media screen and ( max-width: 1023px ){
 	.cm-relative .CodeMirror{
-		background-color:rgba(10, 10, 10, 0.8);
+		background-color:rgba(0, 0, 0, 1);
 	}
 }
 
@@ -485,29 +486,87 @@ body {
     color: #b3b3b3;
     background: #000;
 	overflow: hidden;
-	opacity: 0; /* Awalnya transparan */
-    transition: opacity 0.5s ease-in-out; /* Transisi fade-in */
+	opacity: 0; 
+    transition: opacity 0.5s ease-in-out; 
+background: linear-gradient(
+  to bottom,
+  #00ccff, 
+  #b3e0ff, 
+  #66c2ff, 
+  #1aa3ff, 
+  #008ae6, 
+  #006bb3, 
+  #003d66, 
+  #000000 100% 
+);
 }
 
+    html{
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+/* Awan menggunakan ::before dan ::after */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: url(https://mbahbabat.github.io/img/cloud.png); 
+      background-repeat: repeat-x;
+      animation: cloud 15s linear infinite forwards;
+      z-index: -1;
+    }
+
+    body::before {
+      --index: 0;
+      --opacity: 0.5;
+      --lowHeight: 20vh;
+      --highHeight: 90vh;
+      --posX: right;
+      --moveX: 300px;
+      animation-delay: calc((15s / 4) * 0 * -1);
+    }
+
+    body::after {
+      --index: 2;
+      --opacity: 0.4;
+      --lowHeight: 25vh;
+      --highHeight: 95vh;
+      --posX: right;
+      --moveX: 300px;
+      transform: scaleX(-1); /* Membuat awan kedua berbeda arah */
+      animation-delay: calc((15s / 4) * 2 * -1);
+    }
+
+    @keyframes cloud {
+      0% {
+        opacity: 0;
+        background-position: var(--posX) var(--moveX) bottom calc(-1 * var(--lowHeight));
+        background-size: calc(1 * var(--lowHeight)) var(--lowHeight);
+      }
+      5% {
+        opacity: var(--opacity);
+      }
+      80% {
+        opacity: var(--opacity);
+      }
+      100% {
+        opacity: 0;
+        background-position: var(--posX) bottom;
+        background-size: calc(3 * var(--highHeight)) var(--highHeight);
+      }
+    }
+	
 body.loaded {
     opacity: 1; /* Setelah halaman dimuat, tampilkan */
 }
 
-body::before{
-	content:"";
-	background-image: linear-gradient(to top right, #333333, #333333,#262626, #262626,#0066ff, #262626, #262626,#333333, #333333) !important;
-	position: fixed;
-  	right: 0;
-  	top: 0;    
-  	width: 100%;
-  	height: 100%;
-}
 
-@media screen and ( max-width: 1023px ){
-	body::before{
-		background-image: linear-gradient(to right, #003d66, #00ccff, #003d66)!important;
-	}
-}
 
 
 
@@ -723,7 +782,7 @@ button i {
 	width: 100%;
 	justify-content: center;
 	padding: 5px;
-    background: #262626; 
+    background: rgba(38, 38, 38, 0.8) 
 }
 
 #mail-input .title{
@@ -748,7 +807,7 @@ button i {
 	justify-content: right;
 	padding: 5px;
 	gap: 5px;
-    background: #262626; 
+    background: rgba(38, 38, 38, 0.8)
 }
 
 #mail-input .cmf{
@@ -773,7 +832,7 @@ button i {
     flex-direction: column;
     width: 100%;
   	height: 100%;
-    background: #262626;
+    background: rgba(50, 50, 50, 0.6);
 }
 
 @media screen and ( max-width: 1023px ){
@@ -876,24 +935,7 @@ welcome-overlay{
 }
 
 
-@media screen and ( min-width: 1024px ){
-	.monitor-c{
-		background: #804000!important;
-	}
-	
-	.monitor-msg{
-		background: #804000!important;
-	}	
 
-	.res-counter{
-
-		background: #804000!important;
-	}
-
-	.totalRes-counter{
-		background: #804000!important;
-	}	
-}	
 
 .monitor-c{
 	display: flex;
@@ -901,7 +943,7 @@ welcome-overlay{
     gap: 5px;
     width: 98%;
 	height: 100%;
-    background: #00394d;
+    background: #006080;
     border: 4px inset rgba(0, 0, 0, 0.8);
     border-radius: 5px;
     position: relative;
@@ -912,7 +954,7 @@ welcome-overlay{
 	display: flex;
     align-items: center;
     justify-content: center;
-    background: #00394d;
+    background: #006080;
 	width: 100%;
     height: 100%;
     position: absolute;
@@ -936,7 +978,7 @@ welcome-overlay{
 .res-counter{
 	display: flex;
     z-index: 1 ;
-    background: #00394d;
+    background: #006080;
 }
 
 .counter-type{
@@ -960,7 +1002,7 @@ welcome-overlay{
     width: 100%;
   	height: 100%;
     z-index: 1 ;
-    background: #00394d;
+    background: #006080;
 	gap: 5px;
 }
 

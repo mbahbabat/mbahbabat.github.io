@@ -349,7 +349,8 @@ textarea::placeholder {
 
 .CodeMirror-empty::before {
     content: attr(data-placeholder);
-    color: #595959;
+    color: #bfbfbf;
+	font-weight:100;
     position: absolute;
     padding: 4px;
     pointer-events: none;

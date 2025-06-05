@@ -768,7 +768,7 @@ function showUsername(username) {
     let replyingTo = null;
 	let currentUserCountry = '';
 
-// Format: #USER ABC123 (6 karakter acak)
+
 const generateCustomUsername = () => {
     const chars = '0123456789';
     let suffix = '';
@@ -1364,54 +1364,19 @@ messageElements = new Map();
 
 
 let lastLoginTime = null;
-let currentSessionToken = null;
-let currentUserIP;
 
-
-// Fungsi untuk generate token unik
-function generateSessionToken() {
-  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-}
-
-// Listener global untuk deteksi sesi
-function setupGlobalSessionListener(uid, username, sessionToken) {
-	
-  const userSessionRef = ref(database, `users/${uid}/currentSession`);
-  
-  // Deteksi perubahan sesi secara real-time
-  onValue(userSessionRef, (snapshot) => {
-    const activeSession = snapshot.val();
-    
-    // Jika sesi aktif berbeda dengan sesi ini
-    if (activeSession && activeSession.token !== sessionToken) {
-      // Tampilkan pesan pencekalan
-		const duplicateUser = document.getElementById('duplicate-user');
-		duplicateUser.innerHTML = `
-		  <div class="duplicate-user-content">
-			<span>⛔ Session has ended!</span> 
-			<br>
-			<span>New session detected :</span> 
-			<span>Username: <strong>${username}</strong></span>
-			<span>IP: <strong>${currentUserIP || 'Unknown'}</strong></span>
-			<br>
-			<button style="padding:10px" onclick="window.location.reload()">Take Over</button>
-		  </div>`;
-		  
-		duplicateUser.style.display = 'flex';
-
-      // Auto-logout setelah 5 detik
-      setTimeout(async () => {
-        try {
-          await signOut(auth);
-          window.location.reload();
-        } catch (error) {
-          console.error('Auto-logout gagal:', error);
+// Fungsi untuk memeriksa apakah username sudah ada di daftar online
+function isUsernameAlreadyOnline(username, onlineData) {
+    for (let uid in onlineData) {
+        if (onlineData[uid].username === username) {
+            return true;
         }
-      }, 5000);
     }
-  });
+    return false;
 }
 
+
+// Modifikasi bagian di mana pengguna ditambahkan ke daftar online
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
@@ -1420,142 +1385,170 @@ onAuthStateChanged(auth, async (user) => {
 
     try {
       const username = await getUsername(user.uid);
-      showWelcomeMessage(username);
-      showUsername(username);
+	  showWelcomeMessage(username);
+	  showUsername(username);
 
-      // Dapatkan informasi lokasi dan IP
+ // Mendapatkan informasi negara pengguna
       try {
         currentUserCountry = await fetchGeoLocation();
+
       } catch (error) {
         console.error('Error fetching geo location:', error.message);
       }
-      
-      
-      try {
-        currentUserIP = await getIPUser();
-      } catch (error) {
-        console.error('Error fetching IP:', error.message);
-        currentUserIP = null;
-      }
+	  
+	  let currentUserIP;
+		try {
+		  currentUserIP = await getIPUser();
+		} catch (error) {
+		  console.error('Error fetching IP:', error.message);
+		  currentUserIP = null;
+		}
 
-      // Generate token sesi baru
-      currentSessionToken = generateSessionToken();
-
-      // Simpan informasi pengguna dengan token sesi
+      // Menyimpan informasi pengguna ke database
       const userRef = ref(database, `users/${user.uid}`);
       await set(userRef, {
         username: username,
         country: currentUserCountry,
-        ip: currentUserIP,
+		ip: currentUserIP,
         created: serverTimestamp(),
         lastLogin: serverTimestamp(),
         online: true,
         isAdmin: isAdmin,
-        isVIP: isVIP,
-        currentSession: {
-          token: currentSessionToken,
-          timestamp: serverTimestamp()
-        }
+        isVIP: isVIP
       });
-      
+	  
+	   // Simpan waktu login terakhir
       lastLoginTime = Date.now();
 
-      // Setup listener global untuk deteksi sesi
-      setupGlobalSessionListener(user.uid, username, currentSessionToken);
+      const onlineUsersRef = ref(database, 'onlineUsers');
+      const onlineDataSnapshot = await get(onlineUsersRef);
+      const onlineData = onlineDataSnapshot.val();
+
+      if (isUsernameAlreadyOnline(username, onlineData)) {
+        // Log atau Alert jika pengguna sudah ada di daftar online
+		const duplicateUser = document.getElementById('duplicate-user');
+		duplicateUser.innerHTML = 	`<div class="duplicate-user-content">
+										<span>⛔ User duplication detected!</span> 
+										<span>Hello <strong>${username}</strong></span>
+										<span> Please close other sessions or wait! </span> 
+									</div>`;
+		duplicateUser.style.display = 'flex';
+		if (mobileScreenChat.matches) {
+		  console.log('optimasi tampilan mobile');
+		  var klik = 0;
+		  var interval = setInterval(function() {
+			console.log('optimasi ke-' + (klik + 1));
+			document.body.click();
+			klik++;
+			if (klik >= 3) {
+			  console.log('optimasi selesai');
+			  clearInterval(interval);
+			}
+		  }, 500); // 1000 ms = 1 detik
+		}
+        return; // Stop further execution as the user is already online
+      }
 
       const onlineRef = ref(database, `onlineUsers/${user.uid}`);
-      
-      // Tambahkan pengguna ke daftar online
       await set(onlineRef, {
         username: username,
         country: currentUserCountry,
-        ip: currentUserIP,
+		ip: currentUserIP,
         lastActive: serverTimestamp(),
         isAdmin: isAdmin,
-        isVIP: isVIP,
-        sessionToken: currentSessionToken
+        isVIP: isVIP
       });
 
-      // Setup onDisconnect
-      onDisconnect(onlineRef).remove();
 
-      // Fungsi update timestamp
-      async function updateTimestamp() {
-        if (currentUser && isPageVisible) {
-          const snapshot = await get(onlineRef);
-          
-          if (snapshot.exists()) {
-            const userData = snapshot.val();
-            await set(onlineRef, { 
-              ...userData, 
-              lastActive: serverTimestamp(),
-              ip: currentUserIP
+	// Fungsi untuk memperbarui timestamp
+	async function updateTimestamp() {
+	  if (currentUser && isPageVisible) {
+		const onlineRef = ref(database, `onlineUsers/${currentUser.uid}`);
+		const snapshot = await get(onlineRef);
+		if (snapshot.exists()) {
+		  const userData = snapshot.val();
+		  await set(onlineRef, { 
+			...userData, 
+			lastActive: serverTimestamp(),
+			ip: currentUserIP // Update IP jika berubah
+		  });
+		} else {
+		  // Jika data pengguna tidak ada, tambahkan kembali ke onlineUsers
+		  await set(onlineRef, {
+			username: username,
+			country: currentUserCountry,
+			ip: currentUserIP,
+			lastActive: serverTimestamp(),
+			isAdmin: isAdmin,
+			isVIP: isVIP
+		  });
+		}
+
+		// Mengatur onDisconnect di sini dengan referensi yang benar
+		onDisconnect(onlineRef).remove();
+	  }
+	}
+
+
+	setInterval(async () => {
+	  const snapshot = await get(onlineUsersRef);
+	  if (snapshot.exists()) {
+		const users = snapshot.val();
+		const now = Date.now();
+		for (const uid in users) {
+		  if (users.hasOwnProperty(uid)) {
+			const user = users[uid];
+			const lastActive = user.lastActive ? new Date(user.lastActive) : now;
+			// Hapus pengguna yang tidak aktif lebih dari 5 menit
+			if (now - lastActive > 5 * 60 * 1000) {
+			  await set(ref(database, `onlineUsers/${uid}`), null);
+			}
+		  }
+		}
+	  }
+	}, 5 * 60 * 1000);
+
+	let isPageVisible = document.visibilityState === 'visible';
+
+	document.addEventListener('visibilitychange', function () {
+	  isPageVisible = document.visibilityState === 'visible';
+	  if (isPageVisible) {
+		updateTimestamp(); 
+	  }
+	});
+
+	// Perbarui timestamp setiap detik jika halaman terlihat
+	setInterval(() => {
+	  if (isPageVisible) {
+		updateTimestamp();
+	  }
+	}, 1000);
+
+
+            onValue(onlineUsersRef, (snapshot) => {
+                const onlineData = snapshot.val() || {};
+                const onlineCount = Object.keys(onlineData).length;
+
+                if (mobileScreenChat.matches) {
+                    const onlineCounterMob = document.getElementById('online-counter-mob');
+					const onlineCounterMobMini = document.getElementById('online-counter-mob-mini');
+                    if (onlineCounterMob) {
+                        onlineCounterMob.innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
+                        updateOnlineList(onlineData); // Pastikan ini dipanggil setelah `onValue`
+                    }
+					if (onlineCounterMobMini) {
+                        onlineCounterMobMini.innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
+                        updateOnlineList(onlineData); 
+                    }
+                } else if (desktopScreenChat.matches) {
+                    const onlineCounterDesk = document.getElementById('online-counter-desk');
+                    if (onlineCounterDesk) {
+                        onlineCounterDesk.innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
+                        updateOnlineList(onlineData); 
+                    }
+                }
             });
-          }
-        }
-      }
-
-      // Update aktivitas setiap detik
-      setInterval(() => {
-        if (isPageVisible) updateTimestamp();
-      }, 1000);
-
-      // Hapus pengguna tidak aktif setiap 5 menit
-      const onlineUsersRef = ref(database, 'onlineUsers');
-      setInterval(async () => {
-        const snapshot = await get(onlineUsersRef);
-        
-        if (snapshot.exists()) {
-          const users = snapshot.val();
-          const now = Date.now();
-          
-          for (const uid in users) {
-            if (users.hasOwnProperty(uid)) {
-              const user = users[uid];
-              const lastActive = user.lastActive ? new Date(user.lastActive) : now;
-              
-              if (now - lastActive > 5 * 60 * 1000) {
-                await set(ref(database, `onlineUsers/${uid}`), null);
-              }
-            }
-          }
-        }
-      }, 5 * 60 * 1000);
-
-      // Handle visibility change
-      let isPageVisible = document.visibilityState === 'visible';
-      document.addEventListener('visibilitychange', () => {
-        isPageVisible = document.visibilityState === 'visible';
-        if (isPageVisible) updateTimestamp();
-      });
-
-      // Update UI online counter
-      onValue(onlineUsersRef, (snapshot) => {
-        const onlineData = snapshot.val() || {};
-        const onlineCount = Object.keys(onlineData).length;
-        
-        if (mobileScreenChat.matches) {
-          const onlineCounterMob = document.getElementById('online-counter-mob');
-          const onlineCounterMobMini = document.getElementById('online-counter-mob-mini');
-          
-          if (onlineCounterMob) {
-            onlineCounterMob.innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
-            updateOnlineList(onlineData);
-          }
-          
-          if (onlineCounterMobMini) {
-            onlineCounterMobMini.innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
-            updateOnlineList(onlineData);
-          }
-        } else if (desktopScreenChat.matches) {
-          const onlineCounterDesk = document.getElementById('online-counter-desk');
-          
-          if (onlineCounterDesk) {
-            onlineCounterDesk.innerHTML = `Online: <span class="online-count">${onlineCount}</span>`;
-            updateOnlineList(onlineData);
-          }
-        }
-      });
+	 
 
       initializeChat();
 
@@ -1565,7 +1558,6 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     const maxRetries = 3;
     let attempts = 0;
-    
     const tryAnonymousAuth = async () => {
       try {
         await signInAnonymously(auth);
@@ -1576,10 +1568,10 @@ onAuthStateChanged(auth, async (user) => {
         }
       }
     };
-    
     tryAnonymousAuth();
   }
 });
+
 
 async function getIPUser() {
     try {

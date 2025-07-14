@@ -528,7 +528,7 @@
                         </button>
                     </div>
                     <pre><code>/**
- * Hybrid Fetch &amp; Fill
+ * Hybrid Fetch & Fill
  * 
  * Fitur utama:
  * - Sanitasi hybrid (DOMPurify + fallback)
@@ -542,7 +542,7 @@
 const fetchCache = new Map();
 const EVENT_PREFIX = 'fetchandfill:';
 
-function fetchAndFill(src, targetSelector, options = {}) {
+export function fetchAndFill(src, targetSelector, options = {}) {
     // Validasi ketat parameter input
     if (typeof src !== 'string' || !src.trim()) {
         throw new TypeError('Parameter src harus berupa string non-kosong');
@@ -564,7 +564,7 @@ function fetchAndFill(src, targetSelector, options = {}) {
             FORBID_ATTR: ['onload', 'onerror', 'onclick'],
             ADD_ATTR: ['data-safe-attr']
         },
-        cache: 'memory', // 'memory', 'session', 'none'
+        cache: 'memory',
         maxRetries: 2,
         retryDelay: 1000,
         timeout: 30000,
@@ -578,6 +578,7 @@ function fetchAndFill(src, targetSelector, options = {}) {
     
     // State management
     let observer, timeoutId, isFilled = false, retryCount = 0;
+    const EVENT_PREFIX = 'fetchandfill:';
     
     // Event dispatching
     function dispatchEvent(eventName, detail) {
@@ -592,14 +593,25 @@ function fetchAndFill(src, targetSelector, options = {}) {
         if (!config.signal) controller.abort();
         dispatchEvent('cleanup', { src, targetSelector });
     }
-    
+	
     // Validasi selector
     function validateSelector(selector) {
+        if (!selector || typeof selector !== 'string' || selector.trim() === '') {
+            return false;
+        }
+        
         try {
-            document.createDocumentFragment().querySelector(selector);
+            // Coba buat elemen dummy untuk validasi
+            const temp = document.createElement('div');
+            const testEl = document.createElement('div');
+            temp.appendChild(testEl);
+            
+            // Coba query selector
+            temp.querySelector(selector);
             return true;
-        } catch {
-            throw new Error(`Selector tidak valid: "${selector}"`);
+        } catch (e) {
+            console.warn(`Selector validation warning: "${selector}" - ${e.message}`);
+            return false;
         }
     }
     
@@ -609,8 +621,16 @@ function fetchAndFill(src, targetSelector, options = {}) {
         isFilled = true;
         
         try {
-            validateSelector(targetSelector);
-            validateSelector(config.relativeTo || '');
+            // Validasi selector utama WAJIB
+            if (!validateSelector(targetSelector)) {
+                throw new Error(`Target selector invalid: "${targetSelector}"`);
+            }
+            
+            // Validasi relativeTo selector jika ada (FIXED: Skip if empty)
+            if (config.relativeTo && !validateSelector(config.relativeTo)) {
+                console.warn(`Relative selector invalid: "${config.relativeTo}" - using fallback`);
+                config.relativeTo = null;
+            }
             
             dispatchEvent('start', { src, target, config });
             
@@ -690,14 +710,16 @@ function fetchAndFill(src, targetSelector, options = {}) {
             
             dispatchEvent('success', { src, target, fragment });
             
-        } catch (err) {
+			} catch (err) {
             if (err.name !== 'AbortError') {
                 console.error(`[fetchAndFill] Error loading "${src}"`, err);
                 dispatchEvent('error', { src, target, error: err });
                 
-                // Fallback UI untuk error
-                if (config.position === 'replace') {
+                // Fallback UI untuk error (FIXED: null element handling)
+                if (target && config.position === 'replace') {
                     displayError(target, err, src);
+                } else {
+                    console.error('Cannot display error UI - target element not available');
                 }
             }
         }
@@ -758,7 +780,13 @@ function fetchAndFill(src, targetSelector, options = {}) {
     }
     
     // Error handling UI
-    function displayError(target, error, src) {
+function displayError(target, error, src) {
+        // Pastikan target valid
+        if (!target || !(target instanceof Element)) {
+            console.error('Cannot display error - invalid target element');
+            return;
+        }
+        
         const errorEl = document.createElement('div');
         errorEl.className = 'fetch-fill-error';
         errorEl.innerHTML = `
@@ -767,18 +795,24 @@ function fetchAndFill(src, targetSelector, options = {}) {
                 <h3 style="margin:15px 0;color:#dc3545;">Gagal Memuat Konten</h3>
                 <p>${error.message}</p>
                 <p style="font-size:0.9rem;margin-top:10px;color:#6c757d;">Source: ${src}</p>
-                <button class="btn" style="margin-top:20px;">
+                <button class="btn" style="margin-top:20px;background:var(--danger);">
                     <i class="fas fa-redo"></i> Coba Lagi
                 </button>
             </div>
         `;
         
-        errorEl.querySelector('.btn').addEventListener('click', () => {
-            errorEl.remove();
-            isFilled = false;
-            retryCount = 0;
-            proceedFill(target);
-        });
+        // Null check sebelum menambahkan event listener
+        const btn = errorEl.querySelector('.btn');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                errorEl.remove();
+                isFilled = false;
+                retryCount = 0;
+                proceedFill(target);
+            });
+        } else {
+            console.error('Error button element not found in error UI');
+        }
         
         target.replaceChildren(errorEl);
     }
@@ -887,7 +921,7 @@ function fetchAndFill(src, targetSelector, options = {}) {
         throw err;
     }
     
-    return { 
+     return { 
         abort: cleanup,
         on: (event, handler) => {
             const eventName = EVENT_PREFIX + event;

@@ -1,0 +1,59 @@
+<div class="profile-content">
+    <h2><i class="fas fa-user"></i> Profil Pengguna</h2>
+    
+    <div class="profile-header" style="display: flex; align-items: center; gap: 20px; margin: 20px 0;">
+        <img id="profile-pic" src="mbah.jpg" 
+             alt="Foto Profil" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">
+        <div>
+            <h3 id="profile-name">Nama Pengguna</h3>
+            <p><i class="fas fa-envelope"></i> <span id="user-email">user@example.com</span></p>
+        </div>
+    </div>
+    
+    <div class="profile-details" style="background: #f5f5f5; padding: 15px; border-radius: 8px;">
+        <h3><i class="fas fa-info-circle"></i> Informasi Penulis</h3>
+        <ul style="margin: 15px 0; padding-left: 20px;">
+            <li>Umur: <span id="user-age">30</span> tahun</li>
+            <li>Pekerjaan: <span id="user-job">Web Developer</span></li>
+            <li>Lokasi: <span id="user-location">Jakarta, Indonesia</span></li>
+        </ul>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <button id="contact-btn" style="padding: 10px 20px; background: #3498db; color: white; 
+                border: none; border-radius: 5px; cursor: pointer;">
+            <i class="fas fa-envelope"></i> Hubungi Saya
+        </button>
+    </div>
+</div>
+
+<script>
+    // Script di dalam profile.html
+    console.log('Script di profile.html dijalankan!');
+    
+    // Update data profil
+    document.getElementById('profile-name').textContent = 'Mbah Babat';
+    document.getElementById('user-email').textContent = 'mbahbabat@gmail.com';
+    document.getElementById('user-age').textContent = '35';
+    document.getElementById('user-job').textContent = 'Depan Layar';
+    
+    // Tambahkan event listener
+    document.getElementById('contact-btn').addEventListener('click', function() {
+        alert('Telegram: @mbahbabt');
+    });
+    
+    // Panggil fungsi di halaman utama
+    if (window.updateScriptResult) {
+        window.updateScriptResult('Script di profile.html berhasil dieksekusi!');
+    }
+    
+    // Fungsi yang bisa dipanggil dari luar
+    function updateLocation(newLocation) {
+        const locationEl = document.getElementById('user-location');
+        if (locationEl) {
+            locationEl.textContent = newLocation;
+            return `Lokasi diperbarui ke: ${newLocation}`;
+        }
+        return 'Elemen lokasi tidak ditemukan';
+    }
+</script>

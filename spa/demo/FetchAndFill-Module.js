@@ -9,6 +9,7 @@
  * - Retry dengan exponential backoff
  * - Manajemen siklus hidup SPA
  * - Auto cleanup
+ * - Lazy Load
  */
 
 const fetchCache = new Map();
@@ -17,61 +18,84 @@ const activeLoaders = new Set(); // Global registry for active loaders
 
 // Fungsi cleanup global
 function cleanupAllLoaders() {
-    activeLoaders.forEach(loader => loader.abort());
-    activeLoaders.clear();
+	activeLoaders.forEach(loader => loader.abort());
+	activeLoaders.clear();
 }
 
 // Auto cleanup saat navigasi SPA (PopState/PushState)
 function setupSPACleanup() {
-    try {
-        const originalPushState = history.pushState;
-        const originalReplaceState = history.replaceState;
-        
-        history.pushState = function () {
-            originalPushState.apply(this, arguments);
-            window.dispatchEvent(new Event('spa-navigate'));
-        };
+	try {
+		const originalPushState = history.pushState;
+		const originalReplaceState = history.replaceState;
 
-        history.replaceState = function () {
-            originalReplaceState.apply(this, arguments);
-            window.dispatchEvent(new Event('spa-navigate'));
-        };
+		history.pushState = function () {
+			originalPushState.apply(this, arguments);
+			window.dispatchEvent(new Event('spa-navigate'));
+		};
 
-        // Tangkap event popstate (back/forward)
-        window.addEventListener('popstate', () => {
-            window.dispatchEvent(new Event('spa-navigate'));
-        });
+		history.replaceState = function () {
+			originalReplaceState.apply(this, arguments);
+			window.dispatchEvent(new Event('spa-navigate'));
+		};
 
-        // Tangkap event navigasi dan cleanup
-        window.addEventListener('spa-navigate', cleanupAllLoaders);
-		
-    } catch (error) {
-        console.error('SPA cleanup setup failed:', error);
-        // Fallback: cleanup on every load
-        window.addEventListener('load', cleanupAllLoaders);
-    }
+		// Tangkap event popstate (back/forward)
+		window.addEventListener('popstate', () => {
+			window.dispatchEvent(new Event('spa-navigate'));
+		});
+
+		// Tangkap event navigasi dan cleanup
+		window.addEventListener('spa-navigate', cleanupAllLoaders);
+
+	} catch (error) {
+		console.error('SPA cleanup setup failed:', error);
+		// Fallback: cleanup on every load
+		window.addEventListener('load', cleanupAllLoaders);
+	}
 }
 
 // Auto cleanup saat window ditutup
 function setupWindowCleanup() {
-    window.addEventListener('beforeunload', cleanupAllLoaders);
-    window.addEventListener('pagehide', cleanupAllLoaders);
+	window.addEventListener('beforeunload', cleanupAllLoaders);
+	window.addEventListener('pagehide', cleanupAllLoaders);
 
-    // Visibility API untuk tab background
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
-            cleanupAllLoaders();
-        }
-    });
+	// Visibility API untuk tab background
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden') {
+			cleanupAllLoaders();
+		}
+	});
 }
 
 // Inisialisasi auto cleanup (hanya di browser)
 if (typeof window !== 'undefined') {
-    setupSPACleanup();
-    setupWindowCleanup();
+	setupSPACleanup();
+	setupWindowCleanup();
 }
 
+//lazy loading
+const lazyConfig = {
+	enabled: true,
+	margin: '200px',
+	threshold: 0.01,
+	disableForAboveFold: true
+};
 
+function configureLazyLoading(options = {}) {
+	Object.assign(lazyConfig, options);
+	console.log('Lazy loading configuration updated:', lazyConfig);
+}
+
+function isElementInViewport(el) {
+	const rect = el.getBoundingClientRect();
+	return (
+		rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+		rect.bottom >= 0 &&
+		rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+		rect.right >= 0
+	);
+}
+
+//fungsi utama
 function fetchAndFill(src, targetSelector, options = {}) {
 	// Validasi ketat parameter input
 	if (typeof src !== 'string' || !src.trim()) {
@@ -101,6 +125,42 @@ function fetchAndFill(src, targetSelector, options = {}) {
 		signal: null,
 		...options
 	};
+	
+	let lazyObserver;
+	let enhancedCleanup;
+	
+	// Fungsi lazy observer
+	function setupLazyObserver(target) {
+		
+		 if (!('IntersectionObserver' in window)) {
+            console.warn('IntersectionObserver not supported. Loading immediately.');
+            proceedFill(target);
+            return;
+        }
+		
+		dispatchEvent('lazy-wait', {
+			src,
+			target
+		});
+
+		lazyObserver = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					lazyObserver.unobserve(target);
+					dispatchEvent('lazy-trigger', {
+						src,
+						target
+					});
+					proceedFill(target);
+				}
+			});
+		}, {
+			rootMargin: lazyConfig.margin,
+			threshold: lazyConfig.threshold
+		});
+
+		lazyObserver.observe(target);
+	}
 
 	// AbortController untuk manajemen lifecycle
 	const controller = new AbortController();
@@ -121,6 +181,7 @@ function fetchAndFill(src, targetSelector, options = {}) {
 	// Cleanup resources
 	function cleanup() {
 		observer?.disconnect();
+		lazyObserver?.disconnect();
 		clearTimeout(timeoutId);
 		if (!config.signal) controller.abort();
 		dispatchEvent('cleanup', {
@@ -275,7 +336,7 @@ function fetchAndFill(src, targetSelector, options = {}) {
 				});
 
 				// Fallback UI untuk error (FIXED: null element handling)
-				if (target && config.position === 'replace') {
+				if (target) {
 					displayError(target, err, src);
 				} else {
 					console.error('Cannot display error UI - target element not available');
@@ -293,8 +354,8 @@ function fetchAndFill(src, targetSelector, options = {}) {
 
 			if (response.ok) return response;
 
-			if (response.status >= 500 && retryCount < maxRetries) {
-				throw new Error(`HTTP ${response.status}`);
+			if (retryCount < maxRetries) {
+			  throw new Error(`HTTP ${response.status}`);
 			}
 
 			return response;
@@ -360,14 +421,14 @@ function fetchAndFill(src, targetSelector, options = {}) {
                 <h3 style="margin:15px 0;color:#dc3545;">Gagal Memuat Konten</h3>
                 <p>${error.message}</p>
                 <p style="font-size:0.9rem;margin-top:10px;color:#6c757d;">Source: ${src}</p>
-                <button class="btn" style="margin-top:20px;background:var(--danger);">
+                <button id="fnf-error-btn" class="fnf-error-btn" style="margin-top:20px; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
                     <i class="fas fa-redo"></i> Coba Lagi
                 </button>
             </div>
         `;
 
 		// Null check sebelum menambahkan event listener
-		const btn = errorEl.querySelector('.btn');
+		const btn = errorEl.querySelector('#fnf-error-btn');
 		if (btn) {
 			btn.addEventListener('click', () => {
 				errorEl.remove();
@@ -448,7 +509,11 @@ function fetchAndFill(src, targetSelector, options = {}) {
 		const target = document.querySelector(targetSelector);
 		if (target && !isFilled) {
 			cleanup();
-			proceedFill(target);
+			if (lazyConfig.enabled && (!lazyConfig.disableForAboveFold || !isElementInViewport(target))) {
+				setupLazyObserver(target);
+			} else {
+				proceedFill(target);
+			}
 		}
 	}
 
@@ -458,9 +523,14 @@ function fetchAndFill(src, targetSelector, options = {}) {
 
 		const target = document.querySelector(targetSelector);
 		if (target) {
-			proceedFill(target);
+			// Gunakan lazy loading jika diaktifkan dan elemen tidak terlihat
+			if (lazyConfig.enabled && (!lazyConfig.disableForAboveFold || !isElementInViewport(target))) {
+				setupLazyObserver(target);
+			} else {
+				proceedFill(target);
+			}
 		} else {
-			// Setup observer
+			// Setup observer untuk target yang belum ada
 			observer = new MutationObserver(mutationCallback);
 			observer.observe(document.documentElement, {
 				childList: true,
@@ -471,9 +541,12 @@ function fetchAndFill(src, targetSelector, options = {}) {
 			// Timeout fallback
 			timeoutId = setTimeout(() => {
 				if (!isFilled) {
-					enhancedCleanup(); 
+					enhancedCleanup();
 					const err = new Error(`Target element not found: ${targetSelector}`);
-					dispatchEvent('error', { src, error: err });
+					dispatchEvent('error', {
+						src,
+						error: err
+					});
 					throw err;
 				}
 			}, config.timeout);
@@ -489,34 +562,35 @@ function fetchAndFill(src, targetSelector, options = {}) {
 		throw err;
 	}
 
-    // Buat objek loader
-    const loader = {
-        abort: cleanup,
-        on: (event, handler) => {
-            const eventName = EVENT_PREFIX + event;
-            document.addEventListener(eventName, handler);
-            return () => document.removeEventListener(eventName, handler);
-        }
-    };
+	// Buat objek loader
+	const loader = {
+		abort: cleanup,
+		on: (event, handler) => {
+			const eventName = EVENT_PREFIX + event;
+			document.addEventListener(eventName, handler);
+			return () => document.removeEventListener(eventName, handler);
+		}
+	};
 
-    // Daftarkan loader ke registry global
-    activeLoaders.add(loader);
+	// Daftarkan loader ke registry global
+	activeLoaders.add(loader);
 
-    // fungsi cleanup baru yang akan membersihkan dan unregister
-    const enhancedCleanup = () => {
-        cleanup(); // panggil cleanup asli
-        activeLoaders.delete(loader); // unregister
-    };
+	// fungsi cleanup baru yang akan membersihkan dan unregister
+	enhancedCleanup = () => {
+		cleanup(); // panggil cleanup asli
+		activeLoaders.delete(loader); // unregister
+	};
 
-    // Ganti metode abort pada loader
-    loader.abort = enhancedCleanup;
+	// Ganti metode abort pada loader
+	loader.abort = enhancedCleanup;
 
-    // Kembalikan loader
-    return loader;
+	// Kembalikan loader
+	return loader;
 }
 
 // Ekspos fungsi 
 export {
 	fetchAndFill,
-	cleanupAllLoaders
+	cleanupAllLoaders,
+	configureLazyLoading
 };

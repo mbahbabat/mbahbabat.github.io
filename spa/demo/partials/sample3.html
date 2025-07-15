@@ -1,5 +1,59 @@
-<div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-    <h3><i class="fas fa-arrow-up"></i> Konten Sample 3 (Prepend)</h3>
-    <p>Ini adalah konten yang ditambahkan di awal.</p>
-    <p>Posisi: <strong>prepend</strong></p>
+
+
+<div class="konten-sample3" style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-top: 20px;">
+    <h3><i class="fas fa-star"></i> Konten Sample 3</h3>
+    <br>
+    <p>lokasi : /partials/sample3.html</p>
+    <br>
+    <h2> Halaman ini dimuat dengan: </h2>
+    <div class="info-autoFill">
+        <div>Sanitasi : <span class="info-sanitaze"></span></div>
+        <div>Jalankan Script : <span class="info-runScripts"></span></div>
+        <div>Lazy Loading : <span class="info-lazy"></span></div>
+        <div>Strategi Cache : <span class="info-cache"></span></div>
+        <div>Posisi Penempatan : <span class="info-position"></span></div>
+    </div>
+    <br>
+    <p class="rs3">tombol hilang! terjadi karena memuat dengan runScripts = false atau sanitaze = true</p>
+    <p class="rs3">aktifkan runScripts dan nonaktifkan Sanitaze, kemudian muat ulang halaman Sample 3</p>
+    <p class="rs3">tombol berada di sini</p>
+    <div class="konten-dinamis3"></div>
 </div>
+
+<script>
+     function initSampleContent3() {
+        const kontainer = document.querySelector(".konten-sample3");
+        if (!kontainer) return;
+
+        const kontenDinamis = kontainer.querySelector(".konten-dinamis3");
+        if (!kontenDinamis) return;
+
+        const tombol = document.createElement("button");
+        tombol.textContent = "uji tombol";
+
+        const p1 = document.createElement("p");
+        p1.textContent = "halaman dimuat dengan script - sample 3";
+
+        kontenDinamis.appendChild(p1);
+        kontenDinamis.appendChild(tombol);
+
+        tombol.addEventListener("click", function () {
+            const p2 = document.createElement("p");
+            p2.innerHTML = `
+                Tombol 2 bekerja karena script sudah berjalan!<br>
+                Silahkan matikan runScripts atau hidupkan sanitaze<br>
+                dan coba muat halaman lagi,<br>
+                anda tidak akan melihat tombol ini lagi.
+            `;
+            kontenDinamis.appendChild(p2);
+        });
+
+        // Sembunyikan semua elemen .rs2
+        kontainer.querySelectorAll('.rs3').forEach(el => {
+            el.style.display = 'none';
+        });
+    }
+
+    // Jalankan fungsi
+    initSampleContent3();
+</script>

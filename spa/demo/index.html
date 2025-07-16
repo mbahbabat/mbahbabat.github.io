@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="id">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Dev Demo: Modul FetchAndFill</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Demo lengkap FetchAndFill: Modul JavaScript untuk memuat konten dinamis dengan sanitasi, caching, dan manajemen lifecycle di Single Page Application (SPA).">
+    <meta name="keywords" content="FetchAndFill, JavaScript, SPA, DOMPurify, Caching, Sanitasi, Web Component, Demo">
+    <meta name="author" content="Mbah Babat">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Demo Lengkap FetchAndFill untuk SPA">
+    <meta property="og:description" content="Modul JavaScript untuk pemuatan konten dinamis di SPA dengan sanitasi, caching, retry otomatis, dan custom events.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mbahbabat.github.io/spa/demo/">
+    <meta property="og:image" content="https://mbahbabat.github.io/spa/spa.png">
+    <meta property="og:site_name" content="Gmooy">
+    <meta property="og:locale" content="id_ID">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Demo Lengkap FetchAndFill untuk SPA">
+    <meta name="twitter:description" content="Modul JavaScript untuk pemuatan konten dinamis di SPA dengan sanitasi, caching, retry otomatis, dan custom events.">
+    <meta name="twitter:image" content="https://mbahbabat.github.io/spa/spa.png">
+    <meta name="twitter:site" content="@gmooy_id">
+    <meta name="twitter:creator" content="@mbah_babat">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mbahbabat.github.io/spa/demo/">
+	<link rel="shortcut icon" href="https://mbahbabat.github.io/spa/spa.png">
+
+    <!-- Title -->
+    <title>Demo Lengkap FetchAndFill</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
+    <script type="module" src="FetchAndFill-Module.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 		<style>
 			* {
 				box-sizing: border-box;
@@ -47,12 +77,6 @@
 				justify-content: space-between
 			}
 
-			.header-title {
-				display: flex;
-				align-items: center;
-				flex-direction: column
-			}
-
 			.header h1 {
 				font-size: 1.8rem;
 				display: flex;
@@ -65,6 +89,24 @@
 				font-size: 1rem;
 				opacity: .9
 			}
+			
+				.header-title {
+					display: flex;
+					flex-direction: column;
+				}
+				
+				.logoAndtitle{
+					display: flex;
+					align-items: center;
+					width: 100%;
+					gap: 10px;
+				}
+				
+				.header-title img{
+					width: 50px; 
+					border-radius: 50%;
+					cursor: pointer;
+				}
 
 			.container {
 				display: flex;
@@ -73,8 +115,9 @@
 			}
 
 			.control-panel {
-				width: 300px;
-				background: #fff;
+				width: 400px;
+				background: #000;
+				color: #fff;
 				border-right: 1px solid var(--border);
 				padding: 20px;
 				overflow-y: auto;
@@ -93,7 +136,9 @@
 				flex: 1;
 				display: flex;
 				flex-direction: column;
-				overflow: hidden
+				overflow: hidden;
+				background: #595959;
+				color: #fff;
 			}
 
 			.content-header {
@@ -101,13 +146,16 @@
 			}
 
 			.content-container {
-				display: flex;
-				flex-direction: column;
-				gap: 10px;
 				padding: 20px;
 				padding-bottom: 100px;
 				overflow-y: auto;
 				max-height: border-right:1px solid var(--border)
+			}
+			
+			.content-section{
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
 			}
 
 			.log-container {
@@ -118,7 +166,7 @@
 				overflow-y: auto;
 				font-family: monospace;
 				font-size: .9rem;
-				border: 1px solid var(--border)
+				border-top: 2px solid var(--border)
 			}
 
 			.section {
@@ -195,6 +243,10 @@
 			.btn-info:hover {
 				background-color: #5a6268
 			}
+			
+			#multi-loader{
+				background : #3bb4d8;
+			}
 
 			.option-group {
 				margin: 10px 0;
@@ -237,6 +289,7 @@
 			.log-entry .debug {
 				color: #bb86fc
 			}
+			
 
 			.content-section h3 {
 				color: var(--primary);
@@ -318,14 +371,11 @@
 			}
 
 			.status-bar {
-				position: absolute;
-				bottom: 200px;
-				width: 100%;
-				border: 1px solid var(--border);
+				border-top: 1px solid var(--border);
 				display: flex;
 				flex-direction: column;
 				padding: 10px;
-				background: rgba(125, 125, 125, 0.9);
+				background: rgba(0, 0, 0, 1);
 				font-size: .9rem;
 				color: #fff;
 			}
@@ -418,18 +468,19 @@
 
 			.config-badge {
 				padding: 5px;
+				font-weight: 900;
 			}
 
 			.badge-success {
-				color: #28a745;
+				color: #00ffcc;
 			}
 
 			.badge-danger {
-				color: #dc3545;
+				color: #ff0066;
 			}
 
 			.badge-primary {
-				color: #007bff;
+				color: #00aaff;
 			}
 
 			.badge-warning {
@@ -447,14 +498,37 @@
 			.badge-dark {
 				color: #343a40;
 			}
+			
+			.profile-details,
+			.konten-sample1,
+			.konten-sample2,
+			.konten-sample3,
+			.konten-sample4,
+			.konten-sample5{
+				color: #000;
+			}
+			
+			.profile-content{
+				background: #1a1a1a;
+				padding: 5px;
+				border-radius: 5px;
+			}
+			
+			.profile-details{
+				background: #004466!important;
+				color: #fff;
+			}
 
 		</style>
 	</head>
 	<body>
 		<div class="header">
 			<div class="header-title">
-				<h1><i class="fas fa-cloud-download-alt"></i> Dev Demo: Modul FetchAndFill</h1>
-				<p>Demo lengkap untuk pengujian dan pemahaman fitur modul detchAndFill</p>
+				<div class="logoAndtitle">
+					<img id="logo-img" alt="logo" src="../spa.png">
+					<h1>Demo Modul FetchAndFill</h1>
+				</div>
+				<p>Demo lengkap untuk pengujian dan pemahaman fitur modul FetchAndFill-module.js</p>
 			</div>
 			<button id="menu-toggle" class="menu-toggle">
 			<i class="fas fa-bars"></i>
@@ -593,16 +667,16 @@
 						<div id="loader-target-retry" class="content-section"></div>
 					</div>
 				</div>
-				<div class="status-bar">
-					<div>Status: <span id="status-text">Siap</span></div>
-					<div>Loader Aktif: <span id="loader-count">0</span></div>
-					<div>Konfigurasi: <span id="config-summary">-</span></div>
-				</div>
 				<div class="log-container" id="log-container">
 					<h3 style="color: #f0f0f0; margin-bottom: 15px;">Event Log</h3>
 					<div class="log-entry info">
 						[System] Log event siap. Event modul akan muncul di sini.
 					</div>
+				</div>
+				<div class="status-bar">
+					<div>Status: <span id="status-text">Siap</span></div>
+					<div>Loader Aktif: <span id="loader-count">0</span></div>
+					<div>Konfigurasi: <span id="config-summary">-</span></div>
 				</div>
 			</div>
 		</div>
@@ -1110,6 +1184,11 @@
                 }
             });
         });
+		
+		document.getElementById('logo-img').addEventListener('click', () => {
+			window.location.href="../"
+		});
+		
 		
 
 

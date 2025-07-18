@@ -39,6 +39,22 @@
   <!-- CodeMirror -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/paraiso-dark.min.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org ",
+  "@type": "SoftwareSourceCode",
+  "name": "Responsive Design System (RDS)",
+  "description": "Modul JavaScript lengkap untuk sistem desain responsif berbasis skala.",
+  "url": "https://mbahbabat.github.io/blog/code/module/rds ",
+  "license": "https://opensource.org/licenses/MIT ",
+  "programmingLanguage": "JavaScript",
+  "author": {
+    "@type": "Person",
+    "name": "Mbah Babat"
+  },
+  "image": "https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/rds.png "
+}
+</script>
     
     <style>
         :root {
@@ -873,10 +889,7 @@
         
         // Buka kode di tab baru
         openBtn.addEventListener('click', () => {
-            const code = editor.getValue();
-            const blob = new Blob([code], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            window.open(url, '_blank');
+            window.open('https://mbahbabat.github.io/blog/code/module/RDS/assets/js/rds.js', '_blank');
         });
         
         // Tampilkan notifikasi

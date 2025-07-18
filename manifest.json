@@ -1,15 +1,15 @@
 {
   "name": "Responsive Design System",
   "short_name": "RDS",
-  "start_url": "/blog/code/module/rds",
+  "start_url": "/blog/code/module/RDS",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#4CAF50",
   "description": "Modul JavaScript lengkap untuk sistem desain responsif berbasis skala.",
   "icons": [
     {
-      "src": "/blog/code/module/rds/assets/image/favicon.png",
-      "sizes": "192x192",
+      "src": "/blog/code/module/RDS/assets/image/rds.png",
+      "sizes": "1408x768",
       "type": "image/png"
     }
   ]

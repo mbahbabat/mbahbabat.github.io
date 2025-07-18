@@ -1,623 +1,549 @@
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Design System (RDS)</title>
-  
-  <!-- SEO Meta -->
-  <meta name="title" content="Responsive Design System (RDS) - Ultimate Edition">
-  <meta name="description" content="Modul JavaScript lengkap untuk sistem desain responsif berbasis skala. Cocok untuk UI yang perlu adaptif di berbagai ukuran layar.">
-  <meta name="keywords" content="Responsive Design, JavaScript Module, UI Scaling, REM Conversion, CodeMirror, Zoom Alternative">
-  <meta name="author" content="Mbah Babat">
-  <link rel="canonical" href="https://mbahbabat.github.io/blog/code/module/rds ">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mbahbabat.github.io/blog/code/module/rds ">
-  <meta property="og:title" content="Responsive Design System (RDS) - Ultimate Edition">
-  <meta property="og:description" content="Modul JavaScript lengkap untuk sistem desain responsif berbasis skala. Cocok untuk UI yang perlu adaptif di berbagai ukuran layar.">
-  <meta property="og:image" content="https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/rds.png ">
-  <meta property="og:image:alt" content="RDS - Responsive Design System">
-  <meta property="og:site_name" content="Mbah Babat - UI/UX & Frontend Module">
-  <meta property="og:locale" content="id_ID">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@mbahbabat">
-  <meta name="twitter:title" content="Responsive Design System (RDS) - Ultimate Edition">
-  <meta name="twitter:description" content="Modul JavaScript lengkap untuk sistem desain responsif berbasis skala. Cocok untuk UI yang perlu adaptif di berbagai ukuran layar.">
-  <meta name="twitter:image" content="https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/rds.png ">
-  <meta name="twitter:image:alt" content="Responsive Design System UI Module">
-
-  <!-- Favicon -->
-  <link rel="icon" href="https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/favicon.png " type="image/png">
-  <link rel="apple-touch-icon" href="https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/favicon.png ">
-
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#121212">
-  
-  <!-- CodeMirror -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/paraiso-dark.min.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org ",
-  "@type": "SoftwareSourceCode",
-  "name": "Responsive Design System (RDS)",
-  "description": "Modul JavaScript lengkap untuk sistem desain responsif berbasis skala.",
-  "url": "https://mbahbabat.github.io/blog/code/module/rds ",
-  "license": "https://opensource.org/licenses/MIT ",
-  "programmingLanguage": "JavaScript",
-  "author": {
-    "@type": "Person",
-    "name": "Mbah Babat"
-  },
-  "image": "https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/rds.png "
-}
-</script>
-    
-    <style>
-        :root {
-            --bg-primary: #121212;
-            --bg-secondary: #1e1e1e;
-            --bg-tertiary: #2d2d2d;
-            --text-primary: #e0e0e0;
-            --text-secondary: #b0b0b0;
-            --accent-primary: #4CAF50;
-            --accent-secondary: #2196F3;
-            --accent-tertiary: #9C27B0;
-            --border-color: #444;
-        }
-        
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(to right, var(--bg-secondary), var(--bg-tertiary));
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-		
-		header #logo{
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Responsive Design System (RDS)</title>
+		<!-- SEO Meta -->
+		<meta name="title" content="Responsive Design System (RDS) - Ultimate Edition">
+		<meta name="description" content="Modul JavaScript lengkap untuk sistem desain responsif berbasis skala. Cocok untuk UI yang perlu adaptif di berbagai ukuran layar.">
+		<meta name="keywords" content="Responsive Design, JavaScript Module, UI Scaling, REM Conversion, CodeMirror, Zoom Alternative">
+		<meta name="author" content="Mbah Babat">
+		<link rel="canonical" href="https://mbahbabat.github.io/blog/code/module/rds ">
+		<!-- Open Graph -->
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://mbahbabat.github.io/blog/code/module/rds ">
+		<meta property="og:title" content="Responsive Design System (RDS) - Ultimate Edition">
+		<meta property="og:description" content="Modul JavaScript lengkap untuk sistem desain responsif berbasis skala. Cocok untuk UI yang perlu adaptif di berbagai ukuran layar.">
+		<meta property="og:image" content="https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/rds.png ">
+		<meta property="og:image:alt" content="RDS - Responsive Design System">
+		<meta property="og:site_name" content="Mbah Babat - UI/UX & Frontend Module">
+		<meta property="og:locale" content="id_ID">
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@mbahbabat">
+		<meta name="twitter:title" content="Responsive Design System (RDS) - Ultimate Edition">
+		<meta name="twitter:description" content="Modul JavaScript lengkap untuk sistem desain responsif berbasis skala. Cocok untuk UI yang perlu adaptif di berbagai ukuran layar.">
+		<meta name="twitter:image" content="https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/rds.png ">
+		<meta name="twitter:image:alt" content="Responsive Design System UI Module">
+		<!-- Favicon -->
+		<link rel="icon" href="https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/favicon.png " type="image/png">
+		<link rel="apple-touch-icon" href="https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/favicon.png ">
+		<!-- PWA Manifest -->
+		<link rel="manifest" href="/manifest.json">
+		<meta name="theme-color" content="#121212">
+		<!-- CodeMirror -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/paraiso-dark.min.css">
+		<script type="application/ld+json">
+			{
+			  "@context": "https://schema.org ",
+			  "@type": "SoftwareSourceCode",
+			  "name": "Responsive Design System (RDS)",
+			  "description": "Modul JavaScript lengkap untuk sistem desain responsif berbasis skala.",
+			  "url": "https://mbahbabat.github.io/blog/code/module/rds ",
+			  "license": "https://opensource.org/licenses/MIT ",
+			  "programmingLanguage": "JavaScript",
+			  "author": {
+			    "@type": "Person",
+			    "name": "Mbah Babat"
+			  },
+			  "image": "https://mbahbabat.gtihub.io/blog/code/module/rds/assets/image/rds.png "
+			}
+		</script>
+		<style>
+			:root {
+			--bg-primary: #121212;
+			--bg-secondary: #1e1e1e;
+			--bg-tertiary: #2d2d2d;
+			--text-primary: #e0e0e0;
+			--text-secondary: #b0b0b0;
+			--accent-primary: #4CAF50;
+			--accent-secondary: #2196F3;
+			--accent-tertiary: #9C27B0;
+			--border-color: #444;
+			}
+			*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			}
+			body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: var(--bg-primary);
+			color: var(--text-primary);
+			line-height: 1.6;
+			}
+			header {
+			background: linear-gradient(to right, var(--bg-secondary), var(--bg-tertiary));
+			padding: 1.5rem;
+			border-bottom: 1px solid var(--border-color);
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+			position: sticky;
+			top: 0;
+			z-index: 100;
+			}
+			header #logo{
 			position: absolute;
 			width: 100%;
 			height: 100%;
 			opacity: 0.3;
-		}
-        		
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent-primary);
-            text-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-        }
-        
-        .subtitle {
-            color: #f78c6c;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .author {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: rgba(30, 30, 30, 0.8);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            width: fit-content;
-            border: 1px solid var(--border-color);
-        }
-        
-        .author img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-			position: relative;
-        }
-		
-        .info-section {
-            background-color: var(--bg-secondary);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .info-section h2 {
-            color: var(--accent-secondary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        
-        .feature-card {
-            background-color: var(--bg-tertiary);
-            padding: 1.2rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent-primary);
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-card h3 {
-            color: var(--accent-primary);
-            margin-bottom: 0.8rem;
-        }
-        
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .btn {
-            background-color: var(--bg-tertiary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 0.7rem 1.2rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
-        
-        .btn:hover {
-            background-color: var(--accent-secondary);
-            color: white;
-            border-color: var(--accent-secondary);
-        }
-        
-        .btn.active {
-            background-color: var(--accent-primary);
-            color: white;
-            border-color: var(--accent-primary);
-        }
-        
-        .demo-panel {
-            background-color: var(--bg-tertiary);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 2rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 1.2rem;
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .panel-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .action-btn {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            width: 36px;
-            height: 36px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        
-        .action-btn:hover {
-            background-color: var(--accent-secondary);
-            color: white;
-            border-color: var(--accent-secondary);
-        }
-        
-        .CodeMirror {
-            height: 500px;
-            font-size: 16px;
-        }
-        
-        .status-bar {
-            background-color: var(--bg-secondary);
-            padding: 0.8rem 1.2rem;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-        
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--accent-primary);
-        }
-        
-        .indicator-active {
-            background-color: var(--accent-primary);
-        }
-        
-        .indicator-inactive {
-            background-color: #f44336;
-        }
-        
-        .shortcut-hint {
-            background-color: rgba(30, 30, 30, 0.8);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            border: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .key {
-            background-color: var(--bg-tertiary);
-            padding: 2px 8px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--accent-primary);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 5px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .notification.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .docs-section {
-            margin-top: 2rem;
-        }
-        
-        .docs-content {
-            background-color: var(--bg-tertiary);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .docs-content h3 {
-            color: var(--accent-tertiary);
-            margin: 1.5rem 0 0.8rem;
-            padding-bottom: 0.3rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .docs-content pre {
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 1rem;
-            border-radius: 5px;
-            margin: 1rem 0;
-            overflow-x: auto;
-        }
-        
-        .docs-content code {
-            font-family: 'Fira Code', monospace;
-            color: #f78c6c;
-        }
-        
-        .docs-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-        }
-        
-        .docs-content th {
-            background-color: rgba(76, 175, 80, 0.1);
-            padding: 0.8rem;
-            text-align: left;
-            border: 1px solid var(--border-color);
-        }
-        
-        .docs-content td {
-            padding: 0.8rem;
-            border: 1px solid var(--border-color);
-        }
-        
-        .docs-content .note {
-            background-color: rgba(33, 150, 243, 0.1);
-            border-left: 4px solid var(--accent-secondary);
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0 4px 4px 0;
-        }
-        
-        .docs-content .warning {
-            background-color: rgba(244, 67, 54, 0.1);
-            border-left: 4px solid #f44336;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0 4px 4px 0;
-        }
-        
-        .config-table {
-            width: 100%;
-            margin: 1rem 0;
-        }
-        
-        .config-table th {
-            background-color: rgba(156, 39, 176, 0.1);
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .CodeMirror {
-                height: 350px;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
-			
-			table{
-				zoom: 50%;
 			}
-        }
-    </style>
-</head>
-<body>
-    <header>
-		<img id="logo" src="assets/image/rds.png" alt="RDS">
-        <div class="container">
-            <h1>Responsive Design System (RDS)</h1>
-            <p class="subtitle">Sistem desain responsif untuk aplikasi web modern</p>
-            <div class="author">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM0Y2FmNTAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTYgM3Y1aDVMNiAxOGwtNCA0bDQtNEwzIDZ2LTNoMTN6Ij48L3BhdGg+PC9zdmc+" alt="Avatar">
-                <span>Mbah Babat - Penulis</span>
-            </div>
-        </div>
-    </header>
-    
-    <div class="container">
-        <div class="info-section">
-            <h2>Tentang RDS</h2>
-            <p>RDS (Responsive Design System) adalah solusi komprehensif untuk membuat aplikasi web yang responsif dan mudah beradaptasi dengan berbagai ukuran layar. Modul ini menyediakan sistem scaling otomatis, konversi unit, dan hook untuk kustomisasi lebih lanjut.</p>
-            
-            <div class="features">
-                <div class="feature-card">
-                    <h3>Auto Scaling</h3>
-                    <p>Skala elemen UI secara otomatis berdasarkan ukuran layar pengguna dengan batasan minimum dan maksimum yang dapat dikonfigurasi.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Mode Desktop & Mobile</h3>
-                    <p>Dukungan konfigurasi terpisah untuk desktop dan mobile dengan breakpoint yang dapat disesuaikan.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>REM Conversion</h3>
-                    <p>Konversi otomatis unit CSS dari px ke rem dengan dukungan untuk mode static, responsive, dan hybrid.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Lifecycle Hooks</h3>
-                    <p>Hook beforeUpdate dan afterUpdate untuk menambahkan logika kustom sebelum dan setelah scaling diterapkan.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Utility Functions</h3>
-                    <p>Berbagai fungsi utilitas untuk konversi unit, penerapan gaya, dan kontrol sistem secara terprogram.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Debug Mode</h3>
-                    <p>Mode debug untuk memantau perubahan skala dan mode secara real-time di konsol browser.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="info-section">
-            <h2>Kontrol Sistem</h2>
-            
-            <div class="controls">
-                <button id="debugBtn" class="btn">Debug Mode: OFF</button>
-                <button id="autoModeBtn" class="btn active">Mode: Auto</button>
-                <button id="desktopModeBtn" class="btn">Mode: Desktop</button>
-                <button id="mobileModeBtn" class="btn">Mode: Mobile</button>
-                <button id="remStaticBtn" class="btn">REM Mode: Static</button>
-                <button id="remResponsiveBtn" class="btn">REM Mode: Responsive</button>
-            </div>
-            
-            <div class="status-bar">
-                <div class="status-item">
-                    <div class="status-indicator indicator-active"></div>
-                    <span>Status: <span id="statusText">Aktif</span></span>
-                </div>
-                <div class="status-item">
-                    <span>Mode Saat Ini: <span id="currentMode">desktop</span></span>
-                </div>
-                <div class="status-item">
-                    <span>Skala: <span id="currentScale">1.0000</span></span>
-                </div>
-            </div>
-            
-            <div class="shortcut-hint">
-                <span>Tekan <span class="key">F12</span> lalu pilih tab <span class="key">Device Toolbar</span> untuk menguji responsivitas</span>
-            </div>
-        </div>
-        
-        <div class="info-section docs-section">
-            <h2>Dokumentasi & Cara Penggunaan</h2>
-            
-            <div class="docs-content">
-                <h3>Deskripsi Umum</h3>
-                <p>RDS-UE-module.js adalah modul JavaScript yang menyediakan sistem desain responsif untuk aplikasi web. Modul ini memungkinkan penyesuaian skala font dan layout secara otomatis berdasarkan ukuran viewport (desktop/mobile), dan mendukung konversi unit px ke rem secara global.</p>
-                
-                <h3>Fitur Utama</h3>
-                <ul>
-                    <li>Skala responsif untuk desktop & mobile secara otomatis</li>
-                    <li>Konfigurasi font-size global dan mode rem (static, responsive, hybrid)</li>
-                    <li>Konversi stylesheet dan inline style px → rem secara otomatis</li>
-                    <li>API untuk mengubah konfigurasi, mode, dan mengaplikasikan style</li>
-                    <li>Mendukung hook beforeUpdate dan afterUpdate untuk ekstensi</li>
-                    <li>Debug mode untuk log detail perubahan</li>
-                    <li>Mudah diintegrasikan ke project web modern</li>
-                </ul>
-                
-                <h3>Cara Penggunaan</h3>
-                <p>1. Import modul ke project:</p>
-                <pre><code>import { RDS } from './rds.js';</code></pre>
-                
-                <p>2. Inisialisasi RDS dengan konfigurasi opsional:</p>
-                <pre><code>RDS.init({
+			h1 {
+			font-size: 2.5rem;
+			margin-bottom: 0.5rem;
+			color: var(--accent-primary);
+			text-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+			}
+			.subtitle {
+			color: #f78c6c;
+			font-size: 1.2rem;
+			margin-bottom: 1.5rem;
+			}
+			.author {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			background-color: rgba(30, 30, 30, 0.8);
+			padding: 0.5rem 1rem;
+			border-radius: 20px;
+			width: fit-content;
+			border: 1px solid var(--border-color);
+			}
+			.author img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			object-fit: cover;
+			}
+			.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 2rem;
+			position: relative;
+			}
+			.info-section {
+			background-color: var(--bg-secondary);
+			border-radius: 10px;
+			padding: 1.5rem;
+			margin-bottom: 2rem;
+			border: 1px solid var(--border-color);
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+			}
+			.info-section h2 {
+			color: var(--accent-secondary);
+			margin-bottom: 1rem;
+			padding-bottom: 0.5rem;
+			border-bottom: 1px solid var(--border-color);
+			}
+			.features {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			margin: 1.5rem 0;
+			}
+			.feature-card {
+			background-color: var(--bg-tertiary);
+			padding: 1.2rem;
+			border-radius: 8px;
+			border-left: 4px solid var(--accent-primary);
+			transition: transform 0.3s ease;
+			}
+			.feature-card:hover {
+			transform: translateY(-5px);
+			}
+			.feature-card h3 {
+			color: var(--accent-primary);
+			margin-bottom: 0.8rem;
+			}
+			.controls {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+			margin: 1.5rem 0;
+			}
+			.btn {
+			background-color: var(--bg-tertiary);
+			color: var(--text-primary);
+			border: 1px solid var(--border-color);
+			padding: 0.7rem 1.2rem;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			font-weight: 500;
+			}
+			.btn:hover {
+			background-color: var(--accent-secondary);
+			color: white;
+			border-color: var(--accent-secondary);
+			}
+			.btn.active {
+			background-color: var(--accent-primary);
+			color: white;
+			border-color: var(--accent-primary);
+			}
+			.demo-panel {
+			background-color: var(--bg-tertiary);
+			border-radius: 10px;
+			overflow: hidden;
+			margin-top: 2rem;
+			border: 1px solid var(--border-color);
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+			}
+			.panel-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0.8rem 1.2rem;
+			background-color: var(--bg-secondary);
+			border-bottom: 1px solid var(--border-color);
+			}
+			.panel-actions {
+			display: flex;
+			gap: 0.5rem;
+			}
+			.action-btn {
+			background: none;
+			border: 1px solid var(--border-color);
+			color: var(--text-secondary);
+			width: 36px;
+			height: 36px;
+			border-radius: 5px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.2s ease;
+			}
+			.action-btn:hover {
+			background-color: var(--accent-secondary);
+			color: white;
+			border-color: var(--accent-secondary);
+			}
+			.CodeMirror {
+			height: 500px;
+			font-size: 16px;
+			}
+			.status-bar {
+			background-color: var(--bg-secondary);
+			padding: 0.8rem 1.2rem;
+			border-top: 1px solid var(--border-color);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 0.9rem;
+			}
+			.status-item {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			}
+			.status-indicator {
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background-color: var(--accent-primary);
+			}
+			.indicator-active {
+			background-color: var(--accent-primary);
+			}
+			.indicator-inactive {
+			background-color: #f44336;
+			}
+			.shortcut-hint {
+			background-color: rgba(30, 30, 30, 0.8);
+			padding: 0.5rem 1rem;
+			border-radius: 5px;
+			border: 1px solid var(--border-color);
+			font-size: 0.9rem;
+			margin-top: 1rem;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			}
+			.key {
+			background-color: var(--bg-tertiary);
+			padding: 2px 8px;
+			border-radius: 4px;
+			border: 1px solid var(--border-color);
+			font-family: monospace;
+			font-size: 0.9rem;
+			}
+			footer {
+			text-align: center;
+			padding: 2rem;
+			margin-top: 2rem;
+			border-top: 1px solid var(--border-color);
+			color: var(--text-secondary);
+			font-size: 0.9rem;
+			}
+			.notification {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			background-color: var(--accent-primary);
+			color: white;
+			padding: 1rem 1.5rem;
+			border-radius: 5px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			transform: translateY(100px);
+			opacity: 0;
+			transition: all 0.3s ease;
+			z-index: 1000;
+			}
+			.notification.show {
+			transform: translateY(0);
+			opacity: 1;
+			}
+			.docs-section {
+			margin-top: 2rem;
+			}
+			.docs-content {
+			background-color: var(--bg-tertiary);
+			border-radius: 8px;
+			padding: 1.5rem;
+			margin-top: 1rem;
+			}
+			.docs-content h3 {
+			color: var(--accent-tertiary);
+			margin: 1.5rem 0 0.8rem;
+			padding-bottom: 0.3rem;
+			border-bottom: 1px solid var(--border-color);
+			}
+			.docs-content pre {
+			background-color: rgba(0, 0, 0, 0.2);
+			padding: 1rem;
+			border-radius: 5px;
+			margin: 1rem 0;
+			overflow-x: auto;
+			}
+			.docs-content code {
+			font-family: 'Fira Code', monospace;
+			color: #f78c6c;
+			}
+			.docs-content table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 1.5rem 0;
+			}
+			.docs-content th {
+			background-color: rgba(76, 175, 80, 0.1);
+			padding: 0.8rem;
+			text-align: left;
+			border: 1px solid var(--border-color);
+			}
+			.docs-content td {
+			padding: 0.8rem;
+			border: 1px solid var(--border-color);
+			}
+			.docs-content .note {
+			background-color: rgba(33, 150, 243, 0.1);
+			border-left: 4px solid var(--accent-secondary);
+			padding: 1rem;
+			margin: 1rem 0;
+			border-radius: 0 4px 4px 0;
+			}
+			.docs-content .warning {
+			background-color: rgba(244, 67, 54, 0.1);
+			border-left: 4px solid #f44336;
+			padding: 1rem;
+			margin: 1rem 0;
+			border-radius: 0 4px 4px 0;
+			}
+			.config-table {
+			width: 100%;
+			margin: 1rem 0;
+			}
+			.config-table th {
+			background-color: rgba(156, 39, 176, 0.1);
+			}
+			@media (max-width: 768px) {
+			.container {
+			padding: 1rem;
+			}
+			.features {
+			grid-template-columns: 1fr;
+			}
+			.CodeMirror {
+			height: 350px;
+			}
+			.controls {
+			flex-direction: column;
+			}
+			table{
+			zoom: 50%;
+			}
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<img id="logo" src="assets/image/rds.png" alt="RDS">
+			<div class="container">
+				<h1>Responsive Design System (RDS)</h1>
+				<p class="subtitle">Sistem desain responsif untuk aplikasi web modern</p>
+				<div class="author">
+					<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM0Y2FmNTAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTYgM3Y1aDVMNiAxOGwtNCA0bDQtNEwzIDZ2LTNoMTN6Ij48L3BhdGg+PC9zdmc+" alt="Avatar">
+					<span>Mbah Babat - Penulis</span>
+				</div>
+			</div>
+		</header>
+		<div class="container">
+			<div class="info-section">
+				<h2>Tentang RDS</h2>
+				<p>RDS (Responsive Design System) adalah solusi komprehensif untuk membuat aplikasi web yang responsif dan mudah beradaptasi dengan berbagai ukuran layar. Modul ini menyediakan sistem scaling otomatis, konversi unit, dan hook untuk kustomisasi lebih lanjut.</p>
+				<div class="features">
+					<div class="feature-card">
+						<h3>Auto Scaling</h3>
+						<p>Skala elemen UI secara otomatis berdasarkan ukuran layar pengguna dengan batasan minimum dan maksimum yang dapat dikonfigurasi.</p>
+					</div>
+					<div class="feature-card">
+						<h3>Mode Desktop & Mobile</h3>
+						<p>Dukungan konfigurasi terpisah untuk desktop dan mobile dengan breakpoint yang dapat disesuaikan.</p>
+					</div>
+					<div class="feature-card">
+						<h3>REM Conversion</h3>
+						<p>Konversi otomatis unit CSS dari px ke rem dengan dukungan untuk mode static, responsive, dan hybrid.</p>
+					</div>
+					<div class="feature-card">
+						<h3>Lifecycle Hooks</h3>
+						<p>Hook beforeUpdate dan afterUpdate untuk menambahkan logika kustom sebelum dan setelah scaling diterapkan.</p>
+					</div>
+					<div class="feature-card">
+						<h3>Utility Functions</h3>
+						<p>Berbagai fungsi utilitas untuk konversi unit, penerapan gaya, dan kontrol sistem secara terprogram.</p>
+					</div>
+					<div class="feature-card">
+						<h3>Debug Mode</h3>
+						<p>Mode debug untuk memantau perubahan skala dan mode secara real-time di konsol browser.</p>
+					</div>
+				</div>
+			</div>
+			<div class="info-section">
+				<h2>Kontrol Sistem</h2>
+				<div class="controls">
+					<button id="debugBtn" class="btn">Debug Mode: OFF</button>
+					<button id="autoModeBtn" class="btn active">Mode: Auto</button>
+					<button id="desktopModeBtn" class="btn">Mode: Desktop</button>
+					<button id="mobileModeBtn" class="btn">Mode: Mobile</button>
+					<button id="remStaticBtn" class="btn">REM Mode: Static</button>
+					<button id="remResponsiveBtn" class="btn">REM Mode: Responsive</button>
+				</div>
+				<div class="status-bar">
+					<div class="status-item">
+						<div class="status-indicator indicator-active"></div>
+						<span>Status: <span id="statusText">Aktif</span></span>
+					</div>
+					<div class="status-item">
+						<span>Mode Saat Ini: <span id="currentMode">desktop</span></span>
+					</div>
+					<div class="status-item">
+						<span>Skala: <span id="currentScale">1.0000</span></span>
+					</div>
+				</div>
+				<div class="shortcut-hint">
+					<span>Tekan <span class="key">F12</span> lalu pilih tab <span class="key">Device Toolbar</span> untuk menguji responsivitas</span>
+				</div>
+			</div>
+			<div class="info-section docs-section">
+				<h2>Dokumentasi & Cara Penggunaan</h2>
+				<div class="docs-content">
+					<h3>Deskripsi Umum</h3>
+					<p>RDS-UE-module.js adalah modul JavaScript yang menyediakan sistem desain responsif untuk aplikasi web. Modul ini memungkinkan penyesuaian skala font dan layout secara otomatis berdasarkan ukuran viewport (desktop/mobile), dan mendukung konversi unit px ke rem secara global.</p>
+					<h3>Fitur Utama</h3>
+					<ul>
+						<li>Skala responsif untuk desktop & mobile secara otomatis</li>
+						<li>Konfigurasi font-size global dan mode rem (static, responsive, hybrid)</li>
+						<li>Konversi stylesheet dan inline style px → rem secara otomatis</li>
+						<li>API untuk mengubah konfigurasi, mode, dan mengaplikasikan style</li>
+						<li>Mendukung hook beforeUpdate dan afterUpdate untuk ekstensi</li>
+						<li>Debug mode untuk log detail perubahan</li>
+						<li>Mudah diintegrasikan ke project web modern</li>
+					</ul>
+					<h3>Cara Penggunaan</h3>
+					<p>1. Import modul ke project:</p>
+					<pre><code>import { RDS } from './rds.js';</code></pre>
+					<p>2. Inisialisasi RDS dengan konfigurasi opsional:</p>
+					<pre><code>RDS.init({
   breakpoint: 800,         // Custom breakpoint (default: 768)
   baseFontSize: '18px',    // Custom font size
   remMode: 'responsive',   // Pilihan: 'static' | 'responsive' | 'hybrid'
   debug: true              // Debug aktif
 });</code></pre>
-                
-                <p>3. Terapkan style responsif pada elemen:</p>
-                <pre><code>RDS.applyStyles(element, {
+					<p>3. Terapkan style responsif pada elemen:</p>
+					<pre><code>RDS.applyStyles(element, {
   fontSize: 24,     // Otomatis dikonversi ke rem/scaled px
   margin: '16px 8px'
 });</code></pre>
-                
-                <p>4. Ubah mode secara manual:</p>
-                <pre><code>RDS.setMode('desktop'); // atau 'mobile' atau 'auto'</code></pre>
-                
-                <p>5. Konversi seluruh CSS ke rem:</p>
-                <pre><code>RDS.convertAllToRem();</code></pre>
-                
-                <h3>API Lengkap</h3>
-                <table>
-                    <tr>
-                        <th>Fungsi</th>
-                        <th>Deskripsi</th>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.init(userConfig)</code></td>
-                        <td>Inisialisasi sistem dengan konfigurasi opsional</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.updateConfig(newConfig)</code></td>
-                        <td>Update konfigurasi secara dinamis</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.setMode(mode)</code></td>
-                        <td>Mengatur mode responsif secara manual ('auto', 'desktop', 'mobile')</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.destroy()</code></td>
-                        <td>Membersihkan event listener & resource RDS</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.getScale()</code></td>
-                        <td>Mengambil nilai skala responsif saat ini</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.getConfig()</code></td>
-                        <td>Mendapatkan konfigurasi aktif</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.getCurrentMode()</code></td>
-                        <td>Mendapatkan mode aktif (desktop/mobile)</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.unit(value)</code></td>
-                        <td>Konversi otomatis nilai ke format responsif (rem/scaling)</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.applyStyles(element, styles)</code></td>
-                        <td>Terapkan styles ke satu elemen dengan konversi otomatis</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.applyStylesToAll(elements, styles)</code></td>
-                        <td>Terapkan styles ke banyak elemen sekaligus</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.pxToRem(value, base)</code></td>
-                        <td>Konversi px ke rem (manual)</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.remToPx(value, base)</code></td>
-                        <td>Konversi rem ke px (manual)</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.responsivePx(value, base)</code></td>
-                        <td>Konversi px ke format responsif (rem + scale)</td>
-                    </tr>
-                    <tr>
-                        <td><code>RDS.convertAllToRem(base)</code></td>
-                        <td>Konversi seluruh CSS di halaman ke rem</td>
-                    </tr>
-                </table>
-                
-                <h3>Konfigurasi Default</h3>
-                <pre><code>{
+					<p>4. Ubah mode secara manual:</p>
+					<pre><code>RDS.setMode('desktop'); // atau 'mobile' atau 'auto'</code></pre>
+					<p>5. Konversi seluruh CSS ke rem:</p>
+					<pre><code>RDS.convertAllToRem();</code></pre>
+					<h3>API Lengkap</h3>
+					<table>
+						<tr>
+							<th>Fungsi</th>
+							<th>Deskripsi</th>
+						</tr>
+						<tr>
+							<td><code>RDS.init(userConfig)</code></td>
+							<td>Inisialisasi sistem dengan konfigurasi opsional</td>
+						</tr>
+						<tr>
+							<td><code>RDS.updateConfig(newConfig)</code></td>
+							<td>Update konfigurasi secara dinamis</td>
+						</tr>
+						<tr>
+							<td><code>RDS.setMode(mode)</code></td>
+							<td>Mengatur mode responsif secara manual ('auto', 'desktop', 'mobile')</td>
+						</tr>
+						<tr>
+							<td><code>RDS.destroy()</code></td>
+							<td>Membersihkan event listener & resource RDS</td>
+						</tr>
+						<tr>
+							<td><code>RDS.getScale()</code></td>
+							<td>Mengambil nilai skala responsif saat ini</td>
+						</tr>
+						<tr>
+							<td><code>RDS.getConfig()</code></td>
+							<td>Mendapatkan konfigurasi aktif</td>
+						</tr>
+						<tr>
+							<td><code>RDS.getCurrentMode()</code></td>
+							<td>Mendapatkan mode aktif (desktop/mobile)</td>
+						</tr>
+						<tr>
+							<td><code>RDS.unit(value)</code></td>
+							<td>Konversi otomatis nilai ke format responsif (rem/scaling)</td>
+						</tr>
+						<tr>
+							<td><code>RDS.applyStyles(element, styles)</code></td>
+							<td>Terapkan styles ke satu elemen dengan konversi otomatis</td>
+						</tr>
+						<tr>
+							<td><code>RDS.applyStylesToAll(elements, styles)</code></td>
+							<td>Terapkan styles ke banyak elemen sekaligus</td>
+						</tr>
+						<tr>
+							<td><code>RDS.pxToRem(value, base)</code></td>
+							<td>Konversi px ke rem (manual)</td>
+						</tr>
+						<tr>
+							<td><code>RDS.remToPx(value, base)</code></td>
+							<td>Konversi rem ke px (manual)</td>
+						</tr>
+						<tr>
+							<td><code>RDS.responsivePx(value, base)</code></td>
+							<td>Konversi px ke format responsif (rem + scale)</td>
+						</tr>
+						<tr>
+							<td><code>RDS.convertAllToRem(base)</code></td>
+							<td>Konversi seluruh CSS di halaman ke rem</td>
+						</tr>
+					</table>
+					<h3>Konfigurasi Default</h3>
+					<pre><code>{
   desktop: {
     baseWidth: 1920,
     baseHeight: 1080,
@@ -640,267 +566,258 @@
   beforeUpdate: null,    // Hook sebelum update scale
   afterUpdate: null      // Hook setelah update scale
 }</code></pre>
-                
-                <h3>Penjelasan Konfigurasi</h3>
-                <table class="config-table">
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Deskripsi</th>
-                    </tr>
-                    <tr>
-                        <td><code>desktop</code></td>
-                        <td>Konfigurasi untuk mode desktop (baseWidth, baseHeight, minScale, maxScale)</td>
-                    </tr>
-                    <tr>
-                        <td><code>mobile</code></td>
-                        <td>Konfigurasi untuk mode mobile (baseWidth, baseHeight, minScale, maxScale)</td>
-                    </tr>
-                    <tr>
-                        <td><code>baseFontSize</code></td>
-                        <td>Ukuran font dasar</td>
-                    </tr>
-                    <tr>
-                        <td><code>breakpoint</code></td>
-                        <td>Lebar viewport untuk switch mode</td>
-                    </tr>
-                    <tr>
-                        <td><code>forceMode</code></td>
-                        <td>Pilihan mode ('auto', 'desktop', 'mobile')</td>
-                    </tr>
-                    <tr>
-                        <td><code>debug</code></td>
-                        <td>Jika true, log detail ke console</td>
-                    </tr>
-                    <tr>
-                        <td><code>cssVarName</code></td>
-                        <td>Nama variabel CSS untuk scale</td>
-                    </tr>
-                    <tr>
-                        <td><code>remMode</code></td>
-                        <td>Mode konversi rem ('static', 'responsive', 'hybrid')</td>
-                    </tr>
-                    <tr>
-                        <td><code>remBaseSize</code></td>
-                        <td>Base size untuk konversi rem</td>
-                    </tr>
-                    <tr>
-                        <td><code>beforeUpdate</code></td>
-                        <td>Hook yang dipanggil sebelum update scale</td>
-                    </tr>
-                    <tr>
-                        <td><code>afterUpdate</code></td>
-                        <td>Hook yang dipanggil setelah update scale</td>
-                    </tr>
-                </table>
-                
-                <div class="note">
-                    <strong>Catatan Penggunaan:</strong>
-                    <ul>
-                        <li>Untuk konversi stylesheet eksternal, pastikan sheet dapat diakses (tidak cross-origin)</li>
-                        <li>Gunakan <code>debug: true</code> untuk melihat log perubahan</li>
-                        <li>Hooks dapat digunakan untuk memodifikasi perilaku scale dan mendapatkan event perubahan</li>
-                        <li>Integrasi mudah dengan framework seperti React, Vue, atau vanilla JS</li>
-                    </ul>
-                </div>
-                
-                <div class="warning">
-                    <strong>Peringatan:</strong>
-                    <ul>
-                        <li>Konversi seluruh CSS ke REM dapat mempengaruhi performa pada halaman yang sangat kompleks</li>
-                        <li>Pastikan untuk menguji di berbagai perangkat dan browser</li>
-                    </ul>
-                </div>
-                
-                <h3>Lisensi & Kontribusi</h3>
-                <ul>
-                    <li>Bebas digunakan untuk project pribadi/komersial</li>
-                    <li>Silakan kontribusi dengan pull request atau issue jika ingin menambah fitur</li>
-                    <li>Credit: Mbah Babat</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div id="demoPanel" class="demo-panel">
-            <div class="panel-header">
-                <h3>Kode Modul RDS</h3>
-                <div class="panel-actions">
-                    <button id="copyBtn" class="action-btn" title="Salin Kode">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                        </svg>
-                    </button>
-                    <button id="openBtn" class="action-btn" title="Buka di Tab Baru">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <textarea id="codeEditor"></textarea>
-            <div class="status-bar">
-                <div class="status-item">
-                    <span>Tema: Paraiso Dark</span>
-                </div>
-                <div class="status-item">
-                    <span>Jumlah Baris: <span id="lineCount">0</span></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <footer>
-        <p>Responsive Design System (RDS) - Ultimate Edition &copy; 2023 Mbah Babat</p>
-    </footer>
-    
-    <div id="notification" class="notification">Kode berhasil disalin ke clipboard!</div>
-    
-    <!-- CodeMirror Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
-    
-    <!-- Modul RDS -->
-    <script type="module">
-        // Impor modul RDS
-        import { RDS } from './assets/js/rds.js';
-        
-        // Inisialisasi RDS
-        RDS.init({
-            debug: false,
-            breakpoint: 992,
-            desktop: {
-                baseWidth: 1920,
-                baseHeight: 1080,
-                minScale: 0.5,
-                maxScale: 1.2
-            },
-            mobile: {
-                baseWidth: 375,
-                baseHeight: 667,
-                minScale: 0.3,
-                maxScale: 1.1
-            },
-            afterUpdate: (context) => {
-                document.getElementById('currentMode').textContent = context.mode;
-                document.getElementById('currentScale').textContent = context.scale.toFixed(4);
-            }
-        });
-        
-        // Referensi elemen
-        const demoPanel = document.getElementById('demoPanel');
-        const debugBtn = document.getElementById('debugBtn');
-        const autoModeBtn = document.getElementById('autoModeBtn');
-        const desktopModeBtn = document.getElementById('desktopModeBtn');
-        const mobileModeBtn = document.getElementById('mobileModeBtn');
-        const remStaticBtn = document.getElementById('remStaticBtn');
-        const remResponsiveBtn = document.getElementById('remResponsiveBtn');
-        const copyBtn = document.getElementById('copyBtn');
-        const openBtn = document.getElementById('openBtn');
-        const notification = document.getElementById('notification');
-        
-        // Inisialisasi CodeMirror
-        let editor;
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
+					<h3>Penjelasan Konfigurasi</h3>
+					<table class="config-table">
+						<tr>
+							<th>Parameter</th>
+							<th>Deskripsi</th>
+						</tr>
+						<tr>
+							<td><code>desktop</code></td>
+							<td>Konfigurasi untuk mode desktop (baseWidth, baseHeight, minScale, maxScale)</td>
+						</tr>
+						<tr>
+							<td><code>mobile</code></td>
+							<td>Konfigurasi untuk mode mobile (baseWidth, baseHeight, minScale, maxScale)</td>
+						</tr>
+						<tr>
+							<td><code>baseFontSize</code></td>
+							<td>Ukuran font dasar</td>
+						</tr>
+						<tr>
+							<td><code>breakpoint</code></td>
+							<td>Lebar viewport untuk switch mode</td>
+						</tr>
+						<tr>
+							<td><code>forceMode</code></td>
+							<td>Pilihan mode ('auto', 'desktop', 'mobile')</td>
+						</tr>
+						<tr>
+							<td><code>debug</code></td>
+							<td>Jika true, log detail ke console</td>
+						</tr>
+						<tr>
+							<td><code>cssVarName</code></td>
+							<td>Nama variabel CSS untuk scale</td>
+						</tr>
+						<tr>
+							<td><code>remMode</code></td>
+							<td>Mode konversi rem ('static', 'responsive', 'hybrid')</td>
+						</tr>
+						<tr>
+							<td><code>remBaseSize</code></td>
+							<td>Base size untuk konversi rem</td>
+						</tr>
+						<tr>
+							<td><code>beforeUpdate</code></td>
+							<td>Hook yang dipanggil sebelum update scale</td>
+						</tr>
+						<tr>
+							<td><code>afterUpdate</code></td>
+							<td>Hook yang dipanggil setelah update scale</td>
+						</tr>
+					</table>
+					<div class="note">
+						<strong>Catatan Penggunaan:</strong>
+						<ul>
+							<li>Untuk konversi stylesheet eksternal, pastikan sheet dapat diakses (tidak cross-origin)</li>
+							<li>Gunakan <code>debug: true</code> untuk melihat log perubahan</li>
+							<li>Hooks dapat digunakan untuk memodifikasi perilaku scale dan mendapatkan event perubahan</li>
+							<li>Integrasi mudah dengan framework seperti React, Vue, atau vanilla JS</li>
+						</ul>
+					</div>
+					<div class="warning">
+						<strong>Peringatan:</strong>
+						<ul>
+							<li>Konversi seluruh CSS ke REM dapat mempengaruhi performa pada halaman yang sangat kompleks</li>
+							<li>Pastikan untuk menguji di berbagai perangkat dan browser</li>
+						</ul>
+					</div>
+					<h3>Lisensi & Kontribusi</h3>
+					<ul>
+						<li>Bebas digunakan untuk project pribadi/komersial</li>
+						<li>Silakan kontribusi dengan pull request atau issue jika ingin menambah fitur</li>
+						<li>Credit: Mbah Babat</li>
+					</ul>
+				</div>
+			</div>
+			<div id="demoPanel" class="demo-panel">
+				<div class="panel-header">
+					<h3>Kode Modul RDS</h3>
+					<div class="panel-actions">
+						<button id="copyBtn" class="action-btn" title="Salin Kode">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+								<rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+							</svg>
+						</button>
+						<button id="openBtn" class="action-btn" title="Buka di Tab Baru">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+								<polyline points="15 3 21 3 21 9"></polyline>
+								<line x1="10" y1="14" x2="21" y2="3"></line>
+							</svg>
+						</button>
+					</div>
+				</div>
+				<textarea id="codeEditor"></textarea>
+				<div class="status-bar">
+					<div class="status-item">
+						<span>Tema: Paraiso Dark</span>
+					</div>
+					<div class="status-item">
+						<span>Jumlah Baris: <span id="lineCount">0</span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<p>Responsive Design System (RDS) - Ultimate Edition &copy; 2023 Mbah Babat</p>
+		</footer>
+		<div id="notification" class="notification">Kode berhasil disalin ke clipboard!</div>
+		<!-- CodeMirror Scripts -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+		<!-- Modul RDS -->
+		<script type="module">
+			// Impor modul RDS
+			import { RDS } from './assets/js/rds.js';
 			
-				// Ambil kode modul RDS
-                const response = await fetch('./assets/js/rds.js');
-                const rdsCode = await response.text();
-				
-                // Setup CodeMirror
-                editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
-                    mode: 'javascript',
-                    lineNumbers: true,
-                    readOnly: true,
-                    theme: 'paraiso-dark',
-                    lineWrapping: true
-                });
-                      
-                editor.setValue(rdsCode);
-                document.getElementById('lineCount').textContent = editor.lineCount();
-            } catch (error) {
-                console.error('Gagal memuat modul RDS:', error);
-            }
-        });
-        
-        // Toggle debug mode
-        debugBtn.addEventListener('click', () => {
-            const debugMode = !RDS.getConfig().debug;
-            RDS.updateConfig({ debug: debugMode });
-            debugBtn.textContent = `Debug Mode: ${debugMode ? 'ON' : 'OFF'}`;
-            debugBtn.classList.toggle('active', debugMode);
-        });
-        
-        // Atur mode sistem
-        autoModeBtn.addEventListener('click', () => {
-            RDS.setMode('auto');
-            updateModeButtons('auto');
-        });
-        
-        desktopModeBtn.addEventListener('click', () => {
-            RDS.setMode('desktop');
-            updateModeButtons('desktop');
-        });
-        
-        mobileModeBtn.addEventListener('click', () => {
-            RDS.setMode('mobile');
-            updateModeButtons('mobile');
-        });
-        
-        // Atur mode REM
-        remStaticBtn.addEventListener('click', () => {
-            RDS.updateConfig({ remMode: 'static' });
-            updateRemButtons('static');
-        });
-        
-        remResponsiveBtn.addEventListener('click', () => {
-            RDS.updateConfig({ remMode: 'responsive' });
-            updateRemButtons('responsive');
-        });
-        
-        // Fungsi untuk memperbarui tampilan tombol mode
-        function updateModeButtons(mode) {
-            autoModeBtn.classList.toggle('active', mode === 'auto');
-            desktopModeBtn.classList.toggle('active', mode === 'desktop');
-            mobileModeBtn.classList.toggle('active', mode === 'mobile');
-        }
-        
-        // Fungsi untuk memperbarui tampilan tombol mode REM
-        function updateRemButtons(mode) {
-            remStaticBtn.classList.toggle('active', mode === 'static');
-            remResponsiveBtn.classList.toggle('active', mode === 'responsive');
-        }
-        
-        // Salin kode ke clipboard
-        copyBtn.addEventListener('click', () => {
-            const code = editor.getValue();
-            navigator.clipboard.writeText(code)
-                .then(() => {
-                    showNotification('Kode berhasil disalin ke clipboard!');
-                })
-                .catch(err => {
-                    console.error('Gagal menyalin teks: ', err);
-                    showNotification('Gagal menyalin kode!');
-                });
-        });
-        
-        // Buka kode di tab baru
-        openBtn.addEventListener('click', () => {
-            window.open('https://mbahbabat.github.io/blog/code/module/RDS/assets/js/rds.js', '_blank');
-        });
-        
-        // Tampilkan notifikasi
-        function showNotification(message) {
-            notification.textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-    </script>
-</body>
+			// Inisialisasi RDS
+			RDS.init({
+			    debug: false,
+			    breakpoint: 992,
+			    desktop: {
+			        baseWidth: 1920,
+			        baseHeight: 1080,
+			        minScale: 0.5,
+			        maxScale: 1.2
+			    },
+			    mobile: {
+			        baseWidth: 375,
+			        baseHeight: 667,
+			        minScale: 0.3,
+			        maxScale: 1.1
+			    },
+			    afterUpdate: (context) => {
+			        document.getElementById('currentMode').textContent = context.mode;
+			        document.getElementById('currentScale').textContent = context.scale.toFixed(4);
+			    }
+			});
+			
+			// Referensi elemen
+			const demoPanel = document.getElementById('demoPanel');
+			const debugBtn = document.getElementById('debugBtn');
+			const autoModeBtn = document.getElementById('autoModeBtn');
+			const desktopModeBtn = document.getElementById('desktopModeBtn');
+			const mobileModeBtn = document.getElementById('mobileModeBtn');
+			const remStaticBtn = document.getElementById('remStaticBtn');
+			const remResponsiveBtn = document.getElementById('remResponsiveBtn');
+			const copyBtn = document.getElementById('copyBtn');
+			const openBtn = document.getElementById('openBtn');
+			const notification = document.getElementById('notification');
+			
+			// Inisialisasi CodeMirror
+			let editor;
+			
+			document.addEventListener('DOMContentLoaded', async () => {
+			    try {
+			
+			// Ambil kode modul RDS
+			        const response = await fetch('./assets/js/rds.js');
+			        const rdsCode = await response.text();
+			
+			        // Setup CodeMirror
+			        editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+			            mode: 'javascript',
+			            lineNumbers: true,
+			            readOnly: true,
+			            theme: 'paraiso-dark',
+			            lineWrapping: true
+			        });
+			              
+			        editor.setValue(rdsCode);
+			        document.getElementById('lineCount').textContent = editor.lineCount();
+			    } catch (error) {
+			        console.error('Gagal memuat modul RDS:', error);
+			    }
+			});
+			
+			// Toggle debug mode
+			debugBtn.addEventListener('click', () => {
+			    const debugMode = !RDS.getConfig().debug;
+			    RDS.updateConfig({ debug: debugMode });
+			    debugBtn.textContent = `Debug Mode: ${debugMode ? 'ON' : 'OFF'}`;
+			    debugBtn.classList.toggle('active', debugMode);
+			});
+			
+			// Atur mode sistem
+			autoModeBtn.addEventListener('click', () => {
+			    RDS.setMode('auto');
+			    updateModeButtons('auto');
+			});
+			
+			desktopModeBtn.addEventListener('click', () => {
+			    RDS.setMode('desktop');
+			    updateModeButtons('desktop');
+			});
+			
+			mobileModeBtn.addEventListener('click', () => {
+			    RDS.setMode('mobile');
+			    updateModeButtons('mobile');
+			});
+			
+			// Atur mode REM
+			remStaticBtn.addEventListener('click', () => {
+			    RDS.updateConfig({ remMode: 'static' });
+			    updateRemButtons('static');
+			});
+			
+			remResponsiveBtn.addEventListener('click', () => {
+			    RDS.updateConfig({ remMode: 'responsive' });
+			    updateRemButtons('responsive');
+			});
+			
+			// Fungsi untuk memperbarui tampilan tombol mode
+			function updateModeButtons(mode) {
+			    autoModeBtn.classList.toggle('active', mode === 'auto');
+			    desktopModeBtn.classList.toggle('active', mode === 'desktop');
+			    mobileModeBtn.classList.toggle('active', mode === 'mobile');
+			}
+			
+			// Fungsi untuk memperbarui tampilan tombol mode REM
+			function updateRemButtons(mode) {
+			    remStaticBtn.classList.toggle('active', mode === 'static');
+			    remResponsiveBtn.classList.toggle('active', mode === 'responsive');
+			}
+			
+			// Salin kode ke clipboard
+			copyBtn.addEventListener('click', () => {
+			    const code = editor.getValue();
+			    navigator.clipboard.writeText(code)
+			        .then(() => {
+			            showNotification('Kode berhasil disalin ke clipboard!');
+			        })
+			        .catch(err => {
+			            console.error('Gagal menyalin teks: ', err);
+			            showNotification('Gagal menyalin kode!');
+			        });
+			});
+			
+			// Buka kode di tab baru
+			openBtn.addEventListener('click', () => {
+			    window.open('https://mbahbabat.github.io/blog/code/module/RDS/assets/js/rds.js', '_blank');
+			});
+			
+			// Tampilkan notifikasi
+			function showNotification(message) {
+			    notification.textContent = message;
+			    notification.classList.add('show');
+			    
+			    setTimeout(() => {
+			        notification.classList.remove('show');
+			    }, 3000);
+			}
+		</script>
+	</body>
 </html>

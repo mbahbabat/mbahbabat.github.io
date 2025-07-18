@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Demo lengkap FetchAndFill: Modul JavaScript untuk memuat konten dinamis dengan sanitasi, caching, dan manajemen lifecycle di Single Page Application (SPA).">
+    <meta name="keywords" content="FetchAndFill, JavaScript, SPA, DOMPurify, Caching, Sanitasi, Web Component, Demo">
+    <meta name="author" content="Mbah Babat">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Demo Lengkap FetchAndFill untuk SPA">
+    <meta property="og:description" content="Modul JavaScript untuk pemuatan konten dinamis di SPA dengan sanitasi, caching, retry otomatis, dan custom events.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mbahbabat.github.io/spa/demo/">
+    <meta property="og:image" content="https://mbahbabat.github.io/spa/spa.png">
+    <meta property="og:site_name" content="Gmooy">
+    <meta property="og:locale" content="id_ID">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Demo Lengkap FetchAndFill untuk SPA">
+    <meta name="twitter:description" content="Modul JavaScript untuk pemuatan konten dinamis di SPA dengan sanitasi, caching, retry otomatis, dan custom events.">
+    <meta name="twitter:image" content="https://mbahbabat.github.io/spa/spa.png">
+    <meta name="twitter:site" content="@gmooy_id">
+    <meta name="twitter:creator" content="@mbah_babat">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mbahbabat.github.io/spa/demo/">
+	<link rel="shortcut icon" href="https://mbahbabat.github.io/spa/spa.png">
+
+    <!-- Title -->
+    <title>Demo Lengkap FetchAndFill</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
+    <script type="module" src="FetchAndFill-Module.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            background: #f0f5ff;
+            border-bottom: 2px solid #4a6491;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .btn-dark {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+        }
+        
+        .content-area {
+            display: flex;
+            min-height: 500px;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .target-container {
+            flex: 3;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 2px dashed #3498db;
+        }
+        
+        .log-container {
+            flex: 2;
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 500px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .log-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #3498db;
+            font-size: 1.4rem;
+        }
+        
+        .log-entry {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .log-event {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .log-start { background: #3498db; }
+        .log-fetch { background: #2ecc71; }
+        .log-cachehit { background: #f39c12; }
+        .log-retry { background: #e67e22; }
+        .log-success { background: #27ae60; }
+        .log-error { background: #e74c3c; }
+        .log-cleanup { background: #9b59b6; }
+        .log-fallback { background: #95a5a6; }
+        
+        .target-content {
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            min-height: 300px;
+            margin-top: 15px;
+        }
+        
+        .reference-element {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #bbdefb;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            background: #fffde7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-sync-alt"></i> Demo FetchAndFill Module</h1>
+            <div class="subtitle">Implementasi Lengkap dengan Semua Fitur</div>
+        </header>
+        
+        <div class="controls">
+            <div class="control-group">
+                <h2><i class="fas fa-sliders-h"></i> Operasi Dasar</h2>
+                <div class="btn-group">
+                    <button class="btn-primary" id="loadContent">
+                        <i class="fas fa-download"></i> Load Konten
+                    </button>
+                    <button class="btn-secondary" id="clearContent">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2><i class="fas fa-layer-group"></i> Posisi Konten</h2>
+                <div class="btn-group">
+                    <button class="btn-primary" id="positionReplace">Replace</button>
+                    <button class="btn-primary" id="positionAppend">Append</button>
+                    <button class="btn-primary" id="positionPrepend">Prepend</button>
+                    <button class="btn-primary" id="positionBefore">Before</button>
+                    <button class="btn-primary" id="positionAfter">After</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2><i class="fas fa-database"></i> Strategi Cache</h2>
+                <div class="btn-group">
+                    <button class="btn-dark" id="cacheMemory">Memory</button>
+                    <button class="btn-dark" id="cacheSession">Session</button>
+                    <button class="btn-dark" id="cacheNone">None</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2><i class="fas fa-flask"></i> Fitur Lanjutan</h2>
+                <div class="btn-group">
+                    <button class="btn-warning" id="loadError">
+                        <i class="fas fa-bug"></i> Load Error
+                    </button>
+                    <button class="btn-secondary" id="abortLoad">
+                        <i class="fas fa-stop-circle"></i> Abort Loading
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            <div class="target-container">
+                <h2><i class="fas fa-bullseye"></i> Target Area</h2>
+                
+                <div class="target-content" id="target">
+                    <p>Konten akan ditampilkan di sini. Coba berbagai operasi di atas.</p>
+					<div class="reference-element">
+						<p><i class="fas fa-flag"></i> Ini adalah elemen referensi untuk posisi before/after</p>
+					</div>
+                </div>
+                
+                <div class="highlight">
+                    <h3><i class="fas fa-lightbulb"></i> Fitur Run Scripts</h3>
+                    <p>Diaktifkan pada operasi "Load Konten" (sanitize=false)</p>
+                    <p>Script di profile.html akan dijalankan dan menghasilkan:</p>
+                    <div id="scriptResult"></div>
+                </div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3><i class="fas fa-bolt"></i> Sanitasi Hybrid</h3>
+                        <p>DOMPurify + fallback sanitizer</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-redo"></i> Exponential Backoff</h3>
+                        <p>Retry otomatis dengan peningkatan delay</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-calendar"></i> Lifecycle Events</h3>
+                        <p>Event lengkap untuk setiap tahap proses</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-microchip"></i> Cache Management</h3>
+                        <p>Memory, Session Storage, atau tanpa cache</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="log-container">
+                <div class="log-title"><i class="fas fa-terminal"></i> Event Logs</div>
+                <div id="logs"></div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Gmooy &copy; 2025 Demo SPA</p>
+        </footer>
+    </div>
+
+    <script type="module">
+        import { fetchAndFill } from './FetchAndFill-Module.js';
+        
+        // Elemen UI
+        const targetElement = document.getElementById('target');
+        const logContainer = document.getElementById('logs');
+        let currentLoader = null;
+        let currentOptions = {
+            position: 'replace',
+            cache: 'memory',
+            sanitize: true,
+            runScripts: false,
+            relativeTo: '.reference-element'
+        };
+        
+        // Fungsi untuk menambahkan log
+        function addLog(event, detail) {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            
+            const eventName = event.split(':')[1];
+            const timestamp = new Date().toLocaleTimeString();
+            
+            let logText = `<span class="log-event log-${eventName}">${eventName.toUpperCase()}</span>`;
+            logText += `<span>[${timestamp}]</span> `;
+            
+            switch(eventName) {
+                case 'start':
+                    logText += `Memulai load: ${detail.src}`;
+                    break;
+                case 'fetch':
+                    logText += `Fetch berhasil: ${detail.src} (${detail.duration.toFixed(2)}ms, ${detail.size} bytes)`;
+                    break;
+                case 'cachehit':
+                    logText += `Cache ditemukan: ${detail.src} (${detail.cacheType})`;
+                    break;
+                case 'retry':
+                    logText += `Retry #${detail.retryCount} untuk ${detail.src} (delay: ${detail.delay}ms)`;
+                    break;
+                case 'success':
+                    logText += `Konten berhasil dimuat: ${detail.src}`;
+                    break;
+                case 'error':
+                    logText += `ERROR: ${detail.error.message} (${detail.src})`;
+                    break;
+                case 'cleanup':
+                    logText += `Cleanup: ${detail.src}`;
+                    break;
+                case 'fallbacksanitize':
+                    logText += `Fallback sanitizer digunakan: ${detail.src}`;
+                    break;
+                default:
+                    logText += JSON.stringify(detail);
+            }
+            
+            logEntry.innerHTML = logText;
+            logContainer.prepend(logEntry);
+        }
+        
+        // Fungsi untuk memuat konten
+        function loadContent(url, options) {
+            // Hentikan loader sebelumnya jika ada
+            if (currentLoader) {
+                currentLoader.abort();
+                addLog('fetchandfill:cleanup', { src: 'previous' });
+            }
+            
+            // Setup options
+            const finalOptions = { ...currentOptions, ...options };
+            
+            // Log opsi yang digunakan
+            console.log('Loading with options:', finalOptions);
+            
+            // Load konten
+            currentLoader = fetchAndFill(url, '#target', finalOptions);
+            
+            // Daftarkan semua event
+            const events = ['start', 'fetch', 'cachehit', 'retry', 'success', 'error', 'cleanup', 'fallbacksanitize'];
+            events.forEach(event => {
+                currentLoader.on(event, (e) => {
+                    addLog(e.type, e.detail);
+                });
+            });
+            
+            return currentLoader;
+        }
+        
+        // Handler untuk tombol
+        document.getElementById('loadContent').addEventListener('click', () => {
+            // Untuk demo run scripts, kita nonaktifkan sanitize
+            loadContent('profile.html', { 
+                sanitize: false,
+                runScripts: true,
+				position: 'append'
+            });
+        });
+        
+        document.getElementById('clearContent').addEventListener('click', () => {
+            targetElement.innerHTML = `
+			<p>Konten telah direset. Coba operasi lainnya.</p>
+			<div class="reference-element">
+				<p><i class="fas fa-flag"></i> Ini adalah elemen referensi untuk posisi before/after</p>
+			</div>
+			`;
+			
+        });
+        
+        // Handler untuk posisi
+        document.getElementById('positionReplace').addEventListener('click', () => {
+            loadContent('partials/sample1.html', { position: 'replace' });
+        });
+        
+        document.getElementById('positionAppend').addEventListener('click', () => {
+            loadContent('partials/sample2.html', { position: 'append' });
+        });
+        
+        document.getElementById('positionPrepend').addEventListener('click', () => {
+            loadContent('partials/sample3.html', { position: 'prepend' });
+        });
+        
+        document.getElementById('positionBefore').addEventListener('click', () => {
+            loadContent('partials/sample4.html', { 
+                position: 'before',
+                relativeTo: '#target > .reference-element'
+            });
+        });
+        
+        document.getElementById('positionAfter').addEventListener('click', () => {
+            loadContent('partials/sample5.html', { 
+                position: 'after',
+                relativeTo: '#target > .reference-element'
+            });
+        });
+        
+        // Handler untuk cache
+        document.getElementById('cacheMemory').addEventListener('click', () => {
+            currentOptions.cache = 'memory';
+            addLog('fetchandfill:info', { message: 'Cache strategy set to: memory' });
+        });
+        
+        document.getElementById('cacheSession').addEventListener('click', () => {
+            currentOptions.cache = 'session';
+            addLog('fetchandfill:info', { message: 'Cache strategy set to: session' });
+        });
+        
+        document.getElementById('cacheNone').addEventListener('click', () => {
+            currentOptions.cache = 'none';
+            addLog('fetchandfill:info', { message: 'Cache strategy set to: none' });
+        });
+        
+        // Handler untuk fitur lanjutan
+        document.getElementById('loadError').addEventListener('click', () => {
+            loadContent('non-existent-file.html', { maxRetries: 1 });
+        });
+        
+        document.getElementById('abortLoad').addEventListener('click', () => {
+            if (currentLoader) {
+                currentLoader.abort();
+                addLog('fetchandfill:info', { message: 'Loading aborted by user' });
+            }
+        });
+        
+        // Tampilkan pesan awal
+        addLog('fetchandfill:info', { message: 'Aplikasi siap. Pilih operasi untuk memulai.' });
+        
+        // Fungsi untuk mengupdate hasil script (dipanggil dari profile.html)
+        window.updateScriptResult = function(message) {
+            document.getElementById('scriptResult').innerHTML = `
+                <div style="background:#e8f5e9; padding:10px; border-radius:5px; margin-top:10px;">
+                    <i class="fas fa-code"></i> <strong>Hasil Eksekusi Script:</strong> ${message}
+                </div>
+            `;
+        };
+    </script>
+</body>
+</html>

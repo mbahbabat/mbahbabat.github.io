@@ -1,0 +1,595 @@
+================================================================================
+DOKUMENTASI MODUL FetchAndFill HYBRID
+================================================================================
+
+Penulis: Mbah Babat
+Script: FetchAndFill-Module.js
+Tujuan: Melakukan pengambilan (fetch) HTML dinamis, pengisian kontainer, dan manajemen siklus hidup untuk aplikasi web modern, dengan fitur-fitur canggih untuk SPA, keamanan, cache, dan lazy loading.
+
+================================================================================
+DAFTAR ISI
+================================================================================
+1. Ringkasan & Fitur
+2. Variabel Global & Konfigurasi
+3. Manajemen Siklus Hidup
+   - Cleanup Global
+   - Auto Cleanup Navigasi SPA
+   - Cleanup Window/Tab
+4. Lazy Loading
+   - Konfigurasi
+   - Deteksi
+   - Setup
+5. Fungsi Utama: fetchAndFill
+   - Parameter & Validasi
+   - Opsi Konfigurasi
+   - Siklus Fetch
+   - Caching
+   - Sanitasi
+   - Manipulasi DOM
+   - Inisialisasi Ulang Script
+   - Penanganan Error & UI
+   - Penempatan Konten
+   - Observer & Mutasi
+   - Objek Loader & Event
+6. Utilitas & Helper
+   - Validasi
+   - Sanitasi Cadangan
+   - Dispatch Event
+   - UI Error
+   - Cleanup Lanjutan
+7. API Export
+8. Contoh Penggunaan
+9. Referensi Event
+10. Catatan Keamanan
+11. Keterbatasan & Isu
+12. Changelog & Kredit
+
+================================================================================
+1. RINGKASAN & FITUR
+================================================================================
+
+Modul FetchAndFill Hybrid memungkinkan pemuatan konten dinamis yang aman dan fleksibel ke dalam kontainer HTML. Dirancang untuk SPA dan website modern, dengan fitur:
+
+- **Sanitasi Hybrid HTML**: Menggunakan DOMPurify jika tersedia, fallback ke sanitizer custom.
+- **Cache Strategis**: Mendukung cache memory, sessionStorage, atau tanpa cache.
+- **Event Lifecycle Custom**: Semua aksi utama berbasis event dan dapat di-observasi.
+- **Validasi Selector Ketat**: Memastikan selector target valid.
+- **Logika Retry**: Backoff eksponensial untuk fetch gagal.
+- **Manajemen Siklus Hidup SPA**: Cleanup otomatis saat navigasi.
+- **Auto Cleanup**: Membersihkan pada tab hide, unload, navigasi, dll.
+- **Lazy Load Support**: Konten di-load saat kontainer masuk viewport.
+- **Penempatan Fleksibel**: Replace, append, prepend, before, after.
+- **Reinisialisasi Script**: Script inline diinject ulang dengan aman.
+- **UI Penanganan Error**: Menampilkan pesan error ramah pengguna dengan tombol retry.
+- **Global Loader Registry**: Tracking dan abort semua loader aktif.
+- **Event Hooks**: Bisa listen dan merespon semua event lifecycle.
+
+================================================================================
+2. VARIABEL GLOBAL & KONFIGURASI
+================================================================================
+
+- `fetchCache`: Map untuk cache memory.
+- `EVENT_PREFIX`: Prefix semua event custom (`fetchandfill:`).
+- `activeLoaders`: Set loader aktif saat ini.
+- `lazyConfig`: Konfigurasi lazy loading:
+    - enabled: true/false
+    - margin: rootMargin untuk IntersectionObserver
+    - threshold: Ambang Intersection
+    - disableForAboveFold: Jika true, lazy load dinonaktifkan untuk kontainer yang terlihat
+
+================================================================================
+3. MANAJEMEN SIKLUS HIDUP
+================================================================================
+
+3.1. **Cleanup Global**  
+- `cleanupAllLoaders()`: Abort semua loader aktif, clear registry global.
+
+3.2. **Auto Cleanup Navigasi SPA**  
+- `setupSPACleanup()`: Monkey-patch `history.pushState` dan `replaceState` untuk dispatch event custom (`spa-navigate`) saat navigasi. Juga listen `popstate` dan trigger cleanup.
+
+3.3. **Cleanup Window/Tab**  
+- `setupWindowCleanup()`: Listen `beforeunload`, `pagehide`, dan `visibilitychange` (hidden) untuk trigger cleanup.
+
+Semua logika cleanup diinisialisasi otomatis jika `window` tersedia.
+
+================================================================================
+4. LAZY LOADING
+================================================================================
+
+- `configureLazyLoading(options)`: Update lazyConfig secara global.
+- `isElementInViewport(el)`: Cek apakah elemen terlihat di viewport.
+- Lazy loading dipicu jika enable dan elemen tidak di atas layar (atau disableForAboveFold = false).
+
+IntersectionObserver dipakai jika tersedia; jika tidak, load langsung.
+
+================================================================================
+5. FUNGSI UTAMA: fetchAndFill
+================================================================================
+
+`fetchAndFill(src, targetSelector, options = {})`
+
+Parameter:
+- `src`: String. URL untuk fetch HTML. (Wajib)
+- `targetSelector`: String. Selector CSS kontainer. (Wajib)
+- `options`: Object. Konfigurasi opsional.
+
+Validasi:
+- Throw TypeError jika `src` atau `targetSelector` tidak valid.
+
+Konfigurasi Default (`config`):
+- `position`: Cara insert HTML (`replace`, `append`, `prepend`, `before`, `after`)
+- `relativeTo`: Selector referensi (untuk `before`/`after`)
+- `runScripts`: Apakah script diinisialisasi ulang
+- `sanitize`: Gunakan sanitasi (DOMPurify atau fallback)
+- `sanitizerOptions`: Opsi untuk DOMPurify
+- `cache`: `'memory'`, `'session'`, atau `'none'`
+- `maxRetries`: Jumlah retry fetch
+- `retryDelay`: Delay awal (ms) untuk retry
+- `timeout`: Waktu maksimal tunggu target (ms)
+- `signal`: Optional AbortSignal
+
+Objek Loader:
+- `abort()`: Abort loader dan unregister dari registry global.
+- `on(event, handler)`: Subscribe ke event custom; return fungsi unsubscribe.
+
+================================================================================
+Siklus Fetch
+================================================================================
+
+1. **Penanganan AbortController**
+   - Fungsi fetchWithRetry menggunakan AbortController untuk membatalkan proses fetch jika:
+     - Ada sinyal abort eksternal (`options.signal`).
+     - Loader di-abort melalui fungsi `cleanup()`.
+   - Jika fetch di-abort, error dengan nama `AbortError` tidak akan memicu event error.
+
+2. **Detail Exponential Backoff**
+   - Formula retry: `delay = retryDelay * 2^(retryCount)`.
+   - Contoh: retryDelay=1000, maxRetries=3 -> Delay: 1000ms, 2000ms, 4000ms.
+   - Retry hanya dilakukan untuk error:
+     - Network failure (gagal jaringan).
+     - HTTP status 5xx (server error).
+3. **Validasi Selector**: Pastikan selector valid secara sintaks.
+4. **Deteksi Target**: Cari elemen target.
+   - Jika ketemu: lanjut (lazy atau langsung fill).
+   - Jika tidak: Setup MutationObserver untuk elemen dinamis.
+5. **Lazy Loading**: Jika enable, tunggu elemen masuk viewport.
+6. **Fetch & Caching**: Load dari cache jika ada, jika tidak fetch baru.
+   - Cache memory: `fetchCache`
+   - Cache session: `sessionStorage`
+7. **Retry Logic**: Error network/HTTP 5xx, lakukan backoff eksponensial.
+8. **Sanitasi**: HTML disanitasi via DOMPurify atau fallback.
+9. **Manipulasi DOM**: DocumentFragment dibuat dan diinsert sesuai posisi.
+10. **Reinisialisasi Script**: Script inline diinject ulang jika diizinkan.
+11. **Penanganan Error**: Tampilkan UI error di kontainer dengan tombol retry.
+12. **Cleanup**: Observer, timer, signal dibersihkan saat abort/sukses.
+
+================================================================================
+Observer & Mutasi
+================================================================================
+
+- **Mutation Observer**
+  - Digunakan untuk mendeteksi kemunculan targetSelector jika belum ada di DOM.
+  - Observer disetting dengan:
+    ```javascript
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributeFilter: ['id', 'class'] // Hanya pantau perubahan id/class
+    });
+    ```
+  - Observer akan di-disconnect saat target ditemukan atau terjadi timeout.
+
+================================================================================
+6. UTILITAS & HELPER
+================================================================================
+
+- `validateSelector(selector)`: True jika selector valid.
+- `dispatchEvent(eventName, detail)`: Dispatch custom event (`fetchandfill:<eventName>`) dengan detail.
+- `cleanup()`: Disconnect observer, clear timer, abort fetch, dispatch event cleanup.
+- `enhancedCleanup()`: Cleanup tambahan, unregister loader dari registry global.
+- `fallbackSanitize(html)`: Hapus tag dan atribut berbahaya jika DOMPurify tidak tersedia.
+- `displayError(target, error, src)`: Render error message dan tombol retry ke kontainer target.
+- `handlePosition(target, fragment, position, relativeTo)`: Menempatkan fragment ke kontainer sesuai posisi.
+- `reinitScripts(container, isSanitized)`: Inject ulang script, skip eksternal jika disanitasi.
+
+================================================================================
+Fallback Sanitizer
+================================================================================
+
+- **Detail Fallback Sanitizer**
+  - Tag yang dihapus:
+    - ['script', 'iframe', 'object', 'embed', 'form', 'link']
+  - Atribut yang dihapus:
+    - Semua atribut `on*` (event handlers seperti onclick, onload, dll).
+    - Nilai `src`/`href` yang mengandung `javascript:`.
+    - Nilai `style` yang mengandung `expression` atau `javascript`.
+	
+================================================================================
+UI Error
+================================================================================
+
+- **UI Error Tombol Retry**
+  - Klik tombol "Coba Lagi" akan:
+    - Menghapus UI error dari target.
+    - Mereset state loader (`isFilled=false`, `retryCount=0`).
+    - Menjalankan ulang proses proceedFill().
+
+- **Ketergantungan FontAwesome**
+  - UI error menggunakan ikon `fa-exclamation-triangle` dan `fa-redo`.
+  - Jika tidak menggunakan FontAwesome, ganti HTML error dengan SVG/icon teks biasa.
+
+================================================================================
+Contoh Override Custom Error UI:
+================================================================================
+
+const originalFetchAndFill = fetchAndFill;
+fetchAndFill = (src, targetSelector, options) => {
+  const loader = originalFetchAndFill(src, targetSelector, options);
+  loader.on('error', (e) => {
+    const target = document.querySelector(targetSelector);
+    if (target) {
+      target.innerHTML = `<div class="my-error">Custom error: ${e.detail.error.message}</div>`;
+    }
+  });
+  return loader;
+};
+
+================================================================================
+7. API EXPORT
+================================================================================
+
+Ekspor:
+- `fetchAndFill`
+- `cleanupAllLoaders`
+- `configureLazyLoading`
+
+================================================================================
+8. CONTOH PENGGUNAAN
+================================================================================
+
+Impor modul:
+    import { fetchAndFill, cleanupAllLoaders, configureLazyLoading } from './FetchAndFill-Module.js';
+
+-------------------------------------------------------------------------------
+A. fetchAndFill - Penggunaan Dasar
+-------------------------------------------------------------------------------
+Load konten ke dalam kontainer dengan selector:
+    fetchAndFill('/widget.html', '#widget-container');
+	
+	
+
+-------------------------------------------------------------------------------
+B. fetchAndFill - Dengan Semua Opsi
+-------------------------------------------------------------------------------
+Penggunaan lanjutan dengan opsi custom:
+    const loader = fetchAndFill('/content.html', '#main', {
+        position: 'replace',           // 'append', 'prepend', 'before', 'after'
+        relativeTo: '.reference',      // Untuk 'before'/'after'
+        runScripts: true,              // Inisialisasi ulang script setelah load
+        sanitize: true,                // Aktifkan sanitasi HTML
+        sanitizerOptions: {
+            ADD_TAGS: ['safe-custom-element'],
+            FORBID_TAGS: ['script', 'iframe', 'object', 'embed'],
+            FORBID_ATTR: ['onload', 'onerror', 'onclick'],
+            ADD_ATTR: ['data-safe-attr']
+        },
+        cache: 'memory',               // 'memory', 'session', atau 'none'
+        maxRetries: 3,                 // Jumlah retry fetch
+        retryDelay: 1500,              // Delay retry awal (ms)
+        timeout: 20000,                // Timeout tunggu elemen target (ms)
+        signal: new AbortController().signal // Optional; abort eksternal
+    });
+
+-------------------------------------------------------------------------------
+C. Penanganan Event - Listen Custom Event
+-------------------------------------------------------------------------------
+Subscribe ke event lifecycle:
+    loader.on('success', e => {
+        console.log('Konten berhasil diload!', e.detail);
+    });
+
+    loader.on('error', e => {
+        console.error('Error fetch:', e.detail.error);
+    });
+
+    loader.on('retry', e => {
+        console.log(`Retry ke-${e.detail.retryCount} setelah ${e.detail.delay}ms`);
+    });
+
+    // Unsubscribe:
+    const unsubscribe = loader.on('fetch', handler);
+    // ...nanti
+    unsubscribe();
+
+-------------------------------------------------------------------------------
+D. Abort/Cancel Loader
+-------------------------------------------------------------------------------
+Abort satu loader:
+    loader.abort();
+
+Abort semua loader secara global:
+    cleanupAllLoaders();
+	
+- **AbortController Eksternal**
+
+  const controller = new AbortController();
+  fetchAndFill('/data', '#target', {
+    signal: controller.signal,
+    cache: 'none'
+  });
+
+  // Batalkan setelah 3 detik
+  setTimeout(() => controller.abort(), 3000);	
+
+-------------------------------------------------------------------------------
+E. Konfigurasi Lazy Loading
+-------------------------------------------------------------------------------
+Update pengaturan lazy loading secara global:
+    configureLazyLoading({
+        enabled: true,
+        margin: '100px',
+        threshold: 0.1,
+        disableForAboveFold: false
+    });
+
+- **Optimasi Lazy/preload**
+  Untuk elemen penting, nonaktifkan lazy loading:
+
+  configureLazyLoading({ enabled: false });
+
+-------------------------------------------------------------------------------
+F. Penanganan Navigasi SPA
+-------------------------------------------------------------------------------
+Modul otomatis abort loader dan cleanup saat navigasi via
+history.pushState, history.replaceState, atau tombol back/forward browser.
+Tidak perlu kode manual.
+
+-------------------------------------------------------------------------------
+G. Cache Session Storage
+-------------------------------------------------------------------------------
+Gunakan cache session untuk persist fetch antar reload halaman:
+    fetchAndFill('/session.html', '#container', {
+        cache: 'session'
+    });
+
+- **Cache Aggresif**
+  Untuk konten yang jarang berubah, gunakan:
+  
+  cache: 'session'
+  
+## Catatan Cache Session:
+Hindari konten > 5MB. Gunakan:
+try {
+  sessionStorage.setItem(key, html)
+} catch(e) {
+  console.error("Cache penuh", e)
+}  
+	
+
+-------------------------------------------------------------------------------
+H. Penanganan Error dan UI Retry
+-------------------------------------------------------------------------------
+Jika fetch gagal, modul otomatis inject UI error dengan tombol retry
+ke kontainer target:
+    // Tidak perlu kode tambahan. Klik tombol retry akan reload lagi.
+
+-------------------------------------------------------------------------------
+I. Eksekusi Script Setelah Fetch
+-------------------------------------------------------------------------------
+Jalankan script inline setelah insert (hati-hati!):
+    fetchAndFill('/scripts.html', '#container', {
+        runScripts: true,
+        sanitize: false // Hanya jika sumber konten benar-benar aman!
+    });
+
+-------------------------------------------------------------------------------
+J. Opsi Sanitizer Custom
+-------------------------------------------------------------------------------
+Override pengaturan sanitizer untuk kebutuhan khusus:
+    fetchAndFill('/custom.html', '#container', {
+        sanitize: true,
+        sanitizerOptions: {
+            ADD_TAGS: ['custom-tag'],
+            FORBID_ATTR: ['onmouseover']
+        }
+    });
+
+-------------------------------------------------------------------------------
+K. Multiple Loader dan Cleanup
+-------------------------------------------------------------------------------
+Mulai beberapa fetch sekaligus dan abort semua:
+    const loader1 = fetchAndFill('/a.html', '#a');
+    const loader2 = fetchAndFill('/b.html', '#b');
+    // Abort semua sekaligus:
+    cleanupAllLoaders();
+
+-------------------------------------------------------------------------------
+L. Manual Trigger Navigasi SPA
+-------------------------------------------------------------------------------
+Trigger manual navigasi SPA untuk cleanup otomatis:
+    window.dispatchEvent(new Event('spa-navigate'));
+
+-------------------------------------------------------------------------------
+M. Strategi Cache Lengkap
+-------------------------------------------------------------------------------
+Pilihan cache dan masa hidupnya:
+    cache: 'memory'   // Hanya di RAM, hilang saat reload
+    cache: 'session'  // Di sessionStorage, hilang saat tab ditutup
+    cache: 'none'     // Tidak ada cache
+
+-------------------------------------------------------------------------------
+N. Event Fallback Sanitizer
+-------------------------------------------------------------------------------
+Event jika DOMPurify tidak tersedia:
+    document.addEventListener('fetchandfill:fallbacksanitize', e => {
+        console.warn('Fallback sanitizer digunakan untuk:', e.detail.src);
+    });
+
+-------------------------------------------------------------------------------
+O. Penggunaan cleanupAllLoaders() Lanjutan
+-------------------------------------------------------------------------------
+Gunakan untuk reset state atau navigasi SPA:
+    cleanupAllLoaders();
+    fetchAndFill('/new-content.html', '#content');
+
+-------------------------------------------------------------------------------
+P. Logika Retry dan Timeout
+-------------------------------------------------------------------------------
+Modul menggunakan exponential backoff:
+    retryDelay * Math.pow(2, retryCount)
+
+Contoh:
+    retryDelay = 1000, maxRetries = 3 → Delay: 1s, 2s, 4s
+
+Event retry:
+    loader.on('retry', e => {
+        console.log(`Retry ${e.detail.retryCount}, delay: ${e.detail.delay}ms`);
+    });
+
+-------------------------------------------------------------------------------
+Q. Validasi Selector Ketat
+-------------------------------------------------------------------------------
+Jika selector CSS tidak valid, error akan dilempar:
+    try {
+        fetchAndFill('/bad.html', '#invalid[selector]');
+    } catch (err) {
+        console.error('Selector tidak valid:', err.message);
+    }
+
+-------------------------------------------------------------------------------
+R. Event Lifecycle Lengkap
+-------------------------------------------------------------------------------
+Daftar custom event lifecycle:
+    fetchandfill:start
+    fetchandfill:cachehit
+    fetchandfill:fetch
+    fetchandfill:success
+    fetchandfill:error
+    fetchandfill:retry
+    fetchandfill:lazy-wait
+    fetchandfill:lazy-trigger
+    fetchandfill:cleanup
+    fetchandfill:fallbacksanitize
+
+Contoh:
+    document.addEventListener('fetchandfill:error', e => {
+        console.error('Error global:', e.detail.error.message);
+    });
+
+-------------------------------------------------------------------------------
+S. Lazy Load - Disable Above Fold Detection
+-------------------------------------------------------------------------------
+Secara default, modul tidak menunda loading elemen yang berada di "above the fold"
+(terlihat saat halaman pertama kali dimuat). Ini untuk menjaga performa percepatan
+tampilan awal halaman.
+
+Namun, jika ingin memaksa semua elemen (termasuk yang terlihat langsung)
+tetap diload secara lazy (misalnya untuk delay render atau optimasi resource),
+aktifkan opsi ini:
+
+    configureLazyLoading({
+        disableForAboveFold: false  // Default: true
+    });
+
+Contoh kasus penggunaan:
+- Delay render widget besar yang tidak kritis meskipun berada di atas halaman
+- Optimasi LCP dengan mengatur urutan render konten
+- Testing behavior lazy load tanpa harus scroll
+
+Catatan:
+- Pastikan ini sesuai dengan kebutuhan UX dan performa aplikasi .
+- Untuk elemen kritis seperti header atau navigasi utama, biasanya lebih baik
+  biarkan `disableForAboveFold: true` agar langsung muncul.
+
+-------------------------------------------------------------------------------
+T. Inisialisasi Ulang Script Aman
+-------------------------------------------------------------------------------
+Fitur `runScripts: true` akan me-reset script inline:
+    fetchAndFill('/widget.html', '#widget', {
+        runScripts: true,
+        sanitize: false // Hanya jika benar-benar aman
+    });
+	
+================================================================================
+9. REFERENSI EVENT
+================================================================================
+
+Semua event di-dispatch sebagai `CustomEvent` ke `document` dengan prefix `fetchandfill:`.
+
+- `start`: Saat loading dimulai
+- `cachehit`: Konten diambil dari cache
+- `fetch`: Fetch berhasil
+- `success`: Konten berhasil diinsert
+- `error`: Terjadi error (detail: error object)
+- `retry`: Akan retry fetch (detail: retryCount, delay)
+- `lazy-wait`: Menunggu lazy load
+- `lazy-trigger`: Lazy load dipicu
+- `fallbacksanitize`: Fallback sanitizer dipakai
+- `cleanup`: Loader dibersihkan
+
+Subscribe dengan:
+    loader.on('event', handler);
+
+================================================================================
+10. CATATAN KEAMANAN
+================================================================================
+
+- Sangat disarankan untuk aktifkan sanitasi (`sanitize: true`). DOMPurify paling aman.
+- Fallback sanitizer akan menghapus tag script/iframe/object/embed/form/link dan atribut berbahaya.
+- Script eksternal otomatis di-skip jika sanitasi aktif.
+- Hati-hati dengan `runScripts: true` jika sumber konten tidak terpercaya.
+
+================================================================================
+11. KETERBATASAN & ISU
+================================================================================
+
+- Jika DOMPurify tidak tersedia, sanitizer fallback mungkin tidak menutupi semua vektor XSS.
+- Disarankan hanya satu loader per target.
+- UI error membutuhkan FontAwesome untuk ikon (opsional, fallback ke teks).
+- MutationObserver bisa berpengaruh pada performa jika berlebihan.
+- Beberapa fitur (misal SPA cleanup) tergantung dukungan history API di browser.
+- Konten HTML besar bisa memenuhi quota sessionStorage (cache: 'session').
+
+- **Race Condition**
+  Jika beberapa loader menargetkan elemen yang sama, bisa terjadi konflik.
+  Solusi: Gunakan loader terpisah untuk target berbeda.
+  
+	## Best Practice:
+	- Gunakan 1 loader per target selector
+	- Hindari parallel load ke same target
+	- Gunakan `AbortController` untuk kontrol manual
+
+- **Memory Leak**
+  Registry `activeLoaders` menyimpan reference ke loader. Pencegahan:
+  Auto-cleanup memastikan tidak ada memory leak.
+
+- **Ketergantungan FontAwesome**
+  UI error menggunakan ikon dari FontAwesome. Jika tidak ada, gunakan SVG atau teks.
+  
+  // Solusi alternatif tanpa FontAwesome:
+	displayError(target, error, src) {
+	  // Ganti dengan SVG/teks biasa
+	  errorEl.innerHTML = `
+		<div class="error-ui">
+		  <svg>...</svg> // Ikon custom
+		  <h3>Error Loading</h3>
+		  <p>${error.message}</p>
+		  <button>Retry</button>
+		</div>
+	  `;
+	}
+
+- **DOMPurify Version**
+  Pastikan versi DOMPurify terbaru untuk perlindungan optimal.
+
+================================================================================
+12. CHANGELOG & KREDIT
+================================================================================
+
+v1.0 Rilis awal.
+
+Diinspirasi oleh praktik manajemen SPA dan pemuatan konten dinamis yang aman.
+
+================================================================================
+AKHIR DOKUMENTASI
+================================================================================

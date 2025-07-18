@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Demo lengkap FetchAndFill: Modul JavaScript untuk memuat konten dinamis dengan sanitasi, caching, dan manajemen lifecycle di Single Page Application (SPA).">
+    <meta name="keywords" content="FetchAndFill, JavaScript, SPA, DOMPurify, Caching, Sanitasi, Web Component, Demo">
+    <meta name="author" content="Mbah Babat">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Demo Lengkap FetchAndFill untuk SPA">
+    <meta property="og:description" content="Modul JavaScript untuk pemuatan konten dinamis di SPA dengan sanitasi, caching, retry otomatis, dan custom events.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mbahbabat.github.io/spa/demo/">
+    <meta property="og:image" content="https://mbahbabat.github.io/spa/spa.png">
+    <meta property="og:site_name" content="Gmooy">
+    <meta property="og:locale" content="id_ID">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Demo Lengkap FetchAndFill untuk SPA">
+    <meta name="twitter:description" content="Modul JavaScript untuk pemuatan konten dinamis di SPA dengan sanitasi, caching, retry otomatis, dan custom events.">
+    <meta name="twitter:image" content="https://mbahbabat.github.io/spa/spa.png">
+    <meta name="twitter:site" content="@gmooy_id">
+    <meta name="twitter:creator" content="@mbah_babat">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mbahbabat.github.io/spa/demo/">
+	<link rel="shortcut icon" href="https://mbahbabat.github.io/spa/spa.png">
+
+    <!-- Title -->
+    <title>Demo Lengkap FetchAndFill</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
+    <script type="module" src="FetchAndFill-Module.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<style>
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0
+			}
+
+			:root {
+				--primary: #4361ee;
+				--secondary: #3f37c9;
+				--success: #4cc9f0;
+				--danger: #f72585;
+				--warning: #f8961e;
+				--dark: #212529;
+				--light: #f8f9fa;
+				--border: #dee2e6
+			}
+
+			body {
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				line-height: 1.6;
+				color: #333;
+				background-color: #f0f2f5;
+				height: 100vh;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column
+			}
+
+			.header {
+				background: linear-gradient(135deg, var(--primary), var(--secondary));
+				color: white;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+				z-index: 10;
+				position: relative;
+				padding: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between
+			}
+
+			.header h1 {
+				font-size: 1.8rem;
+				display: flex;
+				align-items: left;
+				gap: 10px;
+				align-items: center
+			}
+
+			.header p {
+				font-size: 1rem;
+				opacity: .9
+			}
+			
+				.header-title {
+					display: flex;
+					flex-direction: column;
+				}
+				
+				.logoAndtitle{
+					display: flex;
+					align-items: center;
+					width: 100%;
+					gap: 10px;
+				}
+				
+				.header-title img{
+					width: 50px; 
+					border-radius: 50%;
+					cursor: pointer;
+				}
+
+			.container {
+				display: flex;
+				flex: 1;
+				overflow: hidden
+			}
+
+			.control-panel {
+				width: 400px;
+				background: #000;
+				color: #fff;
+				border-right: 1px solid var(--border);
+				padding: 20px;
+				overflow-y: auto;
+				box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+				zoom: 85%
+			}
+
+			.main-content {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+				height: 100%
+			}
+
+			.demo-area {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+				background: #595959;
+				color: #fff;
+			}
+
+			.content-header {
+				padding: 10px
+			}
+
+			.content-container {
+				padding: 20px;
+				padding-bottom: 100px;
+				overflow-y: auto;
+				max-height: border-right:1px solid var(--border)
+			}
+			
+			.content-section{
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			}
+
+			.log-container {
+				height: 200px;
+				background: #1a1a1a;
+				color: #f0f0f0;
+				padding: 20px;
+				overflow-y: auto;
+				font-family: monospace;
+				font-size: .9rem;
+				border-top: 2px solid var(--border)
+			}
+
+			.section {
+				margin-bottom: 25px;
+				padding-bottom: 20px;
+				border-bottom: 1px solid var(--border)
+			}
+
+			.section h2 {
+				color: var(--primary);
+				font-size: 1.3rem;
+				margin-bottom: 15px;
+				display: flex;
+				align-items: center;
+				gap: 8px
+			}
+
+			.btn-group {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				margin-top: 10px
+			}
+
+			.btn {
+				padding: 12px 15px;
+				background-color: var(--primary);
+				color: white;
+				border: 0;
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: .95rem;
+				font-weight: 600;
+				transition: all .3s ease;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				text-align: left
+			}
+
+			.btn:hover {
+				background-color: var(--secondary);
+				transform: translateY(-2px)
+			}
+
+			.btn-danger {
+				background-color: var(--danger)
+			}
+
+			.btn-danger:hover {
+				background-color: #d6336c
+			}
+
+			.btn-warning {
+				background-color: var(--warning)
+			}
+
+			.btn-warning:hover {
+				background-color: #e07c10
+			}
+
+			.btn-success {
+				background-color: var(--success)
+			}
+
+			.btn-success:hover {
+				background-color: #3bb4d8
+			}
+
+			.btn-info {
+				background-color: #6c757d
+			}
+
+			.btn-info:hover {
+				background-color: #5a6268
+			}
+			
+			#multi-loader{
+				background : #3bb4d8;
+			}
+
+			.option-group {
+				margin: 10px 0;
+				padding: 10px;
+				border-radius: 6px
+			}
+
+			.option-row {
+				display: flex;
+				align-items: center;
+				margin: 8px 0
+			}
+
+			.option-row label {
+				margin-left: 8px;
+				font-size: .95rem
+			}
+
+			.log-entry {
+				padding: 8px 0;
+				border-bottom: 1px solid #333
+			}
+
+			.log-entry .info {
+				color: #4cc9f0
+			}
+
+			.log-entry .success {
+				color: #90ee90
+			}
+
+			.log-entry .warning {
+				color: #fc0
+			}
+
+			.log-entry .error {
+				color: #ff6b6b
+			}
+
+			.log-entry .debug {
+				color: #bb86fc
+			}
+			
+
+			.content-section h3 {
+				color: var(--primary);
+				margin-bottom: 15px;
+				padding-bottom: 10px;
+				border-bottom: 1px solid var(--border)
+			}
+
+			.highlight {
+				background-color: #e9ecef;
+				padding: 2px 5px;
+				border-radius: 3px;
+				font-family: monospace;
+				font-size: .9rem
+			}
+
+			.notification {
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
+				padding: 15px 25px;
+				border-radius: 8px;
+				color: white;
+				font-weight: 500;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+				z-index: 1000;
+				opacity: 0;
+				transform: translateY(20px);
+				transition: all .4s ease;
+				max-width: 350px
+			}
+
+			.notification.show {
+				opacity: 1;
+				transform: translateY(0)
+			}
+
+			.notification.success {
+				background-color: #2ecc71
+			}
+
+			.notification.error {
+				background-color: #e74c3c
+			}
+
+			.notification.info {
+				background-color: #3498db
+			}
+
+			.notification.warning {
+				background-color: #f39c12
+			}
+
+			.loading-spinner {
+				display: block;
+				width: 40px;
+				height: 40px;
+				margin: 20px auto;
+				border: 4px solid rgba(67, 97, 238, 0.3);
+				border-radius: 50%;
+				border-top-color: #4361ee;
+				animation: spin 1s ease-in-out infinite
+			}
+
+			@keyframes spin {
+				to {
+					transform: rotate(360deg)
+				}
+			}
+
+			.cache-indicator {
+				display: inline-block;
+				padding: 3px 8px;
+				background-color: var(--success);
+				color: white;
+				border-radius: 4px;
+				font-size: .85rem;
+				margin-left: 10px
+			}
+
+			.status-bar {
+				border-top: 1px solid var(--border);
+				display: flex;
+				flex-direction: column;
+				padding: 10px;
+				background: rgba(0, 0, 0, 1);
+				font-size: .9rem;
+				color: #fff;
+			}
+			
+			@media screen and (max-height: 700px) {
+				.log-container {
+					zoom: 60%;
+					height: 100px;
+				}
+					
+				.status-bar{
+					zoom: 60%;
+				}
+					
+				.content-container{
+					zoom: 60%;
+				}
+					
+				.content-header{
+					zoom: 80%;
+				}
+			}
+			
+			@media(max-width:1024px) {
+				body {
+					position: absolute;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					overflow: none
+				}
+
+				.header p {
+					text-align: center
+				}
+
+				.header h1 {
+					font-size: 16px
+				}
+
+				.header p {
+					font-size: 14px
+				}
+
+				.content-header {
+					font-size: 14px
+				}
+
+				.control-panel {
+					background: rgba(0, 0, 0, 0.7);
+					position: fixed;
+					color: #fff;
+					top: 0;
+					left: -100%;
+					width: 65%;
+					height: 100%;
+					z-index: 1000;
+					transition: transform .3s ease;
+					border-right: 0;
+					box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+					padding: 20px;
+					overflow-y: auto;
+					transform: translateX(-100%)
+				}
+
+				.control-panel.active {
+					transform: translateX(0);
+					left: 0
+				}
+				
+				.log-container {
+					zoom: 60%;
+					height: 100px;
+				}
+				
+				.status-bar{
+					zoom: 60%;
+				}
+				
+				.content-container{
+					zoom: 60%;
+				}
+				
+				.content-header{
+					zoom: 80%;
+				}
+
+				.menu-toggle {
+					display: block;
+					background: 0;
+					border: 0;
+					color: white;
+					font-size: 1.5rem;
+					cursor: pointer
+				}
+
+				.status-bar>div {
+					margin: 3px 0;
+					font-size: .8rem
+				}
+
+				.overlay {
+					display: none;
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					z-index: 999
+				}
+
+				.control-panel.active+.overlay {
+					display: block
+				}
+			}
+
+			@media(min-width:1025px) {
+				.menu-toggle {
+					display: none !important
+				}
+
+				.overlay {
+					display: none !important
+				}
+			}
+			
+			@media(max-width:350px) {
+				.header p {
+					font-size: 8px
+				}
+			}
+
+			.config-badge {
+				padding: 5px;
+				font-weight: 900;
+			}
+
+			.badge-success {
+				color: #00ffcc;
+			}
+
+			.badge-danger {
+				color: #ff0066;
+			}
+
+			.badge-primary {
+				color: #00aaff;
+			}
+
+			.badge-warning {
+				color: #ffc107;
+			}
+
+			.badge-info {
+				color: #17a2b8;
+			}
+
+			.badge-secondary {
+				color: #6c757d;
+			}
+
+			.badge-dark {
+				color: #343a40;
+			}
+			
+			.profile-details,
+			.konten-sample1,
+			.konten-sample2,
+			.konten-sample3,
+			.konten-sample4,
+			.konten-sample5{
+				color: #000;
+			}
+			
+			.profile-content{
+				background: #1a1a1a;
+				padding: 5px;
+				border-radius: 5px;
+			}
+			
+			.profile-details{
+				background: #004466!important;
+				color: #fff;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<div class="header-title">
+				<div class="logoAndtitle">
+					<img id="logo-img" alt="logo" src="../spa.png">
+					<h1>Demo Modul FetchAndFill</h1>
+				</div>
+				<p>Demo lengkap untuk pengujian dan pemahaman fitur modul FetchAndFill-module.js</p>
+			</div>
+			<button id="menu-toggle" class="menu-toggle">
+			<i class="fas fa-bars"></i>
+			</button>
+		</div>
+		<div class="container">
+			<div class="control-panel" id="control-panel">
+				<div class="section">
+					<h2><i class="fas fa-cog"></i> Konfigurasi</h2>
+					<div class="option-group">
+						<h3>Sanitasi & Script</h3>
+						<div class="option-row">
+							<input type="checkbox" id="sanitize" checked>
+							<label for="sanitize">Sanitize Konten</label>
+						</div>
+						<div class="option-row">
+							<input type="checkbox" id="runScripts">
+							<label for="runScripts">Jalankan Script</label>
+						</div>
+					</div>
+					<div class="option-group">
+						<h3>Lazy Loading</h3>
+						<div class="option-row">
+							<input type="checkbox" id="lazy-loading" checked>
+							<label for="lazy-loading">Aktifkan Lazy Loading</label>
+						</div>
+					</div>
+					<div class="option-group">
+						<h3>Strategi Cache</h3>
+						<div class="option-row">
+							<input type="radio" id="cache-memory" name="cache" value="memory" checked>
+							<label for="cache-memory">Memory Cache</label>
+						</div>
+						<div class="option-row">
+							<input type="radio" id="cache-session" name="cache" value="session">
+							<label for="cache-session">Session Storage</label>
+						</div>
+						<div class="option-row">
+							<input type="radio" id="cache-none" name="cache" value="none">
+							<label for="cache-none">Tanpa Cache</label>
+						</div>
+					</div>
+					<div class="option-group">
+						<h3>Posisi Penempatan</h3>
+						<div class="option-row">
+							<input type="radio" id="position-replace" name="position" value="replace" checked>
+							<label for="position-replace">Replace</label>
+						</div>
+						<div class="option-row">
+							<input type="radio" id="position-append" name="position" value="append">
+							<label for="position-append">Append</label>
+						</div>
+						<div class="option-row">
+							<input type="radio" id="position-prepend" name="position" value="prepend">
+							<label for="position-prepend">Prepend</label>
+						</div>
+						<div class="option-row">
+							<input type="radio" id="position-before" name="position" value="before">
+							<label for="position-before">Before (relatif)</label>
+						</div>
+						<div class="option-row">
+							<input type="radio" id="position-after" name="position" value="after">
+							<label for="position-after">After (relatif)</label>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<h2><i class="fas fa-bolt"></i> Uji Muat Konten</h2>
+					<div class="btn-group">
+						<button id="load-profile" class="btn">
+						<i class="fas fa-download"></i> Muat Profile
+						</button>
+						<button id="load-sample1" class="btn">
+						<i class="fas fa-download"></i> Muat Sample 1
+						</button>
+						<button id="load-sample2" class="btn">
+						<i class="fas fa-download"></i> Muat Sample 2
+						</button>
+						<button id="load-sample3" class="btn">
+						<i class="fas fa-download"></i> Muat Sample 3
+						</button>
+						<button id="load-sample4" class="btn">
+						<i class="fas fa-download"></i> Muat Sample 4
+						</button>
+						<button id="load-sample5" class="btn">
+						<i class="fas fa-download"></i> Muat Sample 5
+						</button>
+						<button id="multi-loader" class="btn">
+						<i class="fas fa-cubes"></i> Multi Loader
+						</button>
+					</div>
+				</div>
+				<div class="section">
+					<h2><i class="fas fa-vial"></i> Uji Lanjutan</h2>
+					<div class="btn-group">
+						<button id="test-retry" class="btn btn-warning">
+						<i class="fas fa-redo"></i> Uji Retry
+						</button>
+						<button id="trigger-error" class="btn btn-danger">
+						<i class="fas fa-exclamation-triangle"></i> Paksa Error
+						</button>
+						<button id="test-spa" class="btn">
+						<i class="fas fa-sync"></i> Simulasi Navigasi SPA
+						</button>
+						<button id="test-cache" class="btn">
+						<i class="fas fa-database"></i> Uji Cache
+						</button>
+						<button id="clear-content" class="btn btn-info">
+						<i class="fas fa-trash"></i> Bersihkan Konten
+						</button>
+						<button id="clear-log" class="btn btn-info">
+						<i class="fas fa-broom"></i> Bersihkan Log
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="overlay" id="overlay"></div>
+			<div class="main-content">
+				<div class="demo-area">
+					<div class="content-header">
+						<h2>
+						Konten Area</h3>
+						<p>Gunakan panel kontrol untuk menguji berbagai fitur modul.</p>
+					</div>
+					<div class="content-container" id="content-container">
+						<div class="content-section">
+							<div id="reference-element" class="option-group" style="margin-top: 15px;">
+							</div>
+						</div>
+						<div id="loader-target-profile" class="content-section"></div>
+						<div id="loader-target-1" class="content-section"></div>
+						<div id="loader-target-2" class="content-section"></div>
+						<div id="loader-target-3" class="content-section"></div>
+						<div id="loader-target-4" class="content-section"></div>
+						<div id="loader-target-5" class="content-section"></div>
+						<div id="loader-target-retry" class="content-section"></div>
+					</div>
+				</div>
+				<div class="log-container" id="log-container">
+					<h3 style="color: #f0f0f0; margin-bottom: 15px;">Event Log</h3>
+					<div class="log-entry info">
+						[System] Log event siap. Event modul akan muncul di sini.
+					</div>
+				</div>
+				<div class="status-bar">
+					<div>Status: <span id="status-text">Siap</span></div>
+					<div>Loader Aktif: <span id="loader-count">0</span></div>
+					<div>Konfigurasi: <span id="config-summary">-</span></div>
+				</div>
+			</div>
+		</div>
+		<div id="notification-area"></div>
+
+    <script type="module">
+        // Import modul FetchAndFill
+        import { fetchAndFill, cleanupAllLoaders, configureLazyLoading } from './FetchAndFill-Module.js';
+        
+        // Inisialisasi variabel global
+        let activeLoader = null;
+        let multiLoaders = [];
+        let lazyLoader = null;
+        
+        // DOM elements
+        const contentContainer = document.getElementById('content-container');
+        const logContainer = document.getElementById('log-container');
+        const statusText = document.getElementById('status-text');
+        const loaderCount = document.getElementById('loader-count');
+        const configSummary = document.getElementById('config-summary');
+        const notificationArea = document.getElementById('notification-area');
+        
+        // Update loader count
+        function updateLoaderCount() {
+            loaderCount.textContent = document.querySelectorAll('.loading-spinner').length;
+        }
+        
+        // Update konfigurasi summary
+        function updateConfigSummary() {
+    const sanitize = document.getElementById('sanitize').checked;
+    const runScripts = document.getElementById('runScripts').checked;
+    const lazy = document.getElementById('lazy-loading').checked;
+    const cache = document.querySelector('input[name="cache"]:checked').value;
+    const position = document.querySelector('input[name="position"]:checked').value;
+    
+    const configSummary = document.getElementById('config-summary');
+    configSummary.innerHTML = ''; // Clear previous content
+    
+    // Fungsi untuk membuat badge berwarna
+    function createBadge(text, colorClass) {
+        const badge = document.createElement('span');
+        badge.className = `config-badge ${colorClass}`;
+        badge.textContent = text;
+        return badge;
+    }
+    
+    // Buat badge untuk setiap konfigurasi
+    configSummary.appendChild(createBadge(
+        `Sanitize: ${sanitize ? 'ON' : 'OFF'}`,
+        sanitize ? 'badge-success' : 'badge-danger'
+    ));
+    
+    configSummary.appendChild(document.createTextNode(' | '));
+    
+    configSummary.appendChild(createBadge(
+        `Script: ${runScripts ? 'ON' : 'OFF'}`,
+        runScripts ? 'badge-success' : 'badge-danger'
+    ));
+    
+    configSummary.appendChild(document.createTextNode(' | '));
+    
+    configSummary.appendChild(createBadge(
+        `Lazy: ${lazy ? 'ON' : 'OFF'}`,
+        lazy ? 'badge-success' : 'badge-danger'
+    ));
+    
+    configSummary.appendChild(document.createTextNode(' | '));
+    
+    // Warna untuk cache
+    let cacheColor = 'badge-info';
+    if(cache === 'memory') cacheColor = 'badge-primary';
+    if(cache === 'session') cacheColor = 'badge-warning';
+    if(cache === 'none') cacheColor = 'badge-secondary';
+    
+    configSummary.appendChild(createBadge(
+        `Cache: ${cache}`,
+        cacheColor
+    ));
+    
+    configSummary.appendChild(document.createTextNode(' | '));
+    
+    // Warna untuk position
+    let positionColor = 'badge-dark';
+    if(position === 'replace') positionColor = 'badge-primary';
+    if(position === 'append') positionColor = 'badge-success';
+    if(position === 'prepend') positionColor = 'badge-info';
+    if(position === 'before') positionColor = 'badge-warning';
+    if(position === 'after') positionColor = 'badge-danger';
+    
+    configSummary.appendChild(createBadge(
+        `Position: ${position}`,
+        positionColor
+    ));
+}
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, type = 'info', duration = 3000) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 
+                                 type === 'error' ? 'fa-exclamation-circle' : 
+                                 type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i>
+                ${message}
+            `;
+            
+            notificationArea.appendChild(notification);
+            
+            // Trigger reflow
+            void notification.offsetWidth;
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, duration);
+        }
+        
+        // Fungsi untuk menambahkan log event
+        function addEventLog(message, type = 'info') {
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            updateLoaderCount();
+        }
+        
+        // Handler untuk event modul
+        function setupEventListeners() {
+            const events = [
+                'start', 'fetch', 'cachehit', 'success', 'error', 
+                'retry', 'cleanup', 'lazy-wait', 'lazy-trigger', 
+                'fallbacksanitize'
+            ];
+            
+            events.forEach(event => {
+                document.addEventListener(`fetchandfill:${event}`, (e) => {
+                    const detail = e.detail;
+                    let message = '';
+                    
+                    switch(event) {
+                        case 'start': {
+                            message = `Memulai loader untuk: ${detail.src}`;
+                            statusText.textContent = `Memuat: ${detail.src}`;
+                            
+                            // Tambahkan spinner ke target
+                            const spinner = document.createElement('div');
+                            spinner.className = 'loading-spinner';
+                            spinner.id = `spinner-${Date.now()}`;
+                            
+                            // Tambahkan spinner hanya jika target tersedia
+                            if (detail.target) {
+                                detail.target.appendChild(spinner);
+                            }
+                            break;
+                        }
+                        case 'fetch':
+                            message = `Konten diambil (${detail.size} bytes) dalam ${detail.duration.toFixed(1)}ms`;
+                            break;
+                        case 'cachehit':
+                            message = `Cache ${detail.cacheType} digunakan untuk: ${detail.src}`;
+                            break;
+                        case 'success': {
+                            message = `Konten berhasil dimuat: ${detail.src}`;
+                            statusText.textContent = 'Selesai';
+                            
+                            // Hapus spinner dari target (jika ada)
+                            if (detail.target) {
+                                const spinner = detail.target.querySelector('.loading-spinner');
+                                if (spinner) spinner.remove();
+                            }
+							
+							 fillConfigInfo(detail.target);
+							 
+                            break;
+                        }
+                        case 'error':
+                            message = `Error: ${detail.error.message} - ${detail.src}`;
+                            statusText.textContent = `Error: ${detail.error.message}`;
+                            break;
+                        case 'retry':
+                            message = `Mencoba ulang (${detail.retryCount}) dalam ${detail.delay}ms: ${detail.src}`;
+                            statusText.textContent = `Mencoba ulang: ${detail.src}`;
+                            break;
+                        case 'cleanup':
+                            message = `Loader dibersihkan: ${detail.src}`;
+                            statusText.textContent = 'Loader dibersihkan';
+                            break;
+                        case 'lazy-wait':
+                            message = `Menunggu lazy load untuk target: ${detail.target.id || 'unidentified'}`;
+                            statusText.textContent = 'Menunggu lazy load...';
+                            break;
+                        case 'lazy-trigger':
+                            message = `Lazy load dipicu untuk target: ${detail.target.id || 'unidentified'}`;
+                            break;
+                        case 'fallbacksanitize':
+                            message = `Menggunakan fallback sanitizer: ${detail.src}`;
+                            break;
+                    }
+                    
+                    addEventLog(message, event === 'error' ? 'error' : 
+                                  event === 'retry' ? 'warning' : 
+                                  event === 'success' ? 'success' : 'info');
+                });
+            });
+        }
+		
+		//Fungsi untuk mengisi info konfigurasi
+		function fillConfigInfo(targetElement) {
+			const config = getLoaderOptions();
+			
+			const infoContainer = targetElement.querySelector('.info-autoFill');
+			if(!infoContainer) return;
+			
+			// Dapatkan semua elemen info
+			const sanitizeEl = infoContainer.querySelector('.info-sanitaze');
+			const runScriptsEl = infoContainer.querySelector('.info-runScripts');
+			const lazyEl = infoContainer.querySelector('.info-lazy');
+			const cacheEl = infoContainer.querySelector('.info-cache');
+			const positionEl = infoContainer.querySelector('.info-position');
+			
+			// Fungsi untuk membuat badge berwarna
+			function createBadge(text, colorClass) {
+				const badge = document.createElement('span');
+				badge.textContent = text;
+				badge.className = `config-badge ${colorClass}`;
+				return badge;
+			}
+			
+			// Kosongkan dan isi ulang dengan badge berwarna
+			if(sanitizeEl) {
+				sanitizeEl.innerHTML = '';
+				sanitizeEl.appendChild(
+					createBadge(
+						config.sanitize ? 'ON' : 'OFF', 
+						config.sanitize ? 'badge-success' : 'badge-danger'
+					)
+				);
+			}
+			
+			if(runScriptsEl) {
+				runScriptsEl.innerHTML = '';
+				runScriptsEl.appendChild(
+					createBadge(
+						config.runScripts ? 'ON' : 'OFF', 
+						config.runScripts ? 'badge-success' : 'badge-danger'
+					)
+				);
+			}
+			
+			if(lazyEl) {
+				lazyEl.innerHTML = '';
+				lazyEl.appendChild(
+					createBadge(
+						config.lazy ? 'ON' : 'OFF', 
+						config.lazy ? 'badge-success' : 'badge-danger'
+					)
+				);
+			}
+			
+			if(cacheEl) {
+				cacheEl.innerHTML = '';
+				let cacheColor = 'badge-info';
+				if(config.cache === 'memory') cacheColor = 'badge-primary';
+				if(config.cache === 'session') cacheColor = 'badge-warning';
+				if(config.cache === 'none') cacheColor = 'badge-secondary';
+				cacheEl.appendChild(createBadge(config.cache, cacheColor));
+			}
+			
+			if(positionEl) {
+				positionEl.innerHTML = '';
+				let positionColor = 'badge-dark';
+				if(config.position === 'replace') positionColor = 'badge-primary';
+				if(config.position === 'append') positionColor = 'badge-success';
+				if(config.position === 'prepend') positionColor = 'badge-info';
+				if(config.position === 'before') positionColor = 'badge-warning';
+				if(config.position === 'after') positionColor = 'badge-danger';
+				positionEl.appendChild(createBadge(config.position, positionColor));
+			}
+		}
+        
+        // Setup UI event listeners
+        function setupUIListeners() {
+            // Update konfigurasi saat ada perubahan
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+                input.addEventListener('change', updateConfigSummary);
+            });
+            
+            // Konfigurasi lazy loading
+            document.getElementById('lazy-loading').addEventListener('change', (e) => {
+                configureLazyLoading({ 
+                    enabled: e.target.checked,
+                    margin: '200px',
+                    threshold: 0.01
+                });
+                showNotification(`Lazy loading ${e.target.checked ? 'diaktifkan' : 'dinonaktifkan'}`, 'info');
+                updateConfigSummary();
+            });
+            
+            // Load sample content
+            document.getElementById('load-profile').addEventListener('click', () => {
+                loadContent('partials/profile.html', '#loader-target-profile');
+            });
+            
+            document.getElementById('load-sample1').addEventListener('click', () => {
+                loadContent('partials/sample1.html', '#loader-target-1');
+            });
+            
+            document.getElementById('load-sample2').addEventListener('click', () => {
+                loadContent('partials/sample2.html', '#loader-target-2');
+            });
+            
+            document.getElementById('load-sample3').addEventListener('click', () => {
+                loadContent('partials/sample3.html', '#loader-target-3');
+            });
+            
+            document.getElementById('load-sample4').addEventListener('click', () => {
+                loadContent('partials/sample4.html', '#loader-target-4');
+            });
+            
+            document.getElementById('load-sample5').addEventListener('click', () => {
+                loadContent('partials/sample5.html', '#loader-target-5');
+            });
+            
+            // Multi loader
+            document.getElementById('multi-loader').addEventListener('click', () => {
+                // Memulai beberapa loader sekaligus
+                const options = getLoaderOptions();
+                
+                const loaderProfile = fetchAndFill(
+                    'partials/profile.html', 
+                    '#loader-target-profile', 
+                    options
+                );
+                
+                
+                const loader1 = fetchAndFill(
+                    'partials/sample1.html', 
+                    '#loader-target-1', 
+                    options
+                );
+                
+                const loader2 = fetchAndFill(
+                    'partials/sample2.html', 
+                    '#loader-target-2', 
+                    options
+                );
+                
+                const loader3 = fetchAndFill(
+                    'partials/sample3.html', 
+                    '#loader-target-3', 
+                    options
+                );
+                
+                const loader4 = fetchAndFill(
+                    'partials/sample4.html', 
+                    '#loader-target-4', 
+                    options
+                );
+                
+                const loader5 = fetchAndFill(
+                    'partials/sample5.html', 
+                    '#loader-target-5', 
+                    options
+                );
+                
+                multiLoaders.push(loader1, loader2, loader3, loader4, loader5);
+                showNotification('5 loader dimulai', 'info');
+            });
+            
+            // Uji retry
+            document.getElementById('test-retry').addEventListener('click', () => {
+                // Uji retry dengan URL yang gagal
+                loadContent('unavailable.html', '#loader-target-retry', true);
+            });
+            
+            // Paksa error
+            document.getElementById('trigger-error').addEventListener('click', () => {
+                // Memuat URL yang tidak ada untuk memicu error
+                loadContent('non-existent.html', 'Konten Error', true);
+            });
+            
+            // Simulasi navigasi SPA
+            document.getElementById('test-spa').addEventListener('click', () => {
+                window.dispatchEvent(new Event('spa-navigate'));
+                showNotification('Navigasi SPA disimulasikan', 'info');
+            });
+            
+            // Uji cache
+            document.getElementById('test-cache').addEventListener('click', () => {
+                // Uji cache dengan memuat konten yang sama dua kali
+                showNotification('Memuat konten pertama kali (mungkin cache miss)', 'info');
+                loadContent('partials/sample1.html', 'Konten Sample 1 (Pertama)');
+                
+                setTimeout(() => {
+                    showNotification('Memuat konten kedua kali (harus cache hit)', 'info');
+                    loadContent('partials/sample1.html', 'Konten Sample 1 (Kedua)');
+                }, 1000);
+            });
+            
+            // Bersihkan konten
+            document.getElementById('clear-content').addEventListener('click', () => {
+                contentContainer.innerHTML = `
+                    <div class="content-section">
+                        <div id="reference-element" class="option-group" style="margin-top: 15px;"></div>
+                    </div>
+                    
+                    <div id="loader-target-profile" class="content-section"></div>
+                    <div id="loader-target-1" class="content-section"></div>
+                    <div id="loader-target-2" class="content-section"></div>
+                    <div id="loader-target-3" class="content-section"></div>
+                    <div id="loader-target-4" class="content-section"></div>
+                    <div id="loader-target-5" class="content-section"></div> 
+                    <div id="loader-target-retry" class="content-section"></div> 
+                    
+                `;
+                showNotification('Konten dibersihkan', 'success');
+            });
+            
+            // Bersihkan log
+            document.getElementById('clear-log').addEventListener('click', () => {
+                logContainer.innerHTML = `
+                    <h3 style="color: #f0f0f0; margin-bottom: 15px;">Event Log</h3>
+                    <div class="log-entry info">
+                        [System] Log event dibersihkan
+                    </div>
+                `;
+            });
+            
+        }
+        
+        // Dapatkan opsi loader berdasarkan konfigurasi UI
+        function getLoaderOptions() {
+            const position = document.querySelector('input[name="position"]:checked').value;
+            const cache = document.querySelector('input[name="cache"]:checked').value;
+            const sanitize = document.getElementById('sanitize').checked;
+            const lazy = document.getElementById('lazy-loading').checked;
+            const runScripts = document.getElementById('runScripts').checked;
+            
+            let options = {
+                position,
+                cache,
+                sanitize,
+                runScripts,
+                lazy,
+                maxRetries: 2,
+                retryDelay: 1000
+            };
+            
+            if (position === 'before' || position === 'after') {
+                options.relativeTo = '#reference-element';
+            }
+            
+            return options;
+        }
+        
+        // Fungsi untuk memuat konten
+        function loadContent(src, targetId, isErrorTest = false) {
+          const options = getLoaderOptions();
+          
+          // Gunakan target selector khusus untuk uji retry
+          let targetSelector = isErrorTest ? `${targetId}` : '#content-container';
+          
+          const url = isErrorTest ? src : `${src}?t=${Date.now()}`;
+          
+          activeLoader = fetchAndFill(
+            url, 
+            targetSelector, 
+            options
+          );
+        }
+        
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', () => {
+            setupEventListeners();
+            setupUIListeners();
+            updateConfigSummary();
+            showNotification('Demo siap digunakan. Pilih aksi untuk memulai.', 'info');
+            
+            // Toggle menu untuk mobile
+            const menuToggle = document.getElementById('menu-toggle');
+            const controlPanel = document.getElementById('control-panel');
+            const overlay = document.getElementById('overlay');
+            
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                controlPanel.classList.toggle('active');
+                overlay.style.display = controlPanel.classList.contains('active') ? 'block' : 'none';
+            });
+            
+            overlay.addEventListener('click', () => {
+                controlPanel.classList.remove('active');
+                overlay.style.display = 'none';
+            });
+            
+            // Tutup panel saat klik di luar
+            document.addEventListener('click', (e) => {
+                if (!controlPanel.contains(e.target) && !menuToggle.contains(e.target)) {
+                    controlPanel.classList.remove('active');
+                    overlay.style.display = 'none';
+                }
+            });
+        });
+		
+		document.getElementById('logo-img').addEventListener('click', () => {
+			window.location.href="../"
+		});
+		
+		
+
+
+    </script>
+</body>
+</html>

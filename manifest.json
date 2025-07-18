@@ -8,8 +8,8 @@
   "description": "Modul JavaScript lengkap untuk sistem desain responsif berbasis skala.",
   "icons": [
     {
-      "src": "/blog/code/module/RDS/assets/image/rds.png",
-      "sizes": "1408x768",
+      "src": "/blog/code/module/RDS/assets/image/favicon.png",
+      "sizes": "1024x1024",
       "type": "image/png"
     }
   ]

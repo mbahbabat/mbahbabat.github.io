@@ -23,6 +23,7 @@ img{border-style: none;}
 
 #server1, #label-server1{
 	pointer-events: none;
+	cusrsor: not-allowed
 }
 
 .progress-bar-striped{
@@ -1201,6 +1202,7 @@ welcome-overlay{
 			width: 100%;
 			height: 25px;
 		}
+
 
 
 

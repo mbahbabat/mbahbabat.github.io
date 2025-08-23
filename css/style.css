@@ -21,9 +21,10 @@ img{border-style: none;}
 
 }	
 
-#server1{
+#server1, #label-server1{
 	pointer-events: none;
 }
+
 .progress-bar-striped{
   background-image: linear-gradient(to right, #0066cc, #00ccff, #66ffff, #1aff1a) !important;
 }
@@ -1200,6 +1201,7 @@ welcome-overlay{
 			width: 100%;
 			height: 25px;
 		}
+
 
 
 

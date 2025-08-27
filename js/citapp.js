@@ -554,7 +554,7 @@ function sanitizeIP(ip) {
 window.checkIPLimit = async (ip) => {
     const sanitizedIP = sanitizeIP(ip);
     const ipRef = ref(database, `ipChecks/${sanitizedIP}`);
-    const MAX_ATTEMPTS = 6;
+    const MAX_ATTEMPTS = 51;
     const LIMIT_DURATION = 24 * 60 * 60 * 1000; 
 
     try {
@@ -1887,6 +1887,7 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
     // Inisialisasi timer saat halaman dimuat
     resetIdleTimer();
+
 
 
 

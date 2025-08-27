@@ -1837,6 +1837,7 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
 
     document.addEventListener('DOMContentLoaded', () => {
+		
     const loadingScreen = document.getElementById('loading-page');
 
     // Simulasi proses inisialisasi (misalnya, memuat data dari Firebase)
@@ -1845,6 +1846,7 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
         loadingScreen.style.opacity = '0';
         setTimeout(() => {
             loadingScreen.style.display = 'none';
+			alert('NOTICE: Temporarily, emails with VER and "NOT EXIST" statuses will be grouped under the DISABLED status.'); 
         }, 1000); // Sinkronkan dengan durasi transisi CSS
     }, 2500); // Ubah nilai ini sesuai kebutuhan (misalnya, waktu muat data)
 });
@@ -1887,6 +1889,7 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
     // Inisialisasi timer saat halaman dimuat
     resetIdleTimer();
+
 
 
 

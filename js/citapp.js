@@ -1846,9 +1846,10 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
         loadingScreen.style.opacity = '0';
         setTimeout(() => {
             loadingScreen.style.display = 'none';
-			alert('NOTICE: Temporarily, emails with VER and "NOT EXIST" statuses will be grouped under the DISABLED status.'); 
+			
         }, 1000); // Sinkronkan dengan durasi transisi CSS
     }, 2500); // Ubah nilai ini sesuai kebutuhan (misalnya, waktu muat data)
+	alert('NOTICE: Temporarily, emails with VER and "NOT EXIST" statuses will be grouped under the DISABLED status.'); 
 });
 
 
@@ -1889,6 +1890,7 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
     // Inisialisasi timer saat halaman dimuat
     resetIdleTimer();
+
 
 
 

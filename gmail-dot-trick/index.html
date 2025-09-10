@@ -141,8 +141,400 @@
 		<script src="./assets/js/lib/FileSaver.min.js"></script>
 		<script type="module" src="./assets/js/init/init-RDS.js"></script>
 		<script>
-const errorEmailOverlay=document.getElementById("error-email-overlay"),errorEmailList=document.getElementById("error-email-list"),removeDuplicatesBtn=document.getElementById("remove-duplicates"),outputInfo=document.getElementById("output-info"),removeInvalidBtn=document.getElementById("remove-invalid"),emailsInput=document.getElementById("emails-input"),generateBtn=document.getElementById("generate"),resetBtn=document.getElementById("reset"),downloadAllBtn=document.getElementById("download-all"),emailTasksContainer=document.getElementById("email-tasks"),globalProgress=document.getElementById("global-progress"),lineNumbers=document.getElementById("line-numbers");let max_CONCURRENT_TASKS,tempToken,appConfig,accessToken,emailTasks=new Map,activeWorkers=new Map,isProcessing=!1,completedTasks=0,totalTasks=0,emailQueue=[],currentEmailQueueIndex=0,currentProcessingBatch=new Set,isBatchCurrentlyActive=!1,cachedWorkerCode=null;const SERVER_URL="https://bulk-gmail-dot-trick.mbahbabat.workers.dev";function updateLineNumbers(){const e=emailsInput.value.split("\n");let t="";for(let r=1;r<=Math.max(1,e.length);r++)t+=r+"<br>";lineNumbers.innerHTML=t}async function createWorker(){if(!cachedWorkerCode){const e=await fetch(`${SERVER_URL}/wc`,{headers:{Authorization:`Bearer ${accessToken}`}});if(!e.ok)throw new Error("Failed to load worker code");const t=await e.blob();cachedWorkerCode=URL.createObjectURL(t)}const e=new Worker(cachedWorkerCode);return e.onmessage=function(e){const{type:t,data:r}=e.data;switch(t){case"chunk":processWorkerChunk(r);break;case"error":handleWorkerError(r.email,r.message)}},e.onerror=function(t){let r=null;for(let[t,o]of activeWorkers)if(o===e){r=t;break}handleWorkerError(r,"Worker error: "+t.message)},e}function processWorkerChunk(e){if(!tempToken)return void console.error("Unauthorized");const{combinations:t,total:r,chunk:o,hasMore:n,email:s}=e,a=emailTasks.get(s);if(!a){const e=activeWorkers.get(s);return void(e&&e.terminate())}a.combinations=[...a.combinations,...t],a.totalCombinations=r,a.processedCount=a.combinations.length;const i=Math.min(100,Math.round(a.processedCount/r*100));a.progressBar.style.width=i+"%",a.progressBar.textContent=i+"%";const c=(Date.now()-a.startTime)/1e3,l=Math.round(a.processedCount/c);a.details.textContent=`Generated:${a.processedCount}/${r}| Speed:${l}/sec`,n&&isProcessing&&"processing"===a.status?setTimeout(()=>{isProcessing&&emailTasks.has(s)&&activeWorkers.has(s)&&activeWorkers.get(s).postMessage({type:"generate",data:{email:s,chunk:o+1,limit:CHUNK_LIMIT}})},1):finishEmailTask(s),updateGlobalProgress()}function handleWorkerError(e,t){const r=emailTasks.get(e),o=activeWorkers.get(e);r?(r.status="error",r.details.textContent="Error: "+t,r.progressBar.style.background="#ff4d4d",r.element.classList.remove("active-task"),o&&(o.terminate(),activeWorkers.delete(e)),currentProcessingBatch.delete(e),completedTasks++,updateGlobalProgress(),0===currentProcessingBatch.size&&isBatchCurrentlyActive&&(isBatchCurrentlyActive=!1,currentEmailQueueIndex<emailQueue.length&&setTimeout(startNextBatch,10))):o&&o.terminate()}function finishEmailTask(e){if(!tempToken)return void console.error("Unauthorized");const t=emailTasks.get(e),r=activeWorkers.get(e);t&&(t.status="completed",t.details.style.color="#66ffd9",t.details.textContent=`Generated:${t.processedCount}/ ${t.totalCombinations} emails`,t.downloadBtn.disabled=!1,t.element.classList.remove("active-task"),r&&(r.terminate(),activeWorkers.delete(e)),currentProcessingBatch.delete(e),completedTasks++,updateGlobalProgress(),0===currentProcessingBatch.size&&isBatchCurrentlyActive&&(isBatchCurrentlyActive=!1,currentEmailQueueIndex<emailQueue.length&&setTimeout(startNextBatch,10)))}function updateGlobalProgress(){if(!tempToken)return void console.error("Unauthorized");if(0===totalTasks)return void(globalProgress.textContent="");const t=Math.round(completedTasks/totalTasks*100);globalProgress.textContent=`Overall Progress: ${completedTasks}/ ${totalTasks} emails completed (${t}%)`,completedTasks===totalTasks&&(isProcessing=!1,globalProgress.style.color="#fff",generateBtn.style.cssText = '',generateBtn.classList.add("hidden"),globalProgress.textContent=`All tasks completed! Generated ${completedTasks} of ${totalTasks} emails.`,downloadAllBtn.innerHTML=`<i class="fa-solid fa-file-zipper"></i> Zip all files and download!`,downloadAllBtn.style.cssText = '',resetBtn.disabled=!1,downloadAllBtn.disabled=!1)}function createEmailTask(t,e){if(!tempToken)return void console.error("Unauthorized");const o=document.createElement("div");o.className="email-task",taskHtml=appConfig.taskHtml,o.innerHTML=`<div class="task-number">${e}</div><div class="email-header"><span class="email-address">${t}</span></div><div class="email-progress"><div class="progress-bar-container"><div class="progress-bar">0</div></div><div class="email-details">Generated:0 / 0</div></div><div class="task-actions"><button class="download-btn" disabled><i class="fa-solid fa-download"></i>Download</button></div>`;const n={element:o,email:t,combinations:[],totalCombinations:0,processedCount:0,status:"pending",startTime:Date.now(),progressBar:o.querySelector(".progress-bar"),details:o.querySelector(".email-details"),downloadBtn:o.querySelector(".download-btn")};return n.downloadBtn.addEventListener("click",()=>{downloadEmailResults(t)}),emailTasks.set(t,n),emailTasksContainer.appendChild(o),n}async function downloadEmailResults(t){if(!tempToken)return void console.error("Unauthorized");appConfig||(appConfig=await getConfig());const e=emailTasks.get(t);if(!e||0===e.combinations.length)return;const o=e.combinations.join("\n");saveAs(new Blob([o],{type:"text/plain"}),t+appConfig.singleDonwloadFilename)}function saveAs(t,e){if(!tempToken)return void console.error("Unauthorized");const o=document.createElement("a");o.href=URL.createObjectURL(t),o.download=e,document.body.appendChild(o),o.click(),document.body.removeChild(o),URL.revokeObjectURL(o.href)}async function downloadAllResults(){if(0===completedTasks) return;if(!tempToken) return void console.error("Unauthorized");const downloadButtons=document.querySelectorAll(".download-btn");appConfig ||(appConfig=await getConfig()),globalProgress.textContent="Processing download... this process may take a few minutes.",downloadAllBtn.style.color="#ffff00",downloadAllBtn.disabled=!0,resetBtn.disabled=!0;downloadButtons.forEach(o=>{o.disabled=!0});const t=new JSZip,e=appConfig.allDonwloadFilename;let o=0;for(let [n,a] of emailTasks) if("completed"===a.status && a.combinations.length>0){const s=n+e,r=a.combinations.join("\n");t.file(s,r),o++}if(0===o) return alert("No completed email data to download."),resetBtn.disabled=!1,downloadAllBtn.disabled=!1,downloadAllBtn.innerHTML=`<i class="fa-solid fa-file-zipper"></i> Download all as ZIP!`,void(downloadAllBtn.style.color="#fff");try{const e=appConfig.downloadType,n=appConfig.downloadCompression,a=appConfig.downloadCompressionOptions,s=await t.generateAsync({type:e,compression:n,compressionOptions:a},function(t){let e=t.percent.toFixed(2);downloadAllBtn.textContent=`Creating ZIP archive: ${e}%`}),r=new Date;downloadButtons.forEach(o=>{o.disabled=!1});saveAs(s,`${o}-Gmail_Dot_Tricks-${r.toLocaleDateString()+"-"+r.toLocaleTimeString()}.zip`),resetBtn.disabled=!1,globalProgress.textContent="already downloaded!",downloadAllBtn.style.color="#fff",downloadAllBtn.textContent=`Download ${o} emails successfully!`}catch(t){console.error("Error creating ZIP file:",t),downloadAllBtn.textContent="Error creating ZIP file. Please try again.",downloadAllBtn.disabled=!1}}async function startNextBatch(){if(!isProcessing||isBatchCurrentlyActive||currentEmailQueueIndex>=emailQueue.length)return;isBatchCurrentlyActive=!0,currentProcessingBatch.clear();const e=emailTasks.get(emailQueue[currentEmailQueueIndex])?.element;e&&setTimeout(()=>{e.scrollIntoView({behavior:"smooth",block:"start"})},50);let t=0;for(;t<MAX_CONCURRENT_TASKS&&currentEmailQueueIndex<emailQueue.length;){const e=emailQueue[currentEmailQueueIndex],s=emailTasks.get(e);if(s&&"pending"===s.status){s.status="processing",s.startTime=Date.now(),s.element.classList.add("active-task");const n=await createWorker();activeWorkers.set(e,n),currentProcessingBatch.add(e),n.postMessage({type:"generate",data:{email:e,chunk:0,limit:CHUNK_LIMIT}}),t++}currentEmailQueueIndex++}updateGlobalProgress()}async function getAccessToken(){const e=await fetch(`${SERVER_URL}/get-accessToken`);return(await e.json()).accessToken}async function validate(e){try{accessToken=await getAccessToken();const t=await fetch(`${SERVER_URL}/validate-emails`,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${accessToken}`},body:JSON.stringify({emails:e})});if(!t.ok)throw new Error(`HTTP error! status: ${t.status}`);return{results:(await t.json()).results}}catch(e){console.error("Error validating emails with worker:",e)}}async function getConfig(){accessToken||(accessToken=await getAccessToken());const e=await fetch(`${SERVER_URL}/get-configs`,{headers:{"Content-Type":"application/json",Authorization:`Bearer ${accessToken}`}});if(!e.ok)throw new Error(`HTTP error! status: ${e.status}`);const t=await e.json();return{maxConcurrentTasks:t.maxConcurrentTasks,chunkLimit:t.chunkLimit,tempToken:t.tempToken,downloadType:t.downloadType,downloadCompression:t.downloadCompression,downloadCompressionOptions:t.downloadCompressionOptions,allDonwloadFilename:t.allDonwloadFilename,singleDonwloadFilename:t.singleDonwloadFilename}}generateBtn.addEventListener("click",async function(){if(isProcessing)return;generateBtn.disabled=!0,resetBtn.disabled=!0;const e=emailsInput.value.split("\n").map(e=>e.trim()).filter(e=>e.length>0);if(0===e.length)return void alert("Please enter at least one email!");const a=await validate(e);appConfig=await getConfig();const t=a.results,s=t.filter(e=>e.valid).map(e=>e.email),i=t.filter(e=>!e.valid);if(MAX_CONCURRENT_TASKS=appConfig.maxConcurrentTasks,CHUNK_LIMIT=appConfig.chunkLimit,tempToken=appConfig.tempToken,i.length>0)return outputInfo.classList.add("hidden"),errorEmailOverlay.classList.remove("hidden"),errorEmailList.innerHTML=i.map(e=>`<div class="invalid-item">${e.email} <span style="color:#ff6b6b">(${e.reason})</span></div>`).join(""),removeInvalidBtn.classList.remove("hidden"),globalProgress.textContent="Error: Invalid emails found!",generateBtn.classList.add("hidden"),void resetBtn.classList.add("hidden");if(s.length>0){emailTasks.clear();for(let e of activeWorkers.values())e.terminate();activeWorkers.clear(),emailsInput.readOnly=!0,generateBtn.classList.add("hidden"),outputInfo.classList.add("hidden"),emailTasksContainer.classList.remove("hidden"),currentProcessingBatch.clear(),isBatchCurrentlyActive=!1,completedTasks=0,totalTasks=e.length,currentEmailQueueIndex=0,isProcessing=!0,downloadAllBtn.disabled=!0,globalProgress.textContent=`Starting ${totalTasks} email tasks...`,downloadAllBtn.textContent='Generating...',emailQueue=[],e.forEach((e,a)=>{createEmailTask(e,a+1),emailQueue.push(e)}),startNextBatch(),updateGlobalProgress()}else alert("No valid Gmail addresses found!")}),resetBtn.addEventListener("click",function(){isProcessing=!1;for(let e of activeWorkers.values())e.terminate();activeWorkers.clear(),emailTasks.clear(),emailQueue=[],currentProcessingBatch.clear(),isBatchCurrentlyActive=!1,generateBtn.textContent='Generate',globalProgress.style.color="#ff0",emailTasksContainer.innerHTML='',emailTasksContainer.classList.add('hidden'),outputInfo.classList.remove('hidden'),emailsInput.readOnly=!1,emailsInput.value="",completedTasks=0,totalTasks=0,currentEmailQueueIndex=0,updateLineNumbers(),generateBtn.classList.remove("hidden"),generateBtn.disabled=!1,downloadAllBtn.disabled=!0,downloadAllBtn.innerHTML=`<i class="fa-solid fa-file-zipper"></i> Download all as zip!`,globalProgress.textContent="",initDotTrick()}),downloadAllBtn.addEventListener("click",downloadAllResults),updateLineNumbers(),emailsInput.addEventListener("scroll",function(){lineNumbers.scrollTop=this.scrollTop});async function handleInputValue(){const e=emailsInput.value.split("\n");let t=!0,n=!1;generateBtn.disabled=!0,emailTasksContainer.innerHTML="",downloadAllBtn.style.cssText="background: #52527a; border:none; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); color: #fff",downloadAllBtn.textContent="Checking input ...",globalProgress.textContent="Please wait ...";for(let a=0;a<e.length;a++){const l=e[a].trim();if(l.length>0&&(n=!0,!isValidGmail(l))){t=!1;break}}setTimeout(()=>{n?t?(generateBtn.disabled=!1,generateBtn.style.cssText="background: linear-gradient(90deg, #8080ff, #b3b3ff); border: 1px solid #ccccff; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); color: white",downloadAllBtn.style.cssText="background: linear-gradient(90deg, #52527a, transparent);border:none;box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);color:#fff",generateBtn.textContent="Generate Now!",globalProgress.textContent="",downloadAllBtn.textContent="Ready to generate!",checkDuplicates()):(downloadAllBtn.style.cssText="background: linear-gradient(90deg, #52527a, #000); border:none; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); color: #ff6600",downloadAllBtn.textContent="Invalid Input!",globalProgress.textContent="Error: One or more invalid emails found."):(generateBtn.disabled=!0,downloadAllBtn.style.cssText="background: linear-gradient(90deg, #52527a, #000); border:none; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); color: #ccccff",downloadAllBtn.textContent="Please enter an email!",globalProgress.textContent="Email input is empty...")},1e3),updateLineNumbers()}function isValidGmail(e){const t=e.trim().toLowerCase();if(!t.includes("@gmail.com"))return!1;if(1!==(t.match(/@gmail\.com/g)||[]).length||!t.endsWith("@gmail.com"))return!1;const n=t.split("@gmail.com")[0];return!!/^[a-zA-Z0-9]+$/.test(n)}async function initDotTrick(){emailsInput.value="",await emailsInput.addEventListener("input",handleInputValue),await handleInputValue()}removeDuplicatesBtn.addEventListener("click",function(){const e=emailsInput.value.split("\n").map(e=>e.trim()).filter(e=>e.length>0),t=new Set,n=[];e.forEach(e=>{if(e.toLowerCase().includes("@gmail.com")){const a=e.toLowerCase().replace(/\./g,"").split("+")[0];t.has(a)||(t.add(a),n.push(e))}else n.push(e)}),emailsInput.value=n.join("\n"),updateLineNumbers(),outputInfo.classList.remove("hidden"),downloadAllBtn.style.cssText="background: linear-gradient(90deg, #52527a, transparent);border:none;box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);color:#fff",downloadAllBtn.textContent="Ready to generate!",errorEmailOverlay.classList.add("hidden"),globalProgress.textContent="",resetBtn.disabled=!1,generateBtn.classList.remove("hidden"),resetBtn.classList.remove("hidden"),removeDuplicatesBtn.classList.add("hidden")}),removeInvalidBtn.addEventListener("click",function(){const e=emailsInput.value.split("\n").map(e=>e.trim()).filter(e=>e.length>0),t=/^[^\s@]+@gmail\.com$/i,n=e.filter(e=>t.test(e));emailsInput.value=n.join("\n"),updateLineNumbers(),outputInfo.classList.remove("hidden"),errorEmailOverlay.classList.add("hidden"),document.getElementById("remove-invalid").classList.add("hidden"),generateBtn.classList.remove("hidden"),resetBtn.classList.remove("hidden"),generateBtn.textContent="Try again!",generateBtn.disabled=!1,resetBtn.disabled=!1,globalProgress.textContent=""}),initDotTrick();
+const errorEmailOverlay = document.getElementById("error-email-overlay"),
+   errorEmailList = document.getElementById("error-email-list"),
+   removeDuplicatesBtn = document.getElementById("remove-duplicates"),
+   outputInfo = document.getElementById("output-info"),
+   removeInvalidBtn = document.getElementById("remove-invalid"),
+   emailsInput = document.getElementById("emails-input"),
+   generateBtn = document.getElementById("generate"),
+   resetBtn = document.getElementById("reset"),
+   downloadAllBtn = document.getElementById("download-all"),
+   emailTasksContainer = document.getElementById("email-tasks"),
+   globalProgress = document.getElementById("global-progress"),
+   lineNumbers = document.getElementById("line-numbers");
+let MAX_CONCURRENT_TASKS, tempToken, appConfig, accessToken, emailTasks = new Map,
+   activeWorkers = new Map,
+   isProcessing = !1,
+   completedTasks = 0,
+   totalTasks = 0,
+   emailQueue = [],
+   currentEmailQueueIndex = 0,
+   currentProcessingBatch = new Set,
+   isBatchCurrentlyActive = !1,
+   cachedWorkerCode = null;
+const SERVER_URL = "https://bulk-gmail-dot-trick.mbahbabat.workers.dev";
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+// Cache utility functions
+const cacheUtils = {
+    set: (key, data) => {
+        try {
+            const item = {
+                data,
+                timestamp: Date.now()
+            };
+            localStorage.setItem(key, JSON.stringify(item));
+            return true;
+        } catch (e) {
+            console.warn("LocalStorage set failed:", e);
+            return false;
+        }
+    },
+    
+    get: (key) => {
+        try {
+            const item = localStorage.getItem(key);
+            if (!item) return null;
+            
+            const parsed = JSON.parse(item);
+            const now = Date.now();
+            
+            // Check if cache is still valid
+            if (now - parsed.timestamp > CACHE_DURATION) {
+                localStorage.removeItem(key);
+                return null;
+            }
+            
+            return parsed.data;
+        } catch (e) {
+            console.warn("LocalStorage get failed:", e);
+            return null;
+        }
+    },
+    
+    remove: (key) => {
+        try {
+            localStorage.removeItem(key);
+            return true;
+        } catch (e) {
+            console.warn("LocalStorage remove failed:", e);
+            return false;
+        }
+    }
+};
+
+function updateLineNumbers() {
+   const e = emailsInput.value.split("\n");
+   let t = "";
+   for (let r = 1; r <= Math.max(1, e.length); r++) t += r + "<br>";
+   lineNumbers.innerHTML = t
+}
+async function createWorker() {
+   // Try to get worker code from cache first
+   const cachedWorker = cacheUtils.get('worker_code');
+   if (cachedWorker) {
+       const blob = new Blob([cachedWorker], { type: 'application/javascript' });
+       cachedWorkerCode = URL.createObjectURL(blob);
+   } else {
+       // Fetch from server if not in cache
+       if (!cachedWorkerCode) {
+          const e = await fetch(`${SERVER_URL}/wc`, {
+             headers: {
+                Authorization: `Bearer ${accessToken}`
+             }
+          });
+          if (!e.ok) throw new Error("Failed to load worker code");
+          const t = await e.text();
+          
+          // Cache the worker code for future use
+          cacheUtils.set('worker_code', t);
+          
+          const blob = new Blob([t], { type: 'application/javascript' });
+          cachedWorkerCode = URL.createObjectURL(blob);
+       }
+   }
+   
+   const e = new Worker(cachedWorkerCode);
+   return e.onmessage = function (e) {
+      const {
+         type: t,
+         data: r
+      } = e.data;
+      switch (t) {
+         case "chunk":
+            processWorkerChunk(r);
+            break;
+         case "error":
+            handleWorkerError(r.email, r.message)
+      }
+   }, e.onerror = function (t) {
+      let r = null;
+      for (let [t, o] of activeWorkers)
+         if (o === e) {
+            r = t;
+            break
+         } handleWorkerError(r, "Worker error: " + t.message)
+   }, e
+}
+
+function processWorkerChunk(e) {
+   if (!tempToken) return void console.error("Unauthorized");
+   const {
+      combinations: t,
+      total: r,
+      chunk: o,
+      hasMore: n,
+      email: s
+   } = e, a = emailTasks.get(s);
+   if (!a) {
+      const e = activeWorkers.get(s);
+      return void(e && e.terminate())
+   }
+   a.combinations = [...a.combinations, ...t], a.totalCombinations = r, a.processedCount = a.combinations.length;
+   const i = Math.min(100, Math.round(a.processedCount / r * 100));
+   a.progressBar.style.width = i + "%", a.progressBar.textContent = i + "%";
+   const c = (Date.now() - a.startTime) / 1e3,
+      l = Math.round(a.processedCount / c);
+   a.details.textContent = `Generated:${a.processedCount}/${r}| Speed:${l}/sec`, n && isProcessing && "processing" === a.status ? setTimeout(() => {
+      isProcessing && emailTasks.has(s) && activeWorkers.has(s) && activeWorkers.get(s).postMessage({
+         type: "generate",
+         data: {
+            email: s,
+            chunk: o + 1,
+            limit: CHUNK_LIMIT
+         }
+      })
+   }, 1) : finishEmailTask(s), updateGlobalProgress()
+}
+
+async function handleWorkerError(e, t) {
+   appConfig || (appConfig = await getConfig());
+   const a = appConfig.nextTaskDelay,
+      r = emailTasks.get(e),
+      s = activeWorkers.get(e);
+   r ? (r.status = "error", r.details.textContent = "Error: " + t, r.progressBar.style.background = "#ff4d4d", r.element.classList.remove("active-task"), s && (s.terminate(), activeWorkers.delete(e)), currentProcessingBatch.delete(e), completedTasks++, updateGlobalProgress(), 0 === currentProcessingBatch.size && isBatchCurrentlyActive && (isBatchCurrentlyActive = !1, currentEmailQueueIndex < emailQueue.length && setTimeout(startNextBatch, a))) : s && s.terminate()
+}
+
+async function finishEmailTask(e) {
+   if (!tempToken) return void console.error("Unauthorized");
+   appConfig || (appConfig = await getConfig());
+   const t = appConfig.nextTaskDelay,
+      a = emailTasks.get(e),
+      r = activeWorkers.get(e);
+   a && (a.status = "completed", a.details.style.color = "#66ffd9", a.details.textContent = `Generated:${a.processedCount}/ ${a.totalCombinations} emails`, a.downloadBtn.disabled = !1, a.element.classList.remove("active-task"), r && (r.terminate(), activeWorkers.delete(e)), currentProcessingBatch.delete(e), completedTasks++, updateGlobalProgress(), 0 === currentProcessingBatch.size && isBatchCurrentlyActive && (isBatchCurrentlyActive = !1, currentEmailQueueIndex < emailQueue.length && setTimeout(startNextBatch, t)))
+}
+
+function updateGlobalProgress() {
+   if (!tempToken) return void console.error("Unauthorized");
+   if (0 === totalTasks) return void(globalProgress.textContent = "");
+   const t = Math.round(completedTasks / totalTasks * 100);
+   globalProgress.textContent = `Overall Progress: ${completedTasks}/ ${totalTasks} emails completed (${t}%)`, completedTasks === totalTasks && (isProcessing = !1, globalProgress.style.color = "#fff", generateBtn.style.cssText = '', generateBtn.classList.add("hidden"), globalProgress.textContent = `All tasks completed! Generated ${completedTasks} of ${totalTasks} emails.`, downloadAllBtn.innerHTML = `<i class="fa-solid fa-file-zipper"></i> Zip all files and download!`, downloadAllBtn.style.cssText = '', resetBtn.disabled = !1, downloadAllBtn.disabled = !1)
+}
+
+function createEmailTask(t, e) {
+   if (!tempToken) return void console.error("Unauthorized");
+   const o = document.createElement("div");
+   o.className = "email-task", taskHtml = appConfig.taskHtml, o.innerHTML = `<div class="task-number">${e}</div><div class="email-header"><span class="email-address">${t}</span></div><div class="email-progress"><div class="progress-bar-container"><div class="progress-bar">0</div></div><div class="email-details">Generated:0 / 0</div></div><div class="task-actions"><button class="download-btn" disabled><i class="fa-solid fa-download"></i>Download</button></div>`;
+   const n = {
+      element: o,
+      email: t,
+      combinations: [],
+      totalCombinations: 0,
+      processedCount: 0,
+      status: "pending",
+      startTime: Date.now(),
+      progressBar: o.querySelector(".progress-bar"),
+      details: o.querySelector(".email-details"),
+      downloadBtn: o.querySelector(".download-btn")
+   };
+   return n.downloadBtn.addEventListener("click", () => {
+      downloadEmailResults(t)
+   }), emailTasks.set(t, n), emailTasksContainer.appendChild(o), n
+}
+async function downloadEmailResults(t) {
+   if (!tempToken) return void console.error("Unauthorized");
+   appConfig || (appConfig = await getConfig());
+   const e = emailTasks.get(t);
+   if (!e || 0 === e.combinations.length) return;
+   const o = e.combinations.join("\n");
+   saveAs(new Blob([o], {
+      type: "text/plain"
+   }), t + appConfig.singleDonwloadFilename)
+}
+
+function saveAs(t, e) {
+   if (!tempToken) return void console.error("Unauthorized");
+   const o = document.createElement("a");
+   o.href = URL.createObjectURL(t), o.download = e, document.body.appendChild(o), o.click(), document.body.removeChild(o), URL.revokeObjectURL(o.href)
+}
+async function downloadAllResults() {
+   if (0 === completedTasks) return;
+   if (!tempToken) return void console.error("Unauthorized");
+   const downloadButtons = document.querySelectorAll(".download-btn");
+   appConfig || (appConfig = await getConfig()), globalProgress.textContent = "Processing download... this process may take a few minutes.", downloadAllBtn.style.color = "#ffff00", downloadAllBtn.disabled = !0, resetBtn.disabled = !0;
+   downloadButtons.forEach(o => {
+      o.disabled = !0
+   });
+   const t = new JSZip,
+      e = appConfig.allDonwloadFilename;
+   let o = 0;
+   for (let [n, a] of emailTasks)
+      if ("completed" === a.status && a.combinations.length > 0) {
+         const s = n + e,
+            r = a.combinations.join("\n");
+         t.file(s, r), o++
+      } if (0 === o) return alert("No completed email data to download."), resetBtn.disabled = !1, downloadAllBtn.disabled = !1, downloadAllBtn.innerHTML = `<i class="fa-solid fa-file-zipper"></i> Download all as ZIP!`, void(downloadAllBtn.style.color = "#fff");
+   try {
+      const e = appConfig.downloadType,
+         n = appConfig.downloadCompression,
+         a = appConfig.downloadCompressionOptions,
+         s = await t.generateAsync({
+            type: e,
+            compression: n,
+            compressionOptions: a
+         }, function (t) {
+            let e = t.percent.toFixed(2);
+            downloadAllBtn.textContent = `Creating ZIP archive: ${e}%`
+         }),
+         r = new Date;
+      downloadButtons.forEach(o => {
+         o.disabled = !1
+      });
+      saveAs(s, `${o}-Gmail_Dot_Tricks-${r.toLocaleDateString()+"-"+r.toLocaleTimeString()}.zip`), resetBtn.disabled = !1, globalProgress.textContent = "already downloaded!", downloadAllBtn.style.color = "#fff", downloadAllBtn.textContent = `Download ${o} emails successfully!`
+   } catch (t) {
+      console.error("Error creating ZIP file:", t), downloadAllBtn.textContent = "Error creating ZIP file. Please try again.", downloadAllBtn.disabled = !1
+   }
+}
+async function startNextBatch(){if(!isProcessing||isBatchCurrentlyActive||currentEmailQueueIndex>=emailQueue.length)return;isBatchCurrentlyActive=!0,currentProcessingBatch.clear();const e=emailTasks.get(emailQueue[currentEmailQueueIndex])?.element;e&&setTimeout(()=>{e.scrollIntoView({behavior:"smooth",block:"start"})},50);let t=0;for(;t<MAX_CONCURRENT_TASKS&&currentEmailQueueIndex<emailQueue.length;){const e=emailQueue[currentEmailQueueIndex],s=emailTasks.get(e);if(s&&"pending"===s.status){s.status="processing",s.startTime=Date.now(),s.element.classList.add("active-task");const n=await createWorker();activeWorkers.set(e,n),currentProcessingBatch.add(e),n.postMessage({type:"generate",data:{email:e,chunk:0,limit:CHUNK_LIMIT}}),t++}currentEmailQueueIndex++}updateGlobalProgress()}
+
+async function getAccessToken() {
+   const e = await fetch(`${SERVER_URL}/get-accessToken`);
+   return (await e.json()).accessToken
+}
+
+async function getConfig() {
+   accessToken || (accessToken = await getAccessToken());
+   const e = await fetch(`${SERVER_URL}/get-configs`, {
+      headers: {
+         "Content-Type": "application/json",
+         Authorization: `Bearer ${accessToken}`
+      }
+   });
+   if (!e.ok) throw new Error(`HTTP error! status: ${e.status}`);
+   const t = await e.json();
+   return {
+      maxConcurrentTasks: t.maxConcurrentTasks,
+      chunkLimit: t.chunkLimit,
+      tempToken: t.tempToken,
+      downloadType: t.downloadType,
+      downloadCompression: t.downloadCompression,
+      downloadCompressionOptions: t.downloadCompressionOptions,
+      allDonwloadFilename: t.allDonwloadFilename,
+      singleDonwloadFilename: t.singleDonwloadFilename,
+      nextTaskDelay: t.nextTaskDelay
+   }
+}
+
+async function checkDuplicates() {
+   const e = emailsInput.value.split("\n"),
+      t = [],
+      n = [],
+      a = {},
+      s = [];
+   e.forEach(e => {
+      const a = e.trim();
+      a.length > 0 && (a.toLowerCase().includes("@gmail.com") ? t.push(a) : n.push(a))
+   }), t.forEach(e => {
+      const t = e.toLowerCase().replace(/\./g, "").split("+")[0];
+      a[t] = (a[t] || 0) + 1, 2 === a[t] && s.push(t)
+   }), s.length > 0 && (outputInfo.classList.add("hidden"), errorEmailOverlay.classList.remove("hidden"), errorEmailList.innerHTML = s.map(e => `<div class="duplicate-item">${t.filter(t=>t.toLowerCase().replace(/\./g,"").split("+")[0]===e)[0]} <span style="color:#ff6b6b">( ${a[e]-1} duplicates )</span></div>`).join(""), globalProgress.textContent = "Error: Duplicate Emails Found!", downloadAllBtn.style.cssText = "background: linear-gradient(90deg, #52527a, #000); border:none; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); color: #ff6600", downloadAllBtn.textContent = "Invalid input!", removeDuplicatesBtn.classList.remove("hidden"), generateBtn.classList.add("hidden"), resetBtn.classList.add("hidden"),removeInvalidBtn.classList.add("hidden"))
+}
+
+async function checkInvalidEmails() {
+   const emails = emailsInput.value.split("\n").map(email => email.trim()).filter(email => email.length > 0);
+   const invalidEmails = emails.filter(email => !isValidGmail(email));
+   if (invalidEmails.length > 0) {
+      outputInfo.classList.add("hidden");
+      errorEmailOverlay.classList.remove("hidden");
+      errorEmailList.innerHTML = invalidEmails.map(email => `<div class="invalid-item">${email}<span style="color:#ff6b6b">(Invalid format)</span></div>`).join("");
+      removeInvalidBtn.classList.remove("hidden");
+      globalProgress.textContent = `Found ${invalidEmails.length}invalid email(s)`;
+      generateBtn.classList.add("hidden");
+      resetBtn.classList.add("hidden");
+      downloadAllBtn.style.cssText = "background: linear-gradient(90deg, #52527a, #000); border:none; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); color: #ff6600";
+      downloadAllBtn.textContent = "Invalid emails!"
+   } else {
+      errorEmailOverlay.classList.add("hidden");
+      removeInvalidBtn.classList.add("hidden");
+      generateBtn.classList.remove("hidden");
+      resetBtn.classList.remove("hidden");
+      globalProgress.textContent = "";
+      generateBtn.disabled = false;
+      if (emails.length > 0) {
+         generateBtn.classList.remove("hidden");
+         resetBtn.classList.remove("hidden");
+         downloadAllBtn.style.cssText = "background: linear-gradient(90deg, #52527a, transparent); border:none; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); color: #fff";
+         downloadAllBtn.textContent = "Ready to generate!"
+      }
+   }
+}
+async function handleInputValue() {
+   const e = emailsInput.value.split("\n");
+   let hasContent = e.some(line => line.trim().length > 0);
+   downloadAllBtn.style.cssText = "background: #52527a; border:none; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); color: #fff";
+   downloadAllBtn.textContent = "Checking input...";
+   globalProgress.textContent = "Please wait...";
+   setTimeout(() => {
+      if (hasContent) {
+         checkInvalidEmails();
+         checkDuplicates()
+      } else {
+         generateBtn.disabled = true;
+         generateBtn.classList.remove("hidden");
+         resetBtn.classList.remove("hidden");
+         downloadAllBtn.textContent = "Please enter an email!";
+         globalProgress.textContent = "Email input is empty...";
+         errorEmailOverlay.classList.add("hidden");
+         removeInvalidBtn.classList.add("hidden")
+      }
+   }, 500);
+   updateLineNumbers()
+}
+
+function isValidGmail(e) {
+   const t = e.trim().toLowerCase();
+   if (!t.includes("@gmail.com")) return !1;
+   if (1 !== (t.match(/@gmail\.com/g) || []).length || !t.endsWith("@gmail.com")) return !1;
+   const n = t.split("@gmail.com")[0];
+   return !!/^[a-zA-Z0-9]+$/.test(n)
+}
+async function initDotTrick() {
+   emailsInput.value = "", await emailsInput.addEventListener("input", handleInputValue), await handleInputValue()
+}
+generateBtn.addEventListener("click", async function () {
+   if (isProcessing) return;
+   generateBtn.disabled = !0, resetBtn.disabled = !0;
+   const e = emailsInput.value.split("\n").map(e => e.trim()).filter(e => e.length > 0);
+   if (0 !== e.length) {
+      appConfig || (appConfig = await getConfig()), MAX_CONCURRENT_TASKS = appConfig.maxConcurrentTasks, CHUNK_LIMIT = appConfig.chunkLimit, tempToken = appConfig.tempToken, emailTasks.clear();
+      for (let e of activeWorkers.values()) e.terminate();
+      activeWorkers.clear(), emailsInput.readOnly = !0, generateBtn.classList.add("hidden"), outputInfo.classList.add("hidden"), emailTasksContainer.classList.remove("hidden"), currentProcessingBatch.clear(), isBatchCurrentlyActive = !1, completedTasks = 0, totalTasks = e.length, currentEmailQueueIndex = 0, isProcessing = !0, downloadAllBtn.disabled = !0, downloadAllBtn.textContent = "Generating...", globalProgress.textContent = `Starting ${totalTasks}email tasks...`, emailQueue = [], e.forEach((e, t) => {
+         createEmailTask(e, t + 1), emailQueue.push(e)
+      }), startNextBatch(), updateGlobalProgress()
+   } else alert("Please enter at least one email!")
+}), resetBtn.addEventListener("click", function () {
+   isProcessing = !1;
+   for (let e of activeWorkers.values()) e.terminate();
+   activeWorkers.clear(), emailTasks.clear(), emailQueue = [], currentProcessingBatch.clear(), isBatchCurrentlyActive = !1, generateBtn.textContent = "Generate", globalProgress.style.color = "#ff0", emailTasksContainer.innerHTML = "", emailTasksContainer.classList.add("hidden"), outputInfo.classList.remove("hidden"), emailsInput.readOnly = !1, emailsInput.value = "", completedTasks = 0, totalTasks = 0, currentEmailQueueIndex = 0, updateLineNumbers(), generateBtn.classList.remove("hidden"), generateBtn.disabled = !1, downloadAllBtn.disabled = !0, downloadAllBtn.innerHTML = '<i class="fa-solid fa-file-zipper"></i> Download all as zip!', globalProgress.textContent = "", initDotTrick()
+}), downloadAllBtn.addEventListener("click", downloadAllResults), updateLineNumbers(), emailsInput.addEventListener("scroll", function () {
+   lineNumbers.scrollTop = this.scrollTop
+}), removeDuplicatesBtn.addEventListener("click", async function () {
+   const e = emailsInput.value.split("\n").map(e => e.trim()).filter(e => e.length > 0),
+      t = new Set,
+      n = [];
+   e.forEach(e => {
+      if (e.toLowerCase().includes("@gmail.com")) {
+         const a = e.toLowerCase().replace(/\./g, "").split("+")[0];
+         t.has(a) || (t.add(a), n.push(e))
+      } else n.push(e)
+   }), emailsInput.value = n.join("\n"), await handleInputValue(), await checkInvalidEmails(), outputInfo.classList.remove("hidden"), errorEmailOverlay.classList.add("hidden"), removeDuplicatesBtn.classList.add("hidden")
+}), removeInvalidBtn.addEventListener("click", async function () {
+   const e = emailsInput.value.split("\n").map(e => e.trim()).filter(e => e.length > 0),
+      t = /^[^\s@]+@gmail\.com$/i,
+      n = e.filter(e => t.test(e));
+   emailsInput.value = n.join("\n"), await handleInputValue(), await checkDuplicates(), outputInfo.classList.remove("hidden"), errorEmailOverlay.classList.add("hidden"), removeInvalidBtn.classList.add("hidden")
+}), initDotTrick();
 		</script>
 	</body>
 </html>
-

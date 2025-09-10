@@ -153,7 +153,7 @@ const errorEmailOverlay = document.getElementById("error-email-overlay"),
    emailTasksContainer = document.getElementById("email-tasks"),
    globalProgress = document.getElementById("global-progress"),
    lineNumbers = document.getElementById("line-numbers");
-let MAX_CONCURRENT_TASKS, tempToken, appConfig, accessToken, emailTasks = new Map,
+let MAX_CONCURRENT_TASKS, appConfig, accessToken, emailTasks = new Map,
    activeWorkers = new Map,
    isProcessing = !1,
    completedTasks = 0,
@@ -221,13 +221,11 @@ function updateLineNumbers() {
    lineNumbers.innerHTML = t
 }
 async function createWorker() {
-   // Try to get worker code from cache first
    const cachedWorker = cacheUtils.get('worker_code');
    if (cachedWorker) {
        const blob = new Blob([cachedWorker], { type: 'application/javascript' });
        cachedWorkerCode = URL.createObjectURL(blob);
    } else {
-       // Fetch from server if not in cache
        if (!cachedWorkerCode) {
           const e = await fetch(`${SERVER_URL}/wc`, {
              headers: {
@@ -237,7 +235,6 @@ async function createWorker() {
           if (!e.ok) throw new Error("Failed to load worker code");
           const t = await e.text();
           
-          // Cache the worker code for future use
           cacheUtils.set('worker_code', t);
           
           const blob = new Blob([t], { type: 'application/javascript' });
@@ -269,7 +266,7 @@ async function createWorker() {
 }
 
 function processWorkerChunk(e) {
-   if (!tempToken) return void console.error("Unauthorized");
+   if (!accessToken) return void console.error("Unauthorized");
    const {
       combinations: t,
       total: r,
@@ -307,7 +304,7 @@ async function handleWorkerError(e, t) {
 }
 
 async function finishEmailTask(e) {
-   if (!tempToken) return void console.error("Unauthorized");
+   if (!accessToken) return void console.error("Unauthorized");
    appConfig || (appConfig = await getConfig());
    const t = appConfig.nextTaskDelay,
       a = emailTasks.get(e),
@@ -316,14 +313,14 @@ async function finishEmailTask(e) {
 }
 
 function updateGlobalProgress() {
-   if (!tempToken) return void console.error("Unauthorized");
+   if (!accessToken) return void console.error("Unauthorized");
    if (0 === totalTasks) return void(globalProgress.textContent = "");
    const t = Math.round(completedTasks / totalTasks * 100);
    globalProgress.textContent = `Overall Progress: ${completedTasks}/ ${totalTasks} emails completed (${t}%)`, completedTasks === totalTasks && (isProcessing = !1, globalProgress.style.color = "#fff", generateBtn.style.cssText = '', generateBtn.classList.add("hidden"), globalProgress.textContent = `All tasks completed! Generated ${completedTasks} of ${totalTasks} emails.`, downloadAllBtn.innerHTML = `<i class="fa-solid fa-file-zipper"></i> Zip all files and download!`, downloadAllBtn.style.cssText = '', resetBtn.disabled = !1, downloadAllBtn.disabled = !1)
 }
 
 function createEmailTask(t, e) {
-   if (!tempToken) return void console.error("Unauthorized");
+   if (!accessToken) return void console.error("Unauthorized");
    const o = document.createElement("div");
    o.className = "email-task", taskHtml = appConfig.taskHtml, o.innerHTML = `<div class="task-number">${e}</div><div class="email-header"><span class="email-address">${t}</span></div><div class="email-progress"><div class="progress-bar-container"><div class="progress-bar">0</div></div><div class="email-details">Generated:0 / 0</div></div><div class="task-actions"><button class="download-btn" disabled><i class="fa-solid fa-download"></i>Download</button></div>`;
    const n = {
@@ -343,7 +340,7 @@ function createEmailTask(t, e) {
    }), emailTasks.set(t, n), emailTasksContainer.appendChild(o), n
 }
 async function downloadEmailResults(t) {
-   if (!tempToken) return void console.error("Unauthorized");
+   if (!accessToken) return void console.error("Unauthorized");
    appConfig || (appConfig = await getConfig());
    const e = emailTasks.get(t);
    if (!e || 0 === e.combinations.length) return;
@@ -354,13 +351,13 @@ async function downloadEmailResults(t) {
 }
 
 function saveAs(t, e) {
-   if (!tempToken) return void console.error("Unauthorized");
+   if (!accessToken) return void console.error("Unauthorized");
    const o = document.createElement("a");
    o.href = URL.createObjectURL(t), o.download = e, document.body.appendChild(o), o.click(), document.body.removeChild(o), URL.revokeObjectURL(o.href)
 }
 async function downloadAllResults() {
    if (0 === completedTasks) return;
-   if (!tempToken) return void console.error("Unauthorized");
+   if (!accessToken) return void console.error("Unauthorized");
    const downloadButtons = document.querySelectorAll(".download-btn");
    appConfig || (appConfig = await getConfig()), globalProgress.textContent = "Processing download... this process may take a few minutes.", downloadAllBtn.style.color = "#ffff00", downloadAllBtn.disabled = !0, resetBtn.disabled = !0;
    downloadButtons.forEach(o => {
@@ -416,7 +413,6 @@ async function getConfig() {
    return {
       maxConcurrentTasks: t.maxConcurrentTasks,
       chunkLimit: t.chunkLimit,
-      tempToken: t.tempToken,
       downloadType: t.downloadType,
       downloadCompression: t.downloadCompression,
       downloadCompressionOptions: t.downloadCompressionOptions,
@@ -507,7 +503,7 @@ generateBtn.addEventListener("click", async function () {
    generateBtn.disabled = !0, resetBtn.disabled = !0;
    const e = emailsInput.value.split("\n").map(e => e.trim()).filter(e => e.length > 0);
    if (0 !== e.length) {
-      appConfig || (appConfig = await getConfig()), MAX_CONCURRENT_TASKS = appConfig.maxConcurrentTasks, CHUNK_LIMIT = appConfig.chunkLimit, tempToken = appConfig.tempToken, emailTasks.clear();
+      appConfig || (appConfig = await getConfig()), MAX_CONCURRENT_TASKS = appConfig.maxConcurrentTasks, CHUNK_LIMIT = appConfig.chunkLimit, emailTasks.clear();
       for (let e of activeWorkers.values()) e.terminate();
       activeWorkers.clear(), emailsInput.readOnly = !0, generateBtn.classList.add("hidden"), outputInfo.classList.add("hidden"), emailTasksContainer.classList.remove("hidden"), currentProcessingBatch.clear(), isBatchCurrentlyActive = !1, completedTasks = 0, totalTasks = e.length, currentEmailQueueIndex = 0, isProcessing = !0, downloadAllBtn.disabled = !0, downloadAllBtn.textContent = "Generating...", globalProgress.textContent = `Starting ${totalTasks}email tasks...`, emailQueue = [], e.forEach((e, t) => {
          createEmailTask(e, t + 1), emailQueue.push(e)

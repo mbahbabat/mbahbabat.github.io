@@ -567,12 +567,12 @@ async function finishEmailTask(e) {
             // Hapus kombinasi dari memori untuk menghemat ruang
             a.combinations = [];
         } catch (error) {
-            console.error("Gagal menyimpan ke IndexedDB:", error);
+            console.error("IndexedDB:", error);
         }
         
         a.status = "completed";
         a.details.style.color = "#66ffd9";
-        a.details.textContent = `Generated:${a.processedCount}/${a.totalCombinations} emails`;
+        a.details.textContent = `Generated: ${a.processedCount}/${a.totalCombinations} emails`;
         a.downloadBtn.disabled = !1;
         a.element.classList.remove("active-task");
         n && (n.terminate(), activeWorkers.delete(e));
@@ -694,10 +694,10 @@ generateBtn.addEventListener("click", (async function() {
             createEmailTask(e, t + 1), emailQueue.push(e)
         })), startNextBatch(), updateGlobalProgress()
     } else alert("Please enter at least one email!")
-})), resetBtn.addEventListener("click", (function() {
+})), resetBtn.addEventListener("click", (async function() {
     isProcessing = !1;
     for (let e of activeWorkers.values()) e.terminate();
-    activeWorkers.clear(), emailTasks.clear(), emailQueue = [], currentProcessingBatch.clear(), isBatchCurrentlyActive = !1, resetBtn.style.cssText = "", generateBtn.textContent = "Generate", globalProgress.style.color = "#ff0", emailTasksContainer.innerHTML = "", emailTasksContainer.classList.add("hidden"), outputInfo.classList.remove("hidden"), emailsInput.readOnly = !1, emailsInput.value = "", completedTasks = 0, totalTasks = 0, currentEmailQueueIndex = 0, updateLineNumbers(), generateBtn.classList.remove("hidden"), generateBtn.disabled = !1, downloadAllBtn.disabled = !0, downloadAllBtn.innerHTML = '<i class="fa-solid fa-file-zipper"></i> Download all as zip!', globalProgress.textContent = "", initDotTrick()
+    activeWorkers.clear(), emailTasks.clear(), emailQueue = [], currentProcessingBatch.clear(), isBatchCurrentlyActive = !1, resetBtn.style.cssText = "", generateBtn.textContent = "Generate", globalProgress.style.color = "#ff0", emailTasksContainer.innerHTML = "", emailTasksContainer.classList.add("hidden"), outputInfo.classList.remove("hidden"), emailsInput.readOnly = !1, emailsInput.value = "", completedTasks = 0, totalTasks = 0, currentEmailQueueIndex = 0, updateLineNumbers(), generateBtn.classList.remove("hidden"), generateBtn.disabled = !1, downloadAllBtn.disabled = !0, downloadAllBtn.innerHTML = '<i class="fa-solid fa-file-zipper"></i> Download all as zip!', globalProgress.textContent = "", await initDotTrick(), await clearAllIndexedDB()
 })), downloadAllBtn.addEventListener("click", downloadAllResults), updateLineNumbers(), emailsInput.addEventListener("scroll", (function() {
     lineNumbers.scrollTop = this.scrollTop
 })), removeDuplicatesBtn.addEventListener("click", (async function() {

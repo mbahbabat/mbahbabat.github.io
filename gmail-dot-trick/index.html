@@ -26,7 +26,9 @@
 		<meta name="twitter:title" content="Gmail Dot Trick Generator">
 		<meta name="twitter:description" content="Generate gmail address variations in bulk using Gmail Dot Trick">
 		<meta name="twitter:image" content="./assets/pic/logo/logo-app.jpeg">
-
+		<meta name="theme-color" content="#000">
+		<meta name="msapplication-navbutton-color" content="#000">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#000">
 		<!-- Favicon & Theme -->
 		<link rel="icon" href="./assets/pic/logo/fav.ico">
 		<link rel="canonical" href="https://mbahbabat.github.io/gmail-dot-trick" />
@@ -143,22 +145,46 @@
 		</header>
 		<main>
 			<div class="input-section">
-				<p><i class="fa-solid fa-envelope-open-text"></i> Email input</p>
+				<div class="input-header">
+					<p><i class="fa-solid fa-envelope-open-text"></i> Email input</p>
+					<p id="mode-status" class="mode-status"></p>
+				</div>
 				<div class="textarea-container">
 					<div class="line-numbers" id="line-numbers">1</div>
 					<textarea id="emails-input" placeholder="Enter one email per line, e.g. example@gmail.com"></textarea>
 				</div>
 			</div>
 			<div class="action-btn" id="action-btn">
-				<button title="reset UI and tasks" id="reset">Reset</button>
-				<button title="start generating Gmail Dot" id="generate">Generate</button>
+				<button title="reset UI and tasks" id="reset-btn">Reset</button>
+				<button title="mode selection (fast, normal, or slow)" id="mode-btn">Mode</button>
+				<button title="start generating Gmail Dot" id="generate-btn">Generate</button>
 				<button title="remove all duplicate emails" id="remove-duplicates" class="hidden">Remove duplicates to continue!</button>
 				<button title="remove invalid input" id="remove-invalid" class="hidden">Remove invalid emails to continue!</button>
 			</div>
 			<div class="output-section" id="output-section">
 				<div class="error-email-overlay hidden" id="error-email-overlay">
 					<div id="error-email-list"></div>
-				</div>              
+				</div>
+				<div id="mode-selection" class="mode-selection hidden">
+					<h2 id="select-mode-h2">Select mode</h2>
+					<div id="radio-mode" class="radio-mode">
+						<label>
+							<input type="radio" name="mode" value="fast" checked> 
+							<strong style="color:#ff3300">Fast</strong> – for high-spec devices
+						</label><br/>
+
+						<label>
+							<input type="radio" name="mode" value="balance"> 
+							<strong style="color:#ffff00">Balance</strong> – for medium-spec devices
+						</label><br/>
+
+						<label>
+							<input type="radio" name="mode" value="slow"> 
+							<strong style="color:#53ff1a">Slow</strong> – for low-spec devices
+						</label>
+					</div>
+					<div id="mode-specs" class="mode-details"></div>
+				</div>
 				<div id="output-info-scrollable" class="output-info-scrollable">
 					<h2 class="section-title" id="app-info">What is Gmail Dot Trick?</h2>
 					<p>The Gmail Dot Trick is a clever feature within Google's Gmail service that allows users to create virtually unlimited variations of their primary email address, all of which still deliver to the same inbox. Google simply ignores periods (dots) in the username portion of a Gmail address. For example, emails sent to <code>yourname@gmail.com</code>, <code>your.name@gmail.com</code>, and <code>y.o.u.r.n.a.m.e@gmail.com</code> will all arrive in the same <code>yourname@gmail.com</code> inbox.</p>
@@ -262,3 +288,4 @@
 		<script src="./assets/js/main/main.min.js"></script>
 	</body>
 </html>
+

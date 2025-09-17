@@ -137,7 +137,7 @@
 			<p>Advanced Gmail Dot Trick Generator – Bulk Process, Super Fast & Instant Results</p>
 		</header>
 		<main>
-			<div class="input-section">
+			<div id="input-section" class="input-section">
 				<div class="input-header">
 					<p><i class="fa-solid fa-envelope-open-text"></i> Email input</p>
 					<p id="mode-status" class="mode-status"></p>
@@ -159,32 +159,33 @@
 				<div class="error-email-overlay hidden" id="error-email-overlay">
 					<div id="error-email-list"></div>
 				</div>
-				<div id="mode-selection" class="mode-selection hidden">
+				<div id="option-mode" class="option-mode hidden">
 					<h2 id="select-mode-h2">Select mode</h2>
 					<div id="radio-mode" class="radio-mode">
 						<label>
 						<input type="radio" name="mode" value="fast" checked> 
-						<strong style="color:#ff3300">Fast</strong> – for high-spec devices
+						<strong style="color:#ff3300">Fast</strong><em>for high-spec devices</em>
 						</label>
 						<label>
 						<input type="radio" name="mode" value="balance"> 
-						<strong style="color:#ffff00">Balance</strong> – for medium-spec devices
+						<strong style="color:#ffff00">Balance</strong><em>for medium-spec devices</em>
 						</label>
 						<label>
 						<input type="radio" name="mode" value="slow"> 
-						<strong style="color:#53ff1a">Slow</strong> – for low-spec devices
+						<strong style="color:#53ff1a">Slow</strong><em>for low-spec devices</em>
 						</label>
 					</div>
 					<div class="mode-details">
-						<div id="mode-specs" class="mode-details">
-						</div>
-						<p class="warning-message"><i class="fa-solid fa-triangle-exclamation"></i> Please select a mode that matches your device specifications. Generating a large number of combinations can be very resource-intensive and may cause your browser to crash or become unresponsive if your device is not powerful enough.</p>
+						<div id="mode-specs" class="mode-specs"></div>	
+						<p><i class="fa-solid fa-triangle-exclamation"></i><em class="warning-message"> Please select a mode that matches your device specifications. Generating a large number of combinations can be very resource-intensive and may cause your browser to crash or become unresponsive if your device is not powerful enough.
+						</em>
+						</p>		
 					</div>
-					<div class="close-mode-btn-container">
-						<button title="Clode Mode Section" id="close-mode-btn" class="close-mode-btn">Apply</button>
-					</div>
+						<div class="close-mode-btn-container">
+							<button title="Clode Mode Section" id="close-mode-btn" class="close-mode-btn">Apply</button>
+						</div>	
 				</div>
-				<button title="Back to Top" id="scroll-to-top" class="scroll-to-top hidden"><i class="fa-regular fa-hand-point-up"></i></button>
+				<button title="Back to Top" id="scroll-to-top" class="scroll-to-top hidden"><i class="fa-regular fa-hand-point-up"></i> TOP</button>
 				<div id="landing-page" class="landing-page">
 					<h2 class="section-title" id="app-info">What is the Gmail Dot Trick?</h2>
 					<div>

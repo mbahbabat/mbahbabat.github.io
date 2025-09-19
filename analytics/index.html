@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Web Analytics</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+		<style>
+:root{--primary-color:#4e73df;--secondary-color:#858796;--success-color:#1cc88a;--info-color:#36b9cc;--warning-color:#f6c23e;--danger-color:#e74a3b;--light-bg:#f8f9fc}body{background-color:var(--light-bg);font-family:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}.sidebar{min-height:100vh;background:linear-gradient(180deg,var(--primary-color) 10%,#224abe 100%);color:white;position:fixed;z-index:100;overflow-y:auto}.sidebar-heading{padding:20px 15px;font-size:1.2rem;border-bottom:1px solid rgba(255,255,255,0.3)}.sidebar .nav-link{color:rgba(255,255,255,0.8);padding:1rem;font-weight:500}.sidebar .nav-link:hover{color:#fff}.sidebar .nav-link.active{font-weight:700;color:#fff;background-color:rgba(255,255,255,0.1);border-left:4px solid #fff}#sidebarToggle{position:absolute;right:20px;top:40px;background:#000;color:#fff}.main-content{margin-left:0;transition:margin-left .3s}@media(min-width:768px){.main-content{margin-left:250px}}@media(max-width:767px){.container-fluid{display:flex;flex-direction:column;justify-content:center}.title{display:flex;flex-direction:column;justify-content:center;align-items:center}.topbar{height:125px !important}}.topbar{height:70px;box-shadow:0 3px 6px rgba(0,0,0,0.05);background:white}.card{border:0;border-radius:10px;box-shadow:0 .15rem 1.75rem 0 rgba(58,59,69,0.15);margin-bottom:1.5rem}.card-stats .card-body{padding:1rem 1.5rem}.card-stats .icon-big{font-size:2.5rem;opacity:.3}.stat-card{border-left:4px solid}.stat-card.primary{border-left-color:var(--primary-color)}.stat-card.success{border-left-color:var(--success-color)}.stat-card.info{border-left-color:var(--info-color)}.stat-card.warning{border-left-color:var(--warning-color)}.loading{display:flex;justify-content:center;align-items:center;height:200px}.spinner-border{width:3rem;height:3rem}.country-flag{width:20px;height:15px;margin-right:8px;border:1px solid #ddd}.chart-container{position:relative;height:300px}.page-title{font-size:1.5rem;font-weight:700;color:#5a5c69}.website-name{font-weight:600;color:var(--primary-color)}.country-modal-flag{width:24px;height:18px;margin-right:10px;border:1px solid #dee2e6}.country-item{padding:8px 0;border-bottom:1px solid #f1f1f1}.country-item:last-child{border-bottom:0}
+		</style>
+	</head>
+	<body>
+		<!-- Sidebar -->
+		<div class="sidebar d-none d-md-block" style="width: 250px;">
+			<div class="sidebar-heading">
+				<i class="bi bi-graph-up"></i> Analytics Dashboard
+			</div>
+			<div class="list-group list-group-flush" id="apps-list">
+				<div class="text-center py-4">
+					<div class="spinner-border spinner-border-sm text-light" role="status"></div>
+					<span class="ms-2">Loading websites...</span>
+				</div>
+			</div>
+		</div>
+		<!-- Main Content -->
+		<div class="main-content">
+			<!-- Top Bar -->
+			<nav class="navbar topbar mb-4">
+				<div class="container-fluid">
+					<div class="title">
+						<span class="page-title">Analytics Overview</span>
+						<span class="website-name ms-2" id="current-website"></span>
+					</div>
+					<div class="d-flex">
+						<span class="badge bg-success me-2">
+						<i class="bi bi-circle-fill"></i> Live
+						</span>
+						<div class="text-muted" id="current-time"></div>
+					</div>
+					<button id="sidebarToggle" class="btn btn-link d-md-none">
+					<i class="bi bi-list"></i>
+					</button>				
+				</div>
+			</nav>
+			<!-- Content -->
+			<div class="container-fluid">
+				<!-- Summary Cards -->
+				<div class="row" id="summary-cards">
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card stat-card primary h-100">
+							<div class="card-body">
+								<div class="row align-items-center">
+									<div class="col">
+										<div class="text-xs text-uppercase text-primary mb-1">Total Users</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800 loading">
+											<div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+										</div>
+									</div>
+									<div class="col-auto">
+										<i class="bi bi-pc-display-horizontal icon-big text-primary"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card stat-card success h-100">
+							<div class="card-body">
+								<div class="row align-items-center">
+									<div class="col">
+										<div class="text-xs text-uppercase text-success mb-1">Online Users (Today)</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800 loading">
+											<div class="spinner-border spinner-border-sm text-success" role="status"></div>
+										</div>
+									</div>
+									<div class="col-auto">
+										<i class="bi bi-people icon-big text-success"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card stat-card info h-100">
+							<div class="card-body">
+								<div class="row align-items-center">
+									<div class="col">
+										<div class="text-xs text-uppercase text-info mb-1">New Users (Today)</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800 loading">
+											<div class="spinner-border spinner-border-sm text-info" role="status"></div>
+										</div>
+									</div>
+									<div class="col-auto">
+										<i class="bi bi-person-plus icon-big text-info"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card stat-card warning h-100">
+							<div class="card-body">
+								<div class="row align-items-center">
+									<div class="col">
+										<div class="text-xs text-uppercase text-warning mb-1">Returning Users (Today)</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800 loading">
+											<div class="spinner-border spinner-border-sm text-warning" role="status"></div>
+										</div>
+									</div>
+									<div class="col-auto">
+										<i class="bi bi-arrow-repeat icon-big text-warning"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Charts and Detailed Stats -->
+				<div class="row">
+					<!-- Daily Stats -->
+					<div class="col-xl-8 col-lg-7">
+						<div class="card mb-4">
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Daily Traffic Overview</h6>
+							</div>
+							<div class="card-body">
+								<div class="chart-container">
+									<div class="loading">
+										<div class="spinner-border text-primary" role="status"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Country Distribution -->
+					<div class="col-xl-4 col-lg-5">
+						<div class="card mb-4">
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Top Countries</h6>
+							</div>
+							<div class="card-body">
+								<div class="loading">
+									<div class="spinner-border text-primary" role="status"></div>
+								</div>
+								<div id="country-list" class="mt-3" style="display: none;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Detailed Stats Tables -->
+				<div class="row">
+					<div class="col-12">
+						<div class="card mb-4">
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Detailed Statistics</h6>
+								<div class="dropdown">
+									<button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="periodDropdown" data-bs-toggle="dropdown">
+									Daily
+									</button>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item period-select" data-period="daily">Daily</a></li>
+										<li><a class="dropdown-item period-select" data-period="weekly">Weekly</a></li>
+										<li><a class="dropdown-item period-select" data-period="monthly">Monthly</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-bordered" id="statsTable">
+										<thead>
+											<tr>
+												<th>Period</th>
+												<th>Unique Users</th>
+												<th>New Users</th>
+												<th>Returning Users</th>
+												<th>Online Users</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="5" class="text-center">
+													<div class="loading py-4">
+														<div class="spinner-border text-primary" role="status"></div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal untuk menampilkan detail negara -->
+		<div class="modal fade" id="countryModal" tabindex="-1" aria-labelledby="countryModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="countryModalLabel">Country Distribution</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="d-flex justify-content-center">
+							<div class="spinner-border" role="status" id="modalSpinner">
+								<span class="visually-hidden">Loading...</span>
+							</div>
+						</div>
+						<div id="modalCountryContent" style="display: none;">
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Country</th>
+											<th>Count</th>
+											<th>Percentage</th>
+										</tr>
+									</thead>
+									<tbody id="modalCountryList">
+										<!-- Data negara akan dimasukkan di sini -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="https://mbahbabat.github.io/js/jquery-3.6.0.min.js"></script>	
+		<!-- Firebase imports -->
+		<script type="module">import{initializeApp}from"https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";import{getDatabase,ref,get,query,orderByKey,limitToLast,onValue}from"https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";const cosecs=bstx(h3tx(h3tx(bstx("MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzNTYxMzUzODM2NjIzNjM5MzQ2NjM2MzkzNDYxMzQzMjM1MzMzNTM4MzczMDM2MzgzNTM1MzMzMzM2NjMzNDMyMzUzMjMzMzEzNjM3MzczNDM1NjEzNTM3MzYzODM0MzczNDY1MzUzODM0MzIzNTM1MzUzOTMzMzMzNzMwMzUzNzM1NjEzNjYxMzUzNjM3MzkzNTMzMzQzNDM1NjEzMzMwMzUzMTM1MzUzNzM4MzQ2NDM1MzYzMzMzMzQzMjM0MzUzNjMxMzQzNjM0MzkzNzYxMzUzMzM2NjQzNjYzMzMzNDM1MzIzNjYyMzUzNTM2MzkzNDYzMzQzMzM0NjEzNjM4MzYzNDM1MzgzNTMyMzY2NjM1MzIzNDM3MzMzOTM3MzQzNTM5MzUzNzM2NjMzNzM1MzQzOTM2NjEzNjY2MzYzOTM2MzQzMzMyMzUzNjM2MzkzNDYzMzUzNzM0MzYzNzM1MzUzOTM1MzczNzM4MzMzNTM2MzQzNDM3MzY2MzM2NjEzNjMzMzczOTMzMzAzMzMyMzQ2NTMzMzIzNTYxMzYzOTM1NjEzNjM5MzMzNTM2NjQzNjMxMzUzODM0NjEzNjYzMzUzOTM2NjQzNDM2Mzc2MTM1NjEzNTM3MzQzNjM3MzczNjMzMzQzMzMzMzUzNjYxMzYzMjMzMzIzMzMwMzYzOTM0NjMzNDMzMzQ2MTM2NjIzNTM5MzUzODM1MzIzNjM4MzUzOTM2NjQzNDM2Mzc2MTM1NjEzNTM2MzUzNjM1MzMzNTM0MzQzMzM0MzkzMzM2MzQzOTM2NjQzNjM4MzMzMDM2MzQzNDM4MzQzMjM3NjEzNDY2MzYzOTMzMzgzNzM2MzYzNDMzMzIzNTM2MzYzOTM0NjMzNTM3MzQzNjM3MzUzNTM5MzUzNzM3MzgzMzM1MzYzNDM0MzczNjYzMzY2MTM2MzMzNzM5MzMzMDMzMzIzNDY1MzMzMjM1NjEzNjM5MzU2MTM2MzkzMzMxMzY2MjM1NjEzNTM3MzU2MTM2MzgzNjM0MzUzNzM3MzgzMzMwMzQ2MzM1MzgzNDYxMzMzMDM1NjEzNDM3MzQzOTM3MzUzNTM5MzUzODM0NjUzNzMwMzUzOTM1MzMzMzMxMzc2MTM2MzIzMzMzMzUzNjMzMzAzNjMxMzQzNzM1MzYzNjM4MzYzMzMzMzMzNTMxMzczODM0NjMzNjY0MzU2MTM3MzAzNjMzMzY2NDM1MzYzNjM5MzUzOTM1MzgzNDY1MzY2MzM1NjEzNDM3MzQzNjMzMzAzNTM5MzUzNzM0NjEzNjM4MzYzMzMzMzIzNTM1MzczNTM1MzkzNTM4MzQzMjM3MzczNDM5MzYzOTM3MzczNjM5MzYzMzM0MzgzNDYxMzczNjM2MzEzNjY0MzUzNjM2NjEzNjM0MzQzNTM2NjMzNjYyMzQzOTM2NjEzNjY2MzYzNzM0MzkzNjY1MzYzNDM2NjMzNTM5MzYzOTMzMzEzNjM4MzYzMjM2NjQzNDM2MzczMzM2MzUzNTM4MzUzMjM3MzAzNTM5MzMzMzM0NjQzNzM0MzQ2NTM2NjEzNjM0MzY2NDM1MzkzNjY0MzUzOTM2MzkzNDYzMzQzMzM0NjEzNzYxMzYzNDM0MzczMzM5MzczOTM1MzkzNTM3MzYzNDM2NjMzNTMxMzY2NTM1MzYzNjYxMzYzMTMzMzIzNTM2MzMzMDM0MzkzNjYxMzY2NjM2MzkzNjM0MzMzMjM1MzYzNjM5MzQ2MzM1MzczNDM2MzczNTM1MzkzNTM3MzczODMzMzUzNjM0MzQzNzM2NjMzNjYxMzYzMzM3MzkzMzMwMzMzMjM0NjUzMzMyMzU2MTM2MzkzNTYxMzYzOTMzMzUzNjY0MzYzMTM1MzgzNDYxMzY2MzM1MzkzNjY0MzQzNjM3NjEzNTYxMzUzODM0NjUzMzMwMzYzMjMzMzMzNDYxMzYzODM1NjEzMzMyMzUzNTM3MzUzNTM5MzUzODM0MzIzNzM3MzQzOTM2MzkzNzM3MzYzOTM2MzIzNTM3MzUzNjM3NjEzNjMzMzMzMjM0MzYzNjY1MzYzMTM1MzczMzM1MzY2NTM1MzUzMzMyMzUzNjM3MzUzNTYxMzQzNzM1MzYzNzM5MzUzMzM1MzczNTMxMzYzOTM0NjYzNjM5MzQzOTMzMzIzNDY0MzQzNDM0NjQzMzM0MzQ2NjM0MzQzNTMxMzMzNDM0NjYzNTM0MzQzMTMzMzUzNDY0MzY2MTM1MzkzNjM5MzQ2MzM0MzMzNDYxMzYzODM2MzMzNDM4MzQzMjM0NjEzNTYxMzQzMzM0MzkzMzM2MzQzOTM2NjEzNDM1MzMzNjM0NjUzNjYxMzQzMTM3NjEzNDY2MzQzNDM2MzczMzMwMzQ2NjM0MzQzNjYyMzczNzM0NjYzNTM0MzQzOTMzMzIzNDY2MzY2NTM2MzQzNjYzMzUzOTM2NjEzNzMwMzY2MjM0NjYzNTM3MzUzOTM3MzkzNDY0MzQzNzM1MzEzMzMwMzUzOTMzMzIzNTMxMzczOTM1NjEzNjYxMzUzOTM3NjEzNDY2MzUzNzM1MzYzNjYzMzUzOTM1MzQzNDYxMzY2MzM0NjYzNDM3MzQ2MTM2NjQzNDM5MzYzOTM3MzczNjM5MzYzMjM1MzczNTM2MzYzODM2MzMzMzMzMzUzNjM3MzkzNTYxMzUzNzMzMzEzNjYzMzYzMjM2NjUzNTMyMzQ2MTM1NjEzNDMzMzQzOTMzMzYzNDM5MzY2MjM2MzMzNzM0MzUzNTM3NjEzNDM2MzQ2NDM0NjYzNTM1MzMzNTM1MzMzNDY0MzY2MzM2NjYzMzMwMzUzNDM1MzMzNDYxMzMzOQ")))),cosec=JSON.parse(cosecs),app=initializeApp(cosec),db=getDatabase(app);let trafficChart=null,currentPeriod="daily",currentAppId=null,appsList=[],countryModal=null;function formatAppName(t){return t.replace(/-/g," ").replace(/\w\S*/g,(t=>t.charAt(0).toUpperCase()+t.substr(1).toLowerCase()))}async function loadAppsList(){try{const t=ref(db,"globalWebAnalytics/apps"),e=await get(t);if(e.exists()){const t=e.val();appsList=Object.keys(t);const M=document.getElementById("apps-list");M.innerHTML="",appsList.forEach((t=>{const e=formatAppName(t),z=document.createElement("a");z.href="#",z.className="list-group-item list-group-item-action bg-transparent nav-link",z.innerHTML=`<i class="bi bi-globe me-2"></i>${e}`,z.dataset.appId=t,z.addEventListener("click",(function(t){t.preventDefault(),M.querySelectorAll(".nav-link").forEach((t=>{t.classList.remove("active")})),this.classList.add("active"),currentAppId=this.dataset.appId,document.getElementById("current-website").textContent=formatAppName(currentAppId),loadAppData(currentAppId)})),M.appendChild(z)})),appsList.length>0&&(currentAppId=appsList[0],M.querySelector(".nav-link").classList.add("active"),document.getElementById("current-website").textContent=formatAppName(currentAppId),loadAppData(currentAppId))}else document.getElementById("apps-list").innerHTML='<div class="text-center p-3">No apps found in database</div>'}catch(t){console.error("Error loading apps list:",t),document.getElementById("apps-list").innerHTML='<div class="text-center p-3 text-danger">Error loading apps</div>'}}function loadAppData(t){document.querySelectorAll(".card-stats .h5").forEach((t=>{t.innerHTML='<div class="spinner-border spinner-border-sm" role="status"></div>'})),document.querySelector(".chart-container").innerHTML='<div class="loading"><div class="spinner-border text-primary" role="status"></div></div>',document.querySelector("#statsTable tbody").innerHTML='<tr><td colspan="5" class="text-center"><div class="loading py-4"><div class="spinner-border text-primary" role="status"></div></div></td></tr>';const e=document.getElementById("country-list");e.style.display="none",e.previousElementSibling.style.display="flex",loadSummaryData(t),loadCountryData(t),loadPeriodicStats(currentPeriod,t)}function formatNumber(t){return t>=1e6?(t/1e6).toFixed(1)+"M":t>=1e3?(t/1e3).toFixed(1)+"K":t}function getMonthName(t){return["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][parseInt(t)-1]||t}async function loadSummaryData(t){try{const e=`globalWebAnalytics/apps/${t}/stats`,M=new Date,z=`${M.getFullYear()}${String(M.getMonth()+1).padStart(2,"0")}${String(M.getDate()).padStart(2,"0")}`,n=await get(ref(db,`${e}/uniqueUsers/total/total`)),r=n.exists()?n.val().count:0;document.querySelectorAll(".card")[0].querySelector(".h5").textContent=formatNumber(r);const a=await get(ref(db,`${e}/onlineUsers/daily/${z}/total`)),o=a.exists()?a.val().count:0;document.querySelectorAll(".card")[1].querySelector(".h5").textContent=formatNumber(o);const s=await get(ref(db,`${e}/newUsers/daily/${z}/total`)),c=s.exists()?s.val().count:0;document.querySelectorAll(".card")[2].querySelector(".h5").textContent=formatNumber(c);const l=await get(ref(db,`${e}/returningUsers/daily/${z}/total`)),i=l.exists()?l.val().count:0;document.querySelectorAll(".card")[3].querySelector(".h5").textContent=formatNumber(i)}catch(t){console.error("Error loading summary data:",t),document.querySelectorAll(".h5").forEach((t=>{t.textContent="Error"}))}}async function loadCountryData(t){try{const e=`globalWebAnalytics/apps/${t}/stats`,M=await get(ref(db,`${e}/countries/total`)),z=document.getElementById("country-list");if(M.exists()){const t=M.val(),e=[];for(const[M,z]of Object.entries(t))"undefined"!==M&&e.push({code:M,count:z.count||0});e.sort(((t,e)=>e.count-t.count));let n="";e.slice(0,10).forEach((t=>{n+=`<div class="d-flex justify-content-between align-items-center mb-2"><div><img src="https://flagcdn.com/w20/${t.code.toLowerCase()}.png" class="country-flag" alt="${t.code}"><span>${t.code}</span></div><span class="badge bg-primary rounded-pill">${formatNumber(t.count)}</span></div>`})),document.querySelector("#country-list").previousElementSibling.style.display="none",z.innerHTML=n,z.style.display="block"}else z.innerHTML='<p class="text-center">No country data available</p>',z.style.display="block"}catch(t){console.error("Error loading country data:",t),document.getElementById("country-list").innerHTML='<p class="text-center text-danger">Error loading data</p>'}}async function loadPeriodicStats(t="daily",e){try{const M=`globalWebAnalytics/apps/${e}/stats`,z=document.querySelector("#statsTable tbody");z.innerHTML='<tr><td colspan="5" class="text-center"><div class="loading py-4"><div class="spinner-border text-primary" role="status"></div></div></td></tr>';const n={daily:7,weekly:4,monthly:6}[t]||7,r=new Date;let a=[];if("daily"===t)for(let t=n-1;t>=0;t--){const e=new Date;e.setDate(r.getDate()-t),a.push(`${e.getFullYear()}${String(e.getMonth()+1).padStart(2,"0")}${String(e.getDate()).padStart(2,"0")}`)}else if("weekly"===t)for(let t=n-1;t>=0;t--){const e=new Date;e.setDate(r.getDate()-7*t);const M=e.getFullYear(),z=Math.ceil(((e-new Date(M,0,1))/864e5+new Date(M,0,1).getDay()+1)/7);a.push(`${M}W${String(z).padStart(2,"0")}`)}else if("monthly"===t)for(let t=n-1;t>=0;t--){const e=new Date;e.setMonth(r.getMonth()-t),a.push(`${e.getFullYear()}${String(e.getMonth()+1).padStart(2,"0")}`)}const o=[];for(const e of a){const z=ref(db,`${M}/uniqueUsers/${t}/${e}/total`),n=ref(db,`${M}/newUsers/${t}/${e}/total`),r=ref(db,`${M}/returningUsers/${t}/${e}/total`),a=ref(db,`${M}/onlineUsers/${t}/${e}/total`),[s,c,l,i]=await Promise.all([get(z),get(n),get(r),get(a)]);o.push({period:e,uniqueUsers:s.exists()?s.val().count:0,newUsers:c.exists()?c.val().count:0,returning:l.exists()?l.val().count:0,online:i.exists()?i.val().count:0})}let s="";o.forEach((e=>{let M=e.period;if("daily"===t){const t=M.substring(0,4),e=M.substring(4,6),z=M.substring(6,8);M=`${z}/${e}/${t}`}else if("weekly"===t)M=`Week ${M.split("W")[1]}, ${M.split("W")[0]}`;else if("monthly"===t){const t=M.substring(0,4),e=M.substring(4,6);M=`${getMonthName(e)} ${t}`}s+=`<tr><td>${M}</td><td>${formatNumber(e.uniqueUsers)}</td><td>${formatNumber(e.newUsers)}</td><td>${formatNumber(e.returning)}</td><td>${formatNumber(e.online)}</td></tr>`})),z.innerHTML=s,updateTrafficChart(o,t)}catch(t){console.error("Error loading periodic stats:",t),document.querySelector("#statsTable tbody").innerHTML='<tr><td colspan="5" class="text-center text-danger">Error loading data</td></tr>'}}function updateTrafficChart(t,e){const M=document.querySelector(".chart-container"),z=M.querySelector(".loading");z&&(z.style.display="none"),trafficChart&&trafficChart.destroy(),M.querySelector("canvas")||(M.innerHTML='<canvas id="trafficChart"></canvas>');const n=t.map((t=>"daily"===e?t.period.substring(6,8)+"/"+t.period.substring(4,6):"weekly"===e?"W"+t.period.split("W")[1]:"monthly"===e?getMonthName(t.period.substring(4,6)):t.period));trafficChart=new Chart(document.getElementById("trafficChart"),{type:"line",data:{labels:n,datasets:[{label:"Unique Users",data:t.map((t=>t.uniqueUsers)),borderColor:"#4e73df",backgroundColor:"rgba(78, 115, 223, 0.05)",fill:!0,tension:.3},{label:"Online Users",data:t.map((t=>t.online)),borderColor:"#1cc88a",backgroundColor:"rgba(28, 200, 138, 0.05)",fill:!0,tension:.3},{label:"New Users",data:t.map((t=>t.newUsers)),borderColor:"#36b9cc",backgroundColor:"rgba(0, 255, 255, 0.05)",fill:!0,tension:.3},{label:"Returning Users",data:t.map((t=>t.returning)),borderColor:"#ffcc99",backgroundColor:"rgba(255, 237, 209, 0.05)",fill:!0,tension:.3}]},options:{maintainAspectRatio:!1,scales:{y:{beginAtZero:!0,ticks:{callback:function(t){return formatNumber(t)}}}},plugins:{legend:{position:"top"},tooltip:{callbacks:{label:function(t){return t.dataset.label+": "+formatNumber(t.raw)}}}}}})}function updateCurrentTime(){const t=new Date;document.getElementById("current-time").textContent=t.toLocaleString()}function initDashboard(){updateCurrentTime(),setInterval(updateCurrentTime,1e3),loadAppsList(),document.querySelectorAll(".period-select").forEach((t=>{t.addEventListener("click",(function(t){t.preventDefault();const e=this.getAttribute("data-period");currentPeriod=e,document.getElementById("periodDropdown").textContent=e.charAt(0).toUpperCase()+e.slice(1),currentAppId&&loadPeriodicStats(e,currentAppId)}))})),countryModal=new bootstrap.Modal(document.getElementById("countryModal")),setupSummaryCardListeners(),document.getElementById("sidebarToggle").addEventListener("click",(function(t){t.stopPropagation();const e=document.querySelector(".sidebar");e.classList.contains("d-none")?e.classList.remove("d-none"):e.classList.add("d-none")})),document.addEventListener("click",(function(t){const e=document.querySelector(".sidebar"),M=document.getElementById("sidebarToggle");e.classList.contains("d-none")||e.contains(t.target)||M.contains(t.target)||e.classList.add("d-none")}))}function setupSummaryCardListeners(){document.querySelectorAll(".card.stat-card").forEach(((t,e)=>{t.style.cursor="pointer",t.addEventListener("click",(function(){let t="",M="daily",z="";switch(e){case 0:t="uniqueUsers",M="total",z="total";break;case 1:t="onlineUsers",z=getTodayFormatted();break;case 2:t="newUsers",z=getTodayFormatted();break;case 3:t="returningUsers",z=getTodayFormatted()}showCountryModal(t,M,z)}))}))}function getTodayFormatted(){const t=new Date;return`${t.getFullYear()}${String(t.getMonth()+1).padStart(2,"0")}${String(t.getDate()).padStart(2,"0")}`}async function showCountryModal(t,e,M){if(currentAppId){document.getElementById("modalSpinner").style.display="block",document.getElementById("modalCountryContent").style.display="none",document.getElementById("countryModalLabel").textContent=`Country Distribution - ${t}`,countryModal.show();try{let z=`globalWebAnalytics/apps/${currentAppId}/stats/${t}/${e}/${M}/country`;"uniqueUsers"===t&&"total"===e&&"total"===M&&(z=`globalWebAnalytics/apps/${currentAppId}/stats/countries/total`);const n=ref(db,z),r=await get(n);if(r.exists()){const t=r.val(),e=[];let M=0;for(const[z,n]of Object.entries(t))"undefined"!==z&&n.count&&(e.push({code:z,count:n.count}),M+=n.count);e.sort(((t,e)=>e.count-t.count)),displayCountriesInModal(e,M)}else document.getElementById("modalCountryList").innerHTML='<tr><td colspan="3" class="text-center">No country data available</td></tr>'}catch(t){console.error("Error loading country data for modal:",t),document.getElementById("modalCountryList").innerHTML='<tr><td colspan="3" class="text-center text-danger">Error loading data</td></tr>'}finally{document.getElementById("modalSpinner").style.display="none",document.getElementById("modalCountryContent").style.display="block"}}}function displayCountriesInModal(t,e){const M=document.getElementById("modalCountryList");M.innerHTML="",0!==t.length?t.forEach((t=>{const z=e>0?(t.count/e*100).toFixed(1):0,n=document.createElement("tr");n.className="country-item",n.innerHTML=`<td><img src="https://flagcdn.com/w20/${t.code.toLowerCase()}.png"class="country-modal-flag" alt="${t.code}">${t.code}</td><td>${formatNumber(t.count)}</td><td>${z}%</td>`,M.appendChild(n)})):M.innerHTML='<tr><td colspan="3" class="text-center">No country data available</td></tr>'}document.addEventListener("DOMContentLoaded",initDashboard);</script>
+	</body>
+</html>

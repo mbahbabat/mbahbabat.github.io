@@ -331,7 +331,7 @@ async function updateUserPresence() {
                 });
             };
 
-            onDisconnect(userPresenceRef).set({
+            onDisconnect(userPresenceRef).update({
                 status: "offline",
                 userLastSeen: timestamp
             });

@@ -42,8 +42,8 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 
 const crex = JSON.parse(crexs);
 const analyticsApp = initializeApp(crex, "analytics");
-const analyticsAuth = getAuth(app);
-const analyticsDb = getDatabase(app);
+const analyticsAuth = getAuth(analyticsApp);
+const analyticsDb = getDatabase(analyticsApp);
 const baseRef = "globalWebAnalytics/apps/gmail-checker";
 
 let currentUser = null;

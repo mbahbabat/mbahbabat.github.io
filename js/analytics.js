@@ -124,7 +124,7 @@ async function updateUserPresence() {
         // Langkah 3: Update atau buat record user utama
         const userSnapshot = await get(userRef);
         const isFirstVisit = !userSnapshot.exists();
-
+	
         const formattedDate = sanitizeDate();
         const formattedWeek = sanitizeWeek();
         const formattedMonth = sanitizeMonth();
@@ -160,7 +160,7 @@ async function updateUserPresence() {
 
 		while (retryCount < maxRetries) {
 			try {
-				 await updateStatus(countryCode, sanitizedIp, sanitizedCountry, firebaseUid, userPresenceRef, userSnapshot);
+				 await updateStatus(countryCode, sanitizedIp, sanitizedCountry, firebaseUid, userPresenceRef);
 				break;
 			} catch (error) {
 				retryCount++;
@@ -353,7 +353,7 @@ async function updateUserPresence() {
     }
 }
 
-async function updateStatus(countryCode, sanitizedIp, sanitizedCountry, firebaseUid, userPresenceRef, userSnapshot){
+async function updateStatus(countryCode, sanitizedIp, sanitizedCountry, firebaseUid, userPresenceRef){
     let realtimePresenceData = null;
 	let currentStatusFromClient = 'unknown';
     let currentStatusFromClientFromDb = 'unknown';
@@ -377,12 +377,15 @@ async function updateStatus(countryCode, sanitizedIp, sanitizedCountry, firebase
         const data = snapshot.val();
         currentStatusFromClientFromDb = data?.status || 'unknown';
     });
+	
+
 
     async function updateNewStatus(newStatus) {
 		if (!userPresenceRef) {
 			console.error('userPresenceRef is undefined');
 			return;
 		}
+		
         // Check isIdleLimitReached  HANYA untuk offline->online transition
         if (isIdleLimitReached  && newStatus !== 'online') {
             return;
@@ -520,7 +523,7 @@ async function updateStatus(countryCode, sanitizedIp, sanitizedCountry, firebase
             await updateNewStatus('offline');
             stopMonitoring();
             return;
-        }
+        }	
 
         // Setup onDisconnect
         onDisconnect(userPresenceRef).update({
@@ -540,8 +543,10 @@ async function updateStatus(countryCode, sanitizedIp, sanitizedCountry, firebase
 			justLoggedin = false;
         }
 		
-		await forceResetStatus()
+		await forceResetStatus();
+		await cleanupCorruptedUsers();
         await startMonitoring();
+		
 
     } catch (error) {
         console.error("Initial setup error:", error);
@@ -629,6 +634,74 @@ async function forceResetStatus() {
 
     } catch (error) {
         console.error("Analytics: Error during force reset status:", error);
+    }
+}
+
+async function cleanupCorruptedUsers() {
+    try {
+        const usersRef = ref(analyticsDb, `${currentAppRef}/users`);
+        const usersSnapshot = await get(usersRef);
+        
+        if (!usersSnapshot.exists()) return;
+        
+        const deletionPromises = [];
+        
+        usersSnapshot.forEach((userSnapshot) => {
+            const userData = userSnapshot.val();
+            const customUid = userSnapshot.key;
+            
+            // Cek apakah user corrupt (tanpa IPHistory atau FirebaseUIDHistory)
+            if (!userData.IPHistory || !userData.FirebaseUIDHistory) {
+                console.warn(`Cleaning up corrupted user: ${customUid}`);
+                
+                // Hapus user node
+                deletionPromises.push(remove(ref(analyticsDb, `${currentAppRef}/users/${customUid}`)));
+                
+                // Hapus dari mapping tables (kita perlu cari mapping yang menunjuk ke user ini)
+                deletionPromises.push(cleanupUserMappings(customUid));
+            }
+        });
+        
+        if (deletionPromises.length > 0) {
+            await Promise.all(deletionPromises);
+            console.log(`Cleaned up ${deletionPromises.length} corrupted users`);
+        }
+    } catch (error) {
+        console.error("Error in cleanupCorruptedUsers:", error);
+    }
+}
+
+async function cleanupUserMappings(customUid) {
+    try {
+        // Hapus dari ipToCustomUid mapping
+        const ipMappingRef = ref(analyticsDb, `${currentAppRef}/ipToCustomUid`);
+        const ipSnapshot = await get(ipMappingRef);
+        
+        if (ipSnapshot.exists()) {
+            const ipDeletions = [];
+            ipSnapshot.forEach((ipMap) => {
+                if (ipMap.val() === customUid) {
+                    ipDeletions.push(remove(ref(analyticsDb, `${currentAppRef}/ipToCustomUid/${ipMap.key}`)));
+                }
+            });
+            await Promise.all(ipDeletions);
+        }
+        
+        // Hapus dari firebaseUidToCustomUid mapping
+        const uidMappingRef = ref(analyticsDb, `${currentAppRef}/firebaseUidToCustomUid`);
+        const uidSnapshot = await get(uidMappingRef);
+        
+        if (uidSnapshot.exists()) {
+            const uidDeletions = [];
+            uidSnapshot.forEach((uidMap) => {
+                if (uidMap.val() === customUid) {
+                    uidDeletions.push(remove(ref(analyticsDb, `${currentAppRef}/firebaseUidToCustomUid/${uidMap.key}`)));
+                }
+            });
+            await Promise.all(uidDeletions);
+        }
+    } catch (error) {
+        console.error("Error cleaning up mappings:", error);
     }
 }
 

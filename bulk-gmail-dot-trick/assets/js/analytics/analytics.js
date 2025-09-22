@@ -46,7 +46,15 @@ const analyticsApp = initializeApp(crex, "analytics");
 const analyticsAuth = getAuth(analyticsApp);
 const analyticsDb = getDatabase(analyticsApp);
 const currentAppRef = "globalWebAnalytics/apps/gmail-dot-trick";
-const timestamp = serverTimestamp();
+
+let currentAppsRef;
+const currentAppRefs = {
+  1: "globalWebAnalytics/apps/gmail-dot-trick",
+  2: "globalWebAnalytics/apps/gmail-checker",
+  3: "globalWebAnalytics/apps/gmail-checker-ID"
+};
+
+currentAppsRef = currentAppRefs[1];
 
 let currentUser = null;
 let justLoggedin = false;

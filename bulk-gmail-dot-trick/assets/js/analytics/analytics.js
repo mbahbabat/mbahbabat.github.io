@@ -46,34 +46,15 @@ const analyticsApp = initializeApp(crex, "analytics");
 const analyticsAuth = getAuth(analyticsApp);
 const analyticsDb = getDatabase(analyticsApp);
 
-const currentAppRefs = {
+const currentAppsRef = {
   1: "globalWebAnalytics/apps/gmail-dot-trick",
   2: "globalWebAnalytics/apps/gmail-checker",
   3: "globalWebAnalytics/apps/gmail-checker-ID"
 };
 
-const currentAppsRef = currentAppRefs[1];
+const currentAppRef = currentAppsRef[1];
 
-// Sanitize: ambil bagian terakhir setelah '/', ganti '-' jadi spasi, lalu title case
-const sanitizeAppName = (str) => {
-  // Ambil bagian setelah "globalWebAnalytics/apps/"
-  const appName = str.split('/').pop(); 
-  
-  // Ganti '-' jadi spasi, lalu kapitalisasi tiap kata
-  return appName
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-};
-
-const prettyAppName = sanitizeAppName(currentAppsRef);
-
-// Warna keren di console (misal: gradasi biru & ungu)
-console.log(
-  '%cWELCOME TO %c' + prettyAppName,
-  'color: #61dafb; font-weight: bold; font-size: 16px;',
-  'color: #a259ff; font-weight: bold; font-size: 18px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);'
-);
+const sanitizeAppName=p=>p.split("/").pop().split("-").map((p=>p.charAt(0).toUpperCase()+p.slice(1))).join(" "),prettyAppName=sanitizeAppName(currentAppRef);console.log("%cWELCOME TO %c"+prettyAppName,"color: #61dafb; font-weight: bold; font-size: 16px;","color: #a259ff; font-weight: bold; font-size: 18px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);");
 
 let currentUser = null;
 let justLoggedin = false;

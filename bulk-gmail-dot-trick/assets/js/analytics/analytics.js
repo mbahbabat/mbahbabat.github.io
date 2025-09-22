@@ -45,7 +45,6 @@ const crex = JSON.parse(crexs);
 const analyticsApp = initializeApp(crex, "analytics");
 const analyticsAuth = getAuth(analyticsApp);
 const analyticsDb = getDatabase(analyticsApp);
-const currentAppRef = "globalWebAnalytics/apps/gmail-dot-trick";
 
 const currentAppRefs = {
   1: "globalWebAnalytics/apps/gmail-dot-trick",
@@ -58,7 +57,7 @@ const currentAppsRef = currentAppRefs[1];
 // Sanitize: ambil bagian terakhir setelah '/', ganti '-' jadi spasi, lalu title case
 const sanitizeAppName = (str) => {
   // Ambil bagian setelah "globalWebAnalytics/apps/"
-  const appName = str.split('/').pop(); // "gmail-dot-trick"
+  const appName = str.split('/').pop(); 
   
   // Ganti '-' jadi spasi, lalu kapitalisasi tiap kata
   return appName

@@ -45,7 +45,6 @@ const crex = JSON.parse(crexs);
 const analyticsApp = initializeApp(crex, "analytics");
 const analyticsAuth = getAuth(analyticsApp);
 const analyticsDb = getDatabase(analyticsApp);
-const currentAppRef = "globalWebAnalytics/apps/gmail-dot-trick";
 
 const currentAppRefs = {
   1: "globalWebAnalytics/apps/gmail-dot-trick",

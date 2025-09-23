@@ -72,7 +72,7 @@
             <div class="container">
                 <h2>Watch the Gmail Dot Trick in Action</h2>
                 <div class="video-container">
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/rkgWTMc3GNk?si=QljJnR5piPAOloZT&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					<iframe width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
@@ -227,5 +227,20 @@
             </div>
         </div>
     </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const videoSection = document.getElementById('video-explanation');
+    videoSection.style.display = 'none';
+    const iframe = videoSection.querySelector('iframe');
+
+    setTimeout(function() {
+        iframe.src = "https://www.youtube.com/embed/rkgWTMc3GNk?rel=0&vq=hd1080&autoplay=1&mute=1"; 
+    }, 2000);
+
+    setTimeout(function() {
+        videoSection.style.display = 'block';
+    }, 2500);
+});
+</script>	
 </body>
 </html>

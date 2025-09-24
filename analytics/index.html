@@ -3,1412 +3,1515 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Web Analytics</title>
+    <title>Analytics Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #4e73df;
-            --secondary-color: #858796;
-            --success-color: #1cc88a;
-            --info-color: #36b9cc;
-            --warning-color: #f6c23e;
-            --danger-color: #e74a3b;
-            --light-bg: #f8f9fc;
-        }
-        
-        body {
-            background-color: var(--light-bg);
-            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-        }
-				
-        .sidebar {
-            min-height: 100vh;
-            background: linear-gradient(180deg, var(--primary-color) 10%, #224abe 100%);
-            color: white;
-            position: fixed;
-            z-index: 100;
-            overflow-y: auto;
-        }
-        
-        .sidebar-heading {
-            padding: 20px 15px;
-            font-size: 1.2rem;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-        }
-        
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            padding: 1rem;
-            font-weight: 500;
-        }
-        
-        .sidebar .nav-link:hover {
-            color: #fff;
-        }
-        
-        .sidebar .nav-link.active {
-            font-weight: 700;
-            color: #fff;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #fff;
-        }
-		
-		#sidebarToggle{
-			position: absolute;
-			right: 20px;
-			top: 40px;
-			background: #000;
-			color: #fff
-		}
-        
-        .main-content {
-            margin-left: 0;
-            transition: margin-left 0.3s;
-        }
-        
-        @media (min-width: 768px) {
-            .main-content {
-                margin-left: 250px;
-            }
-        }
-
-        @media (max-width: 767px) {
-			.container-fluid{
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-			}
-			.title{
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center
-			}
-			.topbar {
-				height: 125px!important;
-			}
-        }		
-        
-        .topbar {
-            height: 70px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-            background: white;
-        }
-        
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-            margin-bottom: 1.5rem;
-        }
-        
-        .card-stats .card-body {
-            padding: 1rem 1.5rem;
-        }
-        
-        .card-stats .icon-big {
-            font-size: 2.5rem;
-            opacity: 0.3;
-        }
-        
-        .stat-card {
-            border-left: 4px solid;
-        }
-        
-        .stat-card.primary { border-left-color: var(--primary-color); }
-        .stat-card.success { border-left-color: var(--success-color); }
-        .stat-card.info { border-left-color: var(--info-color); }
-        .stat-card.warning { border-left-color: var(--warning-color); }
-        
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-        }
-        
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-        }
-        
-        .country-flag {
-            width: 20px;
-            height: 15px;
-            margin-right: 8px;
-            border: 1px solid #ddd;
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 300px;
-        }
-        
-        .page-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #5a5c69;
-        }
-
-        .website-name {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-		
-		.country-modal-flag {
-            width: 24px;
-            height: 18px;
-            margin-right: 10px;
-            border: 1px solid #dee2e6;
-        }
-        .country-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #f1f1f1;
-        }
-        .country-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Styles for user list */
-        .user-list-container {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .user-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #f1f1f1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-			cursor: pointer;
-        }
-        .user-item:last-child {
-            border-bottom: none;
-        }
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-        .user-status {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        .status-online {
-            background-color: var(--success-color);
-        }
-        .status-idle {
-            background-color: var(--warning-color);
-        }
-        .status-offline {
-            background-color: var(--secondary-color);
-        }
-        .user-uid {
-            font-family: monospace;
-            font-size: 0.85rem;
-        }
-		
-		/* Styles for user modal */
-		#userModal .modal-dialog {
-			max-width: 800px;
+		:root {
+			--sidebar-width: 250px;
+			--primary-color: #4361ee;
+			--secondary-color: #3a0ca3;
+			--success-color: #4cc9f0;
+			--light-bg: #f8f9fa;
+			--dark-bg: #212529;
 		}
 
-		#userModal .table th {
-			border-top: none;
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #f5f7fb;
+			overflow-x: hidden;
+		}
+
+		.sidebar {
+			width: var(--sidebar-width);
+			height: 100vh;
+			position: fixed;
+			top: 0;
+			left: 0;
+			background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+			color: white;
+			z-index: 1000;
+			box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+			transition: all 0.3s;
+		}
+
+		.sidebar-header {
+			padding: 1.5rem 1rem;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.sidebar-header h3 {
 			font-weight: 600;
+			margin: 0;
+			font-size: 1.2rem;
 		}
 
-		#userModal .table-sm td, #userModal .table-sm th {
-			padding: 0.5rem;
-		}		
+		.app-item {
+			border: none;
+			border-radius: 0.5rem;
+			margin-bottom: 0.25rem;
+			background: transparent;
+			color: rgba(255, 255, 255, 0.8);
+			transition: all 0.2s;
+			cursor: pointer;
+		}
+
+		.app-item:hover,
+		.app-item.active {
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+		}
+
+		.main-content {
+			margin-left: var(--sidebar-width);
+			padding: 1.5rem;
+			min-height: 100vh;
+		}
+
+		.dashboard-header {
+			background: white;
+			border-radius: 0.5rem;
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		}
+
+		.stat-card {
+			background: white;
+			border-radius: 0.5rem;
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+			transition: transform 0.2s;
+		}
+
+		.stat-card:hover {
+			transform: translateY(-5px);
+		}
+
+		.stat-period {
+			font-size: 0.9rem;
+			color: #6c757d;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		.stat-value {
+			font-size: 2rem;
+			font-weight: 700;
+			color: var(--primary-color);
+			margin: 0.5rem 0;
+		}
+
+		.stat-label {
+			font-size: 0.9rem;
+			color: #6c757d;
+		}
+
+		.chart-panel {
+			background: white;
+			border-radius: 0.5rem;
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		}
+
+		.chart-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 300px;
+			width: 100%;
+		}
+
+		.users-panel {
+			background: white;
+			border-radius: 0.5rem;
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		}
+
+		.user-card,
+		.total-user,
+		.country-card {
+			background: white;
+			height: 500px;
+			width: 100%;
+			overflow: hidden;
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+			position: relative;
+		}
+
+		.user-card h4,
+		.total-user h4,
+		.country-card h4 {
+			border-bottom: 1px solid #009999;
+			padding-bottom: 15px;
+		}
+
+		#total-user-count {
+			height: 400px;
+			width: 100%;
+			font-size: 5rem;
+			font-weight: 900;
+			color: #0099ff;
+		}
+
+		#users-list {
+			height: 400px;
+			overflow-y: auto;
+		}
+
+		.user-item {
+			cursor: pointer;
+			transition: background-color 0.2s;
+		}
+
+		.user-item:hover {
+			background-color: #f8f9fa;
+		}
+
+		.country-flag {
+			width: 20px;
+			height: 15px;
+			object-fit: cover;
+			border-radius: 2px;
+		}
+
+		.last-seen {
+			font-size: 0.8rem;
+			color: #6c757d;
+		}
+
+		.toggle-offline {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			position: absolute;
+			right: 10px;
+			top: 10px;
+		}
+
+		#daily-new,
+		#weekly-new,
+		#monthly-new {
+			color: #4cc9f0;
+		}
+
+		#daily-online,
+		#weekly-online,
+		#monthly-online {
+			color: #3a0ca3;
+		}
+
+		#daily-returning,
+		#weekly-returning,
+		#monthly-returning {
+			color: #f72585;
+		}
+
+		h4 i {
+			color: #009999;
+		}
+
+		@media (max-width: 1023px) {
+			.sidebar {
+				width: 100%;
+				height: auto;
+				position: relative;
+			}
+
+			.main-content {
+				margin-left: 0;
+			}
+
+			.chart-container {
+				height: 250px;
+			}
+
+			.total-user {
+				height: 200px
+			}
+
+			#total-user-count {
+				height: 100px
+			}
+		}
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar d-none d-md-block" style="width: 250px;">
-        <div class="sidebar-heading">
-            <i class="bi bi-graph-up"></i> Analytics Dashboard
-        </div>
-        <div class="list-group list-group-flush" id="apps-list">
-            <div class="text-center py-4">
-                <div class="spinner-border spinner-border-sm text-light" role="status"></div>
-                <span class="ms-2">Loading websites...</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Top Bar -->
-        <nav class="navbar topbar mb-4">
-            <div class="container-fluid">
-                <div class="title">
-                    <span class="page-title">Analytics Overview</span>
-                    <span class="website-name ms-2" id="current-website"></span>
-                </div>
-                <div class="d-flex">
-                    <span class="badge bg-success me-2">
-                        <i class="bi bi-circle-fill"></i> Live
-                    </span>
-                    <div class="text-muted" id="current-time"></div>
-                </div>
-                <button id="sidebarToggle" class="btn btn-link d-md-none">
-                    <i class="bi bi-list"></i>
-                </button>				
-            </div>
-        </nav>
-
-        <!-- Content -->
-        <div class="container-fluid">
-            <!-- Summary Cards -->
-            <div class="row" id="summary-cards">
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card stat-card primary h-100">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <div class="text-xs text-uppercase text-primary mb-1">Total Users (All Time)</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800 loading">
-                                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="bi bi-pc-display-horizontal icon-big text-primary"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card stat-card success h-100">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <div class="text-xs text-uppercase text-success mb-1">Online Users (Today)</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800 loading">
-                                        <div class="spinner-border spinner-border-sm text-success" role="status"></div>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="bi bi-people icon-big text-success"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card stat-card info h-100">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <div class="text-xs text-uppercase text-info mb-1">New Users (Today)</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800 loading">
-                                        <div class="spinner-border spinner-border-sm text-info" role="status"></div>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="bi bi-person-plus icon-big text-info"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card stat-card warning h-100">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <div class="text-xs text-uppercase text-warning mb-1">Returning Users (Today)</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800 loading">
-                                        <div class="spinner-border spinner-border-sm text-warning" role="status"></div>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="bi bi-arrow-repeat icon-big text-warning"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Charts and Detailed Stats -->
-            <div class="row">
-                <!-- Daily Stats -->
-                <div class="col-xl-8 col-lg-7">
-                    <div class="card mb-4">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Daily Traffic Overview</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <div class="loading">
-                                    <div class="spinner-border text-primary" role="status"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Country Distribution and User List -->
-                <div class="col-xl-4 col-lg-5">
-                    <!-- Country Distribution -->
-                    <div class="card mb-4">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Top Countries</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="loading">
-                                <div class="spinner-border text-primary" role="status"></div>
-                            </div>
-                            <div id="country-list" class="mt-3" style="display: none;"></div>
-                        </div>
-                    </div>
-
-                    <!-- User List -->
-                    <div class="card mb-4">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">User List</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="loading">
-                                <div class="spinner-border text-primary" role="status"></div>
-                            </div>
-                            <div id="user-list" class="user-list-container mt-3" style="display: none;">
-                                <!-- User list will be populated here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Detailed Stats Tables -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card mb-4">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Detailed Statistics</h6>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="periodDropdown" data-bs-toggle="dropdown">
-                                    Daily
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item period-select" data-period="daily">Daily</a></li>
-                                    <li><a class="dropdown-item period-select" data-period="weekly">Weekly</a></li>
-                                    <li><a class="dropdown-item period-select" data-period="monthly">Monthly</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="statsTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Period</th>
-                                            <th>Unique Users</th>
-                                            <th>New Users</th>
-                                            <th>Returning Users</th>
-                                            <th>Online Users</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="5" class="text-center">
-                                                <div class="loading py-4">
-                                                    <div class="spinner-border text-primary" role="status"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-	
-	<!-- Modal untuk menampilkan detail negara -->
-    <div class="modal fade" id="countryModal" tabindex="-1" aria-labelledby="countryModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="countryModalLabel">Country Distribution</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status" id="modalSpinner">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                    <div id="modalCountryContent" style="display: none;">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Country</th>
-                                        <th>Count</th>
-                                        <th>Percentage</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="modalCountryList">
-                                    <!-- Data negara akan dimasukkan di sini -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-	<!-- Modal untuk detail pengguna -->
-	<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="userModalLabel">User Details</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	<!-- Sidebar -->
+	<div class="sidebar">
+		<div class="sidebar-header">
+			<h3>Analytics Dashboard</h3>
+		</div>
+		<div class="sidebar-content p-3">
+			<h6 class="text-uppercase text-white-50 small mb-3">Pilih Project</h6>
+			<ul class="list-group list-group-flush" id="apps-list">
+				<!-- Daftar aplikasi akan diisi oleh JavaScript -->
+			</ul>
+		</div>
+	</div>
+	<!-- Main Content -->
+	<div class="main-content">
+		<!-- Dashboard Header -->
+		<div class="dashboard-header">
+			<div class="d-flex justify-content-center align-items-center">
+				<h2 id="app-title">Analytics Dashboard</h2>
+			</div>
+		</div>
+		<!-- User Section -->
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="total-user">
+					<h4 class="mb-3"><i class="fa-solid fa-users-viewfinder"></i> Jumlah Pengguna</h4>
+					<p class="d-flex justify-content-center align-items-center" id="total-user-count"></p>
 				</div>
-				<div class="modal-body">
-					<div class="d-flex justify-content-center">
-						<div class="spinner-border" role="status" id="userModalSpinner">
-							<span class="visually-hidden">Loading...</span>
-						</div>
+			</div>
+			<!-- Daftar Pengguna -->
+			<div class="col-lg-4">
+				<div class="user-card">
+					<h4 class="mb-3"><i class="fa-solid fa-users"></i> Daftar Pengguna</h4>
+					<div class="toggle-offline">
+						<input type="checkbox" class="btn-check" id="show-offline" autocomplete="on">
+						<label class="btn btn-outline-primary btn-sm" for="show-offline">
+						<i class="bi bi-eye"></i> Tampilkan Offline
+						</label>
 					</div>
-					<div id="userModalContent" style="display: none;">
-						<div class="row mb-3">
-							<div class="col-md-6">
-								<strong>User ID:</strong> <span id="modal-user-id"></span>
-							</div>
-							<div class="col-md-6">
-								<strong>Status:</strong> <span id="modal-user-status" class="badge"></span>
-							</div>
+					<div class="list-group" id="users-list">
+						<!-- Daftar pengguna akan diisi oleh JavaScript -->
+					</div>
+				</div>
+			</div>
+			<!-- Daftar Negara -->
+			<div class="col-lg-4">
+				<div class="country-card">
+					<h4 class="mb-3"><i class="fa-solid fa-earth-europe"></i> Daftar Negara</h4>
+					<div class="list-group" id="country-list">
+						<!-- Daftar pengguna akan diisi oleh JavaScript -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Statistik Cards -->
+		<div class="row">
+			<!-- Harian -->
+			<div class="col-md-6 col-lg-4">
+				<div class="stat-card">
+					<div class="stat-period"><i class="fa-solid fa-calendar"></i> Hari ini</div>
+					<div class="row text-center">
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="daily-new">0</div>
+							<div class="stat-label">Pengguna baru</div>
 						</div>
-						<div class="row mb-3">
-							<div class="col-md-6">
-								<strong>Country:</strong> <span id="modal-user-country"></span>
-							</div>
-							<div class="col-md-6">
-								<strong>Last Seen:</strong> <span id="modal-user-last-seen"></span>
-							</div>
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="daily-online">0</div>
+							<div class="stat-label">Pengguna Online</div>
 						</div>
-						<div class="row mb-3">
-							<div class="col-md-12">
-								<strong>Last IP:</strong> <span id="modal-user-last-ip"></span>
-							</div>
-						</div>
-						
-						<hr>
-						
-						<h6><strong>IP History</strong></h6>
-						<div class="table-responsive">
-							<table class="table table-sm table-hover">
-								<thead>
-									<tr>
-										<th>IP Address</th>
-										<th>Country</th>
-										<th>Timestamp</th>
-									</tr>
-								</thead>
-								<tbody id="modal-user-ip-history">
-									<!-- IP history will be populated here -->
-								</tbody>
-							</table>
-						</div>
-						
-						<h6><strong>Firebase UID History</strong></h6>
-						<div class="table-responsive">
-							<table class="table table-sm table-hover">
-								<thead>
-									<tr>
-										<th>Firebase UID</th>
-										<th>Timestamp</th>
-									</tr>
-								</thead>
-								<tbody id="modal-user-uid-history">
-									<!-- UID history will be populated here -->
-								</tbody>
-							</table>
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="daily-returning">0</div>
+							<div class="stat-label">Pengguna Kembali</div>
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+			<!-- Mingguan -->
+			<div class="col-md-6 col-lg-4">
+				<div class="stat-card">
+					<div class="stat-period"><i class="fa-solid fa-calendar"></i> Minggu ini</div>
+					<div class="row text-center">
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="weekly-new">0</div>
+							<div class="stat-label">Pengguna baru</div>
+						</div>
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="weekly-online">0</div>
+							<div class="stat-label">Pengguna Online</div>
+						</div>
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="weekly-returning">0</div>
+							<div class="stat-label">Pengguna Kembali</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Bulanan -->
+			<div class="col-md-6 col-lg-4">
+				<div class="stat-card">
+					<div class="stat-period"><i class="fa-solid fa-calendar"></i> Bulan Ini</div>
+					<div class="row text-center">
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="monthly-new">0</div>
+							<div class="stat-label">Pengguna baru</div>
+						</div>
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="monthly-online">0</div>
+							<div class="stat-label">Pengguna Online</div>
+						</div>
+						<div class="col-4 mt-3">
+							<div class="stat-value" id="monthly-returning">0</div>
+							<div class="stat-label">Pengguna Kembali</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Chart Section -->
+		<div class="row">
+			<!-- Chart Harian -->
+			<div class="col-lg-6">
+				<div class="chart-panel">
+					<div class="chart-container">
+						<canvas id="dailyChart"></canvas>
+					</div>
+				</div>
+			</div>
+			<!-- Chart Mingguan -->
+			<div class="col-lg-6">
+				<div class="chart-panel">
+					<div class="chart-container">
+						<canvas id="weeklyChart"></canvas>
+					</div>
+				</div>
+			</div>
+			<!-- Chart Bulanan -->
+			<div class="col-lg-6">
+				<div class="chart-panel">
+					<div class="chart-container">
+						<canvas id="monthlyChart"></canvas>
+					</div>
+				</div>
+			</div>
+			<!-- Chart Negara -->
+			<div class="col-lg-6">
+				<div class="chart-panel">
+					<div class="chart-container">
+						<canvas id="countryChart"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Firebase imports -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
-        import { getDatabase, ref, get, query, orderByKey, limitToLast, onValue, onChildAdded, onChildChanged, onChildRemoved } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyAGX-ehF5pTczVf5rH6tALLWpDhR3JixFE",
-            authDomain: "web-analytics-67fbf.firebaseapp.com",
-            databaseURL: "https://web-analytics-67fbf-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "web-analytics-67fbf",
-            storageBucket: "web-analytics-67fbf.firebasestorage.app",
-            messagingSenderId: "603884890926",
-            appId: "1:603884890926:web:d9f20d4cd2f639eea2e8bf",
-            measurementId: "G-S1L9NR2Z4M"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        
-        // Variabel global untuk data dan chart
-		let trafficChart = null;
-        let currentPeriod = 'daily';
-        let currentAppId = null;
-        let appsList = [];
-        let countryModal = null; // Variabel untuk modal
-        
-        // Variabel untuk user list
-        let users = [];
-        let userListListeners = {};
-        
-        // Fungsi untuk memformat nama aplikasi
-        function formatAppName(appId) {
-            return appId
-                .replace(/-/g, ' ') // Ganti hyphen dengan spasi
-                .replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()); // Title case
-        }
-        
-        // Fungsi untuk memuat daftar aplikasi
-        async function loadAppsList() {
-            try {
-                const appsRef = ref(db, 'globalWebAnalytics/apps');
-                const appsSnapshot = await get(appsRef);
-                
-                if (appsSnapshot.exists()) {
-                    const appsData = appsSnapshot.val();
-                    appsList = Object.keys(appsData);
-                    
-                    const appsListContainer = document.getElementById('apps-list');
-                    appsListContainer.innerHTML = '';
-                    
-                    appsList.forEach(appId => {
-                        const appName = formatAppName(appId);
-                        const appElement = document.createElement('a');
-                        appElement.href = '#';
-                        appElement.className = 'list-group-item list-group-item-action bg-transparent nav-link';
-                        appElement.innerHTML = `<i class="bi bi-globe me-2"></i>${appName}`;
-                        appElement.dataset.appId = appId;
-                        
-                        appElement.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            // Hapus active class dari semua item
-                            appsListContainer.querySelectorAll('.nav-link').forEach(item => {
-                                item.classList.remove('active');
-                            });
-                            // Tambahkan active class ke item yang diklik
-                            this.classList.add('active');
-                            // Set currentAppId dan muat data
-                            currentAppId = this.dataset.appId;
-                            document.getElementById('current-website').textContent = formatAppName(currentAppId);
-                            loadAppData(currentAppId);
-                        });
-                        
-                        appsListContainer.appendChild(appElement);
-                    });
-                    
-                    // Set aplikasi pertama sebagai default
-                    if (appsList.length > 0) {
-                        currentAppId = appsList[0];
-                        appsListContainer.querySelector('.nav-link').classList.add('active');
-                        document.getElementById('current-website').textContent = formatAppName(currentAppId);
-                        loadAppData(currentAppId);
-                    }
-                } else {
-                    document.getElementById('apps-list').innerHTML = 
-                        '<div class="text-center p-3">No apps found in database</div>';
-                }
-            } catch (error) {
-                console.error("Error loading apps list:", error);
-                document.getElementById('apps-list').innerHTML = 
-                    '<div class="text-center p-3 text-danger">Error loading apps</div>';
-            }
-        }
-        
-        // Fungsi untuk memuat data aplikasi
-        function loadAppData(appId) {
-            // Tampilkan loading state
-            document.querySelectorAll('.card-stats .h5').forEach(el => {
-                el.innerHTML = '<div class="spinner-border spinner-border-sm" role="status"></div>';
-            });
-            
-            const chartContainer = document.querySelector('.chart-container');
-            chartContainer.innerHTML = '<div class="loading"><div class="spinner-border text-primary" role="status"></div></div>';
-            
-            const tableBody = document.querySelector('#statsTable tbody');
-            tableBody.innerHTML = '<tr><td colspan="5" class="text-center"><div class="loading py-4"><div class="spinner-border text-primary" role="status"></div></div></td></tr>';
-            
-            const countryList = document.getElementById('country-list');
-            countryList.style.display = 'none';
-            countryList.previousElementSibling.style.display = 'flex';
-            
-            // Muat data
-            loadSummaryData(appId);
-            loadCountryData(appId);
-            loadPeriodicStats(currentPeriod, appId);
-            
-            // Muat daftar pengguna
-            loadUserList(appId);
-        }
-        
-        // Fungsi untuk memformat angka
-        function formatNumber(num) {
-            if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + 'M';
-            }
-            if (num >= 1000) {
-                return (num / 1000).toFixed(1) + 'K';
-            }
-            return num;
-        }
-        
-        // Fungsi untuk mendapatkan nama bulan
-        function getMonthName(monthNum) {
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            return months[parseInt(monthNum) - 1] || monthNum;
-        }
-        
-        // Fungsi untuk memuat data ringkasan
-        async function loadSummaryData(appId) {
-            try {
-                const statsRef = `globalWebAnalytics/apps/${appId}/stats`;
-                 
-                const today = new Date();
-                const todayFormatted = `${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}`;
-				
-                // Total Unique Users
-                const totalUniqueUsersSnapshot = await get(ref(db, `${statsRef}/uniqueUsers/total/total`));
-                const totalUniqueUsers = totalUniqueUsersSnapshot.exists() ? totalUniqueUsersSnapshot.val().count : 0;
-                document.querySelectorAll('.card')[0].querySelector('.h5').textContent = formatNumber(totalUniqueUsers);
-                
-				// Online Users Today
-                const onlineTodaySnapshot = await get(ref(db, `${statsRef}/onlineUsers/daily/${todayFormatted}/total`));
-                const onlineToday = onlineTodaySnapshot.exists() ? onlineTodaySnapshot.val().count : 0;
-                document.querySelectorAll('.card')[1].querySelector('.h5').textContent = formatNumber(onlineToday);
-                
-                // New Users Today
-                const newUsersTodaySnapshot = await get(ref(db, `${statsRef}/newUsers/daily/${todayFormatted}/total`));
-                const newUsersToday = newUsersTodaySnapshot.exists() ? newUsersTodaySnapshot.val().count : 0;
-                document.querySelectorAll('.card')[2].querySelector('.h5').textContent = formatNumber(newUsersToday);
-                
-                // Returning Users Today
-                const returningUsersTodaySnapshot = await get(ref(db, `${statsRef}/returningUsers/daily/${todayFormatted}/total`));
-                const returningUsersToday = returningUsersTodaySnapshot.exists() ? returningUsersTodaySnapshot.val().count : 0;
-                document.querySelectorAll('.card')[3].querySelector('.h5').textContent = formatNumber(returningUsersToday);
-                
-            } catch (error) {
-                console.error("Error loading summary data:", error);
-                document.querySelectorAll('.h5').forEach(el => {
-                    el.textContent = 'Error';
-                });
-            }
-        }
-        
-        // Fungsi untuk memuat data negara
-        async function loadCountryData(appId) {
-            try {
-                const statsRef = `globalWebAnalytics/apps/${appId}/stats`;
-                const countriesSnapshot = await get(ref(db, `${statsRef}/countries/total`));
-                const countryList = document.getElementById('country-list');
-                
-                if (countriesSnapshot.exists()) {
-                    const countriesData = countriesSnapshot.val();
-                    const countries = [];
-                    
-                    // Mengumpulkan data negara
-                    for (const [code, data] of Object.entries(countriesData)) {
-                        if (code !== 'undefined') { // Filter out undefined
-                            countries.push({
-                                code: code,
-                                count: data.count || 0
-                            });
-                        }
-                    }
-                    
-                    // Mengurutkan berdasarkan jumlah tertinggi
-                    countries.sort((a, b) => b.count - a.count);
-                    
-                    // Menampilkan 10 negara teratas
-                    let html = '';
-                    countries.slice(0, 10).forEach(country => {
-                        html += `
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div>
-                                    <img src="https://flagcdn.com/w20/${country.code.toLowerCase()}.png" class="country-flag" alt="${country.code}">
-                                    <span>${country.code}</span>
-                                </div>
-                                <span class="badge bg-primary rounded-pill">${formatNumber(country.count)}</span>
-                            </div>
-                        `;
-                    });
-                    
-                    // Sembunyikan loading, tampilkan daftar negara
-                    document.querySelector('#country-list').previousElementSibling.style.display = 'none';
-                    countryList.innerHTML = html;
-                    countryList.style.display = 'block';
-                } else {
-                    countryList.innerHTML = '<p class="text-center">No country data available</p>';
-                    countryList.style.display = 'block';
-                }
-            } catch (error) {
-                console.error("Error loading country data:", error);
-                document.getElementById('country-list').innerHTML = '<p class="text-center text-danger">Error loading data</p>';
-            }
-        }
-        
-        // Fungsi untuk memuat data statistik periodik
-        async function loadPeriodicStats(period = 'daily', appId) {
-            try {
-                const statsRef = `globalWebAnalytics/apps/${appId}/stats`;
-                const tableBody = document.querySelector('#statsTable tbody');
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            <div class="loading py-4">
-                                <div class="spinner-border text-primary" role="status"></div>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                
-                const periods = {
-                    daily: 7,
-                    weekly: 4,
-                    monthly: 6
-                };
-                
-                const count = periods[period] || 7;
-                const today = new Date();
-                let periodKeys = [];
-                
-                // Generate period keys berdasarkan tipe period
-                if (period === 'daily') {
-                    for (let i = count-1; i >= 0; i--) {
-                        const date = new Date();
-                        date.setDate(today.getDate() - i);
-                        periodKeys.push(`${date.getFullYear()}${String(date.getMonth()+1).padStart(2,'0')}${String(date.getDate()).padStart(2,'0')}`);
-                    }
-                } else if (period === 'weekly') {
-                    for (let i = count-1; i >= 0; i--) {
-                        const date = new Date();
-                        date.setDate(today.getDate() - (i * 7));
-                        const year = date.getFullYear();
-                        const weekNum = Math.ceil((((date - new Date(year, 0, 1)) / 86400000) + new Date(year, 0, 1).getDay() + 1) / 7);
-                        periodKeys.push(`${year}W${String(weekNum).padStart(2, '0')}`);
-                    }
-                } else if (period === 'monthly') {
-                    for (let i = count-1; i >= 0; i--) {
-                        const date = new Date();
-                        date.setMonth(today.getMonth() - i);
-                        periodKeys.push(`${date.getFullYear()}${String(date.getMonth()+1).padStart(2,'0')}`);
-                    }
-                }
-                
-                // Mengumpulkan data untuk setiap periode
-                const statsData = [];
-                
-                for (const key of periodKeys) {
-                    const uniqueUserRef = ref(db, `${statsRef}/uniqueUsers/${period}/${key}/total`);
-                    const newUsersRef = ref(db, `${statsRef}/newUsers/${period}/${key}/total`);
-                    const returningUsersRef = ref(db, `${statsRef}/returningUsers/${period}/${key}/total`);
-                    const onlineUsersRef = ref(db, `${statsRef}/onlineUsers/${period}/${key}/total`);
-                    
-                    const [totalUniqueUserSnapshot, newUsersSnapshot, returningSnapshot, onlineSnapshot] = await Promise.all([
-                        get(uniqueUserRef),
-                        get(newUsersRef),
-                        get(returningUsersRef),
-                        get(onlineUsersRef)
-                    ]);
-                    
-                    statsData.push({
-                        period: key,
-                        uniqueUsers: totalUniqueUserSnapshot.exists() ? totalUniqueUserSnapshot.val().count : 0,
-                        newUsers: newUsersSnapshot.exists() ? newUsersSnapshot.val().count : 0,
-                        returning: returningSnapshot.exists() ? returningSnapshot.val().count : 0,
-                        online: onlineSnapshot.exists() ? onlineSnapshot.val().count : 0
-                    });
-                }
-                
-                // Memperbarui tabel
-                let html = '';
-                statsData.forEach(data => {
-                    let periodLabel = data.period;
-                    
-                    // Format label periode agar lebih mudah dibaca
-                    if (period === 'daily') {
-                        const year = periodLabel.substring(0, 4);
-                        const month = periodLabel.substring(4, 6);
-                        const day = periodLabel.substring(6, 8);
-                        periodLabel = `${day}/${month}/${year}`;
-                    } else if (period === 'weekly') {
-                        periodLabel = `Week ${periodLabel.split('W')[1]}, ${periodLabel.split('W')[0]}`;
-                    } else if (period === 'monthly') {
-                        const year = periodLabel.substring(0, 4);
-                        const month = periodLabel.substring(4, 6);
-                        periodLabel = `${getMonthName(month)} ${year}`;
-                    }
-                    
-                    html += `
-                        <tr>
-                            <td>${periodLabel}</td>
-                            <td>${formatNumber(data.uniqueUsers)}</td>
-                            <td>${formatNumber(data.newUsers)}</td>
-                            <td>${formatNumber(data.returning)}</td>
-                            <td>${formatNumber(data.online)}</td>
-                        </tr>
-                    `;
-                });
-                
-                tableBody.innerHTML = html;
-                
-                // Perbarui chart dengan data terbaru
-                updateTrafficChart(statsData, period);
-                
-            } catch (error) {
-                console.error("Error loading periodic stats:", error);
-                document.querySelector('#statsTable tbody').innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-danger">Error loading data</td>
-                    </tr>
-                `;
-            }
-        }
-        
-        // Fungsi untuk memperbarui chart
-        function updateTrafficChart(data, period) {
-            const ctx = document.querySelector('.chart-container');
-            
-            // Hapus loading spinner
-            const loadingElement = ctx.querySelector('.loading');
-            if (loadingElement) {
-                loadingElement.style.display = 'none';
-            }
-            
-            // Hapus chart lama jika ada
-            if (trafficChart) {
-                trafficChart.destroy();
-            }
-            
-            // Siapkan canvas untuk chart baru
-            if (!ctx.querySelector('canvas')) {
-                ctx.innerHTML = '<canvas id="trafficChart"></canvas>';
-            }
-            
-            // Format label periode
-            const labels = data.map(item => {
-                if (period === 'daily') {
-                    return item.period.substring(6, 8) + '/' + item.period.substring(4, 6);
-                } else if (period === 'weekly') {
-                    return 'W' + item.period.split('W')[1];
-                } else if (period === 'monthly') {
-                    return getMonthName(item.period.substring(4, 6));
-                }
-                return item.period;
-            });
-            
-            // Buat chart baru
-            trafficChart = new Chart(document.getElementById('trafficChart'), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Unique Users',
-                            data: data.map(item => item.uniqueUsers),
-                            borderColor: '#4e73df',
-                            backgroundColor: 'rgba(78, 115, 223, 0.05)',
-                            fill: true,
-                            tension: 0.3
-                        },
-                        {
-                            label: 'Online Users',
-                            data: data.map(item => item.online),
-                            borderColor: '#1cc88a',
-                            backgroundColor: 'rgba(28, 200, 138, 0.05)',
-                            fill: true,
-                            tension: 0.3
-                        },
-                        {
-                            label: 'New Users',
-                            data: data.map(item => item.newUsers),
-                            borderColor: '#36b9cc',
-                            backgroundColor: 'rgba(0, 255, 255, 0.05)',
-                            fill: true,
-                            tension: 0.3
-                        },
-                        {
-                            label: 'Returning Users',
-                            data: data.map(item => item.returning),
-                            borderColor: '#ffcc99',
-                            backgroundColor: 'rgba(255, 237, 209, 0.05)',
-                            fill: true,
-                            tension: 0.3
-                        }
-                    ]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return formatNumber(value);
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top'
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + formatNumber(context.raw);
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        
-        // Fungsi untuk mengatur waktu saat ini
-        function updateCurrentTime() {
-            const now = new Date();
-            document.getElementById('current-time').textContent = now.toLocaleString();
-        }
-        
-        // Fungsi untuk memuat dan memantau daftar pengguna
-        function loadUserList(appId) {
-            // Hapus listener sebelumnya jika ada
-            Object.values(userListListeners).forEach(unsubscribe => unsubscribe());
-            userListListeners = {};
-            users = [];
-            
-            const userListContainer = document.getElementById('user-list');
-            userListContainer.innerHTML = '';
-            userListContainer.style.display = 'none';
-            userListContainer.previousElementSibling.style.display = 'flex';
-            
-            const usersRef = ref(db, `globalWebAnalytics/apps/${appId}/users`);
-            
-            // Listen for new users
-            userListListeners.childAdded = onChildAdded(usersRef, (snapshot) => {
-                const userId = snapshot.key;
-                const userData = snapshot.val();
-                
-                // Add user to list
-                users.push({
-                    id: userId,
-                    presence: userData.UserPresence || { status: 'offline' },
-                    lastSeen: userData.userLastSeen || 0
-                });
-                
-                // Listen for changes in user presence
-                const userPresenceRef = ref(db, `globalWebAnalytics/apps/${appId}/users/${userId}/UserPresence`);
-                userListListeners[userId] = onValue(userPresenceRef, (presenceSnapshot) => {
-                    if (presenceSnapshot.exists()) {
-                        const presenceData = presenceSnapshot.val();
-                        const userIndex = users.findIndex(u => u.id === userId);
-                        
-                        if (userIndex !== -1) {
-                            users[userIndex].presence = presenceData;
-                            users[userIndex].lastSeen = presenceData.userLastSeen || 0;
-                            renderUserList();
-                        }
-                    }
-                });
-                
-                renderUserList();
-            });
-            
-            // Listen for removed users
-            userListListeners.childRemoved = onChildRemoved(usersRef, (snapshot) => {
-                const userId = snapshot.key;
-                
-                // Remove user from list
-                users = users.filter(user => user.id !== userId);
-                
-                // Remove presence listener
-                if (userListListeners[userId]) {
-                    userListListeners[userId]();
-                    delete userListListeners[userId];
-                }
-                
-                renderUserList();
-            });
-        }
-        
-        // Fungsi untuk merender daftar pengguna
-        function renderUserList() {
-            const userListContainer = document.getElementById('user-list');
-            
-            // Urutkan pengguna: online dulu, kemudian idle, kemudian offline, dan urut abjad dalam setiap grup
-            users.sort((a, b) => {
-                const statusOrder = { online: 0, idle: 1, offline: 2 };
-                const statusA = a.presence.status || 'offline';
-                const statusB = b.presence.status || 'offline';
-                
-                if (statusOrder[statusA] !== statusOrder[statusB]) {
-                    return statusOrder[statusA] - statusOrder[statusB];
-                }
-                
-                return a.id.localeCompare(b.id);
-            });
-            
-            if (users.length === 0) {
-                userListContainer.innerHTML = '<p class="text-center">No users found</p>';
-            } else {
-                let html = '';
-                
-                users.forEach(user => {
-                    const status = user.presence.status || 'offline';
-                    const countryCode = user.presence.countryCode || 'unknown';
-                    const statusClass = 
-                        status === 'online' ? 'status-online' : 
-                        status === 'idle' ? 'status-idle' : 'status-offline';
-                    html += `
-                        <div class="user-item">
-                            <div class="user-info">
-                                <span class="user-status ${statusClass}"></span>
-                                <img src="https://flagcdn.com/w20/${countryCode.toLowerCase()}.png" 
-                                     class="country-flag" alt="${countryCode}" onerror="this.style.display='none'">
-                                <span class="user-uid">${user.id}</span>
-                            </div>
-                            <span class="badge bg-${status === 'online' ? 'success' : status === 'idle' ? 'warning' : 'secondary'}">
-                                ${status}
-                            </span>
-                        </div>
-                    `;
-                });
-                
-                userListContainer.innerHTML = html;
-            }
-            
-            // Sembunyikan loading, tampilkan daftar pengguna
-            userListContainer.previousElementSibling.style.display = 'none';
-            userListContainer.style.display = 'block';
-        }
-        
-        // Fungsi inisialisasi
-        function initDashboard() {
-            // Update waktu saat ini
-            updateCurrentTime();
-            setInterval(updateCurrentTime, 1000);
-            
-            // Muat daftar aplikasi
-            loadAppsList();
-            
-            // Setup event listeners
-            document.querySelectorAll('.period-select').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const period = this.getAttribute('data-period');
-                    currentPeriod = period;
-                    document.getElementById('periodDropdown').textContent = period.charAt(0).toUpperCase() + period.slice(1);
-                    if (currentAppId) {
-                        loadPeriodicStats(period, currentAppId);
-                    }
-                });
-            });
-            
-            // Inisialisasi modal
-            countryModal = new bootstrap.Modal(document.getElementById('countryModal'));
-            
-			// event listener untuk list users
-			setupUserItemListeners();
-			
-            // event listener untuk summary cards
-            setupSummaryCardListeners();
-               
-            // Toggle sidebar untuk mobile
-            document.getElementById('sidebarToggle').addEventListener('click', function (event) {
-                event.stopPropagation();
-                const sidebar = document.querySelector('.sidebar');
-                if (sidebar.classList.contains('d-none')) {
-                    sidebar.classList.remove('d-none');
-                } else {
-                    sidebar.classList.add('d-none');
-                }
-            });
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="./jquery-3.6.0.min.js"></script>
+	<script type="module">
+		import {
+			initializeApp
+		} from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+		import {
+			getDatabase,
+			ref,
+			onValue,
+			query,
+			orderByChild,
+			startAt,
+			endAt,
+			limitToLast,
+			get,
+			onChildAdded,
+			onChildRemoved
+		} from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
 
-            // Menyembunyikan sidebar jika klik di luar sidebar
-            document.addEventListener('click', function (event) {
-                const sidebar = document.querySelector('.sidebar');
-                const toggleButton = document.getElementById('sidebarToggle');
+		// Konfigurasi Firebase
+		const firebaseConfig = {
+			apiKey: "AIzaSyAGX-ehF5pTczVf5rH6tALLWpDhR3JixFE",
+			authDomain: "web-analytics-67fbf.firebaseapp.com",
+			databaseURL: "https://web-analytics-67fbf-default-rtdb.asia-southeast1.firebasedatabase.app",
+			projectId: "web-analytics-67fbf",
+			storageBucket: "web-analytics-67fbf.firebasestorage.app",
+			messagingSenderId: "603884890926",
+			appId: "1:603884890926:web:d9f20d4cd2f639eea2e8bf",
+			measurementId: "G-S1L9NR2Z4M"
+		};
 
-                if (!sidebar.classList.contains('d-none') && 
-                    !sidebar.contains(event.target) && 
-                    !toggleButton.contains(event.target)) {
-                    sidebar.classList.add('d-none');
-                }
-            });
-        }
+const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzNTYxMzUzODM2NjIzNjM5MzQ2NjM2MzkzNDYxMzQzMjM1MzMzNTM4MzczMDM2MzgzNTM1MzMzMzM2NjMzNDMyMzUzMjMzMzEzNjM3MzczNDM1NjEzNTM3MzYzODM0MzczNDY1MzUzODM0MzIzNTM1MzUzOTMzMzMzNzMwMzUzNzM1NjEzNjYxMzUzNjM3MzkzNTMzMzQzNDM1NjEzMzMwMzUzMTM1MzUzNzM4MzQ2NDM1MzYzMzMzMzQzMjM0MzUzNjMxMzQzNjM0MzkzNzYxMzUzMzM2NjQzNjYzMzMzNDM1MzIzNjYyMzUzNTM2MzkzNDYzMzQzMzM0NjEzNjM4MzYzNDM1MzgzNTMyMzY2NjM1MzIzNDM3MzMzOTM3MzQzNTM5MzUzNzM2NjMzNzM1MzQzOTM2NjEzNjY2MzYzOTM2MzQzMzMyMzUzNjM2MzkzNDYzMzUzNzM0MzYzNzM1MzUzOTM1MzczNzM4MzMzNTM2MzQzNDM3MzY2MzM2NjEzNjMzMzczOTMzMzAzMzMyMzQ2NTMzMzIzNTYxMzYzOTM1NjEzNjM5MzMzNTM2NjQzNjMxMzUzODM0NjEzNjYzMzUzOTM2NjQzNDM2Mzc2MTM1NjEzNTM3MzQzNjM3MzczNjMzMzQzMzMzMzUzNjYxMzYzMjMzMzIzMzMwMzYzOTM0NjMzNDMzMzQ2MTM2NjIzNTM5MzUzODM1MzIzNjM4MzUzOTM2NjQzNDM2Mzc2MTM1NjEzNTM2MzUzNjM1MzMzNTM0MzQzMzM0MzkzMzM2MzQzOTM2NjQzNjM4MzMzMDM2MzQzNDM4MzQzMjM3NjEzNDY2MzYzOTMzMzgzNzM2MzYzNDMzMzIzNTM2MzYzOTM0NjMzNTM3MzQzNjM3MzUzNTM5MzUzNzM3MzgzMzM1MzYzNDM0MzczNjYzMzY2MTM2MzMzNzM5MzMzMDMzMzIzNDY1MzMzMjM1NjEzNjM5MzU2MTM2MzkzMzMxMzY2MjM1NjEzNTM3MzU2MTM2MzgzNjM0MzUzNzM3MzgzMzMwMzQ2MzM1MzgzNDYxMzMzMDM1NjEzNDM3MzQzOTM3MzUzNTM5MzUzODM0NjUzNzMwMzUzOTM1MzMzMzMxMzc2MTM2MzIzMzMzMzUzNjMzMzAzNjMxMzQzNzM1MzYzNjM4MzYzMzMzMzMzNTMxMzczODM0NjMzNjY0MzU2MTM3MzAzNjMzMzY2NDM1MzYzNjM5MzUzOTM1MzgzNDY1MzY2MzM1NjEzNDM3MzQzNjMzMzAzNTM5MzUzNzM0NjEzNjM4MzYzMzMzMzIzNTM1MzczNTM1MzkzNTM4MzQzMjM3MzczNDM5MzYzOTM3MzczNjM5MzYzMzM0MzgzNDYxMzczNjM2MzEzNjY0MzUzNjM2NjEzNjM0MzQzNTM2NjMzNjYyMzQzOTM2NjEzNjY2MzYzNzM0MzkzNjY1MzYzNDM2NjMzNTM5MzYzOTMzMzEzNjM4MzYzMjM2NjQzNDM2MzczMzM2MzUzNTM4MzUzMjM3MzAzNTM5MzMzMzM0NjQzNzM0MzQ2NTM2NjEzNjM0MzY2NDM1MzkzNjY0MzUzOTM2MzkzNDYzMzQzMzM0NjEzNzYxMzYzNDM0MzczMzM5MzczOTM1MzkzNTM3MzYzNDM2NjMzNTMxMzY2NTM1MzYzNjYxMzYzMTMzMzIzNTM2MzMzMDM0MzkzNjYxMzY2NjM2MzkzNjM0MzMzMjM1MzYzNjM5MzQ2MzM1MzczNDM2MzczNTM1MzkzNTM3MzczODMzMzUzNjM0MzQzNzM2NjMzNjYxMzYzMzM3MzkzMzMwMzMzMjM0NjUzMzMyMzU2MTM2MzkzNTYxMzYzOTMzMzUzNjY0MzYzMTM1MzgzNDYxMzY2MzM1MzkzNjY0MzQzNjM3NjEzNTYxMzUzODM0NjUzMzMwMzYzMjMzMzMzNDYxMzYzODM1NjEzMzMyMzUzNTM3MzUzNTM5MzUzODM0MzIzNzM3MzQzOTM2MzkzNzM3MzYzOTM2MzIzNTM3MzUzNjM3NjEzNjMzMzMzMjM0MzYzNjY1MzYzMTM1MzczMzM1MzY2NTM1MzUzMzMyMzUzNjM3MzUzNTYxMzQzNzM1MzYzNzM5MzUzMzM1MzczNTMxMzYzOTM0NjYzNjM5MzQzOTMzMzIzNDY0MzQzNDM0NjQzMzM0MzQ2NjM0MzQzNTMxMzMzNDM0NjYzNTM0MzQzMTMzMzUzNDY0MzY2MTM1MzkzNjM5MzQ2MzM0MzMzNDYxMzYzODM2MzMzNDM4MzQzMjM0NjEzNTYxMzQzMzM0MzkzMzM2MzQzOTM2NjEzNDM1MzMzNjM0NjUzNjYxMzQzMTM3NjEzNDY2MzQzNDM2MzczMzMwMzQ2NjM0MzQzNjYyMzczNzM0NjYzNTM0MzQzOTMzMzIzNDY2MzY2NTM2MzQzNjYzMzUzOTM2NjEzNzMwMzY2MjM0NjYzNTM3MzUzOTM3MzkzNDY0MzQzNzM1MzEzMzMwMzUzOTMzMzIzNTMxMzczOTM1NjEzNjYxMzUzOTM3NjEzNDY2MzUzNzM1MzYzNjYzMzUzOTM1MzQzNDYxMzY2MzM0NjYzNDM3MzQ2MTM2NjQzNDM5MzYzOTM3MzczNjM5MzYzMjM1MzczNTM2MzYzODM2MzMzMzMzMzUzNjM3MzkzNTYxMzUzNzMzMzEzNjYzMzYzMjM2NjUzNTMyMzQ2MTM1NjEzNDMzMzQzOTMzMzYzNDM5MzY2MjM2MzMzNzM0MzUzNTM3NjEzNDM2MzQ2NDM0NjYzNTM1MzMzNTM1MzMzNDY0MzY2MzM2NjYzMzMwMzUzNDM1MzMzNDYxMzMzOQ'))));
 
-		// event listener untuk user items
-		function setupUserItemListeners() {
-			const userListContainer = document.getElementById('user-list');
-			
-			userListContainer.addEventListener('click', function(e) {
-				const userItem = e.target.closest('.user-item');
-				if (userItem) {
-					const userId = userItem.querySelector('.user-uid').textContent;
-					showUserModal(userId);
-				}
-			});
-		} 
-		
-		// Setup event listeners untuk summary cards
-        function setupSummaryCardListeners() {
-            const cards = document.querySelectorAll('.card.stat-card');
-            
-            cards.forEach((card, index) => {
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', function() {
-                    let metricType = '';
-                    let period = 'daily';
-                    let dateKey = '';
-                    
-                    // Tentukan jenis metrik berdasarkan indeks kartu
-                    switch(index) {
-                        case 0: // Total Users
-                            metricType = 'uniqueUsers';
-                            period = 'total';
-                            dateKey = 'total';
-                            break;
-                        case 1: // Online Users (Today)
-                            metricType = 'onlineUsers';
-                            dateKey = getTodayFormatted();
-                            break;
-                        case 2: // New Users (Today)
-                            metricType = 'newUsers';
-                            dateKey = getTodayFormatted();
-                            break;
-                        case 3: // Returning Users (Today)
-                            metricType = 'returningUsers';
-                            dateKey = getTodayFormatted();
-                            break;
-                    }
-                    
-                    // Tampilkan modal dengan data negara
-                    showCountryModal(metricType, period, dateKey);
-                });
-            });
-        }
-		
-		function getTodayFormatted() {
-            const today = new Date();
-            return `${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}`;
-        }
+		const crex = JSON.parse(crexs);
+		const app = initializeApp(crex, "analytics-dashboard");
+		const database = getDatabase(app);
 
-		// Fungsi untuk menampilkan modal detail pengguna
-		async function showUserModal(userId) {
-			if (!currentAppId) return;
-			
-			// Tampilkan modal dengan spinner
-			document.getElementById('userModalSpinner').style.display = 'block';
-			document.getElementById('userModalContent').style.display = 'none';
-			document.getElementById('userModalLabel').textContent = `User Details - ${userId}`;
-			
-			const userModal = new bootstrap.Modal(document.getElementById('userModal'));
-			userModal.show();
-			
+		// Variabel global
+		let currentAppId = null;
+		let appsList = [];
+		let users = [];
+		let stats = {
+			daily: {
+				unique: 0,
+				new: 0,
+				online: 0,
+				returning: 0,
+				countries: {}
+			},
+			weekly: {
+				unique: 0,
+				new: 0,
+				online: 0,
+				returning: 0,
+				countries: {}
+			},
+			monthly: {
+				unique: 0,
+				new: 0,
+				online: 0,
+				returning: 0,
+				countries: {}
+			},
+			total: {
+				unique: 0,
+				new: 0,
+				online: 0,
+				returning: 0,
+				countries: {}
+			}
+		};
+
+		// Variabel untuk chart
+		let dailyChart, weeklyChart, monthlyChart, countryChart;
+
+		// Fungsi untuk memuat daftar aplikasi
+		async function loadAppsList() {
 			try {
-				// Path referensi database
-				const userRef = ref(db, `globalWebAnalytics/apps/${currentAppId}/users/${userId}`);
-				const snapshot = await get(userRef);
-				
+				const appsRef = ref(database, 'globalWebAnalytics/apps');
+				const snapshot = await get(appsRef);
+
 				if (snapshot.exists()) {
-					const userData = snapshot.val();
-					
-					// Isi informasi dasar pengguna
-					document.getElementById('modal-user-id').textContent = userId;
-					
-					const status = userData.UserPresence?.status || 'offline';
-					const statusBadge = document.getElementById('modal-user-status');
-					statusBadge.textContent = status;
-					statusBadge.className = 'badge ' + 
-						(status === 'online' ? 'bg-success' : 
-						 status === 'idle' ? 'bg-warning' : 'bg-secondary');
-					
-					const countryCode = userData.UserPresence?.countryCode || 'unknown';
-					document.getElementById('modal-user-country').innerHTML = `
-						<img src="https://flagcdn.com/w20/${countryCode.toLowerCase()}.png" 
-							 class="country-modal-flag" alt="${countryCode}">
-						${countryCode}
-					`;
-					
-					const lastSeen = userData.UserPresence?.userLastSeen || 0;
-					document.getElementById('modal-user-last-seen').textContent = 
-						lastSeen ? new Date(lastSeen).toLocaleString() : 'Unknown';
-					
-					document.getElementById('modal-user-last-ip').textContent = 
-						userData.UserPresence?.LastIP || 'Unknown';
-					
-					// Isi IP History
-					const ipHistoryContainer = document.getElementById('modal-user-ip-history');
-					ipHistoryContainer.innerHTML = '';
-					
-					if (userData.IPHistory) {
-						Object.entries(userData.IPHistory).forEach(([ip, data]) => {
-							const row = document.createElement('tr');
-							row.innerHTML = `
-								<td>${ip}</td>
-								<td>
-									<img src="https://flagcdn.com/w20/${(data.countryCode || 'unknown').toLowerCase()}.png" 
-										 class="country-modal-flag" alt="${data.countryCode || 'unknown'}">
-									${data.countryCode || 'unknown'}
-								</td>
-								<td>${data.timestamp ? new Date(data.timestamp).toLocaleString() : 'Unknown'}</td>
-							`;
-							ipHistoryContainer.appendChild(row);
-						});
-					} else {
-						ipHistoryContainer.innerHTML = '<tr><td colspan="3" class="text-center">No IP history available</td></tr>';
-					}
-					
-					// Isi Firebase UID History
-					const uidHistoryContainer = document.getElementById('modal-user-uid-history');
-					uidHistoryContainer.innerHTML = '';
-					
-					if (userData.FirebaseUIDHistory) {
-						Object.entries(userData.FirebaseUIDHistory).forEach(([uid, data]) => {
-							const row = document.createElement('tr');
-							row.innerHTML = `
-								<td>${uid}</td>
-								<td>${data.timestamp ? new Date(data.timestamp).toLocaleString() : 'Unknown'}</td>
-							`;
-							uidHistoryContainer.appendChild(row);
-						});
-					} else {
-						uidHistoryContainer.innerHTML = '<tr><td colspan="2" class="text-center">No UID history available</td></tr>';
+					const appsData = snapshot.val();
+					appsList = Object.keys(appsData).map(key => ({
+						id: key,
+						name: key.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+						path: `globalWebAnalytics/apps/${key}`
+					}));
+
+					renderAppsList();
+
+					// Pilih aplikasi pertama secara default
+					if (appsList.length > 0 && !currentAppId) {
+						currentAppId = appsList[0].id;
+						loadAppData(currentAppId);
 					}
 				} else {
-					document.getElementById('userModalContent').innerHTML = 
-						'<p class="text-center">User data not found</p>';
+					console.error('Tidak ada data aplikasi ditemukan');
 				}
 			} catch (error) {
-				console.error("Error loading user data:", error);
-				document.getElementById('userModalContent').innerHTML = 
-					'<p class="text-center text-danger">Error loading user data</p>';
-			} finally {
-				// Sembunyikan spinner dan tampilkan konten
-				document.getElementById('userModalSpinner').style.display = 'none';
-				document.getElementById('userModalContent').style.display = 'block';
+				console.error('Error memuat daftar aplikasi:', error);
 			}
 		}
-    
-        // Fungsi untuk menampilkan modal dengan data negara
-        async function showCountryModal(metricType, period, dateKey) {
-            if (!currentAppId) return;
-            
-            // Tampilkan modal dengan spinner
-            document.getElementById('modalSpinner').style.display = 'block';
-            document.getElementById('modalCountryContent').style.display = 'none';
-            document.getElementById('countryModalLabel').textContent = `Country Distribution - ${metricType}`;
-            countryModal.show();
-            
-            try {
-                // Path referensi database berdasarkan parameter
-                let path = `globalWebAnalytics/apps/${currentAppId}/stats/${metricType}/${period}/${dateKey}/country`;
-                
-                // Jika total users, gunakan path yang berbeda
-                if (metricType === 'uniqueUsers' && period === 'total' && dateKey === 'total') {
-                    path = `globalWebAnalytics/apps/${currentAppId}/stats/countries/total`;
-                }
-                
-                const countryRef = ref(db, path);
-                const snapshot = await get(countryRef);
-                
-                if (snapshot.exists()) {
-                    const countriesData = snapshot.val();
-                    const countries = [];
-                    let totalCount = 0;
-                    
-                    // Proses data negara
-                    for (const [code, data] of Object.entries(countriesData)) {
-                        if (code !== 'undefined' && data.count) {
-                            countries.push({
-                                code: code,
-                                count: data.count
-                            });
-                            totalCount += data.count;
-                        }
-                    }
-                    
-                    // Urutkan berdasarkan jumlah tertinggi
-                    countries.sort((a, b) => b.count - a.count);
-                    
-                    // Tampilkan data di modal
-                    displayCountriesInModal(countries, totalCount);
-                } else {
-                    document.getElementById('modalCountryList').innerHTML = 
-                        '<tr><td colspan="3" class="text-center">No country data available</td></tr>';
-                }
-            } catch (error) {
-                console.error("Error loading country data for modal:", error);
-                document.getElementById('modalCountryList').innerHTML = 
-                    '<tr><td colspan="3" class="text-center text-danger">Error loading data</td></tr>';
-            } finally {
-                // Sembunyikan spinner dan tampilkan konten
-                document.getElementById('modalSpinner').style.display = 'none';
-                document.getElementById('modalCountryContent').style.display = 'block';
-            }
-        }
-		
-		// Fungsi untuk menampilkan data negara dalam modal
-        function displayCountriesInModal(countries, totalCount) {
-            const countryList = document.getElementById('modalCountryList');
-            countryList.innerHTML = '';
-            
-            if (countries.length === 0) {
-                countryList.innerHTML = '<tr><td colspan="3" class="text-center">No country data available</td></tr>';
-                return;
-            }
-            
-            countries.forEach(country => {
-                const percentage = totalCount > 0 ? ((country.count / totalCount) * 100).toFixed(1) : 0;
-                const row = document.createElement('tr');
-                row.className = 'country-item';
-                row.innerHTML = `
-                    <td>
-                        <img src="https://flagcdn.com/w20/${country.code.toLowerCase()}.png" 
-                             class="country-modal-flag" alt="${country.code}">
-                        ${country.code}
-                    </td>
-                    <td>${formatNumber(country.count)}</td>
-                    <td>${percentage}%</td>
-                `;
-                countryList.appendChild(row);
-            });
-        }
-        
-        // Jalankan inisialisasi saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', initDashboard);
+
+		// Render daftar aplikasi di sidebar
+		function renderAppsList() {
+			const appsListElement = document.getElementById('apps-list');
+			appsListElement.innerHTML = '';
+
+			appsList.forEach(app => {
+				const listItem = document.createElement('li');
+				listItem.className = `list-group-item app-item ${app.id === currentAppId ? 'active' : ''}`;
+				listItem.innerHTML = `
+							<i class="fa-solid fa-database"></i>
+							<span>${app.name}</span>
+						`;
+				listItem.dataset.appId = app.id;
+				listItem.addEventListener('click', () => {
+					currentAppId = app.id;
+					document.querySelectorAll('.app-item').forEach(item => item.classList.remove('active'));
+					listItem.classList.add('active');
+					loadAppData(app.id);
+				});
+
+				appsListElement.appendChild(listItem);
+			});
+		}
+
+		// Memuat data aplikasi yang dipilih
+		async function loadAppData(appId) {
+			try {
+				// Update judul dashboard
+				const appName = appsList.find(app => app.id === appId)?.name;
+				document.getElementById('app-title').innerHTML =
+					`<i class="fa-solid fa-chart-line"></i> Laporan untuk <span style="color: #009999; font-weight: 900"> ${appName}</span>` || 'Analytics Dashboard';
+
+				// Muat statistik
+				await loadStats(appId);
+
+				// Muat daftar pengguna
+				await loadUsers(appId);
+
+				// Muat data chart
+				await loadChartData(appId);
+
+				// Muat data negara
+				await loadCountryData(appId);
+			} catch (error) {
+				console.error('Error memuat data aplikasi:', error);
+			}
+		}
+
+		// Memuat statistik 
+		function loadStats(appId) {
+			const appPath = `globalWebAnalytics/apps/${appId}`;
+
+			// Format tanggal untuk query
+			const now = new Date();
+			const today = formatDate(now);
+			const thisWeek = formatWeek(now);
+			const thisMonth = formatMonth(now);
+
+			// Hapus listener sebelumnya jika ada
+			if (window.statsListeners && window.statsListeners.length > 0) {
+				window.statsListeners.forEach(unsubscribe => unsubscribe());
+				window.statsListeners = [];
+			}
+
+			if (!window.statsListeners) {
+				window.statsListeners = [];
+			}
+
+			// Paths untuk statistik harian
+			const dailyPaths = {
+				unique: `${appPath}/stats/uniqueUsers/daily/${today}/total`,
+				new: `${appPath}/stats/newUsers/daily/${today}/total`,
+				online: `${appPath}/stats/onlineUsers/daily/${today}/total`,
+				returning: `${appPath}/stats/returningUsers/daily/${today}/total`
+			};
+
+			// Paths untuk statistik mingguan
+			const weeklyPaths = {
+				unique: `${appPath}/stats/uniqueUsers/weekly/${thisWeek}/total`,
+				new: `${appPath}/stats/newUsers/weekly/${thisWeek}/total`,
+				online: `${appPath}/stats/onlineUsers/weekly/${thisWeek}/total`,
+				returning: `${appPath}/stats/returningUsers/weekly/${thisWeek}/total`
+			};
+
+			// Paths untuk statistik bulanan
+			const monthlyPaths = {
+				unique: `${appPath}/stats/uniqueUsers/monthly/${thisMonth}/total`,
+				new: `${appPath}/stats/newUsers/monthly/${thisMonth}/total`,
+				online: `${appPath}/stats/onlineUsers/monthly/${thisMonth}/total`,
+				returning: `${appPath}/stats/returningUsers/monthly/${thisMonth}/total`
+			};
+
+			// Paths untuk statistik total
+			const totalPaths = {
+				unique: `${appPath}/stats/uniqueUsers/total/total`,
+				new: `${appPath}/stats/newUsers/total/total`,
+				online: `${appPath}/stats/onlineUsers/total/total`,
+				returning: `${appPath}/stats/returningUsers/total/total`
+			};
+
+			// Fungsi untuk membuat listener untuk satu path
+			const createListener = (path, metric, period) => {
+				const refPath = ref(database, path);
+				const unsubscribe = onValue(refPath, (snapshot) => {
+					const count = snapshot.exists() ? snapshot.val().count || 0 : 0;
+					stats[period][metric] = count;
+					renderStats();
+				}, (error) => {
+					console.error(`Error listening to ${path}:`, error);
+				});
+				window.statsListeners.push(unsubscribe);
+			};
+
+			// Membuat listener untuk setiap path harian
+			Object.keys(dailyPaths).forEach(metric => {
+				createListener(dailyPaths[metric], metric, 'daily');
+			});
+
+			// Membuat listener untuk setiap path mingguan
+			Object.keys(weeklyPaths).forEach(metric => {
+				createListener(weeklyPaths[metric], metric, 'weekly');
+			});
+
+			// Membuat listener untuk setiap path bulanan
+			Object.keys(monthlyPaths).forEach(metric => {
+				createListener(monthlyPaths[metric], metric, 'monthly');
+			});
+
+			// Membuat listener untuk setiap path total
+			Object.keys(totalPaths).forEach(metric => {
+				createListener(totalPaths[metric], metric, 'total');
+			});
+		}
+		// Memuat daftar pengguna
+
+		function loadUsers(appId) {
+			const appPath = `globalWebAnalytics/apps/${appId}`;
+			const usersRef = ref(database, `${appPath}/users`);
+
+			// Hapus listener sebelumnya jika ada
+			if (window.usersListener) {
+				window.usersListener(); // Unsubscribe dari listener sebelumnya
+			}
+
+			// Gunakan onValue untuk real-time updates
+			window.usersListener = onValue(usersRef, (snapshot) => {
+				if (snapshot.exists()) {
+					users = [];
+					snapshot.forEach(userSnapshot => {
+						const userData = userSnapshot.val();
+						const userPresence = userData.UserPresence || {};
+						const ipHistory = userData.IPHistory || {};
+
+						// Ambil IP terbaru untuk mendapatkan negara
+						let countryCode = "unknown";
+						let lastIP = "unknown";
+
+						const ipKeys = Object.keys(ipHistory);
+						if (ipKeys.length > 0) {
+							// Urutkan berdasarkan timestamp untuk mendapatkan yang terbaru
+							const sortedIPs = ipKeys.sort((a, b) => {
+								return (ipHistory[b].timestamp || 0) - (ipHistory[a].timestamp || 0);
+							});
+							lastIP = sortedIPs[0];
+							countryCode = ipHistory[lastIP].countryCode || "unknown";
+						}
+
+						users.push({
+							id: userSnapshot.key,
+							status: userPresence.status || "offline",
+							lastSeen: userPresence.userLastSeen || 0,
+							countryCode: countryCode,
+							ip: lastIP
+						});
+					});
+
+					// Urutkan pengguna: online pertama, lalu offline terbaru
+					users.sort((a, b) => {
+						if (a.status === 'online' && b.status !== 'online') return -1;
+						if (a.status !== 'online' && b.status === 'online') return 1;
+						return b.lastSeen - a.lastSeen;
+					});
+
+					renderUsers();
+				} else {
+					users = [];
+					renderUsers();
+				}
+			}, (error) => {
+				console.error('Error memuat daftar pengguna:', error);
+			});
+		}
+
+		// Memuat data negara 
+		function loadCountryData(appId) {
+			const statsRef = `globalWebAnalytics/apps/${appId}/stats`;
+			const countriesRef = ref(database, `${statsRef}/countries/total`);
+
+			// Hapus listener sebelumnya jika ada
+			if (window.countryListener) {
+				window.countryListener(); // Unsubscribe dari listener sebelumnya
+			}
+
+			// Gunakan onValue untuk real-time updates
+			window.countryListener = onValue(countriesRef, (countriesSnapshot) => {
+				const countryList = document.getElementById('country-list');
+
+				if (countriesSnapshot.exists()) {
+					const countriesData = countriesSnapshot.val();
+					const countries = [];
+
+					// Mengumpulkan data negara
+					for (const [code, data] of Object.entries(countriesData)) {
+						if (code !== 'undefined') { // Filter out undefined
+							countries.push({
+								code: code,
+								count: data.count || 0
+							});
+						}
+					}
+
+					// Mengurutkan berdasarkan jumlah tertinggi
+					countries.sort((a, b) => b.count - a.count);
+
+					// Menampilkan 10 negara teratas
+					let html = '';
+					countries.slice(0, 10).forEach(country => {
+						html += `
+									<div class="d-flex justify-content-between align-items-center mb-2">
+										<div>
+											<img src="https://flagcdn.com/w20/${country.code.toLowerCase()}.png" class="country-flag" alt="${country.code}">
+											<span>${country.code}</span>
+										</div>
+										<span class="badge bg-primary rounded-pill">${formatNumber(country.count)}</span>
+									</div>
+								`;
+					});
+
+					countryList.innerHTML = html;
+
+					// Ambil 10 negara teratas
+					const topCountries = countries.slice(0, 10);
+
+					// Buat atau update chart negara
+					updateCountryChart(topCountries);
+				} else {
+					countryList.innerHTML = '<p class="text-center">No country data available</p>';
+					// Reset chart jika tidak ada data
+					if (countryChart) {
+						countryChart.destroy();
+						countryChart = null;
+					}
+				}
+			}, (error) => {
+				console.error("Error loading country data:", error);
+				document.getElementById('country-list').innerHTML = '<p class="text-center text-danger">Error loading data</p>';
+			});
+		}
+
+		// Memuat data chart 
+		function loadChartData(appId) {
+			const appPath = `globalWebAnalytics/apps/${appId}`;
+
+			// Hapus listener sebelumnya jika ada
+			if (window.chartListeners && window.chartListeners.length > 0) {
+				window.chartListeners.forEach(unsubscribe => unsubscribe());
+				window.chartListeners = [];
+			}
+
+			if (!window.chartListeners) {
+				window.chartListeners = [];
+			}
+
+			// Generate dates untuk 7 hari terakhir, 4 minggu terakhir, 6 bulan terakhir
+			const now = new Date();
+
+			// Data untuk 7 hari terakhir
+			const dailyDates = [];
+			for (let i = 6; i >= 0; i--) {
+				const date = new Date(now);
+				date.setDate(date.getDate() - i);
+				dailyDates.push(formatDate(date));
+			}
+
+			// Data untuk 4 minggu terakhir
+			const weeklyDates = [];
+			for (let i = 3; i >= 0; i--) {
+				const date = new Date(now);
+				date.setDate(date.getDate() - i * 7);
+				weeklyDates.push(formatWeek(date));
+			}
+
+			// Data untuk 6 bulan terakhir
+			const monthlyDates = [];
+			for (let i = 5; i >= 0; i--) {
+				const date = new Date(now);
+				date.setMonth(date.getMonth() - i);
+				monthlyDates.push(formatMonth(date));
+			}
+
+			// Fungsi untuk membuat listener untuk satu periode chart
+			const createChartListener = (period, dates, metric, dateIndex) => {
+				const path = `${appPath}/stats/${metric}Users/${period}/${dates[dateIndex]}/total`;
+				const refPath = ref(database, path);
+
+				const unsubscribe = onValue(refPath, (snapshot) => {
+					const count = snapshot.exists() ? snapshot.val().count || 0 : 0;
+
+					// Update data chart yang sesuai
+					updateChartData(period, metric, dateIndex, count);
+
+					// Render chart yang diperbarui
+					renderChart(period);
+				}, (error) => {
+					console.error(`Error listening to ${path}:`, error);
+				});
+
+				window.chartListeners.push(unsubscribe);
+				return unsubscribe;
+			};
+
+			// Inisialisasi struktur data chart
+			if (!window.chartData) {
+				window.chartData = {
+					daily: {
+						unique: [],
+						new: [],
+						online: [],
+						returning: []
+					},
+					weekly: {
+						unique: [],
+						new: [],
+						online: [],
+						returning: []
+					},
+					monthly: {
+						unique: [],
+						new: [],
+						online: [],
+						returning: []
+					}
+				};
+			}
+
+			// Reset data chart
+			window.chartData.daily = {
+				unique: [],
+				new: [],
+				online: [],
+				returning: []
+			};
+			window.chartData.weekly = {
+				unique: [],
+				new: [],
+				online: [],
+				returning: []
+			};
+			window.chartData.monthly = {
+				unique: [],
+				new: [],
+				online: [],
+				returning: []
+			};
+
+			// Buat listener untuk setiap data point chart
+			const metrics = ['unique', 'new', 'online', 'returning'];
+			const periods = [{
+					period: 'daily',
+					dates: dailyDates,
+					labelFunc: formatDailyLabel
+				},
+				{
+					period: 'weekly',
+					dates: weeklyDates,
+					labelFunc: formatWeeklyLabel
+				},
+				{
+					period: 'monthly',
+					dates: monthlyDates,
+					labelFunc: formatMonthlyLabel
+				}
+			];
+
+			periods.forEach(({
+				period,
+				dates,
+				labelFunc
+			}) => {
+				metrics.forEach(metric => {
+					// Inisialisasi array dengan nilai default 0
+					window.chartData[period][metric] = new Array(dates.length).fill(0);
+
+					// Buat listener untuk setiap tanggal dalam periode
+					dates.forEach((date, index) => {
+						createChartListener(period, dates, metric, index);
+					});
+				});
+
+				// Render chart awal setelah data dimuat
+				setTimeout(() => renderChart(period), 100);
+			});
+		}
+
+		// Update data chart ketika ada perubahan
+		function updateChartData(period, metric, dateIndex, count) {
+			if (window.chartData && window.chartData[period] && window.chartData[period][metric]) {
+				window.chartData[period][metric][dateIndex] = count;
+			}
+		}
+
+		// Render chart berdasarkan periode
+		function renderChart(period) {
+			const dates = getDatesForPeriod(period);
+			const labels = formatChartLabels(period, dates);
+			const data = window.chartData[period];
+
+			switch (period) {
+				case 'daily':
+					updateDailyChart(labels, data);
+					break;
+				case 'weekly':
+					updateWeeklyChart(labels, data);
+					break;
+				case 'monthly':
+					updateMonthlyChart(labels, data);
+					break;
+			}
+		}
+
+		// Fungsi utilitas untuk chart
+		function getDatesForPeriod(period) {
+			const now = new Date();
+
+			switch (period) {
+				case 'daily':
+					const dailyDates = [];
+					for (let i = 6; i >= 0; i--) {
+						const date = new Date(now);
+						date.setDate(date.getDate() - i);
+						dailyDates.push(formatDate(date));
+					}
+					return dailyDates;
+
+				case 'weekly':
+					const weeklyDates = [];
+					for (let i = 3; i >= 0; i--) {
+						const date = new Date(now);
+						date.setDate(date.getDate() - i * 7);
+						weeklyDates.push(formatWeek(date));
+					}
+					return weeklyDates;
+
+				case 'monthly':
+					const monthlyDates = [];
+					for (let i = 5; i >= 0; i--) {
+						const date = new Date(now);
+						date.setMonth(date.getMonth() - i);
+						monthlyDates.push(formatMonth(date));
+					}
+					return monthlyDates;
+
+				default:
+					return [];
+			}
+		}
+
+		function formatChartLabels(period, dates) {
+			switch (period) {
+				case 'daily':
+					return dates.map(date => {
+						const year = date.substring(0, 4);
+						const month = date.substring(4, 6);
+						const day = date.substring(6, 8);
+						return `${day}/${month}`;
+					});
+
+				case 'weekly':
+					return dates.map(week => `Minggu ${week.split('W')[1]}`);
+
+				case 'monthly':
+					return dates.map(month => {
+						const year = month.substring(0, 4);
+						const monthNum = month.substring(4, 6);
+						const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
+						return `${monthNames[parseInt(monthNum) - 1]} ${year}`;
+					});
+
+				default:
+					return dates;
+			}
+		}
+
+		// Fungsi format label yang spesifik (jika diperlukan)
+		function formatDailyLabel(date) {
+			const year = date.substring(0, 4);
+			const month = date.substring(4, 6);
+			const day = date.substring(6, 8);
+			return `${day}/${month}`;
+		}
+
+		function formatWeeklyLabel(week) {
+			return `Minggu ${week.split('W')[1]}`;
+		}
+
+		function formatMonthlyLabel(month) {
+			const year = month.substring(0, 4);
+			const monthNum = month.substring(4, 6);
+			const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
+			return `${monthNames[parseInt(monthNum) - 1]} ${year}`;
+		}
+
+		// Update chart harian
+		function updateDailyChart(labels, data) {
+			const ctx = document.getElementById('dailyChart').getContext('2d');
+
+			if (dailyChart) {
+				dailyChart.destroy();
+			}
+
+			dailyChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: labels,
+					datasets: [{
+							label: 'Pengguna Baru',
+							data: data.new,
+							borderColor: '#4cc9f0',
+							backgroundColor: 'rgba(76, 201, 240, 0.1)',
+							tension: 0.3,
+							fill: true
+						},
+						{
+							label: 'Pengguna Online',
+							data: data.online,
+							borderColor: '#3a0ca3',
+							backgroundColor: 'rgba(58, 12, 163, 0.1)',
+							tension: 0.3,
+							fill: true
+						},
+						{
+							label: 'Pengguna Kembali',
+							data: data.returning,
+							borderColor: '#f72585',
+							backgroundColor: 'rgba(247, 37, 133, 0.1)',
+							tension: 0.3,
+							fill: true
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					plugins: {
+						title: {
+							display: true,
+							text: 'Statistik Harian (7 Hari Terakhir)'
+						},
+						legend: {
+							position: 'top',
+						}
+					},
+					scales: {
+						y: {
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1
+							}
+						}
+					}
+				}
+			});
+		}
+
+		// Update chart mingguan
+		function updateWeeklyChart(labels, data) {
+			const ctx = document.getElementById('weeklyChart').getContext('2d');
+
+			if (weeklyChart) {
+				weeklyChart.destroy();
+			}
+
+			weeklyChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: labels,
+					datasets: [{
+							label: 'Pengguna Baru',
+							data: data.new,
+							backgroundColor: '#4cc9f0'
+						},
+						{
+							label: 'Pengguna Online',
+							data: data.online,
+							backgroundColor: '#3a0ca3'
+						},
+						{
+							label: 'Pengguna Kembali',
+							data: data.returning,
+							backgroundColor: '#f72585'
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					plugins: {
+						title: {
+							display: true,
+							text: `Statistik Mingguan (4 Minggu Terakhir)`
+						},
+						legend: {
+							position: 'top',
+						}
+					},
+					scales: {
+						y: {
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1
+							}
+						}
+					}
+				}
+			});
+		}
+
+		// Update chart bulanan
+		function updateMonthlyChart(labels, data) {
+			const ctx = document.getElementById('monthlyChart').getContext('2d');
+
+			if (monthlyChart) {
+				monthlyChart.destroy();
+			}
+
+			monthlyChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: labels,
+					datasets: [{
+							label: 'Pengguna Baru',
+							data: data.new,
+							borderColor: '#4cc9f0',
+							backgroundColor: 'rgba(76, 201, 240, 0.1)',
+							tension: 0.3,
+							fill: true
+						},
+						{
+							label: 'Pengguna Online',
+							data: data.online,
+							borderColor: '#3a0ca3',
+							backgroundColor: 'rgba(58, 12, 163, 0.1)',
+							tension: 0.3,
+							fill: true
+						},
+						{
+							label: 'Pengguna Kembali',
+							data: data.returning,
+							borderColor: '#f72585',
+							backgroundColor: 'rgba(247, 37, 133, 0.1)',
+							tension: 0.3,
+							fill: true
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					plugins: {
+						title: {
+							display: true,
+							text: 'Statistik Bulanan (6 Bulan Terakhir)'
+						},
+						legend: {
+							position: 'top',
+						}
+					},
+					scales: {
+						y: {
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1
+							}
+						}
+					}
+				}
+			});
+		}
+
+		// Update chart negara
+		function updateCountryChart(countries) {
+			const ctx = document.getElementById('countryChart').getContext('2d');
+
+			if (countryChart) {
+				countryChart.destroy();
+			}
+
+			const labels = countries.map(country => country.code);
+			const data = countries.map(country => country.count);
+			const backgroundColors = [
+				'#4361ee', '#4cc9f0', '#3a0ca3', '#f72585', '#7209b7',
+				'#4895ef', '#560bad', '#b5179e', '#f15bb5', '#00bbf9'
+			];
+
+			countryChart = new Chart(ctx, {
+				type: 'doughnut',
+				data: {
+					labels: labels,
+					datasets: [{
+						data: data,
+						backgroundColor: backgroundColors
+					}]
+				},
+				options: {
+					responsive: true,
+					plugins: {
+						title: {
+							display: true,
+							text: 'Top 10 Negara Pengguna'
+						},
+						legend: {
+							position: 'right',
+						}
+					}
+				}
+			});
+		}
+
+		// Render statistik
+		function renderStats() {
+			// Update counter untuk setiap periode
+			document.getElementById('daily-new').textContent = stats.daily.new;
+			document.getElementById('daily-online').textContent = stats.daily.online;
+			document.getElementById('daily-returning').textContent = stats.daily.returning;
+
+			document.getElementById('weekly-new').textContent = stats.weekly.new;
+			document.getElementById('weekly-online').textContent = stats.weekly.online;
+			document.getElementById('weekly-returning').textContent = stats.weekly.returning;
+
+			document.getElementById('monthly-new').textContent = stats.monthly.new;
+			document.getElementById('monthly-online').textContent = stats.monthly.online;
+			document.getElementById('monthly-returning').textContent = stats.monthly.returning;
+
+		}
+
+		// Render daftar pengguna
+		function renderUsers() {
+			const totalUser = document.getElementById('total-user-count');
+			const usersListElement = document.getElementById('users-list');
+			const showOfflineToggle = document.getElementById('show-offline');
+			const showOffline = showOfflineToggle.checked;
+
+
+			usersListElement.innerHTML = '';
+
+			const filteredUsers = showOffline ? users : users.filter(user => user.status !== 'offline');
+
+			if (filteredUsers.length === 0) {
+				usersListElement.innerHTML = '<div class="text-center p-3 text-muted">Tidak ada pengguna online</div>';
+				return;
+			}
+
+			totalUser.textContent = `${stats.total.unique}`;
+
+			filteredUsers.forEach(user => {
+				const userItem = document.createElement('div');
+				userItem.className = 'list-group-item user-item';
+				userItem.dataset.userId = user.id;
+
+				const lastSeenText = user.status === 'offline' ?
+					`<span class="last-seen">• ${formatLastSeen(user.lastSeen)}</span>` : '';
+
+				userItem.innerHTML = `
+							<div class="d-flex">
+								<div class="d-flex align-items-center flex-grow-1">
+									<img src="https://flagcdn.com/w20/${user.countryCode.toLowerCase()}.png" 
+										class="country-flag me-2" alt="${user.countryCode}" 
+										onerror="this.style.display='none'">
+									<span class="user-uid">${user.id}</span>
+								</div>
+								<div class="d-flex flex-column align-items-end" style="width: 100px; gap:10px">
+									<span class="badge bg-${getStatusColor(user.status)} me-2" style="width:50px">${user.status}</span>
+									<span class="last-seen">${lastSeenText}</span>							
+								</div>
+							</div>
+						`;
+
+				userItem.addEventListener('click', () => showUserDetails(user.id));
+				usersListElement.appendChild(userItem);
+			});
+		}
+
+		// Tampilkan detail pengguna 
+		async function showUserDetails(userId) {
+			const appPath = `globalWebAnalytics/apps/${currentAppId}`;
+			const userRef = ref(database, `${appPath}/users/${userId}`);
+
+			try {
+				const snapshot = await get(userRef);
+
+				if (snapshot.exists()) {
+					const userData = snapshot.val();
+					const userPresence = userData.UserPresence || {};
+					const ipHistory = userData.IPHistory || {};
+					const uidHistory = userData.FirebaseUIDHistory || {};
+
+					// Format data untuk ditampilkan
+					const userDetails = {
+						id: userId,
+						status: userPresence.status || "unknown",
+						lastSeen: formatLastSeen(userPresence.userLastSeen || 0),
+						countryCode: userPresence.countryCode || "unknown",
+						lastIP: userPresence.LastIP || "unknown",
+						lastFirebaseUID: userPresence.LastFirebaseUID || "unknown",
+						ipHistory: Object.keys(ipHistory).map(ip => ({
+							ip: ip,
+							countryCode: ipHistory[ip].countryCode || "unknown",
+							timestamp: formatTimestamp(ipHistory[ip].timestamp || 0)
+						})),
+						uidHistory: Object.keys(uidHistory).map(uid => ({
+							uid: uid,
+							timestamp: formatTimestamp(uidHistory[uid].timestamp || 0)
+						}))
+					};
+
+					// Tampilkan modal dengan detail pengguna
+					showUserModal(userDetails);
+				}
+			} catch (error) {
+				console.error('Error memuat detail pengguna:', error);
+			}
+		}
+
+		// Tampilkan modal dengan detail pengguna
+		function showUserModal(userDetails) {
+			// Hapus modal sebelumnya jika ada
+			const existingModal = document.getElementById('userModal');
+			if (existingModal) {
+				existingModal.remove();
+			}
+
+			// Buat modal HTML
+			const modalHTML = `
+						<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="userModalLabel">Detail Pengguna: ${userDetails.id}</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<div class="row mb-3">
+											<div class="col-md-6">
+												<strong>Status:</strong> 
+												<span class="badge bg-${getStatusColor(userDetails.status)}">${userDetails.status}</span>
+											</div>
+											<div class="col-md-6">
+												<strong>Terakhir Dilihat:</strong> ${userDetails.lastSeen}
+											</div>
+										</div>
+										<div class="row mb-3">
+											<div class="col-md-6">
+												<strong>Negara:</strong> 
+												<img src="https://flagcdn.com/w20/${userDetails.countryCode.toLowerCase()}.png" 
+													 class="country-flag ms-1" alt="${userDetails.countryCode}" 
+													 onerror="this.style.display='none'">
+												${userDetails.countryCode}
+											</div>
+											<div class="col-md-6">
+												<strong>IP Terakhir:</strong> ${userDetails.lastIP}
+											</div>
+										</div>
+										
+										<div class="mb-3">
+											<h6>Riwayat IP</h6>
+											<div class="table-responsive">
+												<table class="table table-sm">
+													<thead>
+														<tr>
+															<th>IP</th>
+															<th>Negara</th>
+															<th>Waktu</th>
+														</tr>
+													</thead>
+													<tbody>
+														${userDetails.ipHistory.map(ip => `
+															<tr>
+																<td>${ip.ip}</td>
+																<td>
+																	<img src="https://flagcdn.com/w20/${ip.countryCode.toLowerCase()}.png" 
+																		 class="country-flag me-1" alt="${ip.countryCode}" 
+																		 onerror="this.style.display='none'">
+																	${ip.countryCode}
+																</td>
+																<td>${ip.timestamp}</td>
+															</tr>
+														`).join('')}
+													</tbody>
+												</table>
+											</div>
+										</div>
+										
+										<div class="mb-3">
+											<h6>Riwayat Firebase UID</h6>
+											<div class="table-responsive">
+												<table class="table table-sm">
+													<thead>
+														<tr>
+															<th>UID</th>
+															<th>Waktu</th>
+														</tr>
+													</thead>
+													<tbody>
+														${userDetails.uidHistory.map(uid => `
+															<tr>
+																<td><code>${uid.uid}</code></td>
+																<td>${uid.timestamp}</td>
+															</tr>
+														`).join('')}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					`;
+
+			// Tambahkan modal ke body
+			document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+			// Tampilkan modal
+			const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+			userModal.show();
+
+			// Hapus modal dari DOM setelah ditutup
+			document.getElementById('userModal').addEventListener('hidden.bs.modal', function () {
+				this.remove();
+			});
+		}
+
+		// Fungsi utilitas
+		function formatDate(date) {
+			return `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, "0")}${String(date.getDate()).padStart(2, "0")}`;
+		}
+
+		function formatWeek(date) {
+			const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+			const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
+			const weekNumber = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+			return `${date.getFullYear()}W${String(weekNumber).padStart(2, "0")}`;
+		}
+
+		function formatMonth(date) {
+			return `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, "0")}`;
+		}
+
+		// Fungsi untuk memformat angka
+		function formatNumber(num) {
+			if (num >= 1000000) {
+				return (num / 1000000).toFixed(1) + 'M';
+			}
+			if (num >= 1000) {
+				return (num / 1000).toFixed(1) + 'K';
+			}
+			return num;
+		}
+
+		function formatLastSeen(timestamp) {
+			if (!timestamp) return 'Tidak diketahui';
+
+			const now = Date.now();
+			const diffMs = now - timestamp;
+			const diffMins = Math.floor(diffMs / 60000);
+			const diffHours = Math.floor(diffMs / 3600000);
+			const diffDays = Math.floor(diffMs / 86400000);
+
+			if (diffMins < 1) return 'Baru saja';
+			if (diffMins < 60) return `${diffMins} menit lalu`;
+			if (diffHours < 24) return `${diffHours} jam lalu`;
+			return `${diffDays} hari lalu`;
+		}
+
+		function formatTimestamp(timestamp) {
+			if (!timestamp) return 'Tidak diketahui';
+			return new Date(timestamp).toLocaleString('id-ID');
+		}
+
+		function getStatusColor(status) {
+			switch (status) {
+				case 'online':
+					return 'success';
+				case 'idle':
+					return 'warning';
+				case 'offline':
+					return 'secondary';
+				default:
+					return 'secondary';
+			}
+		}
+
+		// Event listeners
+		document.getElementById('show-offline').addEventListener('change', renderUsers);
+
+		// Inisialisasi dashboard
+		document.addEventListener('DOMContentLoaded', () => {
+			loadAppsList();
+		});
     </script>
 </body>
 </html>

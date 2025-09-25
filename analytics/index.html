@@ -3,405 +3,656 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analytics Dashboard</title>
+    <title>Realtime Analytics</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-		:root {
-			--sidebar-width: 250px;
-			--primary-color: #4361ee;
-			--secondary-color: #3a0ca3;
-			--success-color: #4cc9f0;
-			--light-bg: #f8f9fa;
-			--dark-bg: #212529;
-		}
+        :root {
+            --sidebar-width: 250px;
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --success-color: #4cc9f0;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+        }
 
-		body {
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background-color: #f5f7fb;
-			overflow-x: hidden;
-		}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fb;
+            overflow-x: hidden;
+        }
 
-		.sidebar {
-			width: var(--sidebar-width);
-			height: 100vh;
-			position: fixed;
-			top: 0;
-			left: 0;
-			background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-			color: white;
-			z-index: 1000;
-			box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-			transition: all 0.3s;
-		}
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
 
-		.sidebar-header {
-			padding: 1.5rem 1rem;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		}
+        .sidebar-header {
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-		.sidebar-header h3 {
-			font-weight: 600;
-			margin: 0;
-			font-size: 1.2rem;
-		}
+        .sidebar-header h3 {
+            font-weight: 600;
+            margin: 0;
+            font-size: 1.2rem;
+        }
 
-		.app-item {
-			border: none;
-			border-radius: 0.5rem;
-			margin-bottom: 0.25rem;
-			background: transparent;
-			color: rgba(255, 255, 255, 0.8);
-			transition: all 0.2s;
-			cursor: pointer;
-		}
+        .app-item {
+            border: none;
+            border-radius: 0.5rem;
+            margin-bottom: 0.25rem;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
 
-		.app-item:hover,
-		.app-item.active {
-			background: rgba(255, 255, 255, 0.1);
-			color: white;
-		}
+        .app-item:hover,
+        .app-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
 
-		.main-content {
-			margin-left: var(--sidebar-width);
-			padding: 1.5rem;
-			min-height: 100vh;
-		}
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
 
-		.dashboard-header {
-			background: white;
-			border-radius: 0.5rem;
-			padding: 1.5rem;
-			margin-bottom: 1.5rem;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-		}
+        .dashboard-header {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
 
-		.stat-card {
-			background: white;
-			border-radius: 0.5rem;
-			padding: 1.5rem;
-			margin-bottom: 1.5rem;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-			transition: transform 0.2s;
-		}
+        .stat-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
 
-		.stat-card:hover {
-			transform: translateY(-5px);
-		}
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
 
-		.stat-period {
-			font-size: 0.9rem;
-			color: #6c757d;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-		}
+        .stat-period {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-		.stat-value {
-			font-size: 2rem;
-			font-weight: 700;
-			color: var(--primary-color);
-			margin: 0.5rem 0;
-		}
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
 
-		.stat-label {
-			font-size: 0.9rem;
-			color: #6c757d;
-		}
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
 
-		.chart-panel {
-			background: white;
-			border-radius: 0.5rem;
-			padding: 1.5rem;
-			margin-bottom: 1.5rem;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-		}
+        .chart-panel {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
 
-		.chart-container {
+        .chart-container {
+            position: relative;
+			width: 100%;
+            height: 18.75rem;
+        }
+
+        .users-panel {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-card,
+        .total-user,
+        .country-card {
+            background: white;
+            height: 500px;
+            width: 100%;
+            overflow: hidden;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .user-card h5,
+        .total-user h5,
+        .country-card h5 {
+            border-bottom: 1px solid #009999;
+            padding-bottom: 15px;
+        }
+
+        #total-user-count {
+            height: 400px;
+            width: 100%;
+            font-size: 5rem;
+            font-weight: 900;
+            color: #0099ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #users-list, #country-list {
+            height: 350px;
+            overflow-y: auto;
+        }
+
+		#users-list-virtual{
 			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 300px;
-			width: 100%;
+			flex-direction: column;
+			gap: 10px;
 		}
+		
+        .user-item {
+            cursor: pointer;
+            transition: background-color 0.2s;
+			box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.3);
+			padding: 5px;
+			border-radius: 5px;
+        }
 
-		.users-panel {
-			background: white;
-			border-radius: 0.5rem;
-			padding: 1.5rem;
-			margin-bottom: 1.5rem;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-		}
+        .user-item:hover {
+            background-color: #f8f9fa;
+        }
 
-		.user-card,
-		.total-user,
-		.country-card {
-			background: white;
-			height: 500px;
-			width: 100%;
-			overflow: hidden;
-			padding: 1.5rem;
-			margin-bottom: 1.5rem;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-			position: relative;
-		}
+        .country-flag {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+			box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.3);
+			margin-right: 5px;
+        }
+		
+        .mini-country-flag {
+            width: 15px;
+            height: 10px;
+            border-radius: 3px;
+			box-shadow: 0 2px 1px rgba(0,0,0,0.3);
+        }		
 
-		.user-card h5,
-		.total-user h5,
-		.country-card h5 {
-			border-bottom: 1px solid #009999;
-			padding-bottom: 15px;
-		}
+        .last-seen {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
 
-		#total-user-count {
-			height: 400px;
-			width: 100%;
-			font-size: 5rem;
-			font-weight: 900;
-			color: #0099ff;
-		}
+        .toggle-offline {
+            display: flex;
+            justify-content: right;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 10px;
+        }
 
-		#users-list, #country-list {
-			height: 350px;
-			overflow-y: auto;
-		}
+        #daily-new,
+        #weekly-new,
+        #monthly-new {
+            color: #4cc9f0;
+        }
 
-		.user-item {
-			cursor: pointer;
-			transition: background-color 0.2s;
-		}
+        #daily-online,
+        #weekly-online,
+        #monthly-online {
+            color: #3a0ca3;
+        }
 
-		.user-item:hover {
-			background-color: #f8f9fa;
-		}
+        #daily-returning,
+        #weekly-returning,
+        #monthly-returning {
+            color: #f72585;
+        }
 
-		.country-flag {
-			width: 20px;
-			height: 15px;
-			object-fit: cover;
-			border-radius: 2px;
-		}
+        h5 i {
+            color: #009999;
+        }
 
-		.last-seen {
-			font-size: 0.8rem;
-			color: #6c757d;
-		}
+        /* Loading Styles */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            border-radius: 0.5rem;
+        }
 
-		.toggle-offline {
-			display: flex;
-			justify-content: right;
-			align-items: center;
-			gap: 0.5rem;
-			margin-bottom: 10px;
-		}
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #009999;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-		#daily-new,
-		#weekly-new,
-		#monthly-new {
-			color: #4cc9f0;
-		}
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-		#daily-online,
-		#weekly-online,
-		#monthly-online {
-			color: #3a0ca3;
-		}
+        .loading-text {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
 
-		#daily-returning,
-		#weekly-returning,
-		#monthly-returning {
-			color: #f72585;
-		}
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-		h5 i {
-			color: #009999;
-		}
+        @media (max-width: 1023px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
 
-		@media (max-width: 1023px) {
-			.sidebar {
-				width: 100%;
-				height: auto;
-				position: relative;
-			}
+            .main-content {
+                margin-left: 0;
+            }
 
-			.main-content {
-				margin-left: 0;
-			}
+            .chart-container {
+                height: 15.625rem;
+            }
 
-			.chart-container {
-				height: 250px;
-			}
+            .total-user {
+                height: 200px
+            }
 
-			.total-user {
-				height: 200px
-			}
+            #total-user-count {
+                height: 100px
+            }
+        }
+		
+/* Styles untuk Search dan Toggle */
+.search-container {
+    display: block;
+}
 
-			#total-user-count {
-				height: 100px
-			}
-		}
+.apps-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.apps-container.collapsed {
+    max-height: 150px; /* Hanya cukup untuk 3 item */
+    overflow-y: hidden;
+}
+
+.apps-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.apps-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.apps-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.apps-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Sembunyikan search di desktop jika ingin, atau biarkan selalu tampil */
+@media (min-width: 1024px) {
+    .search-container {
+        display: block; /* atau none jika ingin sembunyikan di desktop */
+    }
+    
+    .apps-container {
+        max-height: none !important;
+        overflow-y: visible !important;
+    }
+    
+    #toggle-apps {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1023px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+    
+    .apps-container.collapsed .app-item:nth-child(n+4) {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}	
+
+.user-item {
+  position: relative;
+}
+
+.user-item-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.1; 
+  z-index: 0;
+  pointer-events: none; 
+}
     </style>
 </head>
 <body>
 	<!-- Sidebar -->
 	<div class="sidebar">
 		<div class="sidebar-header">
-			<h3>Analytics Dashboard</h3>
+			<h3>Realtime Analytics</h3>
 		</div>
 		<div class="sidebar-content p-3">
+			<!-- Input Pencarian -->
+			<div class="search-container mb-3">
+				<div class="input-group input-group-sm">
+					<span class="input-group-text bg-light border-0">
+						<i class="fas fa-search text-muted"></i>
+					</span>
+					<input type="text" class="form-control border-0 bg-light" id="app-search" placeholder="Cari project...">
+				</div>
+			</div>
+			
 			<h6 class="text-uppercase text-white-50 small mb-3">Pilih Project</h6>
-			<ul class="list-group list-group-flush" id="apps-list">
-				<!-- Daftar aplikasi akan diisi oleh JavaScript -->
-			</ul>
-		</div>
-	</div>
-	<!-- Main Content -->
-	<div class="main-content">
-		<!-- Dashboard Header -->
-		<div class="dashboard-header">
-			<div class="d-flex justify-content-center align-items-center">
-				<h2 id="app-title">Analytics Dashboard</h2>
-			</div>
-		</div>
-		<!-- User Section -->
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="total-user">
-					<h5 class="mb-3"><i class="fa-solid fa-users-viewfinder"></i> Jumlah Pengguna</h4>
-					<p class="d-flex justify-content-center align-items-center" id="total-user-count"></p>
-				</div>
-			</div>
-			<!-- Daftar Pengguna -->
-			<div class="col-lg-4">
-				<div class="user-card">
-					<div class="user-card-header d-flex flex-column">
-						<h5 class="mb-3"><i class="fa-solid fa-users"></i> Daftar Pengguna</h4>
-						<div class="toggle-offline">
-							<input type="checkbox" class="btn-check" id="show-offline" autocomplete="on">
-							<label class="btn btn-outline-primary btn-sm" for="show-offline">
-							<i class="bi bi-eye"></i> Offline
-							</label>
-						</div>
+			
+			<!-- Container untuk Apps List dengan Scroll -->
+			<div class="apps-container" id="apps-container">
+				<ul class="list-group list-group-flush" id="apps-list">
+					<!-- Loading state for apps list -->
+					<div class="loading-container">
+						<div class="loading-spinner"></div>
+						<div class="loading-text text-white">Memuat daftar aplikasi...</div>
 					</div>
-					<div class="list-group" id="users-list">
-						<!-- Daftar pengguna akan diisi oleh JavaScript -->
-					</div>
-				</div>
+				</ul>
 			</div>
-			<!-- Daftar Negara -->
-			<div class="col-lg-4">
-				<div class="country-card">
-					<h5 class="mb-3"><i class="fa-solid fa-earth-europe"></i> Daftar Negara</h4>
-					<div class="list-group" id="country-list">
-						<!-- Daftar pengguna akan diisi oleh JavaScript -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Statistik Cards -->
-		<div class="row">
-			<!-- Harian -->
-			<div class="col-md-6 col-lg-4">
-				<div class="stat-card">
-					<div class="stat-period"><i class="fa-solid fa-calendar"></i> Hari ini</div>
-					<div class="row text-center">
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="daily-new">0</div>
-							<div class="stat-label">Pengguna baru</div>
-						</div>
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="daily-online">0</div>
-							<div class="stat-label">Pengguna Online</div>
-						</div>
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="daily-returning">0</div>
-							<div class="stat-label">Pengguna Kembali</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Mingguan -->
-			<div class="col-md-6 col-lg-4">
-				<div class="stat-card">
-					<div class="stat-period"><i class="fa-solid fa-calendar"></i> Minggu ini</div>
-					<div class="row text-center">
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="weekly-new">0</div>
-							<div class="stat-label">Pengguna baru</div>
-						</div>
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="weekly-online">0</div>
-							<div class="stat-label">Pengguna Online</div>
-						</div>
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="weekly-returning">0</div>
-							<div class="stat-label">Pengguna Kembali</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Bulanan -->
-			<div class="col-md-6 col-lg-4">
-				<div class="stat-card">
-					<div class="stat-period"><i class="fa-solid fa-calendar"></i> Bulan Ini</div>
-					<div class="row text-center">
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="monthly-new">0</div>
-							<div class="stat-label">Pengguna baru</div>
-						</div>
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="monthly-online">0</div>
-							<div class="stat-label">Pengguna Online</div>
-						</div>
-						<div class="col-4 mt-3">
-							<div class="stat-value" id="monthly-returning">0</div>
-							<div class="stat-label">Pengguna Kembali</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Chart Section -->
-		<div class="row">
-			<!-- Chart Harian -->
-			<div class="col-lg-6">
-				<div class="chart-panel">
-					<div class="chart-container">
-						<canvas id="dailyChart"></canvas>
-					</div>
-				</div>
-			</div>
-			<!-- Chart Mingguan -->
-			<div class="col-lg-6">
-				<div class="chart-panel">
-					<div class="chart-container">
-						<canvas id="weeklyChart"></canvas>
-					</div>
-				</div>
-			</div>
-			<!-- Chart Bulanan -->
-			<div class="col-lg-6">
-				<div class="chart-panel">
-					<div class="chart-container">
-						<canvas id="monthlyChart"></canvas>
-					</div>
-				</div>
-			</div>
-			<!-- Chart Negara -->
-			<div class="col-lg-6">
-				<div class="chart-panel">
-					<div class="chart-container">
-						<canvas id="countryChart"></canvas>
-					</div>
-				</div>
+			
+			<!-- Tombol Toggle untuk Mobile -->
+			<div class="d-lg-none mt-3">
+				<button class="btn btn-outline-light btn-sm w-100" id="toggle-apps">
+					<i class="fas fa-chevron-down me-1"></i> Lihat Semua
+				</button>
 			</div>
 		</div>
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="./jquery-3.6.0.min.js"></script>
-	<script type="module">
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="d-flex justify-content-center align-items-center">
+                <h2 id="app-title">Realtime Analytics</h2>
+            </div>
+        </div>
+        
+        <!-- User Section -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="total-user">
+                    <h5 class="mb-3"><i class="fa-solid fa-users-viewfinder"></i> Jumlah Pengguna</h5>
+                    <div class="position-relative">
+                        <p class="d-flex justify-content-center align-items-center" id="total-user-count">0</p>
+                        <!-- Loading state for total users -->
+                        <div class="loading-overlay" id="total-users-loading">
+                            <div class="loading-container">
+                                <div class="loading-spinner"></div>
+                                <div class="loading-text">Memuat jumlah pengguna...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Daftar Pengguna -->
+            <div class="col-lg-4">
+                <div class="user-card">
+                    <div class="user-card-header d-flex flex-column">
+                        <h5 class="mb-3"><i class="fa-solid fa-users"></i> Daftar Pengguna</h5>
+                        <div class="toggle-offline">
+                            <input type="checkbox" class="btn-check" id="show-offline" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm" id="show-offline-label" for="show-offline">Loading...</label>
+                        </div>
+                    </div>
+                    <div class="position-relative" style="height: 100%;">
+                        <div class="list-group" id="users-list" style="height: 350px; overflow-y: auto; position: relative;">
+                            <!-- Loading state for users list -->
+							<div id="users-list-virtual" style="position: relative;"></div>
+							<div class="loading-overlay" id="users-list-loading">
+								<div class="loading-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+									<div class="loading-spinner"></div>
+									<div class="loading-text">Memuat daftar pengguna...</div>
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Daftar Negara -->
+            <div class="col-lg-4">
+                <div class="country-card">
+                    <h5 class="mb-3"><i class="fa-solid fa-earth-europe"></i> Daftar Negara</h5>
+                    <div class="position-relative" style="height: 100%;">
+                        <div class="list-group" id="country-list">
+                            <!-- Loading state for country list -->
+                            <div class="loading-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                <div class="loading-spinner"></div>
+                                <div class="loading-text">Memuat daftar negara...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistik Cards -->
+        <div class="row">
+            <!-- Harian -->
+            <div class="col-md-6 col-lg-4">
+                <div class="stat-card position-relative">
+                    <!-- Loading state for daily stats -->
+                    <div class="loading-overlay" id="daily-stats-loading">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Memuat statistik harian...</div>
+                        </div>
+                    </div>
+                    <div class="stat-period"><i class="fa-solid fa-calendar"></i> Hari ini</div>
+                    <div class="row text-center">
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="daily-new">0</div>
+                            <div class="stat-label">Pengguna baru</div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="daily-online">0</div>
+                            <div class="stat-label">Pengguna Online</div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="daily-returning">0</div>
+                            <div class="stat-label">Pengguna Kembali</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mingguan -->
+            <div class="col-md-6 col-lg-4">
+                <div class="stat-card position-relative">
+                    <!-- Loading state for weekly stats -->
+                    <div class="loading-overlay" id="weekly-stats-loading">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Memuat statistik mingguan...</div>
+                        </div>
+                    </div>
+                    <div class="stat-period"><i class="fa-solid fa-calendar"></i> Minggu ini</div>
+                    <div class="row text-center">
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="weekly-new">0</div>
+                            <div class="stat-label">Pengguna baru</div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="weekly-online">0</div>
+                            <div class="stat-label">Pengguna Online</div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="weekly-returning">0</div>
+                            <div class="stat-label">Pengguna Kembali</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bulanan -->
+            <div class="col-md-6 col-lg-4">
+                <div class="stat-card position-relative">
+                    <!-- Loading state for monthly stats -->
+                    <div class="loading-overlay" id="monthly-stats-loading">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Memuat statistik bulanan...</div>
+                        </div>
+                    </div>
+                    <div class="stat-period"><i class="fa-solid fa-calendar"></i> Bulan Ini</div>
+                    <div class="row text-center">
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="monthly-new">0</div>
+                            <div class="stat-label">Pengguna baru</div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="monthly-online">0</div>
+                            <div class="stat-label">Pengguna Online</div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <div class="stat-value" id="monthly-returning">0</div>
+                            <div class="stat-label">Pengguna Kembali</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chart Section -->
+        <div class="row">
+            <!-- Chart Harian -->
+            <div class="col-lg-6">
+                <div class="chart-panel position-relative">
+                    <!-- Loading state for daily chart -->
+                    <div class="loading-overlay" id="daily-chart-loading">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Memuat chart harian...</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="dailyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chart Mingguan -->
+            <div class="col-lg-6">
+                <div class="chart-panel position-relative">
+                    <!-- Loading state for weekly chart -->
+                    <div class="loading-overlay" id="weekly-chart-loading">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Memuat chart mingguan...</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chart Bulanan -->
+            <div class="col-lg-6">
+                <div class="chart-panel position-relative">
+                    <!-- Loading state for monthly chart -->
+                    <div class="loading-overlay" id="monthly-chart-loading">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Memuat chart bulanan...</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chart Negara -->
+            <div class="col-lg-6">
+                <div class="chart-panel position-relative">
+                    <!-- Loading state for country chart -->
+                    <div class="loading-overlay" id="country-chart-loading">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Memuat chart negara...</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="countryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module">
 		import {
 			initializeApp
 		} from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
@@ -430,11 +681,8 @@
 			appId: "1:603884890926:web:d9f20d4cd2f639eea2e8bf",
 			measurementId: "G-S1L9NR2Z4M"
 		};
-
-const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzNTYxMzUzODM2NjIzNjM5MzQ2NjM2MzkzNDYxMzQzMjM1MzMzNTM4MzczMDM2MzgzNTM1MzMzMzM2NjMzNDMyMzUzMjMzMzEzNjM3MzczNDM1NjEzNTM3MzYzODM0MzczNDY1MzUzODM0MzIzNTM1MzUzOTMzMzMzNzMwMzUzNzM1NjEzNjYxMzUzNjM3MzkzNTMzMzQzNDM1NjEzMzMwMzUzMTM1MzUzNzM4MzQ2NDM1MzYzMzMzMzQzMjM0MzUzNjMxMzQzNjM0MzkzNzYxMzUzMzM2NjQzNjYzMzMzNDM1MzIzNjYyMzUzNTM2MzkzNDYzMzQzMzM0NjEzNjM4MzYzNDM1MzgzNTMyMzY2NjM1MzIzNDM3MzMzOTM3MzQzNTM5MzUzNzM2NjMzNzM1MzQzOTM2NjEzNjY2MzYzOTM2MzQzMzMyMzUzNjM2MzkzNDYzMzUzNzM0MzYzNzM1MzUzOTM1MzczNzM4MzMzNTM2MzQzNDM3MzY2MzM2NjEzNjMzMzczOTMzMzAzMzMyMzQ2NTMzMzIzNTYxMzYzOTM1NjEzNjM5MzMzNTM2NjQzNjMxMzUzODM0NjEzNjYzMzUzOTM2NjQzNDM2Mzc2MTM1NjEzNTM3MzQzNjM3MzczNjMzMzQzMzMzMzUzNjYxMzYzMjMzMzIzMzMwMzYzOTM0NjMzNDMzMzQ2MTM2NjIzNTM5MzUzODM1MzIzNjM4MzUzOTM2NjQzNDM2Mzc2MTM1NjEzNTM2MzUzNjM1MzMzNTM0MzQzMzM0MzkzMzM2MzQzOTM2NjQzNjM4MzMzMDM2MzQzNDM4MzQzMjM3NjEzNDY2MzYzOTMzMzgzNzM2MzYzNDMzMzIzNTM2MzYzOTM0NjMzNTM3MzQzNjM3MzUzNTM5MzUzNzM3MzgzMzM1MzYzNDM0MzczNjYzMzY2MTM2MzMzNzM5MzMzMDMzMzIzNDY1MzMzMjM1NjEzNjM5MzU2MTM2MzkzMzMxMzY2MjM1NjEzNTM3MzU2MTM2MzgzNjM0MzUzNzM3MzgzMzMwMzQ2MzM1MzgzNDYxMzMzMDM1NjEzNDM3MzQzOTM3MzUzNTM5MzUzODM0NjUzNzMwMzUzOTM1MzMzMzMxMzc2MTM2MzIzMzMzMzUzNjMzMzAzNjMxMzQzNzM1MzYzNjM4MzYzMzMzMzMzNTMxMzczODM0NjMzNjY0MzU2MTM3MzAzNjMzMzY2NDM1MzYzNjM5MzUzOTM1MzgzNDY1MzY2MzM1NjEzNDM3MzQzNjMzMzAzNTM5MzUzNzM0NjEzNjM4MzYzMzMzMzIzNTM1MzczNTM1MzkzNTM4MzQzMjM3MzczNDM5MzYzOTM3MzczNjM5MzYzMzM0MzgzNDYxMzczNjM2MzEzNjY0MzUzNjM2NjEzNjM0MzQzNTM2NjMzNjYyMzQzOTM2NjEzNjY2MzYzNzM0MzkzNjY1MzYzNDM2NjMzNTM5MzYzOTMzMzEzNjM4MzYzMjM2NjQzNDM2MzczMzM2MzUzNTM4MzUzMjM3MzAzNTM5MzMzMzM0NjQzNzM0MzQ2NTM2NjEzNjM0MzY2NDM1MzkzNjY0MzUzOTM2MzkzNDYzMzQzMzM0NjEzNzYxMzYzNDM0MzczMzM5MzczOTM1MzkzNTM3MzYzNDM2NjMzNTMxMzY2NTM1MzYzNjYxMzYzMTMzMzIzNTM2MzMzMDM0MzkzNjYxMzY2NjM2MzkzNjM0MzMzMjM1MzYzNjM5MzQ2MzM1MzczNDM2MzczNTM1MzkzNTM3MzczODMzMzUzNjM0MzQzNzM2NjMzNjYxMzYzMzM3MzkzMzMwMzMzMjM0NjUzMzMyMzU2MTM2MzkzNTYxMzYzOTMzMzUzNjY0MzYzMTM1MzgzNDYxMzY2MzM1MzkzNjY0MzQzNjM3NjEzNTYxMzUzODM0NjUzMzMwMzYzMjMzMzMzNDYxMzYzODM1NjEzMzMyMzUzNTM3MzUzNTM5MzUzODM0MzIzNzM3MzQzOTM2MzkzNzM3MzYzOTM2MzIzNTM3MzUzNjM3NjEzNjMzMzMzMjM0MzYzNjY1MzYzMTM1MzczMzM1MzY2NTM1MzUzMzMyMzUzNjM3MzUzNTYxMzQzNzM1MzYzNzM5MzUzMzM1MzczNTMxMzYzOTM0NjYzNjM5MzQzOTMzMzIzNDY0MzQzNDM0NjQzMzM0MzQ2NjM0MzQzNTMxMzMzNDM0NjYzNTM0MzQzMTMzMzUzNDY0MzY2MTM1MzkzNjM5MzQ2MzM0MzMzNDYxMzYzODM2MzMzNDM4MzQzMjM0NjEzNTYxMzQzMzM0MzkzMzM2MzQzOTM2NjEzNDM1MzMzNjM0NjUzNjYxMzQzMTM3NjEzNDY2MzQzNDM2MzczMzMwMzQ2NjM0MzQzNjYyMzczNzM0NjYzNTM0MzQzOTMzMzIzNDY2MzY2NTM2MzQzNjYzMzUzOTM2NjEzNzMwMzY2MjM0NjYzNTM3MzUzOTM3MzkzNDY0MzQzNzM1MzEzMzMwMzUzOTMzMzIzNTMxMzczOTM1NjEzNjYxMzUzOTM3NjEzNDY2MzUzNzM1MzYzNjYzMzUzOTM1MzQzNDYxMzY2MzM0NjYzNDM3MzQ2MTM2NjQzNDM5MzYzOTM3MzczNjM5MzYzMjM1MzczNTM2MzYzODM2MzMzMzMzMzUzNjM3MzkzNTYxMzUzNzMzMzEzNjYzMzYzMjM2NjUzNTMyMzQ2MTM1NjEzNDMzMzQzOTMzMzYzNDM5MzY2MjM2MzMzNzM0MzUzNTM3NjEzNDM2MzQ2NDM0NjYzNTM1MzMzNTM1MzMzNDY0MzY2MzM2NjYzMzMwMzUzNDM1MzMzNDYxMzMzOQ'))));
-
-		const crex = JSON.parse(crexs);
-		const app = initializeApp(crex, "analytics-dashboard");
+		
+		const app = initializeApp(firebaseConfig, "analytics-dashboard");
 		const database = getDatabase(app);
 
 		// Variabel global
@@ -443,28 +691,24 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 		let users = [];
 		let stats = {
 			daily: {
-				unique: 0,
 				new: 0,
 				online: 0,
 				returning: 0,
 				countries: {}
 			},
 			weekly: {
-				unique: 0,
 				new: 0,
 				online: 0,
 				returning: 0,
 				countries: {}
 			},
 			monthly: {
-				unique: 0,
 				new: 0,
 				online: 0,
 				returning: 0,
 				countries: {}
 			},
 			total: {
-				unique: 0,
 				new: 0,
 				online: 0,
 				returning: 0,
@@ -475,9 +719,44 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 		// Variabel untuk chart
 		let dailyChart, weeklyChart, monthlyChart, countryChart;
 
+		// Variabel untuk manajemen listener
+		let statsListeners = [];
+		let usersListener = null;
+		let countryListener = null;
+		let chartListeners = [];
+
+		// Variabel untuk state toggle
+		let isAppsExpanded = false;
+		let filteredApps = [];
+
+		// Variabel untuk virtual scrolling
+		let visibleUsers = [];
+		let startIndex = 0;
+		let endIndex = 0;
+		const itemHeight = 60; // Tinggi per item dalam px
+		let visibleItemCount = 0;
+
+		// Fungsi untuk menampilkan loading state
+		function showLoading(elementId) {
+			const element = document.getElementById(elementId);
+			if (element) {
+				element.style.display = 'flex';
+			}
+		}
+
+		// Fungsi untuk menyembunyikan loading state
+		function hideLoading(elementId) {
+			const element = document.getElementById(elementId);
+			if (element) {
+				element.style.display = 'none';
+			}
+		}
+
 		// Fungsi untuk memuat daftar aplikasi
 		async function loadAppsList() {
 			try {
+				showLoading('apps-list-loading');
+
 				const appsRef = ref(database, 'globalWebAnalytics/apps');
 				const snapshot = await get(appsRef);
 
@@ -489,7 +768,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 						path: `globalWebAnalytics/apps/${key}`
 					}));
 
-					renderAppsList();
+					renderAppsList(); // Ganti dari renderAppsList() sebelumnya
 
 					// Pilih aplikasi pertama secara default
 					if (appsList.length > 0 && !currentAppId) {
@@ -498,18 +777,43 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					}
 				} else {
 					console.error('Tidak ada data aplikasi ditemukan');
+					document.getElementById('apps-list').innerHTML = '<div class="text-center p-3 text-white">Tidak ada aplikasi ditemukan</div>';
 				}
 			} catch (error) {
 				console.error('Error memuat daftar aplikasi:', error);
+				document.getElementById('apps-list').innerHTML = '<div class="text-center p-3 text-white">Gagal memuat daftar aplikasi</div>';
+			} finally {
+				hideLoading('apps-list-loading');
 			}
 		}
+
+		// Handle resize window untuk reset state
+		window.addEventListener('resize', function () {
+			if (window.innerWidth >= 1024) {
+				// Di desktop, selalu expanded
+				isAppsExpanded = true;
+				updateToggleButton();
+			} else {
+				// Di mobile, reset ke collapsed
+				isAppsExpanded = false;
+				updateToggleButton();
+			}
+		});
 
 		// Render daftar aplikasi di sidebar
 		function renderAppsList() {
 			const appsListElement = document.getElementById('apps-list');
 			appsListElement.innerHTML = '';
 
-			appsList.forEach(app => {
+			// Gunakan filteredApps jika ada pencarian,否则 gunakan semua apps
+			const appsToShow = filteredApps.length > 0 ? filteredApps : appsList;
+
+			if (appsToShow.length === 0) {
+				appsListElement.innerHTML = '<div class="text-center p-3 text-white">Tidak ada aplikasi ditemukan</div>';
+				return;
+			}
+
+			appsToShow.forEach(app => {
 				const listItem = document.createElement('li');
 				listItem.className = `list-group-item app-item ${app.id === currentAppId ? 'active' : ''}`;
 				listItem.innerHTML = `
@@ -522,11 +826,64 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					document.querySelectorAll('.app-item').forEach(item => item.classList.remove('active'));
 					listItem.classList.add('active');
 					loadAppData(app.id);
+
+					// Reset pencarian setelah memilih app
+					document.getElementById('app-search').value = '';
+					filteredApps = [];
+					updateToggleButton();
 				});
 
 				appsListElement.appendChild(listItem);
 			});
+
+			// Update tombol toggle
+			updateToggleButton();
 		}
+
+		// Fungsi untuk update tombol toggle
+		function updateToggleButton() {
+			const toggleButton = document.getElementById('toggle-apps');
+			const appsContainer = document.getElementById('apps-container');
+			const appsToShow = filteredApps.length > 0 ? filteredApps : appsList;
+
+			if (appsToShow.length <= 3) {
+				toggleButton.style.display = 'none';
+				appsContainer.classList.remove('collapsed');
+			} else {
+				toggleButton.style.display = 'block';
+
+				if (!isAppsExpanded) {
+					appsContainer.classList.add('collapsed');
+					toggleButton.innerHTML = '<i class="fas fa-chevron-down me-1"></i> Lihat Semua (' + (appsToShow.length - 3) + ')';
+				} else {
+					appsContainer.classList.remove('collapsed');
+					toggleButton.innerHTML = '<i class="fas fa-chevron-up me-1"></i> Sembunyikan';
+				}
+			}
+		}
+
+		// Fungsi untuk filter apps berdasarkan nama
+		function filterApps(searchTerm) {
+			if (!searchTerm) {
+				filteredApps = [];
+			} else {
+				filteredApps = appsList.filter(app =>
+					app.name.toLowerCase().includes(searchTerm.toLowerCase())
+				);
+			}
+			renderAppsList();
+		}
+
+		// Event listener untuk pencarian
+		document.getElementById('app-search').addEventListener('input', function (e) {
+			filterApps(e.target.value);
+		});
+
+		// Event listener untuk tombol toggle
+		document.getElementById('toggle-apps').addEventListener('click', function () {
+			isAppsExpanded = !isAppsExpanded;
+			updateToggleButton();
+		});
 
 		// Memuat data aplikasi yang dipilih
 		async function loadAppData(appId) {
@@ -534,7 +891,19 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 				// Update judul dashboard
 				const appName = appsList.find(app => app.id === appId)?.name;
 				document.getElementById('app-title').innerHTML =
-					`<i class="fa-solid fa-chart-line"></i> Laporan untuk <span style="color: #009999; font-weight: 900"> ${appName}</span>` || 'Analytics Dashboard';
+					`<i class="fa-solid fa-chart-line"></i> Laporan untuk <span style="color: #009999; font-weight: 900"> ${appName}</span>` || 'Realtime Analytics';
+
+				// Tampilkan loading untuk semua bagian
+				showLoading('total-users-loading');
+				showLoading('users-list-loading');
+				showLoading('country-list-loading');
+				showLoading('daily-stats-loading');
+				showLoading('weekly-stats-loading');
+				showLoading('monthly-stats-loading');
+				showLoading('daily-chart-loading');
+				showLoading('weekly-chart-loading');
+				showLoading('monthly-chart-loading');
+				showLoading('country-chart-loading');
 
 				// Muat statistik
 				await loadStats(appId);
@@ -563,18 +932,13 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 			const thisMonth = formatMonth(now);
 
 			// Hapus listener sebelumnya jika ada
-			if (window.statsListeners && window.statsListeners.length > 0) {
-				window.statsListeners.forEach(unsubscribe => unsubscribe());
-				window.statsListeners = [];
-			}
-
-			if (!window.statsListeners) {
-				window.statsListeners = [];
+			if (statsListeners.length > 0) {
+				statsListeners.forEach(unsubscribe => unsubscribe());
+				statsListeners = [];
 			}
 
 			// Paths untuk statistik harian
 			const dailyPaths = {
-				unique: `${appPath}/stats/uniqueUsers/daily/${today}/total`,
 				new: `${appPath}/stats/newUsers/daily/${today}/total`,
 				online: `${appPath}/stats/onlineUsers/daily/${today}/total`,
 				returning: `${appPath}/stats/returningUsers/daily/${today}/total`
@@ -582,7 +946,6 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 
 			// Paths untuk statistik mingguan
 			const weeklyPaths = {
-				unique: `${appPath}/stats/uniqueUsers/weekly/${thisWeek}/total`,
 				new: `${appPath}/stats/newUsers/weekly/${thisWeek}/total`,
 				online: `${appPath}/stats/onlineUsers/weekly/${thisWeek}/total`,
 				returning: `${appPath}/stats/returningUsers/weekly/${thisWeek}/total`
@@ -590,7 +953,6 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 
 			// Paths untuk statistik bulanan
 			const monthlyPaths = {
-				unique: `${appPath}/stats/uniqueUsers/monthly/${thisMonth}/total`,
 				new: `${appPath}/stats/newUsers/monthly/${thisMonth}/total`,
 				online: `${appPath}/stats/onlineUsers/monthly/${thisMonth}/total`,
 				returning: `${appPath}/stats/returningUsers/monthly/${thisMonth}/total`
@@ -598,7 +960,6 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 
 			// Paths untuk statistik total
 			const totalPaths = {
-				unique: `${appPath}/stats/uniqueUsers/total/total`,
 				new: `${appPath}/stats/newUsers/total/total`,
 				online: `${appPath}/stats/onlineUsers/total/total`,
 				returning: `${appPath}/stats/returningUsers/total/total`
@@ -611,10 +972,15 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					const count = snapshot.exists() ? snapshot.val().count || 0 : 0;
 					stats[period][metric] = count;
 					renderStats();
+
+					// Sembunyikan loading setelah data pertama diterima
+					if (period === 'daily') hideLoading('daily-stats-loading');
+					if (period === 'weekly') hideLoading('weekly-stats-loading');
+					if (period === 'monthly') hideLoading('monthly-stats-loading');
 				}, (error) => {
 					console.error(`Error listening to ${path}:`, error);
 				});
-				window.statsListeners.push(unsubscribe);
+				statsListeners.push(unsubscribe);
 			};
 
 			// Membuat listener untuk setiap path harian
@@ -637,45 +1003,36 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 				createListener(totalPaths[metric], metric, 'total');
 			});
 		}
-		// Memuat daftar pengguna
 
+		// Memuat daftar pengguna
 		function loadUsers(appId) {
 			const appPath = `globalWebAnalytics/apps/${appId}`;
 			const usersRef = ref(database, `${appPath}/users`);
 
 			// Hapus listener sebelumnya jika ada
-			if (window.usersListener) {
-				window.usersListener(); // Unsubscribe dari listener sebelumnya
+			if (usersListener) {
+				usersListener(); // Unsubscribe dari listener sebelumnya
 			}
 
 			// Gunakan onValue untuk real-time updates
-			window.usersListener = onValue(usersRef, (snapshot) => {
+			usersListener = onValue(usersRef, (snapshot) => {
 				if (snapshot.exists()) {
 					users = [];
 					snapshot.forEach(userSnapshot => {
 						const userData = userSnapshot.val();
 						const userPresence = userData.UserPresence || {};
-						const ipHistory = userData.IPHistory || {};
 
 						// Ambil IP terbaru untuk mendapatkan negara
-						let countryCode = "unknown";
-						let lastIP = "unknown";
-
-						const ipKeys = Object.keys(ipHistory);
-						if (ipKeys.length > 0) {
-							// Urutkan berdasarkan timestamp untuk mendapatkan yang terbaru
-							const sortedIPs = ipKeys.sort((a, b) => {
-								return (ipHistory[b].timestamp || 0) - (ipHistory[a].timestamp || 0);
-							});
-							lastIP = sortedIPs[0];
-							countryCode = ipHistory[lastIP].countryCode || "unknown";
-						}
+						const countryCode = userPresence.countryCode;
+						const countryName = userPresence.countryName;
+						const lastIP = userPresence.LastIP;
 
 						users.push({
 							id: userSnapshot.key,
 							status: userPresence.status || "offline",
 							lastSeen: userPresence.userLastSeen || 0,
-							countryCode: countryCode,
+							countryCode: countryCode || countryName || "not set",
+							countryName: countryName || countryCode || "not set",
 							ip: lastIP
 						});
 					});
@@ -688,12 +1045,20 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					});
 
 					renderUsers();
+					renderTotalUsers();
+					hideLoading('users-list-loading');
+					hideLoading('total-users-loading');
 				} else {
 					users = [];
 					renderUsers();
+					renderTotalUsers();
+					hideLoading('users-list-loading');
+					hideLoading('total-users-loading');
 				}
 			}, (error) => {
 				console.error('Error memuat daftar pengguna:', error);
+				hideLoading('users-list-loading');
+				hideLoading('total-users-loading');
 			});
 		}
 
@@ -703,12 +1068,12 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 			const countriesRef = ref(database, `${statsRef}/countries/total`);
 
 			// Hapus listener sebelumnya jika ada
-			if (window.countryListener) {
-				window.countryListener(); // Unsubscribe dari listener sebelumnya
+			if (countryListener) {
+				countryListener(); // Unsubscribe dari listener sebelumnya
 			}
 
 			// Gunakan onValue untuk real-time updates
-			window.countryListener = onValue(countriesRef, (countriesSnapshot) => {
+			countryListener = onValue(countriesRef, (countriesSnapshot) => {
 				const countryList = document.getElementById('country-list');
 
 				if (countriesSnapshot.exists()) {
@@ -719,8 +1084,9 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					for (const [code, data] of Object.entries(countriesData)) {
 						if (code !== 'undefined') { // Filter out undefined
 							countries.push({
-								code: code,
-								count: data.count || 0
+								countryCode: code,
+								count: data.count || 0,
+								countryName: data.countryName || code
 							});
 						}
 					}
@@ -734,10 +1100,11 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 						html += `
 									<div class="d-flex justify-content-between align-items-center mb-2">
 										<div>
-											<img src="https://flagcdn.com/w20/${country.code.toLowerCase()}.png" class="country-flag" alt="${country.code}">
-											<span>${country.code}</span>
+											<img src="https://flagcdn.com/w20/${country.countryCode.toLowerCase()}.png" class="country-flag" alt="${country.countryCode}">
+											<span> ${country.countryName}</span>
+											<span><strong> (${country.countryCode})</strong></span>
 										</div>
-										<span class="badge bg-primary rounded-pill">${formatNumber(country.count)}</span>
+										<span class="badge bg-primary">${formatNumber(country.count)}</span>
 									</div>
 								`;
 					});
@@ -749,6 +1116,8 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 
 					// Buat atau update chart negara
 					updateCountryChart(topCountries);
+					hideLoading('country-list-loading');
+					hideLoading('country-chart-loading');
 				} else {
 					countryList.innerHTML = '<p class="text-center">No country data available</p>';
 					// Reset chart jika tidak ada data
@@ -756,10 +1125,14 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 						countryChart.destroy();
 						countryChart = null;
 					}
+					hideLoading('country-list-loading');
+					hideLoading('country-chart-loading');
 				}
 			}, (error) => {
 				console.error("Error loading country data:", error);
 				document.getElementById('country-list').innerHTML = '<p class="text-center text-danger">Error loading data</p>';
+				hideLoading('country-list-loading');
+				hideLoading('country-chart-loading');
 			});
 		}
 
@@ -768,13 +1141,9 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 			const appPath = `globalWebAnalytics/apps/${appId}`;
 
 			// Hapus listener sebelumnya jika ada
-			if (window.chartListeners && window.chartListeners.length > 0) {
-				window.chartListeners.forEach(unsubscribe => unsubscribe());
-				window.chartListeners = [];
-			}
-
-			if (!window.chartListeners) {
-				window.chartListeners = [];
+			if (chartListeners.length > 0) {
+				chartListeners.forEach(unsubscribe => unsubscribe());
+				chartListeners = [];
 			}
 
 			// Generate dates untuk 7 hari terakhir, 4 minggu terakhir, 6 bulan terakhir
@@ -821,7 +1190,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					console.error(`Error listening to ${path}:`, error);
 				});
 
-				window.chartListeners.push(unsubscribe);
+				chartListeners.push(unsubscribe);
 				return unsubscribe;
 			};
 
@@ -829,19 +1198,16 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 			if (!window.chartData) {
 				window.chartData = {
 					daily: {
-						unique: [],
 						new: [],
 						online: [],
 						returning: []
 					},
 					weekly: {
-						unique: [],
 						new: [],
 						online: [],
 						returning: []
 					},
 					monthly: {
-						unique: [],
 						new: [],
 						online: [],
 						returning: []
@@ -851,26 +1217,23 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 
 			// Reset data chart
 			window.chartData.daily = {
-				unique: [],
 				new: [],
 				online: [],
 				returning: []
 			};
 			window.chartData.weekly = {
-				unique: [],
 				new: [],
 				online: [],
 				returning: []
 			};
 			window.chartData.monthly = {
-				unique: [],
 				new: [],
 				online: [],
 				returning: []
 			};
 
 			// Buat listener untuk setiap data point chart
-			const metrics = ['unique', 'new', 'online', 'returning'];
+			const metrics = ['new', 'online', 'returning'];
 			const periods = [{
 					period: 'daily',
 					dates: dailyDates,
@@ -904,7 +1267,12 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 				});
 
 				// Render chart awal setelah data dimuat
-				setTimeout(() => renderChart(period), 100);
+				setTimeout(() => {
+					renderChart(period);
+					if (period === 'daily') hideLoading('daily-chart-loading');
+					if (period === 'weekly') hideLoading('weekly-chart-loading');
+					if (period === 'monthly') hideLoading('monthly-chart-loading');
+				}, 100);
 			});
 		}
 
@@ -1055,7 +1423,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					]
 				},
 				options: {
-					responsive: true,
+					maintainAspectRatio: false,
 					plugins: {
 						title: {
 							display: true,
@@ -1063,14 +1431,6 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 						},
 						legend: {
 							position: 'top',
-						}
-					},
-					scales: {
-						y: {
-							beginAtZero: true,
-							ticks: {
-								stepSize: 1
-							}
 						}
 					}
 				}
@@ -1086,28 +1446,37 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 			}
 
 			weeklyChart = new Chart(ctx, {
-				type: 'bar',
+				type: 'line',
 				data: {
 					labels: labels,
 					datasets: [{
 							label: 'Pengguna Baru',
 							data: data.new,
-							backgroundColor: '#4cc9f0'
+							borderColor: '#4cc9f0',
+							backgroundColor: 'rgba(76, 201, 240, 0.1)',
+							tension: 0.3,
+							fill: true
 						},
 						{
 							label: 'Pengguna Online',
 							data: data.online,
-							backgroundColor: '#3a0ca3'
+							borderColor: '#3a0ca3',
+							backgroundColor: 'rgba(58, 12, 163, 0.1)',
+							tension: 0.3,
+							fill: true
 						},
 						{
 							label: 'Pengguna Kembali',
 							data: data.returning,
-							backgroundColor: '#f72585'
+							borderColor: '#f72585',
+							backgroundColor: 'rgba(247, 37, 133, 0.1)',
+							tension: 0.3,
+							fill: true
 						}
 					]
 				},
 				options: {
-					responsive: true,
+					maintainAspectRatio: false,
 					plugins: {
 						title: {
 							display: true,
@@ -1115,14 +1484,6 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 						},
 						legend: {
 							position: 'top',
-						}
-					},
-					scales: {
-						y: {
-							beginAtZero: true,
-							ticks: {
-								stepSize: 1
-							}
 						}
 					}
 				}
@@ -1168,7 +1529,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					]
 				},
 				options: {
-					responsive: true,
+					maintainAspectRatio: false,
 					plugins: {
 						title: {
 							display: true,
@@ -1176,14 +1537,6 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 						},
 						legend: {
 							position: 'top',
-						}
-					},
-					scales: {
-						y: {
-							beginAtZero: true,
-							ticks: {
-								stepSize: 1
-							}
 						}
 					}
 				}
@@ -1198,7 +1551,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 				countryChart.destroy();
 			}
 
-			const labels = countries.map(country => country.code);
+			const labels = countries.map(country => country.countryName);
 			const data = countries.map(country => country.count);
 			const backgroundColors = [
 				'#4361ee', '#4cc9f0', '#3a0ca3', '#f72585', '#7209b7',
@@ -1215,14 +1568,14 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					}]
 				},
 				options: {
-					responsive: true,
+					maintainAspectRatio: false,
 					plugins: {
 						title: {
 							display: true,
 							text: 'Top 5 Negara Pengguna'
 						},
 						legend: {
-							position: 'right',
+							position: 'top',
 						}
 					}
 				}
@@ -1243,54 +1596,148 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 			document.getElementById('monthly-new').textContent = stats.monthly.new;
 			document.getElementById('monthly-online').textContent = stats.monthly.online;
 			document.getElementById('monthly-returning').textContent = stats.monthly.returning;
-
 		}
 
+		function renderTotalUsers() {
+			const totalUser = document.getElementById('total-user-count');
+			totalUser.textContent = `${users.length}`;
+		}
 		// Render daftar pengguna
+		// Render daftar pengguna dengan virtual scrolling
 		function renderUsers() {
 			const totalUser = document.getElementById('total-user-count');
-			const usersListElement = document.getElementById('users-list');
 			const showOfflineToggle = document.getElementById('show-offline');
-			const usersList = document.getElementById('users-list');
+			const showOfflinLabel = document.getElementById('show-offline-label');
 			const showOffline = showOfflineToggle.checked;
 
+			// Filter users berdasarkan toggle
+			visibleUsers = showOffline ? users : users.filter(user => user.status !== 'offline');
 
-			usersListElement.innerHTML = '';
+			showOfflinLabel.innerHTML = showOffline ?
+				'<i class="bi bi-eye"></i> Tampilkan Online Saja' :
+				'<i class="bi bi-eye"></i> Tampilkan Semua';
 
-			const filteredUsers = showOffline ? users : users.filter(user => user.status !== 'offline');
-
-			if (filteredUsers.length === 0) {
-				usersListElement.innerHTML = '<div class="text-center p-3 text-muted">Tidak ada pengguna online</div>';
+			if (visibleUsers.length === 0) {
+				const virtualContainer = document.getElementById('users-list-virtual');
+				if (virtualContainer) {
+					virtualContainer.innerHTML = '<div class="text-center p-3 text-muted">Tidak ada pengguna online</div>';
+				}
 				return;
 			}
 
 			totalUser.textContent = `${users.length}`;
 
-			filteredUsers.forEach(user => {
-				const userItem = document.createElement('div');
-				userItem.className = 'list-group-item user-item';
-				userItem.dataset.userId = user.id;
+			// Setup virtual scrolling pertama kali
+			if (!window.virtualScrollInitialized) {
+				calculateVisibleItems();
+				setupVirtualScroll();
+				window.virtualScrollInitialized = true;
+			}
 
-				const lastSeenText = user.status === 'offline' ?
-					`<span class="last-seen">• ${formatLastSeen(user.lastSeen)}</span>` : '';
+			// Update virtual list
+			updateVirtualList();
+		}
 
-				userItem.innerHTML = `
-							<div class="d-flex">
-								<div class="d-flex align-items-center flex-grow-1">
-									<img src="https://flagcdn.com/w20/${user.countryCode.toLowerCase()}.png" 
-										class="country-flag me-2" alt="${user.countryCode}" 
-										onerror="this.style.display='none'">
-									<span class="user-uid">${user.id}</span>
-								</div>
-								<div class="d-flex flex-column align-items-end" style="width: 100px; gap:10px">
-									<span class="badge bg-${getStatusColor(user.status)} me-2" style="width:50px">${user.status}</span>
-									<span class="last-seen">${lastSeenText}</span>							
-								</div>
-							</div>
-						`;
+		// Fungsi untuk menghitung berapa item yang bisa ditampilkan
+		function calculateVisibleItems() {
+			const container = document.getElementById('users-list');
+			if (!container) return 10; // default fallback
 
-				userItem.addEventListener('click', () => showUserDetails(user.id));
-				usersListElement.appendChild(userItem);
+			const containerHeight = container.clientHeight;
+			visibleItemCount = Math.ceil(containerHeight / itemHeight) + 2; // +2 untuk buffer
+			return visibleItemCount;
+		}
+
+		// Fungsi untuk update virtual list
+		function updateVirtualList() {
+			const virtualContainer = document.getElementById('users-list-virtual');
+			const container = document.getElementById('users-list');
+
+			if (!virtualContainer || !container) return;
+
+			// Hitung indeks yang terlihat
+			const scrollTop = container.scrollTop;
+			startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - 1);
+			endIndex = Math.min(visibleUsers.length, startIndex + visibleItemCount + 2);
+
+			// Set tinggi virtual container
+			virtualContainer.style.height = `${visibleUsers.length * itemHeight}px`;
+
+			// Render hanya item yang terlihat
+			renderVisibleItems(startIndex, endIndex);
+		}
+
+		// Fungsi untuk render item yang terlihat saja
+		function renderVisibleItems(start, end) {
+			const virtualContainer = document.getElementById('users-list-virtual');
+			if (!virtualContainer) return;
+
+			virtualContainer.innerHTML = '';
+
+			for (let i = start; i < end; i++) {
+				if (i >= visibleUsers.length) break;
+
+				const user = visibleUsers[i];
+				const userItem = createUserItem(user, i);
+				virtualContainer.appendChild(userItem);
+			}
+		}
+
+		// Fungsi untuk membuat user item dengan posisi absolute
+		function createUserItem(user, index) {
+			const userItem = document.createElement('div');
+			userItem.className = 'user-item';
+			userItem.dataset.userId = user.id;
+
+			const lastSeenText = `${formatLastSeen(user.lastSeen)}`;
+
+			userItem.innerHTML = `
+				<div class="d-flex position-relative" style="height:100%">
+					<div class="user-item-overlay" style="background-image: url('https://flagcdn.com/w80/${user.countryCode.toLowerCase()}.png');"></div>
+					
+					<div class="d-flex flex-column flex-grow-1" style="gap:5px; position: relative; z-index: 1;">
+						<div>
+							<span class="user-uid"> UID: ${user.id}</span>
+						</div>
+						<div style="font-size:0.7rem">
+							<img src="https://flagcdn.com/w20/${user.countryCode.toLowerCase()}.png" 
+								 class="mini-country-flag me-2" 
+								 alt="${user.countryCode}" 
+								 onerror="this.style.display='none'">
+							<span class="user-list-country-name"><em>${user.countryName}</em></span>
+							<span class="user-list-country-code"><strong><em>(${user.countryCode})</em></strong></span>
+						</div>
+					</div>
+					
+					<div class="d-flex flex-column align-items-end" style="width: 100px; gap:5px; position: relative; z-index: 1;">
+						<span class="badge bg-${getStatusColor(user.status)}" style="width:50px">${user.status}</span>
+						<span class="last-seen" style="font-size:0.7rem"><em>${lastSeenText}</em></span>						
+					</div>
+				</div>
+			`;
+
+			userItem.addEventListener('click', () => showUserDetails(user.id));
+			return userItem;
+		}
+
+		// Event listener untuk scroll
+		function setupVirtualScroll() {
+			const container = document.getElementById('users-list');
+			if (!container) return;
+
+			// Debounce scroll event untuk performa
+			let scrollTimeout;
+			container.addEventListener('scroll', () => {
+				clearTimeout(scrollTimeout);
+				scrollTimeout = setTimeout(() => {
+					updateVirtualList();
+				}, 100);
+			});
+
+			// Juga update saat resize
+			window.addEventListener('resize', () => {
+				calculateVisibleItems();
+				updateVirtualList();
 			});
 		}
 
@@ -1313,7 +1760,8 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 						id: userId,
 						status: userPresence.status || "unknown",
 						lastSeen: formatLastSeen(userPresence.userLastSeen || 0),
-						countryCode: userPresence.countryCode || "unknown",
+						countryCode: userPresence.countryCode || userPresence.countryName,
+						countryName: userPresence.countryName || userPresence.countryCode,
 						lastIP: userPresence.LastIP || "unknown",
 						lastFirebaseUID: userPresence.LastFirebaseUID || "unknown",
 						ipHistory: Object.keys(ipHistory).map(ip => ({
@@ -1349,7 +1797,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 							<div class="modal-dialog modal-lg">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="userModalLabel">Detail Pengguna: ${userDetails.id}</h5>
+										<h5 class="modal-title" id="userModalLabel">Detail Pengguna UID: ${userDetails.id}</h5>
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
@@ -1368,7 +1816,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 												<img src="https://flagcdn.com/w20/${userDetails.countryCode.toLowerCase()}.png" 
 													 class="country-flag ms-1" alt="${userDetails.countryCode}" 
 													 onerror="this.style.display='none'">
-												${userDetails.countryCode}
+												${userDetails.countryName} <strong>(${userDetails.countryCode})</strong>
 											</div>
 											<div class="col-md-6">
 												<strong>IP Terakhir:</strong> ${userDetails.lastIP}
@@ -1394,7 +1842,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 																	<img src="https://flagcdn.com/w20/${ip.countryCode.toLowerCase()}.png" 
 																		 class="country-flag me-1" alt="${ip.countryCode}" 
 																		 onerror="this.style.display='none'">
-																	${ip.countryCode}
+																	${userDetails.countryName} <strong>(${userDetails.countryCode})</strong>
 																</td>
 																<td>${ip.timestamp}</td>
 															</tr>
@@ -1513,6 +1961,13 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 		// Inisialisasi dashboard
 		document.addEventListener('DOMContentLoaded', () => {
 			loadAppsList();
+
+			// Set initial state untuk mobile
+			if (window.innerWidth < 1024) {
+				isAppsExpanded = false;
+			} else {
+				isAppsExpanded = true;
+			}
 		});
     </script>
 </body>

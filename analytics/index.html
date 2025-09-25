@@ -147,9 +147,9 @@
 			position: relative;
 		}
 
-		.user-card h4,
-		.total-user h4,
-		.country-card h4 {
+		.user-card h5,
+		.total-user h5,
+		.country-card h5 {
 			border-bottom: 1px solid #009999;
 			padding-bottom: 15px;
 		}
@@ -162,8 +162,8 @@
 			color: #0099ff;
 		}
 
-		#users-list {
-			height: 400px;
+		#users-list, #country-list {
+			height: 350px;
 			overflow-y: auto;
 		}
 
@@ -190,11 +190,10 @@
 
 		.toggle-offline {
 			display: flex;
+			justify-content: right;
 			align-items: center;
 			gap: 0.5rem;
-			position: absolute;
-			right: 10px;
-			top: 10px;
+			margin-bottom: 10px;
 		}
 
 		#daily-new,
@@ -215,7 +214,7 @@
 			color: #f72585;
 		}
 
-		h4 i {
+		h5 i {
 			color: #009999;
 		}
 
@@ -269,19 +268,21 @@
 		<div class="row">
 			<div class="col-lg-4">
 				<div class="total-user">
-					<h4 class="mb-3"><i class="fa-solid fa-users-viewfinder"></i> Jumlah Pengguna</h4>
+					<h5 class="mb-3"><i class="fa-solid fa-users-viewfinder"></i> Jumlah Pengguna</h4>
 					<p class="d-flex justify-content-center align-items-center" id="total-user-count"></p>
 				</div>
 			</div>
 			<!-- Daftar Pengguna -->
 			<div class="col-lg-4">
 				<div class="user-card">
-					<h4 class="mb-3"><i class="fa-solid fa-users"></i> Daftar Pengguna</h4>
-					<div class="toggle-offline">
-						<input type="checkbox" class="btn-check" id="show-offline" autocomplete="on">
-						<label class="btn btn-outline-primary btn-sm" for="show-offline">
-						<i class="bi bi-eye"></i> Tampilkan Offline
-						</label>
+					<div class="user-card-header d-flex flex-column">
+						<h5 class="mb-3"><i class="fa-solid fa-users"></i> Daftar Pengguna</h4>
+						<div class="toggle-offline">
+							<input type="checkbox" class="btn-check" id="show-offline" autocomplete="on">
+							<label class="btn btn-outline-primary btn-sm" for="show-offline">
+							<i class="bi bi-eye"></i> Offline
+							</label>
+						</div>
 					</div>
 					<div class="list-group" id="users-list">
 						<!-- Daftar pengguna akan diisi oleh JavaScript -->
@@ -291,7 +292,7 @@
 			<!-- Daftar Negara -->
 			<div class="col-lg-4">
 				<div class="country-card">
-					<h4 class="mb-3"><i class="fa-solid fa-earth-europe"></i> Daftar Negara</h4>
+					<h5 class="mb-3"><i class="fa-solid fa-earth-europe"></i> Daftar Negara</h4>
 					<div class="list-group" id="country-list">
 						<!-- Daftar pengguna akan diisi oleh JavaScript -->
 					</div>
@@ -727,9 +728,9 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					// Mengurutkan berdasarkan jumlah tertinggi
 					countries.sort((a, b) => b.count - a.count);
 
-					// Menampilkan 10 negara teratas
+					// Menampilkan 1000 negara 
 					let html = '';
-					countries.slice(0, 10).forEach(country => {
+					countries.slice(0, 1000).forEach(country => {
 						html += `
 									<div class="d-flex justify-content-between align-items-center mb-2">
 										<div>
@@ -743,8 +744,8 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 
 					countryList.innerHTML = html;
 
-					// Ambil 10 negara teratas
-					const topCountries = countries.slice(0, 10);
+					// Ambil 5 negara teratas
+					const topCountries = countries.slice(0, 5);
 
 					// Buat atau update chart negara
 					updateCountryChart(topCountries);
@@ -1218,7 +1219,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 					plugins: {
 						title: {
 							display: true,
-							text: 'Top 10 Negara Pengguna'
+							text: 'Top 5 Negara Pengguna'
 						},
 						legend: {
 							position: 'right',
@@ -1250,6 +1251,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 			const totalUser = document.getElementById('total-user-count');
 			const usersListElement = document.getElementById('users-list');
 			const showOfflineToggle = document.getElementById('show-offline');
+			const usersList = document.getElementById('users-list');
 			const showOffline = showOfflineToggle.checked;
 
 
@@ -1262,7 +1264,7 @@ const crexs = bstx(h3tx(h3tx(bstx('MzYzNTM3MzkzNDYxMzYzODM2MzMzNDM3MzY2MzM0NjMzN
 				return;
 			}
 
-			totalUser.textContent = `${stats.total.unique}`;
+			totalUser.textContent = `${users.length}`;
 
 			filteredUsers.forEach(user => {
 				const userItem = document.createElement('div');

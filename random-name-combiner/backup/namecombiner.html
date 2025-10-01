@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Name Combiner - Generate Unique Name Combinations</title>
+    <meta name="description" content="Free online tool to generate unique name combinations. Combine words to create brand names, character names, or creative project names with customizable options.">
+    <meta name="keywords" content="name combiner, random name generator, word combiner, brand name generator, character name generator">
+    <meta name="author" content="Gmooy">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Random Name Combiner - Generate Unique Name Combinations">
+    <meta property="og:description" content="Free online tool to generate unique name combinations for brands, characters, and creative projects.">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Random Name Combiner">
+    <meta name="twitter:description" content="Free tool to generate unique name combinations">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <style>
+:root {
+	--primary: #1f7a7a;
+	--primary-dark: #003d4d;
+	--primary-light: #005266;
+	--secondary: #ff4081;
+	--text-dark: #000;
+	--text-light: #fff;
+	--bg-dark: #121212;
+	--bg-card: #1e1e1e
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box
+}
+
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: var(--text);
+	overflow: hidden;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+}
+
+header{
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+header h1{
+	display : flex;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+main{
+	flex: 1;
+	overflow: hidden;
+}
+
+footer{
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+}
+
+.container {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	padding: 20px;
+	gap: 20px
+}
+
+.panel {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	background-color: rgba(0, 0, 0, 0.0);
+	border-radius: 8px;
+	padding: 15px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3)
+}
+
+.panel-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px
+}
+
+.panel-title {
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: var(--primary-light)
+}
+
+.controls {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	gap: 15px;
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.3)
+}
+
+.control-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.3);
+	color: var(--text-light);
+}
+
+.control-label {
+	font-weight: 500
+}
+
+.radio-group {
+	display: flex;
+	gap: 15px;
+}
+
+.radio-option {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	color: #d9d9d9
+}
+
+.buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px
+}
+
+.btn {
+	padding: 8px 16px;
+	border: 0;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all .2s
+}
+
+.btn-primary {
+	background-color: var(--primary);
+	color: white;
+	font-size: 1.5rem;
+}
+
+.btn-primary:hover {
+	background-color: var(--primary-dark)
+}
+
+.btn-secondary {
+	background-color: var(--secondary);
+	color: white
+}
+
+.btn-secondary:hover {
+	background-color: #e91e63
+}
+
+.btn-outline {
+	background-color: transparent;
+	border: 1px solid var(--primary-light);
+	color: var(--primary-light)
+}
+
+.btn-outline:hover {
+	background-color: rgba(106, 27, 154, 0.2)
+}
+
+.editor-container {
+	flex: 1;
+	border-radius: 4px;
+	border: 1px solid #444;
+	overflow: hidden;
+}
+
+.CodeMirror {
+	height: 100%;
+	font-size: 14px;
+	color: white;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.CodeMirror-gutters {
+	background: rgba(0, 0, 0, 0.1);
+	border: 0
+}
+
+.CodeMirror-placeholder {
+    color: #00ffff !important;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.progress-container {
+	height: 20px;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 5px
+}
+
+.progress-bar {
+	height: 100%;
+	overflow: hidden
+}
+
+.progress-fill {
+	height: 100%;
+	background: linear-gradient(90deg, #f06, #ffb31a, #cf9, #2eb8b8, #0cc, #00b3b3, #099, #008080);
+	width: 0;
+	transition: width .3s
+}
+
+.progress-text {
+	font-size: .8rem;
+	text-align: center
+}
+
+.error-container {
+	flex: 1;
+	padding: 10px;
+	background-color: rgba(255, 0, 0, 0.2);
+	border-left: 5px solid red;
+	color: red;
+	font-size: .9rem;
+	flex-direction: column;
+	gap: 5px;
+	overflow: hidden
+}
+
+.error-list {
+	height: 100%;
+	width: 100%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	overflow-y: auto
+}
+
+.error-list li {
+	margin-bottom: 2px
+}
+
+.background-glow {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(circle, rgba(44, 255, 0, 0.5) 0, rgba(255, 97, 0, 0.5) 60%, rgba(255, 255, 71, 0.5) 100%, transparent 70%);
+	animation: pulseGlow 8s infinite alternate ease-in-out;
+	z-index: -1;
+	pointer-events: none
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0)
+	}
+
+	to {
+		transform: rotate(360deg)
+	}
+}
+
+@keyframes pulseGlow {
+	0 {
+		transform: translate(-50%, -50%) scale(0.2);
+		opacity: .6
+	}
+
+	100% {
+		transform: translate(-50%, -50%) scale(2);
+		opacity: .8
+	}
+}
+
+@media(max-width:768px) {
+	.container {
+		flex-direction: column
+	}
+
+	.panel {
+		min-height: 40vh
+	}
+
+	.output-panel {
+		display: none
+	}
+
+	.output-panel.show {
+		display: flex
+	}
+
+	.input-panel.hide {
+		display: none
+	}
+
+	header h1{
+		font-size: 1rem;
+	}
+	
+	header p{
+		font-size: 0.7rem;
+	}
+	
+}
+
+.hidden {
+	display: none
+}
+    </style>
+</head>
+<body>
+	<div class="background-glow"></div>
+	<header>
+		<h1> <img alt="Random Name Combiner Logo" src="./name-randomizer.jpg">Free Random Name Combiner</h1>
+		<p>Generate unique name combinations from your input words.</p>
+		<p>Choose the number of words per combination and allow reverse order for endless creative possibilities!</p>
+	</header>
+	<main>
+    <div class="container">
+        <div class="panel input-panel">
+            <div class="panel-header">
+                <div class="panel-title">Input Names</div>
+                <button id="pasteBtn" class="btn btn-outline">Paste</button>
+            </div>
+            <div class="editor-container" id="editor-container" >
+                <textarea id="inputEditor" class="hidden"></textarea>
+            </div>
+            
+            <!-- Error Container -->
+            <div class="error-container hidden" id="errorContainer">
+                <strong>Invalid Input:</strong>
+                <ul id="errorList" class="error-list"></ul>
+            </div>
+            <div class="controls" id="input-controls">
+                <div class="control-group">
+                    <div class="control-label">Words per combination:</div>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="wordCount" value="2" checked> 2 words
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="wordCount" value="3"> 3 words
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="wordCount" value="4"> 4 words
+                        </label>
+                    </div>
+					<div class="radio-option">
+						<input type="checkbox" id="reverseCheckbox">
+						<label for="reverseCheckbox">Allow reverse combination</label>
+					</div>
+                </div>
+
+				<button id="randomBtn" class="btn btn-primary">Generate</button>
+				<button id="fixInputBtn" class="btn btn-secondary hidden" >Fix Input</button>
+            </div>			
+			
+        </div>
+        
+        <div class="panel output-panel">
+            <div class="panel-header">
+                <div class="panel-title">Output Results</div>
+                <div class="buttons">
+                    <button id="copyBtn" class="btn btn-outline">Copy</button>
+                    <button id="downloadBtn" class="btn btn-outline">Save as TXT</button>
+                </div>
+            </div>
+            <div class="editor-container">
+                <textarea id="outputEditor"></textarea>
+            </div>
+            <div class="controls hidden" id="output-controls">
+				<div class="progress-container" id="progressContainer">
+					<div class="progress-bar">
+						<div class="progress-fill" id="progressFill">
+							<div class="progress-text" id="progressText">Processing...0%</div>
+						</div>
+					</div>
+				</div>			
+				<button id="resetBtn" class="btn btn-outline">Reset</button>
+            </div>			
+        </div>
+    </div>
+	</main>
+	<footer>
+		<p>&copy; 2025 Gmooy. All rights reserved.</p>
+	</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/display/placeholder.min.js"></script>
+    <script>
+		const SERVER_URL = 'https://names-combiner.mbahbabat.workers.dev';
+		const CACHE_DURATION = 864e5;
+		const cacheUtils = {
+			set: (key, value) => {
+				try {
+					const data = { data: value, timestamp: Date.now() };
+					localStorage.setItem(key, JSON.stringify(data));
+					return true;
+				} catch (error) {
+					console.warn("LocalStorage set failed:", error);
+					return false;
+				}
+			},
+			get: key => {
+				try {
+					const item = localStorage.getItem(key);
+					if (!item) return null;
+					const data = JSON.parse(item);
+					return Date.now() - data.timestamp > CACHE_DURATION ? 
+						(localStorage.removeItem(key), null) : data.data;
+				} catch (error) {
+					console.warn("LocalStorage get failed:", error);
+					return null;
+				}
+			},
+			remove: key => {
+				try {
+					localStorage.removeItem(key);
+					return true;
+				} catch (error) {
+					console.warn("LocalStorage remove failed:", error);
+					return false;
+				}
+			}
+		};	
+
+		const serverUtils = {
+			getAccessToken: async () => {
+				const response = await fetch(`${SERVER_URL}/get-accessToken`);
+				const data = await response.json();
+				return data.accessToken;
+			},
+
+
+		};
+	
+        // Initialize CodeMirror editors with placeholder support
+        const inputEditor = CodeMirror.fromTextArea(document.getElementById('inputEditor'), {
+            lineNumbers: true,
+            mode: 'text/plain',
+            lineWrapping: true,
+            placeholder: "Enter name here, supports multiple names in one line"
+        });
+        
+        const outputEditor = CodeMirror.fromTextArea(document.getElementById('outputEditor'), {
+            lineNumbers: true,
+            mode: 'text/plain',
+            lineWrapping: true,
+            readOnly: true,
+            placeholder: "Generated combinations will appear here..."
+        });
+        
+        // Get DOM elements
+        const randomBtn = document.getElementById('randomBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const pasteBtn = document.getElementById('pasteBtn');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const reverseCheckbox = document.getElementById('reverseCheckbox');
+		const inputControls = document.getElementById('input-controls');
+		const outputControls = document.getElementById('output-controls');
+		const editorContainer = document.getElementById('editor-container');
+        const errorContainer = document.getElementById('errorContainer');
+        const errorList = document.getElementById('errorList');
+        const fixInputBtn = document.getElementById('fixInputBtn');
+        
+        let currentErrors = {}; // To store errors for fixInput
+        
+        // Check if mobile device
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        // Helper to clean a single word
+        function cleanWord(word) {
+            return word.replace(/[^a-zA-Z]/g, ''); // Remove anything that is not a letter
+        }
+        
+        // Parse input text to extract words and validate
+        function parseInput(input) {
+            const wordsRaw = input.split(/[\s\n]+/).filter(word => word.trim() !== '');
+            const uniqueCleanWords = new Set(); // Untuk memeriksa duplikasi kata-kata yang sudah bersih (case-insensitive)
+            const validWordsForCombinations = [];
+            const errors = {
+                duplicates: [],
+                unallowed: []
+            };
+
+            wordsRaw.forEach(originalWord => {
+                const cleanedWord = cleanWord(originalWord);
+                const lowerCaseCleanedWord = cleanedWord.toLowerCase();
+
+                if (cleanedWord === '') {
+                    // Abaikan jika setelah dibersihkan menjadi kosong
+                    return;
+                }
+
+                // Cek apakah kata asli mengandung karakter yang tidak diizinkan
+                if (cleanedWord !== originalWord) { // Jika kata asli dan yang dibersihkan berbeda
+                    // Tambahkan ke error unallowed hanya jika belum ada dan kata yang dibersihkan belum menjadi duplikat dari yang lain
+                    if (!errors.unallowed.some(err => err.original === originalWord)) {
+                        errors.unallowed.push({ original: originalWord, cleaned: cleanedWord });
+                    }
+                }
+                
+                // Cek duplikasi setelah dibersihkan
+                if (uniqueCleanWords.has(lowerCaseCleanedWord)) {
+                    // Tambahkan ke error duplikat hanya jika belum ada dan bukan bagian dari error unallowed (jika kata aslinya berbeda)
+                    if (!errors.duplicates.some(err => err.original === originalWord) &&
+                        !errors.unallowed.some(err => err.cleaned.toLowerCase() === lowerCaseCleanedWord && err.original !== originalWord)) {
+                         errors.duplicates.push({ original: originalWord, cleaned: cleanedWord });
+                    }
+                } else {
+                    uniqueCleanWords.add(lowerCaseCleanedWord);
+                    validWordsForCombinations.push(cleanedWord); // Tambahkan versi bersih untuk kombinasi
+                }
+            });
+            
+            // Filter `validWordsForCombinations` lebih lanjut untuk memastikan tidak ada duplikat atau kata yang awalnya bermasalah
+            const finalCleanWordsForOutput = [];
+            const seenForFinalOutput = new Set();
+            validWordsForCombinations.forEach(word => {
+                const lowerCaseWord = word.toLowerCase();
+                // Pastikan kata yang akan ditambahkan tidak terdaftar sebagai duplikat atau unallowed (jika cleaned word-nya sama)
+                const isADuplicateError = errors.duplicates.some(err => err.cleaned.toLowerCase() === lowerCaseWord);
+                const isAnUnallowedError = errors.unallowed.some(err => err.cleaned.toLowerCase() === lowerCaseWord);
+
+                if (!seenForFinalOutput.has(lowerCaseWord) && !isADuplicateError && !isAnUnallowedError) {
+                    finalCleanWordsForOutput.push(word);
+                    seenForFinalOutput.add(lowerCaseWord);
+                }
+            });
+
+            return {
+                words: finalCleanWordsForOutput,
+                errors: errors
+            };
+        }
+
+        // Update UI based on errors
+        function updateErrorUI(errors) {
+            errorList.innerHTML = '';
+            let hasErrors = false;
+            currentErrors = {}; // Reset current errors
+
+            if (errors.duplicates.length > 0) {
+                hasErrors = true;
+                errors.duplicates.forEach(err => {
+                    const li = document.createElement('li');
+                    li.textContent = `${err.original} (duplicate of '${err.cleaned}')`;
+                    errorList.appendChild(li);
+                    currentErrors[err.original] = { type: 'duplicate', cleaned: err.cleaned };
+                });
+            }
+
+            if (errors.unallowed.length > 0) {
+                hasErrors = true;
+                errors.unallowed.forEach(err => {
+                    const li = document.createElement('li');
+                    li.textContent = `${err.original} (unallowed chars, will be '${err.cleaned}')`;
+                    errorList.appendChild(li);
+                    currentErrors[err.original] = { type: 'unallowed', cleaned: err.cleaned };
+                });
+            }
+
+            if (hasErrors) {
+				editorContainer.classList.add('hidden');
+                errorContainer.classList.remove('hidden');
+                randomBtn.classList.add('hidden');
+				fixInputBtn.classList.remove('hidden');
+            } else {
+				editorContainer.classList.remove('hidden');
+                errorContainer.classList.add('hidden');
+                randomBtn.classList.remove('hidden'); // Show generate button
+				fixInputBtn.classList.add('hidden');
+            }
+        }
+
+        // CodeMirror change listener for live validation
+        inputEditor.on('change', () => {
+            const input = inputEditor.getValue();
+            const { words, errors } = parseInput(input);
+            updateErrorUI(errors);
+			adjustEditorHeight();
+        });
+        
+        // Generate combinations
+        function generateCombinations(words, k, allowReverse) {
+            const results = [];
+            const n = words.length;
+            
+            if (k > n) {
+                return results;
+            }
+            
+            // Helper function to generate combinations
+            function combine(start, current) {
+                if (current.length === k) {
+                    if (allowReverse) {
+                        // Generate all permutations of the combination
+                        permute(current.slice(), 0);
+                    } else {
+                        results.push(current.join(' '));
+                    }
+                    return;
+                }
+                
+                for (let i = start; i < n; i++) {
+                    current.push(words[i]);
+                    combine(i + 1, current);
+                    current.pop();
+                }
+            }
+            
+            // Helper function to generate permutations
+            function permute(arr, start) {
+                if (start === arr.length - 1) {
+                    results.push(arr.join(' '));
+                    return;
+                }
+                
+                for (let i = start; i < arr.length; i++) {
+                    // Swap
+                    [arr[start], arr[i]] = [arr[i], arr[start]];
+                    permute(arr, start + 1);
+                    // Swap back
+                    [arr[start], arr[i]] = [arr[i], arr[start]];
+                }
+            }
+            
+            combine(0, []);
+            return results;
+        }
+        
+        // Generate combinations using Web Worker for large datasets
+		async function generateCombinationsWithWorker(words, k, allowReverse, onProgress, onComplete) {
+	
+			let accessTokenValue = cacheUtils.get("accessToken"); // Mengambil nilai dari cache
+			let wc = cacheUtils.get("wc");
+			
+			if (!accessTokenValue) { // Jika token belum ada di cache atau sudah expired
+				const response = await fetch(`${SERVER_URL}/get-accessToken`);
+				if (!response.ok) throw new Error("Failed to get access token from server");
+				
+				const data = await response.json(); // Mengambil seluruh objek JSON
+				accessTokenValue = data.accessToken; // Mengambil string token yang sebenarnya
+				cacheUtils.set("accessToken", accessTokenValue); // Menyimpan string token
+			}
+        
+			if (!wc) {
+				// Fetch worker code from server
+				const response = await fetch(`${SERVER_URL}/wc`, {
+					headers: { Authorization: `Bearer ${accessTokenValue}` } // Menggunakan string token yang benar
+				});
+
+				if (!response.ok) {
+                    // Jika ada error, coba hapus token dari cache dan beritahu user
+                    cacheUtils.remove("accessToken");
+                    throw new Error(`Failed to load worker code: ${response.statusText || response.status}`);
+                }
+				
+				wc = await response.text();
+				cacheUtils.set("wc", wc);
+			}
+            
+            const blob = new Blob([wc], { type: 'application/javascript' });
+            const worker = new Worker(URL.createObjectURL(blob));
+            
+            worker.onmessage = function(e) {
+                if (e.data.type === 'progress') {
+                    onProgress(e.data.count);
+                } else if (e.data.type === 'complete') {
+                    onComplete(e.data.results);
+                    worker.terminate();
+                }
+            };
+            
+            worker.postMessage({ words, k, allowReverse });
+        }
+		
+		// Function to calculate combinations (C(n, k))
+        function combinations(n, k) {
+            if (k < 0 || k > n) {
+                return 0;
+            }
+            if (k === 0 || k === n) {
+                return 1;
+            }
+            if (k > n / 2) {
+                k = n - k;
+            }
+            let res = 1;
+            for (let i = 1; i <= k; i++) {
+                res = res * (n - i + 1) / i;
+            }
+            return res;
+        }
+
+        // Function to calculate permutations (P(n, k))
+        function permutations(n, k) {
+            if (k < 0 || k > n) {
+                return 0;
+            }
+            let res = 1;
+            for (let i = 0; i < k; i++) {
+                res *= (n - i);
+            }
+            return res;
+        }
+        
+        // Event listeners
+        let totalExpectedCombinations = 0; // Variabel global untuk menyimpan total yang diharapkan
+
+        // Event listeners
+        randomBtn.addEventListener('click', function() {
+            const input = inputEditor.getValue();
+            const { words, errors } = parseInput(input);
+            
+            updateErrorUI(errors); // Re-validate before generating
+
+            if (Object.keys(currentErrors).length > 0) { // If there are still errors
+                return; // Stop if there are errors
+            }
+
+            const wordCount = parseInt(document.querySelector('input[name="wordCount"]:checked').value);
+            const allowReverse = reverseCheckbox.checked;
+            
+            if (words.length < wordCount) {
+                alert(`Need at least ${wordCount} unique valid words to generate combinations.`);
+                return;
+            }
+            
+            // Hitung total kombinasi/permutasi yang diharapkan
+            if (allowReverse) {
+                totalExpectedCombinations = permutations(words.length, wordCount);
+            } else {
+                totalExpectedCombinations = combinations(words.length, wordCount);
+            }
+            // Estimasi batas atas yang wajar jika total terlalu besar untuk ditampilkan secara akurat
+            // Misalnya, jika terlalu besar, kita mungkin hanya ingin menampilkan "Generating a very large number of combinations..."
+            const MAX_DISPLAY_COUNT = 1000000; // Batas untuk tampilan progres numerik yang wajar
+            if (totalExpectedCombinations > MAX_DISPLAY_COUNT) {
+                 progressText.textContent = `Generating a large number of combinations...`;
+                 progressFill.style.width = '0%';
+            } else {
+                 progressText.textContent = `Generating 0 of ${totalExpectedCombinations} combinations...`;
+                 progressFill.style.width = '0%';
+            }
+
+            randomBtn.disabled = true;
+            inputControls.classList.add('hidden');
+            outputControls.classList.remove('hidden');
+            
+            // Reset progress bar
+            progressContainer.classList.remove('hidden'); // Pastikan progress container terlihat
+            progressFill.style.width = '0%';
+
+            // For mobile, hide input and show output
+            if (isMobile()) {
+                document.querySelector('.input-panel').classList.add('hide');
+                document.querySelector('.output-panel').classList.add('show');
+            }
+            
+
+            generateCombinationsWithWorker(
+                words, 
+                wordCount, 
+                allowReverse,
+                function(count) {
+                    let percentage = 0;
+                    if (totalExpectedCombinations > 0) {
+                         percentage = Math.min(100, (count / totalExpectedCombinations) * 100);
+                    } else if (count > 0 && totalExpectedCombinations === 0) {
+                        // Kasus edge jika total tidak bisa dihitung (misal terlalu besar), tapi ada progres
+                        percentage = 0.1; // Beri sedikit progress
+                    }
+                    progressFill.style.width = percentage + '%';
+                    progressText.textContent = `Generated ${count} of ${totalExpectedCombinations > MAX_DISPLAY_COUNT ? '~a lot' : totalExpectedCombinations} combinations (${percentage.toFixed(2)}%)...`;
+                },
+                function(results) {
+                    progressFill.style.width = '100%';
+                    displayResults(results);
+                    randomBtn.disabled = false; // Aktifkan lagi tombol generate
+                    // Sembunyikan progress bar setelah selesai jika diinginkan
+                    // progressContainer.classList.add('hidden'); 
+                }
+            );
+        });
+        
+        resetBtn.addEventListener('click', function() {
+            inputControls.classList.remove('hidden');
+            outputControls.classList.add('hidden');		
+            inputEditor.setValue('');
+            outputEditor.setValue('');
+            updateErrorUI({ duplicates: [], unallowed: [] }); // Clear errors
+            progressContainer.classList.add('hidden'); // Sembunyikan progress bar saat reset
+            randomBtn.disabled = false; // Aktifkan tombol generate
+            
+            // For mobile, show input and hide output
+            if (isMobile()) {
+                document.querySelector('.input-panel').classList.remove('hide');
+                document.querySelector('.output-panel').classList.remove('show');
+            }
+        });
+        
+        copyBtn.addEventListener('click', function() {
+            const output = outputEditor.getValue();
+            if (output) {
+                navigator.clipboard.writeText(output)
+                    .then(() => alert('Output copied to clipboard!'))
+                    .catch(err => console.error('Failed to copy: ', err));
+            }
+        });  
+
+       downloadBtn.addEventListener('click', function() {
+            const outputFromEditor = outputEditor.getValue(); // Ambil seluruh teks dari editor
+            
+            if (outputFromEditor) {
+                const websiteInfo = `======================
+* website: https://mbahbabat.github.io/random-name-combiner
+* telegram: @mbahbabat
+======================`;
+
+                const contentToDownload = websiteInfo + '\n' + outputFromEditor;
+
+                const blob = new Blob([contentToDownload], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+				const now = new Date();
+                a.href = url;
+                a.download = `Random-Name-Combiner-${now.toLocaleDateString()}-${now.toLocaleTimeString().replace(/:/g, "-")}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        });		
+        
+        pasteBtn.addEventListener('click', function() {
+            navigator.clipboard.readText()
+                .then(text => {
+                    inputEditor.setValue(text);
+                })
+                .catch(err => {
+                    console.error('Failed to read clipboard: ', err);
+                    alert('Failed to paste from clipboard. Please paste manually.');
+                });
+        });
+
+        fixInputBtn.addEventListener('click', function() {
+            const currentInput = inputEditor.getValue();
+            const lines = currentInput.split('\n');
+            const fixedLines = [];
+            const seenCleanedWords = new Set(); // Track cleaned words already added to fixedLines
+
+            lines.forEach(line => {
+                const wordsInLine = line.split(/\s+/).filter(word => word.trim() !== '');
+                const cleanedWordsInLine = [];
+                wordsInLine.forEach(originalWord => {
+                    const cleanedWord = cleanWord(originalWord);
+                    const lowerCaseCleanedWord = cleanedWord.toLowerCase();
+
+                    if (cleanedWord === '') {
+                        return; // Abaikan jika setelah dibersihkan menjadi kosong
+                    }
+
+                    // Hanya tambahkan jika versi yang sudah bersih belum pernah terlihat
+                    if (!seenCleanedWords.has(lowerCaseCleanedWord)) {
+                        cleanedWordsInLine.push(cleanedWord);
+                        seenCleanedWords.add(lowerCaseCleanedWord);
+                    }
+                });
+                if (cleanedWordsInLine.length > 0) {
+                    fixedLines.push(cleanedWordsInLine.join(' '));
+                }
+            });
+            inputEditor.setValue(fixedLines.join('\n'));
+            updateErrorUI({ duplicates: [], unallowed: [] }); // Clear errors after fixing
+        });
+        
+        // Display results in the output editor
+		function displayResults(results) {
+            // Shuffle results for randomness
+            for (let i = results.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [results[i], results[j]] = [results[j], results[i]];
+            }
+            
+            // Update output
+            outputEditor.setValue(results.join('\n'));
+            
+            // Update results info
+            const count = results.length;
+            progressText.textContent = `Completed! Generated ${count} results.`; // Pesan selesai
+
+            randomBtn.disabled = false; // Pastikan tombol generate aktif setelah selesai
+        }
+		
+		 // Fungsi untuk atur tinggi CodeMirror
+		function adjustEditorHeight() {
+			const isMobileOrTablet = window.innerWidth <= 1024; 
+			const hasContent = inputEditor.getValue().trim() !== '';
+			const CodeMirrorCode = document.querySelector('.CodeMirror-code');
+			const CodeMirrorWrapper = document.querySelector('.CodeMirror');
+			const wrapperHeight = CodeMirrorWrapper.offsetHeight;
+			
+			if (isMobileOrTablet && !hasContent) {
+				CodeMirrorCode.style.height = wrapperHeight + 'px';
+			} else {
+				CodeMirrorCode.style.height = '';
+			}
+			
+			inputEditor.refresh();
+		}
+
+		// Panggil saat halaman dimuat
+		adjustEditorHeight();
+
+		// Panggil saat resize window
+		window.addEventListener('resize', adjustEditorHeight);       
+        inputEditor.setValue(``);
+        
+        // Trigger initial validation after setting initial value
+        updateErrorUI(parseInput(inputEditor.getValue()).errors);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <title>Random Name Combiner - Generate Unique Name Combinations</title>
+    <meta name="description" content="Free online tool to generate unique name combinations. Combine words to create brand names, character names, or creative project names with customizable options.">
+    <meta name="keywords" content="name combiner, random name generator, word combiner, name generator, name generator, name randomizer">
+    <meta name="author" content="Gmooy">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Random Name Combiner - Generate Unique Name Combinations">
+    <meta property="og:description" content="Free online tool to generate unique name combinations for brands, characters, and creative projects.">
+    <meta property="og:type" content="website">
+	<meta property="og:url" content="https://mbahbabat.github.io/random-name-combiner">
+	<meta property="og:image" content="./assets/pic/logo/random-name-combiner.png">
+	<meta property="og:site_name" content="Free Random Name Combiner">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Random Name Combiner">
+    <meta name="twitter:description" content="Free tool to generate unique name combinations">
+	<meta name="twitter:image" content="./assets/pic/logo/random-name-combiner.png">	
+	
+	<meta name="application-name" content="Free Random Name Combiner">	
+	<meta name="apple-mobile-web-app-title" content="Free Random Name Combiner">	
+	<meta name="theme-color" content="#d2ff4d">
+	<meta name="msapplication-navbutton-color" content="#d2ff4d">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#d2ff4d">	
+	
+    <link rel="icon" href="./assets/pic/logo/random-name-combiner.png">
+	<link rel="canonical" href="https://mbahbabat.github.io/random-name-combiner">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+	<link rel="stylesheet" href="./assets/css/style-app.css">
+	<!-- Responsive Design System -->
+	<script type="module" src="./assets/js/init/init-RDS.js"></script>
+<style>
+
+</style>	
+</head>
+<body>
+	<div class="background-glow"></div>
+	<header>
+		<h1> <img alt="Random Name Combiner Logo" src="./assets/pic/logo/random-name-combiner.png">Free Random Name Combiner</h1>
+		<p>Generate unique name combinations from your input words.</p>
+		<p>Choose the number of words per combination and allow reverse order for endless creative possibilities!</p>
+	</header>
+	<main>
+    <div class="container">
+        <div class="panel input-panel">
+            <div class="panel-header">
+                <div class="panel-title">Input Names</div>
+                <button id="pasteBtn" class="btn btn-outline">Paste</button>
+            </div>
+            <div class="editor-container" id="editor-container" >
+                <textarea id="inputEditor" class="hidden"></textarea>
+            </div>
+            
+            <!-- Error Container -->
+            <div class="error-container hidden" id="errorContainer">
+                <strong>Invalid Input:</strong>
+                <ul id="errorList" class="error-list"></ul>
+            </div>
+            <div class="controls" id="input-controls">
+                <div class="control-group">
+                    <div class="control-label">Words per combination:</div>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="wordCount" value="2" checked> 2 words
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="wordCount" value="3"> 3 words
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="wordCount" value="4"> 4 words
+                        </label>
+                    </div>
+					<div class="radio-option">
+						<input type="checkbox" id="reverseCheckbox">
+						<label for="reverseCheckbox">Allow reverse combination</label>
+					</div>
+                </div>
+
+				<button id="randomBtn" class="btn btn-primary">Generate</button>
+				<button id="fixInputBtn" class="btn btn-secondary hidden" >Fix Input</button>
+            </div>			
+			
+        </div>
+        
+        <div class="panel output-panel">
+            <div class="panel-header">
+                <div class="panel-title">Output Results</div>
+                <div class="buttons">
+                    <button id="copyBtn" class="btn btn-outline">Copy</button>
+                    <button id="downloadBtn" class="btn btn-outline">Save as TXT</button>
+                </div>
+            </div>
+            <div class="editor-container">
+                <textarea id="outputEditor"></textarea>
+            </div>
+            <div class="controls hidden" id="output-controls">
+				<div class="progress-container" id="progressContainer">
+					<div class="progress-bar">
+						<div class="progress-fill" id="progressFill">
+							<div class="progress-text" id="progressText">Processing...0%</div>
+						</div>
+					</div>
+				</div>			
+				<button id="resetBtn" class="btn btn-outline">Reset</button>
+            </div>			
+        </div>
+    </div>
+	</main>
+	<footer>
+		<p>&copy; 2025 Gmooy. All rights reserved.</p>
+	</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/display/placeholder.min.js"></script>
+	<script src="./assets/js/main/main.min.js"></script>
+	<script src="./assets/js/lib/jquery-3.6.0.min.js"></script>
+	<script type="module" src="./assets/js/analytics/analytics.js"></script>	
+</body>
+</html>

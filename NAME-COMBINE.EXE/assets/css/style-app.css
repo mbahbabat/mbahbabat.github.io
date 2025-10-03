@@ -43,7 +43,7 @@
 				width: 100%;
 				height: 100%;
 				position: absolute;
-				background-image: url("../images/name-combine.exe.png");
+				background-image: url("../images/name-combine.exe.webp");
 				  /* Optional: Add other background properties for better control */
 				background-size: fit; /* Scales image to cover the entire background */
 				background-position: center; /* Centers the image */

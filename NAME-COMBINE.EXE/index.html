@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>NAME COMBINE.EXE - Automated Name Permutation Generator</title>
+		<!-- Basic Meta Tags -->
+		<meta name="description" content="NAME COMBINE.EXE is an automated tool for generating unique name permutations. Easily and quickly create random combinations of names from a list of input names. Perfect for creative projects, branding, and more.">
+		<meta name="keywords" content="name permutator, name generator, name combinations, name permutations, automated name generator, random name permutations, unique name combinations, creative name generator, brand name tool, project name generator, character name permutations">
+		<meta name="author" content="NAME COMBINE.EXE">
+		<meta name="robots" content="index, follow">
+		<!-- Instructs search engines to index and follow links -->
+		<meta name="googlebot" content="index, follow">
+		<!-- Specific for Google bot -->
+		<!-- Open Graph / Social Media Meta Tags (for better sharing on Facebook, LinkedIn, etc.) -->
+		<meta property="og:title" content="NAME COMBINE.EXE - Automated Name Permutation Generator">
+		<meta property="og:description" content="NAME COMBINE.EXE is an automated tool for generating unique name permutations. Easily and quickly create random combinations of names from a list of input names. Perfect for creative projects, branding, and more.">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://mbahbabat.github.io/name-combine.exe">
+		<meta property="og:image" content="https://mbahbabat.github.io/name-combine.exe/assets/images/name-combine.exe.png">
+		<meta property="og:image:alt" content="NAME COMBINE.EXE robotic logo and interface screenshot">
+		<meta property="og:site_name" content="NAME COMBINE.EXE">
+		<meta property="og:locale" content="en_US">
+		<!-- Twitter Card Meta Tags (for better sharing on Twitter) -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="NAME COMBINE.EXE - Automated Name Permutation Generator">
+		<meta name="twitter:description" content="NAME COMBINE.EXE is an automated tool for generating unique name permutations. Easily and quickly create random combinations of names from a list of input names. Perfect for creative projects, branding, and more.">
+		<meta name="twitter:image" content="https://mbahbabat.github.io/name-combine.exe/assets/images/name-combine.exe.png">
+		<meta name="twitter:image:alt" content="NAME COMBINE.EXE - automated name generator interface">
+		<!-- Canonical Tag (to prevent duplicate content issues) -->
+		<link rel="canonical" href="https://mbahbabat.github.io/name-combine.exe">
+		<!-- Favicon -->
+		<link rel="icon" href="https://mbahbabat.github.io/name-combine.exe/assets/images/name-combine.exe.png" type="image/x-icon">
+		<link rel="shortcut icon" href="https://mbahbabat.github.io/name-combine.exe/assets/images/name-combine.exe.png" type="image/x-icon">
+		<link rel="apple-touch-icon" href="https://mbahbabat.github.io/name-combine.exe/assets/images/name-combine.exe.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="https://mbahbabat.github.io/name-combine.exe/assets/images/name-combine.exe.png">
+		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="./assets/css/style-app.css" rel="stylesheet">
+		<script type="module" src="./assets/js/init/init-RDS.js"></script>
+		<!-- Schema.org Microdata (for rich snippets in search results) -->
+		<script type="application/ld+json">
+			{
+			  "@context": "https://schema.org",
+			  "@type": "WebApplication",
+			  "name": "NAME COMBINE.EXE",
+			  "alternateName": "Automated Name Combination Generator",
+			  "url": "https://mbahbabat.github.io/name-combine.exe",
+			  "description": "An online tool to generate all possible unique two-name permutations from a given list of names. Ideal for creative naming, branding, and data generation.",
+			  "applicationCategory": "Utilities",
+			  "operatingSystem": "Any",
+			  "offers": {
+			    "@type": "Offer",
+			    "price": "0",
+			    "priceCurrency": "USD"
+			  },
+			  "aggregateRating": {
+			    "@type": "AggregateRating",
+			    "ratingValue": "4.8",
+			    "ratingCount": "150"
+			  },
+			  "image": "https://mbahbabat.github.io/name-combine.exe/assets/images/name-combine.exe.png",
+			  "author": {
+			    "@type": "Person",
+			    "name": "Mbah Babat" 
+			  },
+			  "publisher": {
+			    "@type": "Organization",
+			    "name": "NAME COMBINE.EXE" 
+			  }
+			}
+		</script>	
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1><span style="color: var(--text-light); opacity: 0.7;">NAME</span> COMBINE.EXE</h1>
+				<div class="subtitle">AUTOMATED NAME PERMUTATION GENERATOR</div>
+			</header>
+			<div class="input-section">
+				<h2 class="section-title">INPUT DATA</h2>
+				<textarea id="input" placeholder="Enter random names here, one per line or space separated."></textarea>
+				<div class="controls">
+					<button id="reset-system">RESET SYSTEM</button>
+					<button id="generate">INITIATE GENERATION</button>
+					<button id="fix-input" class="fix-input hidden">RECTIFY INPUT</button>
+				</div>
+				<div class="info">
+					<p>ACCEPT ONLY ALPHABETIC CHARACTERS. SPECIAL CHARS & NUMBERS WILL BE DISREGARDED.</p>
+					<p>DUPLICATE NAMES WILL BE AUTO-PURGED FROM SEQUENCE.</p>
+				</div>
+			</div>
+			<div class="output-section">
+				<h2 class="section-title">GENERATION STATUS</h2>
+				<div class="error-section hidden" id="error-section">
+					<h3>INVALID INPUT!:</h3>
+					<ul class="error-list" id="error-list"></ul>
+				</div>
+				<div class="output-info" id="output-info">
+					<p id="output-message">AWAITING COMMAND...</p>
+					<p id="total-combinations-display"></p>
+					<div class="controls" style="display: none;" id="post-generation-controls">
+						<button id="download" class="download-txt output-button">DOWNLOAD</button>
+						<button id="open-in-new-tab" class="open-blob output-button">OPEN</button>
+					</div>
+				</div>
+				<div class="info">
+					<p>EASILY AND QUICKLY GENERATE MILLIONS OF RANDOM NAME COMBINATIONS.</p>
+					<p>RELIABLY PROCESSED USING SMART TECHNOLOGY.</p>
+					<p>OFFERS HIGH PROCESSING SPEED WITHOUT CONSUMING EXCESSIVE RESOURCES.</p>
+				</div>
+			</div>
+		</div>
+		<!-- Full-page Overlay for Progress -->
+		<div class="progress-overlay" id="progress-overlay">
+			<div class="donut-chart" id="donut-chart">
+				<div class="donut-percentage" id="donut-percentage">0%</div>
+			</div>
+			<div class="overlay-message" id="overlay-message">INITIALIZING GENERATION...</div>
+			<div class="overlay-sub-message" id="overlay-sub-message"></div>
+		</div>
+	<script src="./assets/js/main/main.min.js"></script>
+	<script src="./assets/js/lib/jquery-3.6.0.min.js"></script>
+	<script type="module" src="./assets/js/analytics/analytics.js"></script>			
+	</body>
+</html>
+</body>
+</html>

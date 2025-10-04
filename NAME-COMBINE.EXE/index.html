@@ -84,59 +84,69 @@
 		</script>
 		<!-- Responsive Design System -->
 		<script type="module" src="./assets/js/init/init-RDS.js"></script>
-		 <style>
-:root{--bg-dark:#1a1a2e;--bg-medium:#16213e;--bg-light:#0f3460;--text-light:#e0e0e0;--text-accent:#e94560;--text-dark:#d1d1e0;--accent-glow:#e94560;--border-color:#3f5577;--button-bg:#4a6ee0;--button-hover-bg:#3a5ec0;--button-disabled-bg:#5a5a5a;--progress-bar-color:#e94560;--error-bg:#8b0000;--error-border:red;--error-text:#ffe0e0}*{box-sizing:border-box;margin:0;padding:0;font-family:'Roboto Mono',monospace}body::before{content:'';z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.2);overflow:hidden}body{z-index:1000;position:absolute;width:100%;height:100%;position:absolute;background-image:url("assets/images/name-combine.exe.webp");background-size:fit;background-position:center;color:var(--text-light);line-height:1.6;display:flex;justify-content:center;align-items:center;overflow:hidden;padding:10px}.container{width:100%;max-width:900px;background-color:var(--bg-medium);border-radius:15px;box-shadow:0 0 30px rgba(0,0,0,0.5),0 0 60px rgba(233,69,96,0.1);overflow-y:auto;border:2px solid var(--border-color);padding:30px;position:relative}header{text-align:center;margin-bottom:30px}h1{font-family:'Orbitron',sans-serif;font-size:3em;color:var(--text-accent);text-shadow:0 0 10px var(--accent-glow);margin-bottom:5px;letter-spacing:2px}.subtitle{font-size:.9em;opacity:.7;color:var(--text-light)}.section-title{font-size:1.5em;color:var(--text-accent);border-bottom:1px dashed var(--border-color);padding-bottom:10px;margin-bottom:20px;text-align:center;font-family:'Orbitron',sans-serif}#input{flex:1;width:100%;min-height:180px;padding:15px;border:2px solid var(--border-color);border-radius:8px;background-color:var(--bg-light);color:var(--text-light);font-size:1.1em;line-height:1.6;resize:none;outline:0;transition:border-color .3s,box-shadow .3s;white-space:nowrap}#input::placeholder{color:#c9f;white-space:wrap}#input:focus{border-color:var(--text-accent);box-shadow:0 0 10px rgba(233,69,96,0.3)}.controls{margin-top:25px;display:flex;gap:15px;justify-content:center;flex-wrap:wrap}button{padding:12px 25px;background-color:var(--button-bg);color:var(--text-light);border:0;border-radius:8px;cursor:pointer;font-size:1.1em;transition:background-color .3s,transform .2s,box-shadow .3s;text-transform:uppercase;font-family:'Orbitron',sans-serif;letter-spacing:1px}button:hover:not(:disabled){background-color:var(--button-hover-bg);transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,0.3)}button:disabled{background-color:var(--button-disabled-bg);cursor:not-allowed;opacity:.6;transform:none;box-shadow:none}.fix-input{background-color:#3cc;box-shadow:0 5px 15px rgba(255,255,255,0.5);color:#066}.fix-input:hover{background-color:#f69 !important;box-shadow:1px 1px 10px 2px rgba(255,255,255,0.5)}.open-blob{background-color:#ccf;box-shadow:0 5px 15px rgba(255,255,255,0.5);color:#066}.download-txt{background-color:#3cc;box-shadow:0 5px 15px rgba(255,255,255,0.5);color:#066}.output-button:hover{background-color:#ff1a8c !important;box-shadow:1px 1px 10px 2px rgba(255,255,255,0.5)}.progress-container{display:none}.progress-text{display:none}.error-section{margin-top:20px;padding:15px;background-color:var(--error-bg);border:1px solid var(--error-border);border-radius:8px;color:var(--error-text);box-shadow:0 0 15px rgba(255,0,0,0.2);height:175px;width:100%;overflow-y:auto}.error-section h3{margin-bottom:10px;font-size:1.2em;color:var(--error-text)}.error-list{list-style-type:none}.error-list li{margin-bottom:8px;padding-left:20px;position:relative}.error-list li:before{content:">>";position:absolute;left:0;color:var(--error-text)}.output-info{margin-top:30px;padding:25px;text-align:center;border:2px solid var(--border-color);border-radius:10px;min-height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px;background-color:var(--bg-light);box-shadow:inset 0 0 15px rgba(0,0,0,0.3)}.output-info p{font-size:1.1em;color:var(--text-light);opacity:.8}#output-message{font-size:1.3em;font-weight:bold;color:var(--text-accent);text-shadow:0 0 5px rgba(233,69,96,0.5)}#total-combinations-display{font-size:1.5em;font-weight:bold;color:var(--text-light);display:none;font-family:'Orbitron',sans-serif;text-shadow:0 0 8px rgba(255,255,255,0.2)}.info{margin-top:25px;font-size:.8em;color:var(--text-dark);opacity:.6;text-align:center}.progress-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.85);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .3s ease-in-out,visibility .3s ease-in-out;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}.progress-overlay.active{opacity:1;visibility:visible}.donut-chart{position:relative;width:200px;height:200px;border-radius:50%;background:conic-gradient(var(--progress-bar-color) 0 0,var(--border-color) 0 100%);display:flex;justify-content:center;align-items:center;animation:pulse-glow 1.5s infinite alternate}.donut-chart::before{content:'';position:absolute;width:160px;height:160px;background:var(--bg-dark);border-radius:50%}.donut-percentage{position:absolute;font-size:3em;font-weight:bold;color:var(--text-accent);font-family:'Orbitron',sans-serif;text-shadow:0 0 15px rgba(233,69,96,0.7)}.overlay-message{margin-top:30px;font-size:1.5em;color:var(--text-light);opacity:.9;text-align:center;font-family:'Orbitron',sans-serif;letter-spacing:1px}.overlay-sub-message{font-size:1em;color:var(--text-dark);opacity:.7;margin-top:10px}.hidden{display:none}.background-glow{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;background:radial-gradient(circle,rgba(44,255,0,0.3) 0,rgba(255,0,0,0.3) 60%,rgba(255,255,71,0.3) 100%,transparent 70%);animation:pulseGlow 8s infinite alternate ease-in-out;z-index:-1;pointer-events:none}@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes pulseGlow{0{transform:translate(-50%,-50%) scale(0.2);opacity:.6}100%{transform:translate(-50%,-50%) scale(2);opacity:.8}}@keyframes pulse-glow{from{box-shadow:0 0 10px var(--accent-glow),inset 0 0 5px var(--accent-glow)}to{box-shadow:0 0 30px var(--accent-glow),inset 0 0 15px var(--accent-glow)}}@media(max-width:1023px){.container{padding:20px;width:100%;height:100%;display:flex;flex-direction:column}.input-section{flex:1;display:flex;flex-direction:column}.donut-chart{width:150px;height:150px}.donut-chart::before{width:120px;height:120px}.donut-percentage{font-size:2.5em}}
-		</style>
-	</head>
-	<body>
-		<div class="background-glow"></div>
-		<div class="container">
-			<header>
-				<h1><span style="color: var(--text-light); opacity: 0.7;">NAME</span> COMBINE.EXE</h1>
-				<div class="subtitle">ULTRA-FAST RANDOM NAME COMBINATION GENERATOR</div>
-			</header>
-			<div class="input-section">
-				<h2 class="section-title">INPUT DATA</h2>
-				<textarea id="input" placeholder="Enter names here (e.g., Luna, Kai, Zane) - One per line or space separated. We’ll generate all unique two-name permutations—in random order!"></textarea>
-				<div class="controls">
-					<button id="reset-system">RESET SYSTEM</button>
-					<button id="generate">INITIATE GENERATION</button>
-					<button id="fix-input" class="fix-input hidden">RECTIFY INPUT</button>
-				</div>
-				<div class="info">
-					<p>ACCEPT ONLY ALPHABETIC CHARACTERS. SPECIAL CHARS & NUMBERS WILL BE DISREGARDED.</p>
-					<p>DUPLICATE NAMES WILL BE AUTO-PURGED FROM SEQUENCE.</p>
-				</div>
-			</div>
-			<div class="output-section">
-				<h2 class="section-title">GENERATION STATUS</h2>
-				<div class="error-section hidden" id="error-section">
-					<h3>INVALID INPUT!:</h3>
-					<ul class="error-list" id="error-list"></ul>
-				</div>
-				<div class="output-info" id="output-info">
-					<p id="output-message">AWAITING COMMAND...</p>
-					<p id="total-combinations-display"></p>
-					<div class="controls" style="display: none;" id="post-generation-controls">
+		  <style>
+:root{--bg-dark:#1a1a2e;--bg-medium:#16213e;--bg-light:#0f3460;--text-light:#e0e0e0;--text-accent:#e94560;--text-dark:#d1d1e0;--accent-glow:#e94560;--border-color:#3f5577;--button-bg:#4a6ee0;--button-hover-bg:#3a5ec0;--button-disabled-bg:#5a5a5a;--progress-bar-color:#e94560;--error-bg:#4d1933;--error-border:red;--error-text:#ffe0e0}*{box-sizing:border-box;margin:0;padding:0;font-family:'Roboto Mono',monospace}body::before{content:'';z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.2);overflow:hidden}body{z-index:1000;position:absolute;width:100%;height:100%;position:absolute;background-image:url("assets/images/name-combine.exe.webp");background-size:fit;background-position:center;color:var(--text-light);line-height:1.6;display:flex;justify-content:center;align-items:center;overflow:hidden;padding:10px}.container{width:100%;max-width:900px;background-color:var(--bg-medium);border-radius:15px;box-shadow:0 0 30px rgba(0,0,0,0.5),0 0 60px rgba(233,69,96,0.1);overflow-y:auto;border:2px solid var(--border-color);padding:30px;position:relative}header{text-align:center;margin-bottom:30px}h1{font-family:'Orbitron',sans-serif;font-size:3em;color:var(--text-accent);text-shadow:0 0 10px var(--accent-glow);margin-bottom:5px;letter-spacing:2px}.subtitle{font-size:.9em;opacity:.7;color:var(--text-light)}.section-title{font-size:1.5em;color:var(--text-accent);border-bottom:1px dashed var(--border-color);padding-bottom:10px;margin-bottom:20px;text-align:center;font-family:'Orbitron',sans-serif}.textarea-container{position:relative;width:100%;min-height:180px}.line-numbers{position:absolute;left:0;top:0;height:98.5%;width:100px;background-color:var(--bg-light);border:2px solid var(--border-color);padding:15px 5px;font-size:1.1em;line-height:1.6;color:#c9f;text-align:right;overflow:hidden;z-index:1;pointer-events:none;border-radius:8px 0 0 8px}#input{flex:1;width:100%;min-height:180px;padding:15px 15px 15px 115px;border:2px solid var(--border-color);border-radius:8px;background-color:var(--bg-light);color:#6ff;font-size:1.1em;line-height:1.6;resize:none;outline:0;transition:border-color .3s,box-shadow .3s;position:relative;white-space:nowrap}#input::placeholder{color:#00b3b3;white-space:wrap;font-style:italic}#input:focus{border-color:var(--text-accent);box-shadow:0 0 10px rgba(233,69,96,0.3)}.textarea-container:has(#input:focus) .line-numbers{border-color:var(--text-accent) !important;box-shadow:0 0 10px rgba(233,69,96,0.3) !important;border-right:1px solid #008080 !important}.controls{margin-top:25px;display:flex;gap:15px;justify-content:center;flex-wrap:wrap}button{padding:12px 25px;background-color:var(--button-bg);color:var(--text-light);border:0;border-radius:8px;cursor:pointer;font-size:1.1em;transition:background-color .3s,transform .2s,box-shadow .3s;text-transform:uppercase;font-family:'Orbitron',sans-serif;letter-spacing:1px}button:hover:not(:disabled){background-color:var(--button-hover-bg);transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,0.3)}button:disabled{background-color:var(--button-disabled-bg);cursor:not-allowed;opacity:.6;transform:none;box-shadow:none}.fix-input{background-color:#f69;box-shadow:0 5px 15px rgba(255,255,255,0.5);color:#066;animation:blink-animation 2s infinite}.fix-input:hover{background-color:#3cc !important;box-shadow:1px 1px 10px 2px rgba(255,255,255,0.5)}.open-blob{background-color:#ccf;box-shadow:0 5px 15px rgba(255,255,255,0.5);color:#066}.download-txt{background-color:#3cc;box-shadow:0 5px 15px rgba(255,255,255,0.5);color:#066}.output-button:hover{background-color:#ff1a8c !important;box-shadow:1px 1px 10px 2px rgba(255,255,255,0.5)}.progress-container{display:none}.progress-text{display:none}.error-section{margin-top:20px;padding:15px;background-color:var(--error-bg);border:5px solid var(--error-border);border-radius:8px;color:var(--error-text);box-shadow:0 0 25px 10px rgba(255,0,0,0.5);height:175px;width:100%;overflow-y:auto}.error-section h1{margin-bottom:10px;color:#ff5050;text-align:center;animation:blink-animation 3s infinite}.error-list{list-style-type:none}.error-list li{margin-bottom:8px;padding-left:20px;position:relative}.error-list li:before{content:">>";position:absolute;left:0;color:var(--error-text)}.output-info{margin-top:30px;padding:25px;text-align:center;border:2px solid var(--border-color);border-radius:10px;min-height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px;background-color:var(--bg-light);box-shadow:inset 0 0 15px rgba(0,0,0,0.3)}.output-info p{font-size:1.1em;color:var(--text-light);opacity:.8}#output-message{font-size:1.3em;font-weight:bold;color:var(--text-accent);text-shadow:0 0 5px rgba(233,69,96,0.5)}#total-combinations-display{font-size:1.5em;font-weight:bold;color:var(--text-light);display:none;font-family:'Orbitron',sans-serif;text-shadow:0 0 8px rgba(255,255,255,0.2)}.info{margin-top:25px;font-size:.8em;color:var(--text-dark);opacity:.6;text-align:center}.progress-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.85);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .3s ease-in-out,visibility .3s ease-in-out;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}.progress-overlay.active{opacity:1;visibility:visible}.donut-chart{position:relative;width:200px;height:200px;border-radius:50%;background:conic-gradient(var(--progress-bar-color) 0 0,var(--border-color) 0 100%);display:flex;justify-content:center;align-items:center;animation:pulse-glow 1.5s infinite alternate}.donut-chart::before{content:'';position:absolute;width:160px;height:160px;background:var(--bg-dark);border-radius:50%}.donut-percentage{position:absolute;font-size:3em;font-weight:bold;color:var(--text-accent);font-family:'Orbitron',sans-serif;text-shadow:0 0 15px rgba(233,69,96,0.7)}.overlay-message{margin-top:30px;font-size:1.5em;color:var(--text-light);opacity:.9;text-align:center;font-family:'Orbitron',sans-serif;letter-spacing:1px}.overlay-sub-message{font-size:1em;color:var(--text-dark);opacity:.7;margin-top:10px}.hidden{display:none}.blink{animation:blink-animation 1s infinite}.background-glow{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;background:radial-gradient(circle,rgba(44,255,0,0.3) 0,rgba(255,0,0,0.3) 60%,rgba(255,255,71,0.3) 100%,transparent 70%);animation:pulseGlow 8s infinite alternate ease-in-out;z-index:-1;pointer-events:none}@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes pulseGlow{0{transform:translate(-50%,-50%) scale(0.2);opacity:.6}100%{transform:translate(-50%,-50%) scale(2);opacity:.8}}@keyframes blink-animation{0{opacity:.3}50%{opacity:1}100%{opacity:.3}}@keyframes pulse-glow{from{box-shadow:0 0 10px var(--accent-glow),inset 0 0 5px var(--accent-glow)}to{box-shadow:0 0 30px var(--accent-glow),inset 0 0 15px var(--accent-glow)}}@media(max-width:1023px){.container{padding:20px;width:100%;height:100%;display:flex;flex-direction:column}.input-section{flex:1;display:flex;flex-direction:column;overflow:hidden}.textarea-container{flex:1;display:flex;flex-direction:column;overflow:hidden}#input{flex:1;overflow:auto}.line-numbers{height:100%;overflow:hidden}.donut-chart{width:150px;height:150px}.donut-chart::before{width:120px;height:120px}.donut-percentage{font-size:2.5em}}
+    </style>
+</head>
+<body>
+	<div class="background-glow"></div>
+    <div class="container">
+        <header>
+            <h1><span style="color: var(--text-light); opacity: 0.7;">NAME</span> COMBINE.EXE</h1>
+            <div class="subtitle">ULTRA-FAST RANDOM NAME COMBINATION GENERATOR</div>
+        </header>
+        
+        <div class="input-section">
+            <h2 class="section-title">INPUT DATA</h2>
+            <div class="textarea-container">
+                <div class="line-numbers" id="line-numbers">1</div>
+                <textarea id="input" placeholder="Enter names here (e.g., Luna, Kai, Zane) - One per line or space separated. We'll generate all unique two-name permutations—in random order!"></textarea>
+            </div>
+            
+            <div class="controls">
+				<button id="reset-system">RESET SYSTEM</button>
+                <button id="generate">EXECUTE</button>
+                <button id="fix-input" class="fix-input hidden">RECTIFY INPUT</button>
+            </div>
+                        
+            <div class="info">
+                <p>ACCEPT ONLY ALPHABETIC CHARACTERS. SPECIAL CHARS & NUMBERS WILL BE DISREGARDED.</p>
+                <p>DUPLICATE NAMES WILL BE AUTO-PURGED FROM SEQUENCE.</p>
+            </div>
+        </div>
+        
+        <div class="output-section">
+            <h2 class="section-title">SYSTEM STATUS</h2>
+			<div class="error-section hidden" id="error-section">
+                <h1>INVALID INPUT!</h1>
+                <ul class="error-list" id="error-list"></ul>
+            </div>
+            
+            <div class="output-info" id="output-info">
+                <p id="output-message">AWAITING COMMAND...</p>
+                <p id="total-combinations-display"></p>
+                <div class="controls" style="display: none;" id="post-generation-controls">
 						<button id="download" class="download-txt output-button">DOWNLOAD</button>
 						<button id="open-in-new-tab" class="open-blob output-button">OPEN</button>
-					</div>
-				</div>
-				<div class="info">
-					<p>GENERATE MILLIONS OF RANDOM NAME COMBINATIONS IN SECONDS</p>
-					<p>TRUE RANDOM ORDER - NO SEQUENTIAL PATTERNS</p>
-					<p>PERFECT FOR CHARACTER NAMES, BRAND NAMING & CREATIVE PROJECTS</p>
-				</div>
-			</div>
-		</div>
-		<!-- Full-page Overlay for Progress -->
-		<div class="progress-overlay" id="progress-overlay">
-			<div class="donut-chart" id="donut-chart">
-				<div class="donut-percentage" id="donut-percentage">0%</div>
-			</div>
-			<div class="overlay-message" id="overlay-message">INITIALIZING GENERATION...</div>
-			<div class="overlay-sub-message" id="overlay-sub-message"></div>
-		</div>
+                </div>
+            </div>
+            
+            <div class="info">
+                <p>GENERATE MILLIONS OF RANDOM NAME COMBINATIONS IN SECONDS</p>
+                <p>TRUE RANDOM ORDER - NO SEQUENTIAL PATTERNS</p>
+                <p>PERFECT FOR CHARACTER NAMES, BRAND NAMING & CREATIVE PROJECTS</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full-page Overlay for Progress -->
+    <div class="progress-overlay" id="progress-overlay">
+        <div class="donut-chart" id="donut-chart">
+            <div class="donut-percentage" id="donut-percentage">0%</div>
+        </div>
+        <div class="overlay-message" id="overlay-message">INITIALIZING GENERATION...</div>
+        <div class="overlay-sub-message" id="overlay-sub-message"></div>
+    </div>
 		<script src="./assets/js/main/main.min.js"></script>
 		<script src="./assets/js/lib/jquery-3.6.0.min.js"></script>
 		<script type="module" src="./assets/js/analytics/analytics.js"></script>			

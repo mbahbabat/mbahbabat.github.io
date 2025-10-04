@@ -125,8 +125,6 @@
 	<script src="./assets/js/lib/jquery-3.6.0.min.js"></script>
 	<script type="module" src="./assets/js/analytics/analytics.js"></script>	
 		<script>
-	// --- Anti-RDS Scaling Script for Specific Selectors ---
-
 (function() {
     const EXCLUDED_SELECTORS = [
         '.CodeMirror',
@@ -186,6 +184,26 @@
         });
     };
 
+    // MutationObserver untuk mendeteksi elemen baru
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        EXCLUDED_SELECTORS.forEach(selector => {
+                            // Cek apakah node yang ditambahkan itu sendiri adalah selector yang dikecualikan
+                            if (node.matches(selector)) {
+                                applyAntiScalingStyles(node);
+                            }
+                            // Cek apakah ada elemen di dalam node yang ditambahkan yang cocok dengan selector
+                            node.querySelectorAll(selector).forEach(applyAntiScalingStyles);
+                        });
+                    }
+                });
+            }
+        });
+    });
+
     // Inisialisasi
     const initAntiRDS = () => {
         getRdsConfig(); // Ambil konfigurasi RDS jika sudah ada
@@ -225,8 +243,11 @@
     }
 
 })();
+
+
 	</script>
 </body>
 
 </html>
+
 

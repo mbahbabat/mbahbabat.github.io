@@ -1,1 +1,1 @@
-import{RDS}from"../lib/RDS.js";RDS.init({debug:!1,breakpoint:1024,desktop:{baseWidth:1980,baseHeight:1080,minScale:.5,maxScale:1.2},mobile:{baseWidth:767,baseHeight:1080,minScale:.3,maxScale:1.1},afterUpdate:e=>{}});
+import{RDS}from"../lib/RDS.js";RDS.init({debug:!1,breakpoint:1024,desktop:{baseWidth:1980,baseHeight:1080,minScale:.5,maxScale:1.2},mobile:{baseWidth:600,baseHeight:1080,minScale:.3,maxScale:1.1},afterUpdate:e=>{}});

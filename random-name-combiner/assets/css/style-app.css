@@ -204,6 +204,10 @@ footer{
 	scale: 1!important;
 }
 
+.CodeMirror pre{
+	scale: 1!important;
+}
+
 .CodeMirror-gutters {
 	background: rgba(0, 0, 0, 0.1);
 	border: 0
@@ -333,4 +337,5 @@ footer{
 	display: none
 
 }
+
 

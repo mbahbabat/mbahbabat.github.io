@@ -124,6 +124,109 @@
 	<script src="./assets/js/main/main.min.js"></script>
 	<script src="./assets/js/lib/jquery-3.6.0.min.js"></script>
 	<script type="module" src="./assets/js/analytics/analytics.js"></script>	
+		<script>
+	// --- Anti-RDS Scaling Script for Specific Selectors ---
+
+(function() {
+    const EXCLUDED_SELECTORS = [
+        '.CodeMirror',
+        // Tambahkan selector lain di sini jika ada
+        // e.g., '.my-chart-library', '.some-canvas-element'
+    ];
+
+    let rdsCssVarName = '--rds-scale'; // Default, akan diupdate jika RDS sudah init
+    let rdsRemBaseSize = 16;           // Default, akan diupdate jika RDS sudah init
+
+    // Fungsi untuk mendapatkan konfigurasi RDS yang sedang berjalan
+    const getRdsConfig = () => {
+        if (typeof RDS !== 'undefined' && typeof RDS.getConfig === 'function') {
+            const config = RDS.getConfig();
+            rdsCssVarName = config.cssVarName || rdsCssVarName;
+            rdsRemBaseSize = config.remBaseSize || rdsRemBaseSize;
+            return config;
+        }
+        return null;
+    };
+
+    // Fungsi untuk menerapkan gaya anti-scaling
+    const applyAntiScalingStyles = (element) => {
+        const config = getRdsConfig();
+        
+        // 1. Reset variabel CSS --rds-scale untuk elemen ini dan turunannya
+        element.style.setProperty(rdsCssVarName, '1', 'important');
+
+        // 2. Reset font-size jika RDS mengubahnya di root/body atau secara inheren
+        // Ini akan mengembalikan font-size ke nilai default atau yang ditentukan sebelum RDS
+        // Perhatikan bahwa RDS.js menggunakan `font-size: inherit` untuk banyak elemen,
+        // jadi kita mungkin perlu menargetkan `font-size` secara langsung atau mengembalikan ke `initial`.
+        
+        // Coba set font-size ke ukuran remBaseSize jika ada
+        if (config && config.remMode !== 'static') {
+             // Jika RDS ada dan menggunakan REM, kita perlu mengembalikan font-size ke nilai px aslinya.
+             // Kita asumsikan 1em = rdsRemBaseSize px
+             element.style.setProperty('font-size', `${rdsRemBaseSize}px`, 'important');
+        } else {
+             // Jika RDS tidak menggunakan REM atau tidak ada, kembalikan ke initial atau default browser
+             element.style.setProperty('font-size', 'initial', 'important');
+        }
+
+        // 3. Optional: Reset transform/zoom jika RDS menerapkan scaling melalui properti ini
+        // (RDS yang Anda berikan tidak secara langsung memanipulasi transform/zoom pada elemen,
+        // tetapi ini adalah praktik umum dalam sistem scaling, jadi lebih baik jaga-jaga)
+        element.style.setProperty('transform', 'none', 'important');
+        element.style.setProperty('zoom', '1', 'important');
+
+        console.log(`Anti-scaling applied to:`, element);
+    };
+
+    // Fungsi untuk memindai dan menerapkan gaya ke elemen yang ada
+    const scanAndApply = () => {
+        EXCLUDED_SELECTORS.forEach(selector => {
+            document.querySelectorAll(selector).forEach(applyAntiScalingStyles);
+        });
+    };
+
+    // Inisialisasi
+    const initAntiRDS = () => {
+        getRdsConfig(); // Ambil konfigurasi RDS jika sudah ada
+        scanAndApply(); // Terapkan gaya ke elemen yang mungkin sudah ada saat script ini dimuat
+        
+        // Mulai observasi DOM untuk elemen baru
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        // Event listener untuk saat RDS mungkin sudah diinisialisasi setelah script ini
+        window.addEventListener('load', () => {
+            getRdsConfig(); // Update konfigurasi RDS lagi setelah semua script dimuat
+            scanAndApply(); // Pindai lagi jika ada elemen yang dimuat belakangan
+        });
+
+        if (typeof RDS !== 'undefined') {
+             // Jika RDS ada, pantau juga perubahannya (walaupun RDS.init dipanggil sekali)
+             // Ini bisa membantu jika RDS.updateConfig mengubah cssVarName atau remBaseSize
+             const originalUpdateConfig = RDS.updateConfig;
+             RDS.updateConfig = function(...args) {
+                 originalUpdateConfig.apply(this, args);
+                 getRdsConfig(); // Ambil konfigurasi terbaru
+                 scanAndApply(); // Terapkan lagi jika konfigurasi berubah
+             };
+        }
+
+        console.log('Anti-RDS script initialized. Observing for:', EXCLUDED_SELECTORS.join(', '));
+    };
+
+    // Jalankan inisialisasi ketika DOM sudah siap
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAntiRDS);
+    } else {
+        initAntiRDS();
+    }
+
+})();
+	</script>
 </body>
 
 </html>
+

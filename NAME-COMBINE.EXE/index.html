@@ -360,7 +360,6 @@ main {
 }
 
 .auto-disable-toggle {
-	flex: 1;
 	position: relative;
 }
 
@@ -441,6 +440,11 @@ main {
 	pointer-events: none;
 }
 
+.history-toggle-wrapper{
+	flex:1;
+	display: flex;
+	justify-content: right;
+}
 .history-toggle {
 	font-family: 'Roboto Mono', monospace;
 	font-size: 0.9em;
@@ -1126,7 +1130,7 @@ footer {
 								<span class="toggle-text">Add Line Numbers</span>
 							</label>
 						</div>
-						
+
 						<!-- Toggle auto-disable line numbers -->
 						<div class="auto-disable-toggle">
 							<label class="toggle-label">
@@ -1136,20 +1140,23 @@ footer {
 							</label>
 						</div>
 						
-						<!-- Tombol History -->
-						<div class="history-toggle" id="history-toggle">
-							<svg class="history-icon" viewBox="0 0 24 24">
-								<path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
-							</svg>
-							<span class="toggle-text">History</span>
-						</div>
-						
 						<!-- handle no line numbers -->
 						<div class="total-name-count">
 							<p id="total-all-names-text">Total Names: <span id="total-all-names-count">0</span></P>
 							<p id="total-valid-names-text" class="hidden">Total Valid Names: <span id="total-valid-names-count">0</span></P>
 							<!-- Content will be handled by Javascript -->	
-						</div>					
+						</div>	
+						
+						<!-- Tombol History -->
+						<div class="history-toggle-wrapper">
+							<div class="history-toggle" id="history-toggle">
+								<svg class="history-icon" viewBox="0 0 24 24">
+									<path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+								</svg>
+								<span class="toggle-text">History</span>
+							</div>
+						</div>		
+						
 					</div>
 					
 					<div class="controls">

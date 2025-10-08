@@ -1458,13 +1458,15 @@ footer {
 				// Remove black page after loading starts
 				if (isBlackScreen && blackScreenElement.parentNode) {
 					blackScreenElement.parentNode.removeChild(blackScreenElement);
-					isBlackScreen = false;
 				}
 			}
 
 			function initSystem() {
 				showBlackScreen();
 				setTimeout(() => {
+					if(!isBlackScreen){
+						showBlackScreen();
+					}
 					showLoading();
 				}, 100);				
 			}

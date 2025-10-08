@@ -1404,8 +1404,13 @@ footer {
 				const loadingElement = document.createElement('div');
 				loadingElement.classList.add('loading-system-overlay');
 				loadingElement.id = loadingSystemId;
-				loadingElement.innerHTML = `<div class="loading-container"><div class="typewriter-text"><h1><span style="color: var(--text-light); opacity: 0.7;">NAME</span> COMBINE.EXE</h1></div><div class="progress-container-loading"><div class="progress-bar-loading"></div></div></div>`;
+				loadingElement.innerHTML = `<div class="loading-container hidden" id="loading-container"><div class="typewriter-text"><h1><span style="color: var(--text-light); opacity: 0.7;">NAME</span> COMBINE.EXE</h1></div><div class="progress-container-loading"><div class="progress-bar-loading"></div></div></div>`;
 				body.appendChild(loadingElement);
+				
+				const loadingContainer = document.getElementById('loading-container');
+				setTimeout(() => {
+					loadingContainer.classList.remove('hidden');
+				}, 10);
 				
 				// Auto-remove setelah durasi yang ditentukan
 				setTimeout(() => {
@@ -1417,25 +1422,9 @@ footer {
 					}
 				}, animationDurationMs);
 			}
-
-			let isBlackScreen = false;
-			const blackScreenElement = createBlackScreen();
+			
 			const maxAttempts = 10;
 			let attempts = 0;
-
-			function showBlackScreen() {
-				if (!body) {
-					if (attempts++ >= maxAttempts) {
-						console.warn("BLACKPAGE ERROR!");
-						return;
-					}
-					setTimeout(showBlackScreen, 1);
-					return;
-				}
-				if (isBlackScreen) return;
-				body.appendChild(blackScreenElement);
-				isBlackScreen = true;
-			}
 
 			function showLoading() {
 				const RDS = document.getElementById('RDS');
@@ -1455,24 +1444,11 @@ footer {
 
 				createLoadingAnimation(loadingDelay);
 				isLoading = true;
-
-				// Remove black page after loading starts
-				if (isBlackScreen && blackScreenElement.parentNode) {
-					blackScreenElement.parentNode.removeChild(blackScreenElement);
-				}
 			}
 
 			function initSystem() {
-				showBlackScreen();
 				setTimeout(() => {
-					console.log(isBlackScreen);
-					if(!isBlackScreen){
-						showBlackScreen();
-					}
 					showLoading();
-					console.log(isBlackScreen);
-					isBlackScreen = false;
-					console.log(isBlackScreen);
 				}, 10);				
 			}
 			

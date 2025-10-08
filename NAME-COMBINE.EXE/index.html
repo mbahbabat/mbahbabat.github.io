@@ -1464,9 +1464,11 @@ footer {
 
 			function initSystem() {
 				showBlackScreen();
-				showLoading();
+				setTimeout(() => {
+					showLoading();
+				}, 100);				
 			}
-
+			
 			initSystem();
 		</script>
 		

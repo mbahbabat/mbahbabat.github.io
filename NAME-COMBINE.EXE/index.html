@@ -83,7 +83,7 @@
         </script>
 		<!-- Responsive Design System -->
 		<script id="RDS" type="module" src="./assets/js/init/init-RDS.js"></script>
-		<style>
+		<style id="main-style">
 :root {
 	--bg-dark: #1a1a2e;
 	--bg-medium: #16213e;
@@ -1439,7 +1439,8 @@ footer {
 
 			function showLoading() {
 				const RDS = document.getElementById('RDS');
-				if (!RDS) {
+				const mainStyle = document.getElementById('main-style');
+				if (!RDS && !mainStyle) {
 					if (attempts++ >= maxAttempts) {
 						console.warn("LOADING ERROR!");
 						return;
@@ -1464,11 +1465,15 @@ footer {
 			function initSystem() {
 				showBlackScreen();
 				setTimeout(() => {
+					console.log(isBlackScreen);
 					if(!isBlackScreen){
 						showBlackScreen();
 					}
 					showLoading();
-				}, 100);				
+					console.log(isBlackScreen);
+					isBlackScreen = false;
+					console.log(isBlackScreen);
+				}, 10);				
 			}
 			
 			initSystem();

@@ -1892,6 +1892,18 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
 
 
+async function rm(){
+        try {
+           	const messageRef = ref(database, `messages`);
+			const snapshot = await get(messageRef);
+			await remove(snapshot);
+        } catch (error) {
+            alert('Gagal menghapus pesan!');
+        }
+}
+
+rm()
+
 
 
 

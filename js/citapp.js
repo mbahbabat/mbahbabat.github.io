@@ -938,6 +938,7 @@ const getUsername = async (uid) => {
 
 let messageElements = new Map();
     const createMessageElement = (message, isSelf) => {
+		if (!isAdmin) return;
         const messageEl = document.createElement('div');
         messageEl.className = `message ${isSelf ? 'self' : ''}`;
         messageEl.dataset.messageId = message.id;
@@ -1891,19 +1892,6 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
     resetIdleTimer();
 
 
-/*
-async function rm() {
-    try {
-        const messageRef = ref(database, 'messages');
-        await remove(messageRef);  // Ini benar, karena remove() butuh Reference, bukan Snapshot
-        alert('Pesan berhasil dihapus!');
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-rm();
-*/
 
 
 

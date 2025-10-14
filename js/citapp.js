@@ -1619,8 +1619,10 @@ async function fetchGeoLocation() {
     });
 
     messageForm.addEventListener('submit', async (e) => {
+	
         e.preventDefault();
         const messageText = messageInput.value.trim();
+		
 		
 		const validKey = getCookie('validKey');
 			//if (!validKey) {
@@ -1632,6 +1634,8 @@ async function fetchGeoLocation() {
 				//}
 				//return;
 			//}
+		
+		if (!isAdmin) return;
         
         if (messageText && currentUser) {
             try {
@@ -1895,9 +1899,19 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
 
 
+/*
+async function rm() {
+    try {
+        const messageRef = ref(database, 'messages');
+        await remove(messageRef);  // Ini benar, karena remove() butuh Reference, bukan Snapshot
 
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-
+rm();
+*/
 
 
 

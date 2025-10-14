@@ -938,7 +938,6 @@ const getUsername = async (uid) => {
 
 let messageElements = new Map();
     const createMessageElement = (message, isSelf) => {
-		if (!isAdmin) return;
         const messageEl = document.createElement('div');
         messageEl.className = `message ${isSelf ? 'self' : ''}`;
         messageEl.dataset.messageId = message.id;

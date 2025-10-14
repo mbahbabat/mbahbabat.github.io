@@ -179,16 +179,16 @@ class CaptchaSolver {
             .captcha-modal-content {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 background: white;
-                padding: 20px;
+                padding: 1.25rem;
                 border-radius: 10px;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.3);
                 text-align: center;
             }
             .captcha-puzzle-container {
                 position: relative;
-                width: 300px;
-                height: 150px;
-                margin: 20px auto;
+                width: 18.75rem;
+                height: 9.375rem;
+                margin: 1.25rem auto;
                 border-radius: 6px;
                 overflow: hidden;
             }
@@ -209,8 +209,8 @@ class CaptchaSolver {
             }
             .captcha-puzzle-piece {
                 position: absolute;
-                width: 50px;
-                height: 50px;
+                width: 3.125rem;
+                height: 3.125rem;
                 left: 0;
                 cursor: grab;
             }
@@ -220,8 +220,8 @@ class CaptchaSolver {
                 display: block;
             }
             .captcha-slider-container {
-                width: 300px;
-				height: 30px;
+                width: 18.75rem;
+				height: 1.875rem;
 				position: relative;
 				display: flex;
 				align-items: center;
@@ -240,13 +240,13 @@ class CaptchaSolver {
 			}
             .captcha-instruction {
                 color: #666;
-                font-size: 11px;
-				margin-left: 40px;
+                font-size: 0.688rem;
+				margin-left: 2.5rem;
             }
             .captcha-slider {
                 width: 100%;
                 -webkit-appearance: none;
-                height: 30px;
+                height: 1.875rem;
                 background: #d3d3d3;
                 outline: none;
                 opacity: 0.7;
@@ -260,8 +260,8 @@ class CaptchaSolver {
             .captcha-slider::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 appearance: none;
-                width: 30px;
-                height: 30px;
+                width: 1.875rem;
+                height: 1.875rem;
                 background: #fff;
                 cursor: pointer;
                 border-radius: 50%;
@@ -273,8 +273,8 @@ class CaptchaSolver {
                 background-position: center;
             }
             .captcha-slider::-moz-range-thumb {
-                width: 30px;
-                height: 30px;
+                width: 1.875rem;
+                height: 1.875rem;
                 background: #fff;
                 cursor: pointer;
                 border-radius: 50%;

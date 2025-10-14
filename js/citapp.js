@@ -1892,17 +1892,18 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
 
 
 
-async function rm(){
-        try {
-           	const messageRef = ref(database, `messages`);
-			const snapshot = await get(messageRef);
-			await remove(snapshot);
-        } catch (error) {
-            alert('Gagal menghapus pesan!');
-        }
+async function rm() {
+    try {
+        const messageRef = ref(database, 'messages');
+        await remove(messageRef);  // Ini benar, karena remove() butuh Reference, bukan Snapshot
+        alert('Pesan berhasil dihapus!');
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-rm()
+rm();
+
 
 
 

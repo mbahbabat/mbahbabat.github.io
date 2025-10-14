@@ -1891,7 +1891,7 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
     resetIdleTimer();
 
 
-
+/*
 async function rm() {
     try {
         const messageRef = ref(database, 'messages');
@@ -1903,6 +1903,7 @@ async function rm() {
 }
 
 rm();
+*/
 
 
 

@@ -655,7 +655,7 @@ window.checkIPLimit = async (ip) => {
 		if (loadingCore) {
 		  setTimeout(() => {
 			loadingCore.remove(); // Menghapus elemen dari DOM
-		  }, 6000); 
+		  }, 100); 
 		}
 
 	});
@@ -1851,8 +1851,8 @@ $(document).on("click", "#change-username-btn, #username-cancel", function() {
         setTimeout(() => {
             loadingScreen.style.display = 'none';
 			
-        }, 1000); // Sinkronkan dengan durasi transisi CSS
-    }, 2500); // Ubah nilai ini sesuai kebutuhan (misalnya, waktu muat data)
+        }, 100); // Sinkronkan dengan durasi transisi CSS
+    }, 100); // Ubah nilai ini sesuai kebutuhan (misalnya, waktu muat data)
 });
 
 
@@ -1911,6 +1911,5 @@ async function rm() {
 
 rm();
 */
-
 
 

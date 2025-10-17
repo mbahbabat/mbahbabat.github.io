@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#000">
+	<meta name="msapplication-navbutton-color" content="#000">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#000">
+		
+    <title>Bulk Gmail Checker - Validate Thousands of Gmail Accounts Instantly</title>
+    <meta name="description" content="Bulk Gmail Checker - Validate thousands of Gmail addresses instantly with 99% accuracy. Check email validity, status, and eliminate invalid accounts efficiently. Best Gmail validation API provider">
+	<meta name="keywords" content="gmail checker, bulk gmail checker, gmail validation, email tools, email checker, email validation, email verification, bulk email validator, gmail live checker, gmail verification tool, check gmail account, gmail status checker, free gmail validator">
+	<link rel="canonical" href="https://mbahbabat.github.io/en/bulk-gmail-checker/">
+    <meta name="author" content="Gmooy">
+    
+    <!-- Open Graph Meta Tags -->
+	<meta property="og:type" content="website">
+    <meta property="og:title" content="Bulk Gmail Checker - Validate Thousands of Gmail Accounts Instantly">
+	<meta property="og:url" content="https://mbahbabat.github.io/en/bulk-gmail-checker/">
+    <meta property="og:description" content="Validate thousands of Gmail addresses instantly with 99% accuracy. Check email validity, status, and eliminate invalid accounts efficiently. Best Gmail validation API provider">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bulk Gmail Checker">
+	<meta name="twitter:url" content="https://mbahbabat.github.io/en/bulk-gmail-checker/">
+    <meta name="twitter:description" content="Validate thousands of Gmail addresses instantly with 99% accuracy. Best Gmail validation API provider">
+	<meta name="twitter:image" content="https://mbahbabat.github.io/en/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-logo.webp">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://mbahbabat.github.io/en/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-icon.ico" type="image/webp">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	
+ 	<!-- Language -->
+	<link rel="alternate" hreflang="en" href="https://mbahbabat.github.io/en/bulk-gmail-checker/">
+	<link rel="alternate" hreflang="id-ID" href="https://mbahbabat.github.io/id/bulk-gmail-checker/">
+	<link rel="alternate" hreflang="x-default" href="https://mbahbabat.github.io/en/bulk-gmail-checker/">   
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Organization",
+		  "name": "Gmooy",
+		  "url": "https://mbahbabat.github.io/en/bulk-gmail-checker/",
+		  "logo": "https://mbahbabat.github.io/en/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-logo.webp",
+		  "description": "Validate thousands of Gmail addresses instantly with 99% accuracy. Check email validity, status, and eliminate invalid accounts efficiently. Best Gmail validation API provider",
+		  "sameAs": [
+			"https://t.me/GMAIL_GLOBAL_CHAT"
+		  ]
+		}
+		</script>	
+    <style>
+        :root {
+            --primary-red: #8B0000;
+            --secondary-orange: #FF4500;
+            --dark-grey: #1a1a1a;
+            --text-color: #f0f0f0;
+            --border-color: var(--secondary-orange);
+            --light-bg: #2a2a2a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--dark-grey);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-orange);
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+        }
+        
+        .btn-large {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(26, 26, 26, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--secondary-orange);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            margin-right: 10px;
+            width: 50px;
+			hight: 50px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-orange);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a1a1a"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23FF4500" stroke-width="1" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.3) 0%, rgba(26, 26, 26, 0) 70%);
+            animation: pulseGlow 8s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: rgba(240, 240, 240, 0.9);
+        }
+        
+        /* About Section */
+        .about {
+            background-color: var(--light-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary-orange);
+            margin: 15px auto 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .about-card {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .about-card i {
+            font-size: 2.5rem;
+            color: var(--secondary-orange);
+            margin-bottom: 20px;
+        }
+        
+        .about-card h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-orange);
+            margin-bottom: 20px;
+        }
+        
+        /* Functions Section */
+        .functions {
+            background-color: var(--light-bg);
+        }
+        
+        .functions-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .function-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-orange);
+        }
+        
+        .function-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-orange);
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 69, 0, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 15px 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 20px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a1a1a"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23FF4500" stroke-width="1" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .cta h2 {
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(240, 240, 240, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-orange);
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(240, 240, 240, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes pulseGlow {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.6;
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(26, 26, 26, 0.95);
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .btn-large {
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="./assets/image/dragon-bulk-gmail-checker-logo.webp" class="dragon-logo" alt="bulk gmail checker logo">
+                BULK GMAIL CHECKER
+            </a>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="./execute/" class="btn">Try Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>BULK GMAIL CHECKER</h1>
+            <p>Validate thousands of Gmail addresses instantly with 99% accuracy. Check email validity, status, and eliminate invalid accounts efficiently.</p>
+            <a href="./execute/" class="btn btn-large">START CHECKING NOW</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">What is Bulk Gmail Checker?</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <h3>What is Gmail?</h3>
+                    <p>Gmail is a free email service developed by Google. With over 1.8 billion active users worldwide, it's one of the most popular email platforms. Gmail offers features like spam filtering, conversation threading, and integration with other Google services.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>What is Bulk Gmail Checker?</h3>
+                    <p>Bulk Gmail Checker is a powerful tool designed to validate thousands of Gmail addresses in seconds. It helps you identify valid, invalid, and inactive Gmail accounts with high accuracy, saving you time and improving your email marketing campaigns.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Why Use Our Tool?</h3>
+                    <p>Our Bulk Gmail Checker offers 99% accuracy, lightning-fast processing, and an intuitive interface. Whether you're cleaning your email list, verifying user registrations, or preparing for a marketing campaign, our tool delivers reliable results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Process thousands of emails in seconds with our optimized validation algorithm.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>High Accuracy</h3>
+                    <p>99% accuracy rate in identifying valid and invalid Gmail accounts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Secure & Private</h3>
+                    <p>Your data is processed securely and never stored on our servers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <h3>Smart Filtering</h3>
+                    <p>Filter results by status: Live, Verify, Disabled, Unregistered, or Error.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Easy Export</h3>
+                    <p>Download your results in TXT format for further analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>History Tracking</h3>
+                    <p>Keep track of your previous checks with our built-in history system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Functions Section -->
+    <section class="functions" id="functions">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="functions-list">
+                <div class="function-item">
+                    <div class="function-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <div>
+                        <h3>Upload or Paste</h3>
+                        <p>Upload a TXT file containing your Gmail addresses or simply paste them directly into the input field.</p>
+                    </div>
+                </div>
+                <div class="function-item">
+                    <div class="function-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div>
+                        <h3>Automatic Validation</h3>
+                        <p>Our system automatically validates each Gmail address, checking for format correctness and account status.</p>
+                    </div>
+                </div>
+                <div class="function-item">
+                    <div class="function-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div>
+                        <h3>Real-time Results</h3>
+                        <p>Watch as results populate in real-time with detailed status information for each email address.</p>
+                    </div>
+                </div>
+                <div class="function-item">
+                    <div class="function-icon">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <div>
+                        <h3>Export & Analyze</h3>
+                        <p>Copy results to clipboard or download as a TXT file for further analysis and use in your campaigns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How accurate is the Bulk Gmail Checker?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our Bulk Gmail Checker achieves a 99% accuracy rate in identifying valid and invalid Gmail addresses. We continuously update our validation algorithms to maintain this high level of accuracy.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a limit to how many emails I can check?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our free tier allows you to check a substantial number of emails daily. For high-volume users, we offer premium plans with increased limits. Check the application for current limits.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What email statuses does the tool identify?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The tool identifies five main statuses: Live (active accounts), Verify (accounts requiring verification), Disabled (deactivated accounts), Unregistered (non-existent accounts), and Error (accounts with validation errors).</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is my data secure when using this tool?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we take data security seriously. Your email lists are processed securely and are never stored on our servers after the validation process is complete.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I use this tool for non-Gmail addresses?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Currently, our tool is specifically optimized for Gmail addresses. Using it with other email providers will automatically be filtered out by our email filter.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need to create an account to use the tool?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No account creation is required for basic usage. The tool automatically generates an API key for you when you first use it, allowing you to start validating emails immediately.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Validate Your Gmail List?</h2>
+            <p>Start using our Bulk Gmail Checker today and improve the quality of your email lists with accurate, real-time validation.</p>
+            <a href="./execute/" class="btn btn-large">TRY IT NOW FOR FREE</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BULK GMAIL CHECKER</h3>
+                    <p>Validate thousands of Gmail addresses instantly with 99% accuracy.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#functions">How It Works</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Gmooy | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentNode;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('nav-links').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

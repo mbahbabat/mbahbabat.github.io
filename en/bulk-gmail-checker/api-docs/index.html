@@ -392,7 +392,8 @@
         
         <div class="nav-tabs">
             <div class="nav-tab active" data-tab="overview">Overview</div>
-            <div class="nav-tab" data-tab="validation">Email Validation</div>
+            <div class="nav-tab" data-tab="authentication">Authentication</div>
+			<div class="nav-tab" data-tab="validation">Email Validation</div>
             <div class="nav-tab" data-tab="stats">API Statistics</div>
             <div class="nav-tab" data-tab="examples">Code Examples</div>
         </div>
@@ -409,7 +410,7 @@
                 </ul>
                 
                 <div class="note">
-                    <p><strong>Note:</strong> All API requests require authentication using a Bearer token. Free API keys have a limit of 500,000 requests per day.</p>
+                    <p><strong>Note:</strong> All API requests require authentication using a Bearer token. API keys are automatically generated when you visit our main application and have a limit of 500,000 requests per day.</p>
                 </div>
                 
                 <h3>Base URL</h3>
@@ -420,6 +421,57 @@
                 
                 <h3>Response Format</h3>
                 <p>All API responses are returned in JSON format with appropriate HTTP status codes.</p>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="authentication">
+            <div class="section">
+                <h2>Authentication</h2>
+                <p>All API requests must include a valid API key in the Authorization header using the Bearer token scheme.</p>
+                
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method">GET</span>
+                        <span class="url">Automatic API Key Generation</span>
+                    </div>
+                    <div class="description">
+                        <p>API keys are automatically generated when you visit our main application. No manual registration required!</p>
+                    </div>
+                    
+                    <h3>How to Get Your API Key</h3>
+                    <ol style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Visit <a href="https://mbahbabat.github.io/en/bulk-gmail-checker/execute/" style="color: var(--secondary-orange);">Bulk Gmail Checker</a></li>
+                        <li>Click on the "MY ACCOUNT" button in the top-right corner</li>
+                        <li>Your API key will be automatically generated and displayed in the "API Key" section</li>
+                        <li>Copy the API key for use in your applications</li>
+                    </ol>
+                    
+                    <div class="note">
+                        <p><strong>Automatic Generation:</strong> Your API key is generated automatically upon first visit and stored in your browser's local storage.</p>
+                    </div>
+                </div>
+                
+                <h3>Using Your API Key</h3>
+                <p>Include your API key in the Authorization header of all requests:</p>
+                
+                <div class="code-block">
+                    <pre><code>Authorization: Bearer YOUR_API_KEY_HERE</code></pre>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                
+                <div class="warning">
+                    <p><strong>Important:</strong> Your API key should be kept secure and not exposed in client-side code. API keys are limited to 500,000 requests per day and reset every 24 hours.</p>
+                </div>
+                
+                <h3>Security & Origin Restrictions</h3>
+                <p>For security reasons, API key generation is restricted to our official domain:</p>
+                
+                <div class="code-block">
+                    <pre><code>https://mbahbabat.github.io</code></pre>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                
+                <p>Requests from other domains will be rejected. This ensures that only legitimate users can generate and use our API keys.</p>
             </div>
         </div>
 

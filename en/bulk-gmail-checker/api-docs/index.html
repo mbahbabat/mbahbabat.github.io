@@ -346,7 +346,7 @@
             }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .container {
                 padding: 10px;
             }
@@ -356,20 +356,37 @@
             }
             
             .nav-tabs {
-                flex-wrap: wrap;
+			   display: grid;
+               grid-template-columns: repeat(3, 1fr);
             }
-            
-            .nav-tab {
-                flex: 1;
-                min-width: 120px;
-                text-align: center;
-            }
-            
+			    
             .param-table {
                 display: block;
                 overflow-x: auto;
             }
         }
+		
+        @media (max-width: 768px) {
+            
+            .nav-tabs {
+				 grid-template-columns: repeat(2, 1fr);
+            }
+			
+			
+        }		
+
+        @media (max-width: 400px) {
+            
+            .nav-tabs {
+				 grid-template-columns: 1fr;
+            }
+			
+			.badge-container {
+				zoom: 80%;
+			}
+			
+        }			
+		
     </style>
 </head>
 <body>
@@ -383,7 +400,7 @@
             </div>
             <h1>BULK GMAIL CHECKER API</h1>
             <p class="subtitle">Complete API Documentation for Developers</p>
-            <div>
+            <div class="badge-container">
                 <span class="badge">REST API</span>
                 <span class="badge">JSON</span>
                 <span class="badge">Bearer Token</span>

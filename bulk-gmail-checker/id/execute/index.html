@@ -229,6 +229,23 @@
 		</footer>
 
 		<!-- INLINE SCRIPTS -->
+		<script ID="GA">
+		  setTimeout(function() {
+			var gtagScript = document.createElement('script');
+			gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-80G6FLZWFB";
+			gtagScript.async = true;
+			document.head.appendChild(gtagScript);
+
+			gtagScript.onload = function() {
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'G-80G6FLZWFB');
+			};
+		  }, 10000);
+		</script>
+		
 		<script ID="REDIRECT">
 /*
 

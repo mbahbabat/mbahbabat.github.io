@@ -30,7 +30,7 @@
 			const DB_NAME = 'NotepadDB';
 			const DB_VERSION = 2; // Tingkatkan versi untuk schema update
 			const STORE_NAME = 'files'; // Ubah nama store untuk lebih jelas
-			
+					
 			// Kelas Notepad
 			class Notepad {
 				// NEW: Tambahkan manager sebagai argumen di constructor
@@ -80,16 +80,15 @@
 							<button class="notepad-file-btn notepad-open-btn">Open</button>
 							<input type="text" class="notepad-input-file-name notepad-hidden" placeholder="File Name...">
 						</div>
-						<textarea class="notepad-textarea" placeholder="Type here..."></textarea>
+						<textarea class="notepad-textarea" placeholder=""></textarea>
 						<div class="notepad-resize-handle"></div>
 					`;
 					
 					// Tambahkan ke body
-					document.body.appendChild(this.element);
-					
-					// Fokus ke textarea
-					this.element.querySelector('.notepad-textarea').focus();
+					document.body.appendChild(this.element);				
 				}
+				
+				
 				
 				setPosition(xRem, yRem) { // Menerima nilai dalam rem
 					this.x = xRem;

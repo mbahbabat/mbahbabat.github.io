@@ -45,16 +45,6 @@
 		<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/ajax/libs">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 		
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z5V8VBEKRD"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'G-Z5V8VBEKRD');
-		</script>
-
 		<!-- Responsive Design System -->
 		<script type="module" src="../assets/js/init/init-RDS.js"></script>		
 	</head>
@@ -265,6 +255,22 @@
 		<script src="../assets/js/lib/FileSaver.min.js"></script>
 		<script src="../assets/js/main/main.min.js"></script>
 		<script src="../assets/js/lib/jquery-3.6.0.min.js"></script>
-		<script type="module" src="../assets/js/analytics/analytics.js"></script>
+		<script type="module" src="../assets/js/analytics/analytics.js"></script>		
+		<!-- Google tag (gtag.js) -->
+		<script id="GA-APP">
+		  setTimeout(function() {
+			var gtagScript = document.createElement('script');
+			gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-HYGYB50DJH";
+			gtagScript.async = true;
+			document.head.appendChild(gtagScript);
+
+			gtagScript.onload = function() {
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+			  gtag('config', 'G-HYGYB50DJH');
+			};
+		  }, 5000); 
+		</script>		
 	</body>
 </html>

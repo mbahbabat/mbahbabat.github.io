@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en" style="background:black">
+	<head>
+		<meta charset="UTF-8">
+		<!-- Mobile & Theme -->		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="theme-color" content="#000">
+		<meta name="msapplication-navbutton-color" content="#000">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#000">
+		<meta name="apple-mobile-web-app-title" content="Bulk Gmail Checker">
+		<meta name="application-name" content="Bulk Gmail Checker">			
+		<!-- Primary Meta Tags -->
+		<title>Bulk Gmail Checker – Detect Gmail Ver, Live, Disabled, Unregistered or Bad</title>
+		<meta name="title" content="Bulk Gmail Checker – Detect Gmail Ver, Live, Disabled, Unregistered or Bad">
+		<meta name="description" content="Check your Gmail account status automatically, quickly, and without logging in using the advanced Gmail Checker">
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://mbahbabat.github.io/bulk-gmail-checker/execute/">
+		<meta property="og:title" content="Bulk Gmail Checker – Detect Gmail Ver, Live, Disabled, Unregistered or Bad">
+		<meta property="og:description" content="Check your Gmail account status automatically, quickly, and without logging in using the advanced Gmail Checker">
+		<meta property="og:image" content="https://mbahbabat.github.io/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-logo.webp">
+		<meta property="og:site_name" content="Bulk Gmail Checker">
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:url" content="https://mbahbabat.github.io/bulk-gmail-checker/execute/">
+		<meta name="twitter:title" content="Bulk Gmail Checker – Detect Gmail Ver, Live, Disabled, Unregistered or Bad">
+		<meta name="twitter:description" content="Check your Gmail account status automatically, quickly, and without logging in using the advanced Gmail Checker">
+		<meta name="twitter:image" content="https://mbahbabat.github.io/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-logo.webp">
+		<!-- Canonical & Misc -->
+		<link rel="canonical" href="https://mbahbabat.github.io/bulk-gmail-checker/execute/">
+		<meta name="author" content="Gmooy">
+		<meta name="robots" content="index, follow">
+		<meta name="keywords" content="gmail checker, bulk gmail checker, gmail check, google account checker, gmail check tool, google account check tools, gmail ver, gmail live, gmail disabled, gmail unregistered, gmail bad, unlimited gmail check, verify gmail, gmail validator, email validator, validate gmail, validate email">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="expires" content="0">
+		<!-- favicon -->
+		<link rel="shortcut icon" href="https://mbahbabat.github.io/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-favicon.ico" type="image/webp">
+		<!-- Language -->
+		<link rel="alternate" hreflang="en" href="https://mbahbabat.github.io/bulk-gmail-checker/execute/">
+		<link rel="alternate" hreflang="id-ID" href="https://mbahbabat.github.io/bulk-gmail-checker/id/execute/">
+		<link rel="alternate" hreflang="x-default" href="https://mbahbabat.github.io/bulk-gmail-checker/execute/">
+		
+		<script type="module" src="../assets/js/init/init-RDS.js"> </script>
+		<script src="../assets/js/main/RESET.js"> </script>
+		<script src="../assets/js/main/ASSETS-BASEPATH.js"> </script>			
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "WebSite",
+		  "name": "Bulk Gmail Checker Application",
+		  "url": "https://mbahbabat.github.io/bulk-gmail-checker/execute/",
+		  "description": "Web Tool (Gmail Checker) - a tool specifically designed for quick Google account checks without logging in",
+		  "publisher": {
+			"@type": "Organization",
+			"name": "Bulk Gmail Checker",
+			"logo": {
+			  "@type": "ImageObject",
+			  "url": "https://mbahbabat.github.io/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-logo.webp"
+			}
+		  }
+		}
+		</script>
+		<style>		
+@media(min-width:1025px) {
+	main {
+		max-width: 900px
+	}
+}
+
+@media(max-height:500px) and (min-width:1025px) {
+	main {
+		min-height: 800px
+	}
+
+	body {
+		min-height: 1000px;
+		overflow: auto !important
+	}
+}
+
+@media(min-width:1025px) {
+	.btn:hover:not(:disabled) {
+		background: var(--secondary-orange);
+		transform: translateY(-2px);
+		box-shadow: 0 5px 15px rgb(0 0 0 / .6)
+	}
+	
+	.history-info:hover  .history-click-indicator{
+			display: flex;
+		}
+		
+	.history-btn.delete:hover{
+		color: white;
+		border: 3px solid red;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background-color: rgb(175 134 252 / .7)
+	}
+}
+
+@media(max-width:800px) {
+	.radio-label {
+		font-size: 0.7em !important
+	}
+}
+
+.server-loading-state {
+	width: 100%; 
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999999;
+	background: radial-gradient(circle, rgb(26 26 26) 0%, rgb(0 202 255) 60%, rgb(26 26 26) 100%);
+	animation: blink-animation 3s infinite alternate ease-in-out;
+	transition: opacity 1s ease-out, visibility 1s ease-out;
+	opacity: 1;
+	visibility: visible
+}
+
+.server-loading-state.hideSmooth {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none
+}
+
+.server-loading-state p {
+	text-align: center;
+	font-family: 'Orbitron', sans-serif;
+	color: #fff;
+	font-weight: 700;
+	font-size: 1em
+}
+
+.server-loading-spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid red;
+	border-top: 4px solid var(--primary-orange);
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin-bottom: 1rem
+}
+
+.loading-spinner {
+	width: 30px;
+	height: 30px;
+	border: 4px solid red;
+	border-top: 4px solid var(--primary-orange);
+	border-radius: 50%;
+	animation: spin 1s linear infinite
+}
+
+:root {
+	--primary-red: #8B0000;
+	--secondary-orange: #FF4500;
+	--dark-grey: #1a1a1a;
+	--text-color: #f0f0f0;
+	--border-color: var(--secondary-orange)
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto Mono', monospace;
+	-webkit-tap-highlight-color: #fff0
+}
+
+*:before,
+*:after {
+	box-sizing: inherit
+}
+
+a {
+	text-decoration: none;
+	background-color: #fff0
+}
+
+mark {
+	background: var(--secondary-orange);
+	color: var(--dark-grey)
+}
+
+img {
+	border-style: none
+}
+
+input:focus {
+  outline: none;
+}
+
+.btn {
+	padding: 10px 20px;
+	border: 0;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 1em;
+	transition: background-color .3s, transform .2s, box-shadow .3s;
+	text-transform: uppercase;
+	font-family: 'Orbitron', sans-serif;
+	letter-spacing: 1px;
+	background-color: var(--primary-red);
+	color: var(--text-color);
+	box-shadow: 0 4px 8px rgb(0 0 0 / .4)
+}
+
+.btn:disabled {
+	cursor: not-allowed;
+	filter: brightness(50%);
+	transform: none;
+	box-shadow: none
+}
+
+.btn-large {
+	padding: 15px 30px;
+	font-size: 18px
+}
+
+.hidden {
+	display: none !important
+}
+
+.active {
+	border: none !important;
+	animation: fire 0.5s infinite alternate
+}
+
+.button-container {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	flex-wrap: wrap
+}
+
+.executionBackground{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.background-gmail{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background-size: 100vw 100vh;
+  animation: opaback 60s infinite alternate ease-in-out;
+}
+
+.background-glow {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(circle, rgb(200 150 255 / .6) 0%, rgb(0 0 0 / .4) 60%, rgb(255 0 0 / .4) 100%);
+	animation: pulseGlow 20s infinite alternate ease-in-out;
+	z-index: 1;
+	pointer-events: none;
+	border-radius: 10%
+}
+
+::-webkit-scrollbar {
+	width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+	background: rgb(255 255 255 / .05);
+	border-radius: 10px
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgb(167 129 255 / .2);
+	border-radius: 10px;
+	border: 1px solid rgb(77 210 255 / .7)
+}
+
+body {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	padding: 15px;
+	overflow: hidden;
+	color: var(--text-color);
+	background-size: 100vw 100vh;
+	background-repeat: no-repeat;
+	scrollbar-width: thin;
+	scrollbar-color: #bfbfbf #404040
+}
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 15px;
+	width: 100%;
+	min-height: 100px;
+	display: flex;
+	text-shadow: 0 0 10px rgb(255 69 0 / .8);
+	z-index: 2;
+}
+
+.header-section {
+	display: flex
+}
+
+.center-header-section {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px
+}
+
+.right-header-section {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	gap: 15px
+}
+
+.right-header-section button {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	padding: 0;
+	font-size: 1.6em
+}
+
+.header-button {
+	box-shadow: 0 0 20px var(--primary-red), 0 0 40px var(--secondary-orange)
+}
+
+h1 {
+	text-align: center;
+	font-family: 'Orbitron', sans-serif;
+	color: var(--secondary-orange)
+}
+
+header p {
+	text-align: center;
+	font-size: .8em;
+}
+
+.app-title{
+	cursor: pointer;
+}
+
+.app-version{
+	font-size: 0.8em;
+	font-style: italic;
+	color: var(--secondary-orange);
+}
+
+main {
+	flex: 1;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	padding: 15px;
+	overflow: hidden;
+	border: 1px solid var(--border-color);
+	border-radius: 15px;
+	background: rgb(26 26 26 / .8);
+	box-shadow: 0 0 20px rgb(255 69 0 / .4);
+	z-index: 2;
+}
+
+footer {
+	width: 100%;
+	min-height: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	color: rgb(240 240 240 / .7);
+	z-index: 2;
+}
+
+footer a {
+	font-size: 1.5em;
+	color: #f73
+}
+
+.input-section {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 100%;
+	overflow: hidden;
+	position: relative
+}
+
+.input-section-header {
+	display: flex;
+	align-items: center;
+	gap: 15px
+}
+
+.input-section-header h3 {
+	flex: 1;
+	font-family: 'Orbitron', sans-serif;
+	color: var(--secondary-orange)
+}
+
+.textarea-container {
+	flex: 1;
+	display: flex;
+	overflow: hidden
+}
+
+.line-numbers {
+	height: 100%;
+	min-width: 50px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	pointer-events: none;
+	user-select: none;
+	border: 1px solid var(--border-color);
+	border-right: 0;
+	font-size: 1em;
+	padding: 15px;
+	background: rgb(0 0 0 / .1);
+	color: rgb(240 240 240 / .6)
+}
+
+#email-input {
+	flex: 1;
+	border: none;
+	outline: none;
+	resize: none;
+	padding: 15px;
+	font-size: 1em;
+	border: 1px solid var(--border-color);
+	white-space: pre;
+	padding-bottom: 0;
+	background: rgb(0 0 0 / .1);
+	color: var(--text-color)
+}
+
+.server-selection-container {
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	background: rgb(0 0 0 / .1)
+}
+
+.server-selection-header h4 {
+	text-align: center;
+	color: var(--secondary-orange);
+	font-family: 'Orbitron', sans-serif;
+	font-size: .9em;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+	letter-spacing: 1px
+}
+
+.server-radio-grid {
+	padding: 15px 0 15px 0;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px
+}
+
+.radio-option {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.3s
+}
+
+.radio-option:hover {
+	background: rgb(255 69 0 / .1)
+}
+
+.radio-option input[type="radio"] {
+	display: none
+}
+
+.radio-custom {
+	width: 16px;
+	height: 16px;
+	border: 2px solid var(--secondary-orange);
+	border-radius: 50%;
+	margin-right: 8px;
+	position: relative;
+	transition: all 0.3s
+}
+
+.radio-custom::after {
+	content: '';
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--secondary-orange);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0);
+	transition: transform 0.3s
+}
+
+.radio-option input[type="radio"]:checked+.radio-custom {
+	border-color: var(--secondary-orange)
+}
+
+.radio-option input[type="radio"]:checked+.radio-custom::after {
+	transform: translate(-50%, -50%) scale(1)
+}
+
+.radio-label {
+	font-size: 1em;
+	color: var(--text-color);
+	font-family: 'Roboto Mono', monospace
+}
+
+.input-button {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px
+}
+
+.input-button button {
+	padding: 30px
+}
+
+#execute-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	align-items: center
+}
+
+.progress-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(0 0 0 / .1);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	pointer-events: none;
+	user-select: none
+}
+
+.donut-chart-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 30px
+}
+
+.donut-chart {
+	position: relative;
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
+	background: conic-gradient(var(--primary-red) 0% 0%, #333 0% 100%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 0 15px rgb(255 69 0 / .7), 0 0 30px rgb(255 69 0 / .5), 0 0 50px rgb(255 69 0 / .3), inset 0 0 10px rgb(255 255 255 / .2)
+}
+
+.donut-chart::before {
+	content: '';
+	position: absolute;
+	width: 140px;
+	height: 140px;
+	border-radius: 50%;
+	background-color: var(--dark-grey);
+	box-shadow: inset 0 0 10px rgb(0 0 0 / .5)
+}
+
+.progress-text {
+	position: relative;
+	color: var(--text-color);
+	font-size: 2.2em;
+	font-weight: 700;
+	z-index: 1;
+	text-shadow: 0 0 8px rgb(255 69 0 / .8);
+	font-family: 'Orbitron', sans-serif
+}
+
+.output-section {
+	flex: 1;
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 100%;
+	overflow-x: visible;
+	position: relative
+}
+
+.output-button {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	justify-content: center;
+	align-items: center
+}
+
+.reset-button-container {
+	padding: 10px
+}
+
+.result-button-container {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px
+}
+
+.result-button {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.3em;
+	font-weight: 700
+}
+
+.output-section h3 {
+	text-align: center;
+	color: var(--secondary-orange)
+}
+
+.result-container {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	height: 100%;
+	min-height: 200px;
+	overflow-y: auto;
+	border: 1px solid var(--border-color);
+	background: rgb(0 0 0 / .1);
+	position: relative
+}
+
+.result-list-container {
+	flex: 1;
+	overflow-y: auto;
+	border: 1px solid var(--border-color);
+	padding: 15px;
+	background: rgb(0 0 0 / .1)
+}
+
+.result-item {
+	padding: 8px 5px;
+	border-bottom: 1px solid rgb(240 0 0 / .5);
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	height: 35px;
+	white-space: nowrap
+}
+
+.result-item:last-child {
+	border-bottom: none
+}
+
+.status-live {
+	color: #00FF7F
+}
+
+.status-verify {
+	color: gold
+}
+
+.status-disabled {
+	color: tomato
+}
+
+.status-unregistered {
+	color: #0cf
+}
+
+.status-bad {
+	color: #e600ac
+}
+
+.filter-button-group {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: 1fr;
+	gap: 10px
+}
+
+.filter-btn {
+	padding: 10px 3px;
+	margin: 0;
+	border: 1px solid red;
+	border-radius: 15px;
+	font-size: .8em;
+	background: none
+}
+
+.filter-btn[data-filter="live"] .counter {
+	color: #00FF7F
+}
+
+.filter-btn[data-filter="verify"] .counter {
+	color: gold
+}
+
+.filter-btn[data-filter="disabled"] .counter {
+	color: tomato
+}
+
+.filter-btn[data-filter="unregistered"] .counter {
+	color: #0cf
+}
+
+.filter-btn[data-filter="bad"] .counter {
+	color: #e600ac
+}
+
+.controls-section {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 100%;
+	overflow: hidden;
+	position: relative
+}
+
+.clear-errors-btn {
+	animation: blink-animation 1s infinite
+}
+
+.system-info-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 15px;
+	min-height: 100px;
+	max-height: 275px;
+	padding: 15px;
+	border: 1px solid var(--border-color);
+	background: rgb(0 0 0 / .1);
+	border-radius: 8px
+}
+
+.system-info {
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.2em;
+	color: var(--border-color);
+	position: relative
+}
+
+.system-info p {
+	text-align: center
+}
+
+.error-info,
+.api-stats {
+	flex: 1;
+	border: 1px solid var(--border-color);
+	padding: 0 15px 0 15px;
+	font-size: 1em;
+	background: rgb(0 0 0 / .1);
+	overflow-y: auto;
+	position: relative
+}
+
+.error-info{
+	min-height: 150px;
+}
+
+.api-stats {
+	padding: 15px
+}
+
+.stats-grid {
+	flex: 1;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-auto-rows: 1fr;
+	gap: 10px
+}
+
+.stat-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 5px;
+	color: #d9d9d9;
+	border-radius: 5px;
+	font-size: .9em;
+	border: 1px solid #4d4d4d;
+}
+
+.stat-item strong {
+	color: #0c9
+}
+
+.stat-item #countdown {
+	color: red
+}
+
+.close-stats-absolute {
+	position: absolute;
+	right: 5px;
+	top: -5px;
+	z-index: 1000;
+	font-size: 1.5em;
+	cursor: pointer
+}
+
+.error-list {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	color: var(--text-color);
+	white-space: nowrap
+}
+
+.error-list p {
+	margin: 5px 0;
+	white-space: nowrap
+}
+
+.error-list p span[style*='color:red'] {
+	color: var(--primary-red) !important
+}
+
+.error-list p span[style*='color:orange'] {
+	color: var(--secondary-orange) !important
+}
+
+.error-list p span[style*='color:blue'] {
+	color: #1E90FF !important
+}
+
+.error-list p span[style*='color:purple'] {
+	color: #DA70D6 !important
+}
+
+@keyframes pulseGlow {
+	0% {
+		transform: translate(-50%, -50%) scale(1.2);
+		opacity: .3;
+		box-shadow: 0 0 20px var(--primary-red), 0 0 40px var(--secondary-orange)
+	}
+
+	100% {
+		transform: translate(-50%, -50%) scale(2);
+		opacity: .9;
+		box-shadow: 0 0 50px var(--primary-red), 0 0 100px var(--secondary-orange)
+	}
+}
+
+.modal {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(0 0 0 / .5);
+	z-index: 10000;
+	overflow: hidden;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px)
+}
+
+.modal-content {
+	position: relative;
+	background-color: var(--dark-grey);
+	margin: 2% auto;
+	padding: 0;
+	border: 2px solid var(--border-color);
+	border-radius: 15px;
+	box-shadow: 0 0 30px rgb(255 69 0 / .6);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden
+}
+
+@media screen and (min-width:1025px) {
+	.modal-content {
+		width: 1000px;
+		height: 80%
+	}
+}
+
+@media screen and (max-width:1024px) {
+	.modal-content {
+		width: 98% !important;
+		height: 98% !important
+	}
+}
+
+.modal-header {
+	padding: 20px;
+	border-bottom: 1px solid var(--border-color);
+	background: rgb(0 0 0 / .6);
+	flex-shrink: 0
+}
+
+.modal-header h2 {
+	font-family: 'Orbitron', sans-serif;
+	color: var(--secondary-orange);
+	text-align: center;
+	margin: 0;
+	text-shadow: 0 0 10px rgb(255 69 0 / .8)
+}
+
+.modal-body {
+	flex: 1;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px
+}
+
+.modal-footer {
+	padding: 15px;
+	border-top: 1px solid var(--border-color);
+	background: rgb(0 0 0 / .6);
+	display: flex;
+	justify-content: center;
+	flex-shrink: 0
+}
+
+.close-modal {
+	padding: 10px 30px;
+	font-size: 1.1em
+}
+
+/* Tambahkan di bagian CSS yang sudah ada */
+.profile-picture-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--secondary-orange);
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--dark-grey);
+}
+
+.profile-picture:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--secondary-orange);
+}
+
+.profile-picture-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--secondary-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-grey);
+    color: var(--secondary-orange);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-picture-placeholder:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--secondary-orange);
+}
+
+.profile-upload-btn {
+    position: absolute;
+    bottom: -5px;
+    right: calc(50% - 40px);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--secondary-orange);
+    border: 2px solid var(--dark-grey);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.header-profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+	border: 2px solid red;
+}
+
+.header-profile-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-orange);
+    font-size: 1em;
+}
+
+.user-name-section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+	height: 50px;
+}
+
+.user-name-section:hover .edit-user-name-btn{
+	display: block;
+}
+
+.user-name-display{
+	display: flex;
+	gap: 15px;
+	height:100%;
+	align-items: center;
+}
+
+#display-user-name{
+	color: red;
+	font-weight: 900;
+	font-family: 'Orbitron', sans-serif;
+}
+
+.user-name-form{
+	display: flex;
+	width: 100%;
+	gap: 10px;
+}
+
+#user-name-input{
+	flex: 1;
+	background: black;
+	color: white;
+	border: 1px solid red;
+	border-radius: 5px;
+}
+
+.edit-user-name-btn{
+	border-radius: 50%;
+	font-size: 0.7em;
+	padding:0;
+	width: 30px;
+	height: 30px;
+	background: var(--secondary-orange);
+    border: 2px solid var(--dark-grey);
+    color: white;
+	display: none;
+}
+
+.api-key-section {
+	border: 1px solid var(--border-color);
+	border-radius: 10px;
+	padding: 15px;
+	background: rgb(0 0 0 / .5)
+}
+
+.api-key-section h3 {
+	color: var(--secondary-orange);
+	margin-bottom: 10px;
+	font-family: 'Orbitron', sans-serif
+}
+
+.api-key-display {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 15px
+}
+
+.api-key-value {
+	flex: 1;
+	padding: 10px;
+	background: rgb(0 0 0 / .7);
+	border: 1px solid var(--border-color);
+	border-radius: 5px;
+	font-family: 'Roboto Mono', monospace;
+	color: var(--text-color);
+	word-break: break-all
+}
+
+.copy-api-key {
+	padding: 10px 15px;
+	font-size: .9em
+}
+
+.stats-section {
+	border: 1px solid var(--border-color);
+	border-radius: 10px;
+	padding: 15px;
+	background: rgb(0 0 0 / .5)
+}
+
+.stats-section h3 {
+	color: var(--secondary-orange);
+	margin-bottom: 15px;
+	font-family: 'Orbitron', sans-serif
+}
+
+#modal-stats-container {
+	min-height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center
+}
+
+.history-section {
+	flex: 1;
+	height: 500px;
+	min-height: 500px;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--border-color);
+	border-radius: 10px;
+	padding: 15px;
+	background: rgb(0 0 0 / .5)
+}
+
+.history-section h3 {
+	color: var(--secondary-orange);
+	margin-bottom: 15px;
+	font-family: 'Orbitron', sans-serif
+}
+
+.apidocs-info-container, .history-storage-info-container{
+	position: relative;
+	color: #00b3b3;
+	cursor: pointer;
+	border: 2px solid red;
+	border-radius: 50%;
+}
+
+.history-storage-info-container:hover .history-storage-info{
+	display: block;
+}
+
+.apidocs-info-container:hover .apidocs-info{
+	display: block;
+}
+
+
+.apidocs-info{
+	display: none;
+	font-size: 0.7em;
+	color: white;
+	text-decoration: underline;
+	position: absolute;
+	left: 22px;
+	top:-5px;
+	width: 230px;
+	text-align: center;
+	background: red;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.history-storage-info{
+	display: none;
+	font-size: 0.7em;
+	color: black;
+	position: absolute;
+	left: 30px;
+	top:0;
+	width: 500px;
+	background: red;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.history-placeholder {
+	text-align: center;
+	padding: 40px 20px;
+	color: rgb(240 240 240 / .6);
+	font-style: italic
+}
+
+.history-list {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px;
+	overflow-y: auto;
+	border: 1px solid #80002a;
+	border-radius: 5px;
+	background: rgb(0 0 0 / .3)
+}
+
+.history-item {
+	min-width: 850px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	transition: background-color 0.3s;
+	cursor: pointer;	
+}
+
+.history-click-indicator{
+	top:0;
+	left:0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	pointer-events: none;
+	background: rgba(0,0,0,0.6);
+	gap: 10px;
+	border-radius: 5px;
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #ffcc00;
+	text-shadow: 1px 1px white;
+}
+
+.history-click-indicator i{
+	animation: blink-animation 5s infinite alternate ease-in-out;
+}
+
+.history-info {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	border: 1px solid #4d4d4d;
+	border-radius: 10px;
+	padding: 10px;
+	position: relative;
+}
+
+.history-filename {
+	font-weight: 700;
+	color: white;
+	margin-bottom: 5px;
+	font-family: 'Roboto Mono', monospace;
+}
+
+.history-meta {
+	font-size: 1em;
+	color: #f96;
+	display: flex;
+	gap: 15px;
+	overflow: auto;
+	white-space: nowrap;
+}
+
+.history-actions {
+	display: flex;
+	gap: 15px;
+	font-size: 1.5em
+}
+
+.history-btn {
+	width: 40px;
+	height: 40px;
+	font-size: .8em;
+	cursor: pointer;
+	color: #fff;
+	border-radius: 50%;
+}
+
+.history-btn.open {
+	background: rgb(0 255 127 / .2);
+	border: 1px solid #00FF7F;
+	display: none;
+}
+
+.history-btn.copy {
+	background: rgb(30 144 255 / .2);
+	border: 1px solid #1E90FF;
+	display: none;
+}
+
+.history-btn.download {
+	background: rgb(255 215 0 / .2);
+	border: 1px solid gold;
+	display: none;
+}
+
+.history-btn.delete {
+	background: rgb(255 69 0 / .2);
+	border: 2px solid #4d4d4d;
+	color: red;
+}
+
+.empty-history {
+	text-align: center;
+	padding: 40px 20px;
+	color: rgb(240 240 240 / .6);
+	font-style: italic
+}
+
+.history-stats {
+	color: #fff;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px;
+	flex-wrap: wrap
+}
+
+.history-stat {
+	padding: 5px 10px;
+	background: red;
+	color:#000;
+	border-radius: 5px;
+	font-size: .9em;
+	box-shadow: 0 0 20px var(--primary-red);
+}
+
+#minimize-history,#expand-history{
+	animation: blink-animation 2s infinite alternate ease-in-out;
+}
+
+.clear-history-btn {
+	margin-top: 10px;
+	width: 100%;
+	padding: 20px;
+	font-size: .9em
+}
+
+@keyframes blink-animation {
+	0% {
+		filter: brightness(50%)
+	}
+
+	50% {
+		filter: brightness(100%)
+	}
+
+	100% {
+		filter: brightness(50%)
+	}
+}
+
+@keyframes fire {
+	0% {
+		box-shadow: 0 0 5px #ffcc00, 0 0 15px #ff9900, 0 0 20px #f60;
+		background: rgb(255 150 150 / .2)
+	}
+
+	50% {
+		box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff4000, 0 0 25px #e65100;
+		background: rgb(255 0 0 / .2)
+	}
+
+	100% {
+		box-shadow: 0 0 5px #ffcc00, 0 0 15px #ff9900, 0 0 20px #f60;
+		background: rgb(255 150 150 / .2)
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg)
+	}
+
+	100% {
+		transform: rotate(360deg)
+	}
+}
+
+@keyframes opaback {
+	0% {
+		opacity: 0.01;
+	}
+
+	10% {
+		opacity: 0.02;
+	}
+
+	20% {
+		opacity: 0.05;
+	}
+
+	30% {
+		opacity: 0.07;
+	}
+
+	40% {
+		opacity: 0.1;
+	}
+	
+	50% {
+		opacity: 0.8;
+	}
+
+	60% {
+		opacity: 0.1;
+	}
+
+	70% {
+		opacity: 0.07;
+	}
+	
+	80% {
+		opacity: 0.05;
+	}
+
+	90% {
+		opacity: 0.02;
+	}
+	
+	100% {
+		opacity: 0.01;
+	}
+}
+
+		</style>		
+	</head>
+	<body class="hidden">
+		<video autoplay muted loop id="executionBackground" class="executionBackground hidden">
+		  <source id="exVidSrc" src="" type="video/mp4">
+		</video>
+		<div class="background-gmail" id="background-gmail"></div>		
+		<div class="background-glow" id="background-glow"></div>
+		<div class="server-loading-state hidden" id="server-loading-state">
+			<div class="server-loading-spinner"></div>
+			<p>SETTING UP YOUR ENVIRONMENT FOR THE FIRST TIME...<p>
+			<p>THIS MIGHT TAKE A MINUTE OR TWO.<p>
+		</div>		
+		<!-- HEADER -->
+		<header>
+			<div class="left-header-section header-section">
+			</div>
+			<div class="center-header-section header-section">
+				<h1 class="app-title" id="app-title" title="KEMBALI KE BERANDA">BULK GMAIL CHECKER</h1>
+				<p class="app-version" id="app-version"> v1.1.3-beta.1 </p>
+				<p>CHECK YOUR GOOGLE (GMAIL) ACCOUNT STATUS EASILY AND QUICKLY</p>
+			</div>
+			<div class="right-header-section header-section">
+				<div class="button-container">
+					<button class="btn header-button hidden" id="settings-button" title="Settings">
+					<i class="fa-solid fa-gear"></i>
+					</button>					
+					<button class="btn header-button my-account-button" id="my-account-button" title="MY ACCOUNT">
+					<i class="fa-regular fa-user"></i>
+					</button>	
+				</div>
+			</div>
+		</header>
+		<!-- MAIN -->
+		<main>
+			<!-- INPUT -->
+			<div class="input-section" id="input-section">
+				<div class="input-section-header" id="input-section-header">
+					<h3>GMAIL INPUT</h3>
+					<div class="button-container">					
+						<button class="btn" id="upload-btn" title="UPLOAD YOUR EMAIL ADDRESS">
+						<i class="fas fa-upload"></i> UPLOAD TXT
+						</button>				
+						<input type="file" id="file-input" class="file-input hidden" accept=".txt">	
+						<button class="btn" id="paste-btn" title="PASTE YOUR EMAIL ADDRESS">
+						<i class="fas fa-paste"></i> PASTE
+						</button>					
+					</div>
+				</div>
+				<div class="textarea-container" id="textarea-container">
+					<div id="line-numbers" class="line-numbers">1</div>
+					<textarea id="email-input" rows="8" placeholder="example1@gmail.com&#10;example2@gmail.com&#10;example3@gmail.com" spellcheck="false"></textarea>	
+				</div>
+				<button class="btn" id="add-gmail-domain-btn" title="add @gmail.com to each word" style="font-family: 'Roboto Mono', monospace;">
+					<i class="fa-solid fa-square-plus"></i> Add @gmail.com
+				</button>
+			</div>
+			<!-- OUTPUT -->
+			<div class="output-section hidden" id="output-section">
+				<h3 id="result-title">CHECK RESULTS</h3>
+				<div class="button-container filter-button-group">
+					<button class="btn filter-btn active" data-filter="all">All <span class="counter" id="count-all">(0)</span></button>
+					<button class="btn filter-btn" data-filter="live">Live <span class="counter" id="count-live">(0)</span></button>
+					<button class="btn filter-btn" id="verify-filter-btn" data-filter="verify">Ver <span class="counter" id="count-ver">(0)</span></button>
+					<button class="btn filter-btn" id="disabled-filter-btn" data-filter="disabled">Disabled <span class="counter" id="count-disabled">(0)</span></button>
+					<button class="btn filter-btn" id="unregistered-filter-btn" data-filter="unregistered">Unregistered <span class="counter" id="count-unregistered">(0)</span></button>
+					<button class="btn filter-btn" id="bad-filter-btn" data-filter="bad">Bad <span class="counter" id="count-bad">(0)</span></button>
+				</div>
+				<div class="result-container">
+					<div class="result-list-container">
+						<div class="result-list" id="result-list">
+							<!-- Results will be displayed here -->
+						</div>
+					</div>
+					<div id="progress-overlay" class="progress-overlay hidden">
+						<div class="donut-chart-container">
+							<div class="donut-chart" id="donut-chart">
+								<div class="progress-text" id="progress-text">0%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="controls-section" id="controls-section">
+				<div class="system-info-container" id="system-info-container">
+					<div class="system-info" id="input-system-info">
+						<p id="system-message"> WELCOME </p>
+						<div class="close-stats-absolute hidden" id="close-stats-absolute" title="CLOSE STATS"><i class="fa-solid fa-xmark"></i></div>
+					</div>
+					<div class="error-info hidden" id="error-info">
+						<div class="error-list" id="error-list"></div>
+					</div>
+					<div class="api-stats hidden" id="api-stats"></div>
+				</div>
+					<div class="server-selection-container" id="server-selection-container">
+					  <div class="server-selection-header">
+						<h4>SELECT SERVER</h4>
+					  </div>
+					  <div class="server-radio-grid">
+						<label class="radio-option">
+						  <input type="radio" name="server" value="fastServer1">
+						  <span class="radio-custom"></span>
+						  <span class="radio-label">Fast 1</span>
+						</label>
+						<label class="radio-option">
+						  <input type="radio" name="server" value="fastServer2" checked>
+						  <span class="radio-custom"></span>
+						  <span class="radio-label">Fast 2</span>
+						</label>					  
+						<label class="radio-option">
+						  <input type="radio" name="server" value="server1">
+						  <span class="radio-custom"></span>
+						  <span class="radio-label">Normal 1</span>
+						</label>
+						<label class="radio-option">
+						  <input type="radio" name="server" value="server2">
+						  <span class="radio-custom"></span>
+						  <span class="radio-label">Normal 2</span>
+						</label>
+					  </div>
+					</div>						
+				<div class="button-container input-button" id="input-button">		
+					<button class="btn hidden clear-errors-btn" id="clear-errors-btn" title="REMOVE ALL INVALID EMAIL ADDRESSES">
+					<i class="fas fa-bug-slash"></i> FIX INPUT
+					</button>				
+					<button class="btn" id="clear-input-btn" title="REMOVE ALL ENTRIES">
+					<i class="fas fa-trash"></i> CLEAR INPUT
+					</button>											
+					<button class="btn" id="execute-btn" title="START EMAIL ADDRESS VALIDATION">
+					<i class="fas fa-play"></i> EXECUTE
+					</button>				
+				</div>
+				<div class="button-container hidden" id="stop-button-container">
+					<button class="btn btn-large stop-btn" id="stop-execution-btn" title="STOP PROCESS">
+					<i class="fas fa-stop"></i> STOP THE PROCESS
+					</button>
+				</div>
+				<div class="button-container output-button hidden" id="output-button">
+					<div class="result-button-container">
+						<button class="btn result-button" id="copy-btn" title="COPY RESULTS">
+							<p><i class="fas fa-copy"></i> COPY</p>
+						</button>
+						<button class="btn result-button" id="download-btn" title="DOWNLOAD RESULTS AS TXT">
+							<p><i class="fas fa-download"></i> DOWNLOAD (TXT)</p>
+						</button>
+					</div>
+					<div class="reset-button-container" id="reset-button-container">
+						<button class="btn hidden" id="back-myAccount-btn" title="BACK TO MY ACCOUNT">
+						<i class="fa-solid fa-arrow-left"></i> BACK
+						</button>						
+						<button class="btn" id="reset-btn" title="RESET ALL DATA">
+						<i class="fa-solid fa-arrows-rotate"></i> RESET SYSTEM
+						</button>						
+					</div>					
+				</div>
+			</div>
+		</main>
+		<!-- FOOTER -->
+		<footer>
+			<p>© 2024 Gmooy | All Rights Reserved</p>
+			<a href="https://t.me/GMAIL_GLOBAL_CHAT" aria-label="Telegram" title="TELEGRAM COMMUNITY"><i class="fab fa-telegram"></i></a>
+		</footer>
+		<script src="../assets/js/main/LAZYLOAD.js"> </script>			
+		<script src="../assets/js/main/LOADING-SYSTEM.js"> </script>
+		
+	</body>
+</html>

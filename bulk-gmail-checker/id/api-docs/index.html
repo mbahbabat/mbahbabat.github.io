@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- Primary Meta Tags -->
+		<title>Dokumentasi API Bulk Gmail Checker – Panduan Integrasi Lengkap</title>
+		<meta name="title" content="Dokumentasi API Bulk Gmail Checker – Panduan Integrasi Lengkap">
+		<meta name="description" content="Dokumentasi API lengkap untuk Bulk Gmail Checker. Pelajari cara mengintegrasikan API pengecekan status akun Google (Gmail) ke dalam aplikasi Anda dengan contoh kode untuk JavaScript, cURL, dan lainnya.">
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://mbahbabat.github.io/bulk-gmail-checker/id/api-docs/">
+		<meta property="og:title" content="Dokumentasi API Bulk Gmail Checker">
+		<meta property="og:description" content="Dokumentasi API lengkap untuk Bulk Gmail Checker. Pelajari cara mengintegrasikan API pengecekan status akun Google (Gmail) ke dalam aplikasi Anda.">
+		<meta property="og:image" content="https://mbahbabat.github.io/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-logo.webp">
+		
+		<meta property="og:site_name" content="Bulk Gmail Checker API">
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:url" content="https://mbahbabat.github.io/bulk-gmail-checker/id/api-docs/">
+		<meta name="twitter:title" content="Dokumentasi API Bulk Gmail Checker">
+		<meta name="twitter:description" content="Dokumentasi API lengkap untuk Bulk Gmail Checker. Pelajari cara mengintegrasikan API pengecekan status akun Google (Gmail) ke dalam aplikasi Anda.">
+		<meta name="twitter:image" content="https://mbahbabat.github.io/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-logo.webp">
+		
+		<!-- Canonical & Misc -->
+		<link rel="canonical" href="https://mbahbabat.github.io/bulk-gmail-checker/id/api-docs/">
+		<meta name="author" content="Gmooy">
+		<meta name="robots" content="index, follow">
+		<meta name="keywords" content="gmail checker api, bulk email validation api, gmail validation api, email verification api, gmail status api, email checker api, api documentation, dokumentasi api gmail checker, api gmail checker">
+		
+		<!-- favicon -->
+		<link rel="shortcut icon" href="https://mbahbabat.github.io/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-favicon.ico" type="image/webp">		
+		
+		<!-- Language -->
+		<link rel="alternate" hreflang="en" href="https://mbahbabat.github.io/bulk-gmail-checker/api-docs/">
+		<link rel="alternate" hreflang="id-ID" href="https://mbahbabat.github.io/bulk-gmail-checker/id/api-docs/">
+		<link rel="alternate" hreflang="x-default" href="https://mbahbabat.github.io/bulk-gmail-checker/api-docs/">
+		
+		<!-- Responsive -->
+		<script type="module" src="../../assets/js/init/init-RDS.js"> </script>
+		<script src="../../assets/js/main/ASSETS-BASEPATH.js"> </script>
+		<script src="../../assets/js/main/LAZYLOAD.js"> </script>
+			<script type="application/ld+json">
+			{
+			  "@context": "https://schema.org",
+			  "@type": "WebSite",
+			  "name": "Dokumentasi API Bulk Gmail Checker",
+			  "url": "https://mbahbabat.github.io/bulk-gmail-checker/id/api-docs/",
+			  "description": "Dokumentasi API lengkap untuk Bulk Gmail Checker. Pelajari cara mengintegrasikan API pengecekan status akun Google (Gmail) ke dalam aplikasi Anda dengan contoh kode untuk JavaScript, cURL, dan lainnya.",
+			  "publisher": {
+				"@type": "Organization",
+				"name": "Bulk Gmail Checker",
+				"logo": {
+				  "@type": "ImageObject",
+				  "url": "https://mbahbabat.github.io/bulk-gmail-checker/assets/image/dragon-bulk-gmail-checker-logo.webp"
+				}
+			  }
+			}			
+			</script>		
+		
+		<style>
+			:root {
+				--primary-red: #8B0000;
+				--secondary-orange: #FF4500;
+				--dark-grey: #1a1a1a;
+				--text-color: #f0f0f0;
+				--border-color: var(--secondary-orange);
+				--code-bg: #0d1117;
+				--code-accent: #ff6b6b;
+			}
+			
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+				font-family: 'Roboto Mono', monospace;
+			}
+			
+			body {
+				background-color: var(--dark-grey);
+				color: var(--text-color);
+				line-height: 1.6;
+				overflow-x: hidden;
+			}
+			
+			.background-glow {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 100%;
+				height: 100%;
+				background: radial-gradient(circle, rgb(255 182 0 / .1) 0%, rgb(0 0 0 / .8) 60%, rgb(255 0 0 / .1) 100%);
+				animation: pulseGlow 8s infinite alternate ease-in-out;
+				z-index: -1;
+				pointer-events: none;
+			}
+			
+			.container {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+			
+			header {
+				text-align: center;
+				padding: 40px 0;
+				border-bottom: 1px solid var(--border-color);
+				margin-bottom: 40px;
+			}
+			
+			
+			h1 {
+				font-family: 'Orbitron', sans-serif;
+				color: var(--secondary-orange);
+				font-size: 2.5rem;
+				margin-bottom: 10px;
+				text-shadow: 0 0 10px rgb(255 69 0 / .8);
+			}
+			
+			.subtitle {
+				color: #aaa;
+				font-size: 1.2rem;
+				margin-bottom: 20px;
+			}
+			
+			.badge {
+				display: inline-block;
+				background: var(--primary-red);
+				color: white;
+				padding: 5px 10px;
+				border-radius: 4px;
+				font-size: 0.8rem;
+				margin: 0 5px;
+			}
+			
+			.nav-tabs {
+				display: flex;
+				justify-content: center;
+				margin-bottom: 30px;
+				border-bottom: 1px solid var(--border-color);
+			}
+			
+			.nav-tab {
+				padding: 10px 20px;
+				cursor: pointer;
+				border-bottom: 3px solid transparent;
+				transition: all 0.3s;
+			}
+			
+			.nav-tab.active {
+				border-bottom: 3px solid var(--secondary-orange);
+				color: var(--secondary-orange);
+			}
+			
+			.tab-content {
+				display: none;
+			}
+			
+			.tab-content.active {
+				display: block;
+			}
+			
+			.section {
+				background: rgba(0, 0, 0, 0.6);
+				border: 1px solid var(--border-color);
+				border-radius: 10px;
+				padding: 25px;
+				margin-bottom: 30px;
+				box-shadow: 0 0 20px rgb(255 69 0 / .2);
+			}
+			
+			.section h2 {
+				font-family: 'Orbitron', sans-serif;
+				color: var(--secondary-orange);
+				margin-bottom: 20px;
+				font-size: 1.8rem;
+				border-bottom: 1px solid rgba(255, 69, 0, 0.3);
+				padding-bottom: 10px;
+			}
+			
+			.section h3 {
+				font-family: 'Orbitron', sans-serif;
+				color: var(--secondary-orange);
+				margin: 25px 0 15px;
+				font-size: 1.4rem;
+			}
+			
+			.endpoint {
+				background: var(--code-bg);
+				border: 1px solid #333;
+				border-radius: 8px;
+				padding: 20px;
+				margin: 20px 0;
+				position: relative;
+			}
+			
+			.endpoint-header {
+				display: flex;
+				align-items: center;
+				margin-bottom: 15px;
+			}
+			
+			.method {
+				background: var(--primary-red);
+				color: white;
+				padding: 5px 10px;
+				border-radius: 4px;
+				font-weight: bold;
+				margin-right: 10px;
+			}
+			
+			.url {
+				font-family: 'Roboto Mono', monospace;
+				color: var(--text-color);
+				word-break: break-all;
+			}
+			
+			.description {
+				margin-bottom: 15px;
+				color: #ccc;
+			}
+			
+			.code-block {
+				background: var(--code-bg);
+				border: 1px solid #333;
+				border-radius: 8px;
+				padding: 20px;
+				margin: 15px 0;
+				overflow-x: auto;
+				position: relative;
+			}
+			
+			.code-block pre {
+				margin: 0;
+				white-space: pre-wrap;
+				color: #f8f8f2;
+			}
+			
+			.code-block code {
+				font-family: 'Roboto Mono', monospace;
+				font-size: 0.9rem;
+			}
+			
+			.copy-btn {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				background: rgba(255, 69, 0, 0.2);
+				border: 1px solid var(--secondary-orange);
+				color: var(--text-color);
+				padding: 5px 10px;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 0.8rem;
+				transition: all 0.3s;
+			}
+			
+			.copy-btn:hover {
+				background: rgba(255, 69, 0, 0.4);
+			}
+			
+			.param-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 20px 0;
+			}
+			
+			.param-table th, .param-table td {
+				border: 1px solid #333;
+				padding: 12px 15px;
+				text-align: left;
+			}
+			
+			.param-table th {
+				background: rgba(139, 0, 0, 0.3);
+				color: var(--secondary-orange);
+				font-family: 'Orbitron', sans-serif;
+			}
+			
+			.param-table tr:nth-child(even) {
+				background: rgba(255, 255, 255, 0.05);
+			}
+			
+			.status-badge {
+				display: inline-block;
+				padding: 3px 8px;
+				border-radius: 4px;
+				font-size: 0.8rem;
+				font-weight: bold;
+			}
+			
+			.status-live { background: rgba(0, 255, 127, 0.2); color: #00FF7F; }
+			.status-verify { background: rgba(255, 215, 0, 0.2); color: gold; }
+			.status-disabled { background: rgba(255, 99, 71, 0.2); color: tomato; }
+			.status-unregistered { background: rgba(0, 204, 255, 0.2); color: #0cf; }
+			.status-bad { background: rgba(230, 0, 172, 0.2); color: #e600ac; }
+			
+			footer {
+				text-align: center;
+				padding: 30px 0;
+				margin-top: 50px;
+				border-top: 1px solid var(--border-color);
+				color: #aaa;
+			}
+			
+			.back-btn {
+				display: inline-block;
+				background: var(--primary-red);
+				color: white;
+				padding: 10px 20px;
+				border-radius: 8px;
+				text-decoration: none;
+				margin-top: 20px;
+				transition: all 0.3s;
+				border: none;
+				cursor: pointer;
+				font-family: 'Orbitron', sans-serif;
+			}
+			
+			.back-btn:hover {
+				background: var(--secondary-orange);
+				transform: translateY(-2px);
+			}
+			
+			.note {
+				background: rgba(255, 215, 0, 0.1);
+				border-left: 4px solid gold;
+				padding: 15px;
+				margin: 20px 0;
+				border-radius: 0 8px 8px 0;
+			}
+			
+			.warning {
+				background: rgba(255, 69, 0, 0.1);
+				border-left: 4px solid var(--secondary-orange);
+				padding: 15px;
+				margin: 20px 0;
+				border-radius: 0 8px 8px 0;
+			}
+			
+			@keyframes pulseGlow {
+				0% {
+					opacity: 0.3;
+				}
+				100% {
+					opacity: 0.7;
+				}
+			}
+			
+			@media (max-width: 1024px) {
+				.container {
+					padding: 10px;
+				}
+				
+				h1 {
+					font-size: 2rem;
+				}
+				
+				.nav-tabs {
+				   display: grid;
+				   grid-template-columns: repeat(3, 1fr);
+				}
+					
+				.param-table {
+					display: block;
+					overflow-x: auto;
+				}
+			}
+			
+			@media (max-width: 768px) {
+				
+				.nav-tabs {
+					 grid-template-columns: repeat(2, 1fr);
+				}
+				
+				
+			}		
+		
+		</style>
+	</head>
+	<body>
+		<div class="background-glow"></div>
+		
+		<div class="container">
+			<header>
+				<h1>BULK GMAIL CHECKER API v.1</h1>
+				<p class="subtitle">Dokumentasi API Lengkap untuk Pengembang</p>
+				<div class="badge-container">
+					<span class="badge">REST API</span>
+					<span class="badge">JSON</span>
+					<span class="badge">Bearer Token</span>
+				</div>
+			</header>
+			
+			<div class="nav-tabs">
+				<div class="nav-tab active" data-tab="overview">Ringkasan</div>
+				<div class="nav-tab" data-tab="authentication">Autentikasi</div>
+				<div class="nav-tab" data-tab="validation">Pengecekan Akun</div>
+				<div class="nav-tab" data-tab="stats">Statistik API</div>
+				<div class="nav-tab" data-tab="examples">Contoh Kode</div>
+			</div>
+			
+			<div class="tab-content active" id="overview">
+				<div class="section">
+					<h2>Ringkasan API</h2>
+					<p>API Bulk Gmail Checker menyediakan akses terprogram ke layanan pengecekan akun Google (Gmail) anda. Dengan API ini, Anda dapat:</p>
+					<ul style="margin-left: 20px; margin-bottom: 20px;">
+						<li>Pengecekan status akun Google (Gmail) secara massal</li>
+						<li>Jenis status (Live, Verify, Disabled, Unregistered, Bad)</li>
+						<li>Pantau statistik penggunaan API Anda</li>
+						<li>Integrasikan Pengecekan status akun Google (Gmail) ke dalam aplikasi Anda</li>
+					</ul>
+					
+					<div class="note">
+						<p><strong>Catatan:</strong> Semua permintaan API memerlukan autentikasi menggunakan token Bearer. Kunci API dibuat secara otomatis saat Anda mengunjungi aplikasi utama kami dan memiliki batas 500.000 permintaan per hari.</p>
+					</div>
+					
+					<h3>URL Dasar</h3>
+					<div class="code-block">
+						<pre><code>https://gmail-validation.mbahbabat.workers.dev</code></pre>
+						<button class="copy-btn">Salin</button>
+					</div>
+					
+					<h3>Format Respon</h3>
+					<p>Semua respons API dikembalikan dalam format JSON dengan kode status HTTP yang sesuai.</p>
+				</div>
+			</div>
+			
+			<div class="tab-content" id="authentication">
+				<div class="section">
+					<h2>Autentikasi</h2>
+					<p>Semua permintaan API harus menyertakan kunci API yang valid di header Otorisasi menggunakan skema Bearer token.</p>
+					
+					<div class="endpoint">
+						<div class="endpoint-header">
+							<span class="method">GET</span>
+							<span class="url">Pembuatan Kunci API Otomatis</span>
+						</div>
+						<div class="description">
+							<p>Kunci API dibuat secara otomatis saat Anda mengunjungi aplikasi utama kami. Tidak perlu registrasi manual!</p>
+						</div>
+						
+						<h3>Cara Mendapatkan Kunci API Anda</h3>
+						<ol style="margin-left: 20px; margin-bottom: 20px;">
+							<li>Kunjungi <a href="https://mbahbabat.github.io/bulk-gmail-checker/id/execute/" style="color: var(--secondary-orange);">Bulk Gmail Checker</a></li>
+							<li>Klik tombol "AKUN SAYA" di pojok kanan atas</li>
+							<li>Kunci API Anda akan secara otomatis dibuat dan ditampilkan di bagian "Kunci API"</li>
+							<li>Salin kunci API untuk digunakan di aplikasi Anda</li>
+						</ol>
+						
+						<div class="note">
+							<p><strong>Hasilkan Otomatis:</strong> Kunci API Anda dibuat secara otomatis pada kunjungan pertama dan disimpan di penyimpanan lokal browser Anda.</p>
+						</div>
+					</div>
+					
+					<h3>Menggunakan Kunci API Anda</h3>
+					<p>Sertakan kunci API Anda di header Otorisasi semua permintaan:</p>
+					
+					<div class="code-block">
+						<pre><code>Authorization: Bearer KUNCI_API_ANDA_DI_SINI</code></pre>
+						<button class="copy-btn">Salin</button>
+					</div>
+					
+					<div class="warning">
+						<p><strong>Penting:</strong> Kunci API Anda harus dijaga keamanannya dan tidak terekspos dalam kode sisi klien. Kunci API dibatasi hingga 500.000 permintaan per hari dan akan direset setiap 24 jam.</p>
+					</div>
+					
+					<h3>Keamanan & Batasan Origin</h3>
+					<p>Untuk alasan keamanan, pembuatan kunci API dibatasi hanya untuk domain resmi kami:</p>
+					
+					<div class="code-block">
+						<pre><code>https://mbahbabat.github.io</code></pre>
+						<button class="copy-btn">Salin</button>
+					</div>
+					
+					<p>Permintaan dari domain lain akan ditolak. Ini memastikan bahwa hanya pengguna sah yang dapat membuat dan menggunakan kunci API kami.</p>
+				</div>
+			</div>
+
+			<div class="tab-content" id="validation">
+				<div class="section">
+					<h2>Endpoint Pengecekan Status Akun Google (Gmail)</h2>
+					<p>Pengecekan status akun Google (Gmail) menggunakan server khusus kami. Kami menawarkan opsi pengecekan normal dan cepat.</p>
+					
+					<h3>Normal Servers 1</h3>
+					<p>Server ini menyediakan informasi status terperinci tetapi memproses alamat Gmail dalam kelompok yang lebih kecil (100 email per permintaan).</p>
+					
+					<div class="endpoint">
+						<div class="endpoint-header">
+							<span class="method">POST</span>
+							<span class="url">/check1</span>
+						</div>
+						<div class="description">
+							<p>Server akan menyediakan informasi status akun terperinci.</p>
+						</div>
+						
+						<h3>Request Headers</h3>
+						<table class="param-table">
+							<thead>
+								<tr>
+									<th>Header</th>
+									<th>Value</th>
+									<th>Diperlukan</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Content-Type</td>
+									<td>application/json</td>
+									<td>Ya</td>
+								</tr>
+								<tr>
+									<td>Authorization</td>
+									<td>Bearer &lt;API_KEY&gt;</td>
+									<td>Ya</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<h3>Request Body</h3>
+						<div class="code-block">
+							<pre><code>{
+	  "mail": [
+		"contoh1@gmail.com",
+		"contoh2@gmail.com",
+		"contoh3@gmail.com",
+		"contoh4@gmail.com",
+		"contoh5@gmail.com"	
+	  ]
+	}</code></pre>
+							<button class="copy-btn">Salin</button>
+						</div>
+						
+						<h3>Respon</h3>
+						<div class="code-block">
+							<pre><code>[
+	  {
+		"email": "contoh1@gmail.com",
+		"status": "live",
+		"details": "Active"
+	  },
+	  {
+		"email": "contoh2@gmail.com",
+		"status": "verify",
+		"details": "Requires verification"
+	  },
+	  {
+		"email": "contoh3@gmail.com",
+		"status": "disabled",
+		"details": "non-active"
+	  },
+	  {
+		"email": "contoh4@gmail.com",
+		"status": "unregistered",
+		"details": "not found"
+	  },  
+	  {
+		"email": "contoh5@gmail.com",
+		"status": "bad",
+		"details": "verify, disabled, or unregistered"
+	  }
+	]</code></pre>
+							<button class="copy-btn">Salin</button>
+						</div>
+						
+						<h3>Jenis Status</h3>
+						<table class="param-table">
+							<thead>
+								<tr>
+									<th>Status</th>
+									<th>Deskripsi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="status-badge status-live">live</span></td>
+									<td>Akun yang aktif dan dapat diakses</td>
+								</tr>
+								<tr>
+									<td><span class="status-badge status-verify">verify</span></td>
+									<td>Akun yang memerlukan verifikasi tambahan</td>
+								</tr>
+								<tr>
+									<td><span class="status-badge status-disabled">disabled</span></td>
+									<td>Akun yang dinonaktifkan</td>
+								</tr>
+								<tr>
+									<td><span class="status-badge status-unregistered">unregistered</span></td>
+									<td>Akun yang tidak terdaftar pada platform Google (Gmail)</td>
+								</tr>
+								<tr>
+									<td><span class="status-badge status-bad">bad</span></td>
+									<td>Akun yang dinonaktifkan, tidak terdaftar, atau memerlukan verifikasi.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="endpoint">
+						<div class="endpoint-header">
+							<span class="method">POST</span>
+							<span class="url">/check2</span>
+						</div>
+						<div class="description">
+							<p>Normal Server 2 - Server alternatif dengan fungsi yang sama dengan /check1.</p>
+						</div>
+					</div>
+					
+					<h3>Fast Server</h3>
+					<p>Server ini memproses akun Google (Gmail) dengan sangat cepat dan dalam jumlah besar (10.000 email per permintaan) tetapi hanya mengembalikan status biner (live atau bad).</p>
+					
+					<div class="endpoint">
+						<div class="endpoint-header">
+							<span class="method">POST</span>
+							<span class="url">/fastcheck1</span>
+						</div>
+						<div class="description">
+							<p>Fast Server 1 - Memproses batch besar dengan cepat dengan hasil status biner.</p>
+						</div>
+						
+						<h3>Pemetaan Status untuk Fast Server</h3>
+						<p>Server akan memetakan semua status non-live ke "bad":</p>
+						<table class="param-table">
+							<thead>
+								<tr>
+									<th>Status Asli</th>
+									<th>Status Fast Server</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>live</td>
+									<td><span class="status-badge status-live">live</span></td>
+								</tr>
+								<tr>
+									<td>verify, disabled, unregistered, bad</td>
+									<td><span class="status-badge status-bad">bad</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="endpoint">
+						<div class="endpoint-header">
+							<span class="method">POST</span>
+							<span class="url">/fastcheck2</span>
+						</div>
+						<div class="description">
+							<p>Fast Server 2 - Server cepat alternatif dengan fungsi yang sama dengan /fastcheck1.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="tab-content" id="stats">
+				<div class="section">
+					<h2>Statistik API</h2>
+					<p>Pantau penggunaan dan batasan API Anda dengan titik akhir statistik.</p>
+					
+					<div class="endpoint">
+						<div class="endpoint-header">
+							<span class="method">GET</span>
+							<span class="url">/stats?key=&lt;API_KEY&gt;</span>
+						</div>
+						<div class="description">
+							<p>Ambil statistik penggunaan untuk kunci API Anda.</p>
+						</div>
+						
+						<h3>Query Parameters</h3>
+						<table class="param-table">
+							<thead>
+								<tr>
+									<th>Parameter</th>
+									<th>Deskripsi</th>
+									<th>Diperlukan</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>key</td>
+									<td>Kunci API Anda</td>
+									<td>Ya</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<h3>Respon</h3>
+						<div class="code-block">
+							<pre><code>{
+	  "type": "free",
+	  "requestsUsed": 150,
+	  "maxRequests": 500000,
+	  "remainingRequests": 850,
+	  "resetPeriod": "24 hours",
+	  "nextResetUTC": "Mon, 01 Jan 2024 00:00:00 GMT",
+	  "owner": "Anonymous",
+	  "resetTimestamp": 1704067200000
+	}</code></pre>
+							<button class="copy-btn">Salin</button>
+						</div>
+						
+						<h3>Bidang Respon</h3>
+						<table class="param-table">
+							<thead>
+								<tr>
+									<th>Bidang</th>
+									<th>Deskripsi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>type</td>
+									<td>Jenis API (gratis/berbayar)</td>
+								</tr>
+								<tr>
+									<td>requestsUsed</td>
+									<td>Jumlah permintaan yang digunakan pada periode saat ini</td>
+								</tr>
+								<tr>
+									<td>maxRequests</td>
+									<td>Permintaan maksimum yang diizinkan dalam periode tersebut</td>
+								</tr>
+								<tr>
+									<td>remainingRequests</td>
+									<td>Permintaan yang tersisa pada periode saat ini</td>
+								</tr>
+								<tr>
+									<td>resetPeriod</td>
+									<td>Periode setelah batas direset</td>
+								</tr>
+								<tr>
+									<td>nextResetUTC</td>
+									<td>Waktu reset berikutnya dalam UTC</td>
+								</tr>
+								<tr>
+									<td>owner</td>
+									<td>Pengidentifikasi pemilik kunci API</td>
+								</tr>
+								<tr>
+									<td>resetTimestamp</td>
+									<td>Atur ulang waktu berikutnya sebagai stempel waktu</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="tab-content" id="examples">
+				<div class="section">
+					<h2>Contoh Kode</h2>
+					<p>Berikut adalah contoh cara menggunakan API Bulk Gmail Checker dalam berbagai bahasa pemrograman dan lingkungan.</p>
+					
+					<h3>JavaScript (Fetch API)</h3>
+					<div class="code-block">
+						<pre><code>const API_KEY = 'kunci_api_anda_di_sini';
+	const SERVER_URL = 'https://gmail-validation.mbahbabat.workers.dev';
+
+	// Pengecekan Status Akun Google (Gmail)
+	async function validateEmails(emails) {
+	  try {
+		const response = await fetch(`${SERVER_URL}/check1`, {
+		  method: 'POST',
+		  headers: {
+			'Authorization': `Bearer ${API_KEY}`,
+			'Content-Type': 'application/json'
+		  },
+		  body: JSON.stringify({
+			mail: emails
+		  })
+		});
+		
+		if (!response.ok) {
+		  throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+		}
+		
+		const data = await response.json();
+		return data;
+	  } catch (error) {
+		console.error('Validation error:', error);
+		throw error;
+	  }
+	}
+
+	// Dapatkan statistik API
+	async function getApiStats() {
+	  try {
+		const response = await fetch(`${SERVER_URL}/stats?key=${API_KEY}`);
+		
+		if (!response.ok) {
+		  throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+		}
+		
+		const data = await response.json();
+		return data;
+	  } catch (error) {
+		console.error('Stats error:', error);
+		throw error;
+	  }
+	}
+
+	// Contoh Penggunaan
+	const emails = ['test1@gmail.com', 'test2@gmail.com', 'test3@gmail.com'];
+	validateEmails(emails)
+	  .then(results => console.log('Validation results:', results))
+	  .catch(error => console.error('Error:', error));</code></pre>
+						<button class="copy-btn">Salin</button>
+					</div>
+					
+					<h3>cURL</h3>
+					<div class="code-block">
+						<pre><code>#Pengecekan Status Akun Google (Gmail)
+	curl -X POST "https://gmail-validation.mbahbabat.workers.dev/check1" \
+	  -H "Authorization: Bearer YOUR_API_KEY" \
+	  -H "Content-Type: application/json" \
+	  -d '{
+		"mail": [
+		  "example1@gmail.com",
+		  "example2@gmail.com",
+		  "example3@gmail.com"
+		]
+	  }'
+
+	# Dapatkan statistik API
+	curl "https://gmail-validation.mbahbabat.workers.dev/stats?key=YOUR_API_KEY"</code></pre>
+						<button class="copy-btn">Salin</button>
+					</div>
+					
+					<h3>Python</h3>
+					<div class="code-block">
+						<pre><code>import requests
+
+	API_KEY = 'kunci_api_anda_di_sini'
+	SERVER_URL = 'https://gmail-validation.mbahbabat.workers.dev'
+
+	def validate_emails(emails):
+		headers = {
+			'Authorization': f'Bearer {API_KEY}',
+			'Content-Type': 'application/json'
+		}
+		
+		data = {
+			'mail': emails
+		}
+		
+		response = requests.post(f'{SERVER_URL}/check1', headers=headers, json=data)
+		response.raise_for_status()
+		return response.json()
+
+	def get_api_stats():
+		response = requests.get(f'{SERVER_URL}/stats?key={API_KEY}')
+		response.raise_for_status()
+		return response.json()
+
+	# Contoh Penggunaan
+	emails = ['test1@gmail.com', 'test2@gmail.com', 'test3@gmail.com']
+	try:
+		results = validate_emails(emails)
+		print('Validation results:', results)
+	except requests.exceptions.RequestException as e:
+		print('Error:', e)</code></pre>
+						<button class="copy-btn">Salin</button>
+					</div>
+					
+					<h3>PHP</h3>
+					<div class="code-block">
+						<pre><code>$api_key = 'your_api_key_here';
+	$server_url = 'https://gmail-validation.mbahbabat.workers.dev';
+
+	// Pengecekan Status Akun Google (Gmail)
+	function validateEmails($emails) {
+		global $api_key, $server_url;
+		
+		$data = json_encode(['mail' => $emails]);
+		
+		$ch = curl_init("$server_url/check1");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, [
+			"Authorization: Bearer $api_key",
+			"Content-Type: application/json"
+		]);
+		
+		$response = curl_exec($ch);
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+		
+		if ($http_code !== 200) {
+			throw new Exception("HTTP $http_code: $response");
+		}
+		
+		return json_decode($response, true);
+	}
+
+	// Dapatkan Statistik API
+	function getApiStats() {
+		global $api_key, $server_url;
+		
+		$ch = curl_init("$server_url/stats?key=$api_key");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		
+		$response = curl_exec($ch);
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+		
+		if ($http_code !== 200) {
+			throw new Exception("HTTP $http_code: $response");
+		}
+		
+		return json_decode($response, true);
+	}
+
+	// Contoh Penggunaan
+	$emails = ['test1@gmail.com', 'test2@gmail.com', 'test3@gmail.com'];
+	try {
+		$results = validateEmails($emails);
+		echo 'Validation results: ' . print_r($results, true);
+	} catch (Exception $e) {
+		echo 'Error: ' . $e->getMessage();
+	}</code></pre>
+						<button class="copy-btn">Salin</button>
+					</div>
+				</div>
+			</div>
+			
+			<footer>
+				<p>© 2024 Gmooy | All Rights Reserved</p>
+				<a href="https://t.me/GMAIL_GLOBAL_CHAT" aria-label="Telegram" title="TELEGRAM COMMUNITY" style="color: #f73; font-size: 1.5em; margin: 0 10px;">
+					<i class="fab fa-telegram"></i>
+				</a>
+				<br>
+				<a href="../" class="back-btn">
+					<i class="fas fa-arrow-left"></i> Back to Bulk Gmail Checker
+				</a>
+			</footer>
+		</div>  
+		<script>
+document.addEventListener('DOMContentLoaded',function(){const tabs=document.querySelectorAll('.nav-tab');const tabContents=document.querySelectorAll('.tab-content');tabs.forEach(tab=>{tab.addEventListener('click',()=>{const tabId=tab.getAttribute('data-tab');tabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');tabContents.forEach(content=>{content.classList.remove('active');if(content.id===tabId){content.classList.add('active')}})})});const copyButtons=document.querySelectorAll('.copy-btn');copyButtons.forEach(button=>{button.addEventListener('click',function(){const codeBlock=this.parentElement;const code=codeBlock.querySelector('code').textContent;navigator.clipboard.writeText(code).then(()=>{const originalText=this.textContent;this.textContent='Copied!';setTimeout(()=>{this.textContent=originalText},2000)}).catch(err=>{console.error('Failed to copy: ',err)})})})})
+		</script>
+	</body>
+</html>

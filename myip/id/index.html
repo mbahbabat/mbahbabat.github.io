@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<!-- Viewport tetap dipertahankan -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cek IP Saya</title>
+
+	<meta name="description" content="Cek alamat IP publik Anda secara real-time, lengkap dengan lokasi, ISP, keamanan, dan info jaringan. Cepat, akurat, tanpa iklan mengganggu.">
+	<meta name="keywords" content="cek ip saya, what is my ip, alamat ip publik, ip address tracker, lokasi ip, ip geolocation, ip lookup indonesia, cek ip online">
+	<link rel="canonical" href="https://mbahbabat.github.io/myip/id/">
+
+	<meta property="og:title" content="Cek IP Saya">
+	<meta property="og:description" content="Cek alamat IP publik Anda secara real-time, lengkap dengan lokasi, ISP, keamanan, dan info jaringan. Cepat, akurat, tanpa iklan mengganggu.">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://mbahbabat.github.io/myip/assets/image/myip.webp"> 
+	<meta property="og:url" content="https://mbahbabat.github.io/myip/id/">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Cek IP Saya">
+	<meta name="twitter:description" content="Cek alamat IP publik Anda secara real-time, lengkap dengan lokasi, ISP, keamanan, dan info jaringan. Cepat, akurat, tanpa iklan mengganggu.">
+	<meta name="twitter:image" content="https://mbahbabat.github.io/myip/assets/image/myip.webp">
+	<meta name="twitter:url" content="https://mbahbabat.github.io/myip/id/">
+
+	<meta name="author" content="Gmooy">
+	<meta name="robots" content="index, follow">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="expires" content="0">
+	
+	<link rel="alternate" hreflang="en" href="https://mbahbabat.github.io/myip/">
+	<link rel="alternate" hreflang="id" href="https://mbahbabat.github.io/myip/id/">
+	<link rel="alternate" hreflang="x-default" href="https://mbahbabat.github.io/myip/">
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "WebApplication",
+	  "name": "Cek IP Saya",
+	  "url": "https://mbahbabat.github.io/myip/id/",
+	  "description": "Cek alamat IP publik Anda secara real-time, lengkap dengan lokasi, ISP, keamanan, dan info jaringan.",
+	  "applicationCategory": "Utility",
+	  "operatingSystem": "All",
+	  "creator": {
+		"@type": "Person",
+		"name": "Gmooy"
+	  }
+	}
+	</script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    header h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    #ipDisplay {
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #ipAddress {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    #dataContainer {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+      width: 30%;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    button.copied {
+      background-color: #27ae60;
+    }
+    .section-title {
+      margin-top: 25px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 5px;
+    }
+    .loading {
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MY IP</h1>
+  </header>
+
+  <div id="ipDisplay">
+    <div>Alamat Ip Saya</div>
+    <div id="ipAddress">Memuat...</div>
+    <button id="copyIpBtn">Salin IP</button>
+  </div>
+
+  <div id="dataContainer">
+    <h2 class="section-title">Informasi Lokasi</h2>
+    <table id="locationTable">
+      <tbody>
+        <tr><td colspan="2" class="loading">Memuat data...</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Informasi Jaringan</h2>
+    <table id="networkTable">
+      <tbody>
+        <tr><td colspan="2" class="loading">Memuat data...</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Informasi Keamanan</h2>
+    <table id="securityTable">
+      <tbody>
+        <tr><td colspan="2" class="loading">Memuat data...</td></tr>
+      </tbody>
+    </table>
+
+    <button id="copyAllBtn">Salin Semua Data</button>
+  </div>
+
+  <footer></footer>
+
+  <script>
+    const ipAddress = document.getElementById('ipAddress');
+    const copyIpBtn = document.getElementById('copyIpBtn');
+    const copyAllBtn = document.getElementById('copyAllBtn');
+    const locationTable = document.getElementById('locationTable');
+    const networkTable = document.getElementById('networkTable');
+    const securityTable = document.getElementById('securityTable');
+    
+    const SERVER_URL = "https://myip.sigundulpro.workers.dev/getClientInfo";
+    
+    async function getClientInfo(){
+      try {
+        const response = await fetch(SERVER_URL);
+        if (!response.ok) throw new Error('Server Error');
+
+        const data = await response.json();
+
+        // Update IP display
+        ipAddress.textContent = data.ip;
+
+        // Update location table
+        updateTable(locationTable, {
+          "Negara": data.country,
+          "Kota": data.city,
+          "Wilayah": data.region,
+          "Kode Wilayah": data.regionCode,
+          "Kode Pos": data.postalCode,
+          "Benua": data.continent,
+          "Zona Waktu": data.timezone,
+          "Latitude": data.latitude,
+          "Longitude": data.longitude
+        });
+
+        // Update network table
+        updateTable(networkTable, {
+          "ISP": data.isp,
+          "ASN": data.asn,
+          "Koneksi Colo": data.colo,
+          "Protokol HTTP": data.httpProtocol,
+          "Versi TLS": data.tlsVersion,
+          "Cipher TLS": data.tlsCipher
+        });
+
+        // Update security table
+        updateTable(securityTable, {
+          "Skor Ancaman": data.threatScore,
+          "Berbahaya": data.isMalicious ? "Ya" : "Tidak",
+          "Bot": data.isBot ? "Ya" : "Tidak",
+          "CDN": data.isCdn ? "Ya" : "Tidak",
+          "Bot Perusahaan": data.isEnterpriseBot ? "Ya" : "Tidak",
+          "Proxy": data.isProxy ? "Ya" : "Tidak",
+          "Tipe Proxy": data.proxyType,
+          "Skor Kepercayaan Klien": data.clientTrustScore
+        });
+
+        // Set up copy buttons
+        copyIpBtn.onclick = () => {
+          navigator.clipboard.writeText(data.ip);
+          copyIpBtn.textContent = "Tersalin!";
+          copyIpBtn.classList.add('copied');
+          setTimeout(() => {
+            copyIpBtn.textContent = "salin IP";
+            copyIpBtn.classList.remove('copied');
+          }, 1500);
+        };
+
+        copyAllBtn.onclick = () => {
+          navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+          copyAllBtn.textContent = "Tersalin!";
+          copyAllBtn.classList.add('copied');
+          setTimeout(() => {
+            copyAllBtn.textContent = "Salin Semua Data";
+            copyAllBtn.classList.remove('copied');
+          }, 1500);
+        };
+
+      } catch (error) {
+        ipAddress.textContent = "Error";
+        locationTable.innerHTML = '<tr><td colspan="2">Gagal memuat data: ' + error.message + '</td></tr>';
+        networkTable.innerHTML = '';
+        securityTable.innerHTML = '';
+      }
+    }
+
+    function updateTable(table, data) {
+      const tbody = table.querySelector('tbody');
+      tbody.innerHTML = '';
+      
+      for (const [key, value] of Object.entries(data)) {
+        const row = document.createElement('tr');
+        const keyCell = document.createElement('td');
+        const valueCell = document.createElement('td');
+        
+        keyCell.textContent = key;
+        valueCell.textContent = value;
+        
+        row.appendChild(keyCell);
+        row.appendChild(valueCell);
+        tbody.appendChild(row);
+      }
+    }
+    
+    getClientInfo();
+  </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Viewport remains consistent -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Check My IP</title>
+
+	<meta name="description" content="Check your public IP address in real-time, complete with location, ISP, security, and network info. Fast, accurate, and ad-free.">
+	<meta name="keywords" content="check my ip, what is my ip, public ip address, ip address tracker, ip location, ip geolocation, ip lookup, check ip online">
+	<link rel="canonical" href="https://mbahbabat.github.io/myip/">
+
+	<meta property="og:title" content="Check My IP">
+	<meta property="og:description" content="Check your public IP address in real-time, complete with location, ISP, security, and network info. Fast, accurate, and ad-free.">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://mbahbabat.github.io/myip/assets/image/myip.webp"> 
+	<meta property="og:url" content="https://mbahbabat.github.io/myip/">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Check My IP">
+	<meta name="twitter:description" content="Check your public IP address in real-time, complete with location, ISP, security, and network info. Fast, accurate, and ad-free.">
+	<meta name="twitter:image" content="https://mbahbabat.github.io/myip/assets/image/myip.webp">
+	<meta name="twitter:url" content="https://mbahbabat.github.io/myip/">
+
+	<meta name="author" content="Gmooy">
+	<meta name="robots" content="index, follow">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="expires" content="0">
+	<link rel="icon" href="https://mbahbabat.github.io/myip/assets/image/icon.ico">
+	
+	<link rel="alternate" hreflang="en" href="https://mbahbabat.github.io/myip/">
+	<link rel="alternate" hreflang="id" href="https://mbahbabat.github.io/myip/id/">
+	<link rel="alternate" hreflang="x-default" href="https://mbahbabat.github.io/myip/">
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "WebApplication",
+	  "name": "Check My IP",
+	  "url": "https://mbahbabat.github.io/myip/",
+	  "description": "Check your public IP address in real-time, complete with location, ISP, security, and network info.",
+	  "applicationCategory": "Utility",
+	  "operatingSystem": "All",
+	  "creator": {
+		"@type": "Person",
+		"name": "Gmooy"
+	  }
+	}
+	</script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    header h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    #ipDisplay {
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #ipAddress {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    #dataContainer {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+      width: 30%;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    button.copied {
+      background-color: #27ae60;
+    }
+    .section-title {
+      margin-top: 25px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 5px;
+    }
+    .loading {
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MY IP</h1>
+  </header>
+
+  <div id="ipDisplay">
+    <div>Your IP Address</div>
+    <div id="ipAddress">Loading...</div>
+    <button id="copyIpBtn">Copy IP</button>
+  </div>
+
+  <div id="dataContainer">
+    <h2 class="section-title">Location Information</h2>
+    <table id="locationTable">
+      <tbody>
+        <tr><td colspan="2" class="loading">Loading data...</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Network Information</h2>
+    <table id="networkTable">
+      <tbody>
+        <tr><td colspan="2" class="loading">Loading data...</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Security Information</h2>
+    <table id="securityTable">
+      <tbody>
+        <tr><td colspan="2" class="loading">Loading data...</td></tr>
+      </tbody>
+    </table>
+
+    <button id="copyAllBtn">Copy All Data</button>
+  </div>
+
+  <footer></footer>
+
+  <script>
+    const ipAddress = document.getElementById('ipAddress');
+    const copyIpBtn = document.getElementById('copyIpBtn');
+    const copyAllBtn = document.getElementById('copyAllBtn');
+    const locationTable = document.getElementById('locationTable');
+    const networkTable = document.getElementById('networkTable');
+    const securityTable = document.getElementById('securityTable');
+    
+    const SERVER_URL = "https://myip.sigundulpro.workers.dev/getClientInfo";
+    
+    async function getClientInfo(){
+      try {
+        const response = await fetch(SERVER_URL);
+        if (!response.ok) throw new Error('Server Error');
+
+        const data = await response.json();
+
+        // Update IP display
+        ipAddress.textContent = data.ip;
+
+        // Update location table
+        updateTable(locationTable, {
+          "Country": data.country,
+          "City": data.city,
+          "Region": data.region,
+          "Region Code": data.regionCode,
+          "Postal Code": data.postalCode,
+          "Continent": data.continent,
+          "Timezone": data.timezone,
+          "Latitude": data.latitude,
+          "Longitude": data.longitude
+        });
+
+        // Update network table
+        updateTable(networkTable, {
+          "ISP": data.isp,
+          "ASN": data.asn,
+          "Colo Connection": data.colo,
+          "HTTP Protocol": data.httpProtocol,
+          "TLS Version": data.tlsVersion,
+          "TLS Cipher": data.tlsCipher
+        });
+
+        // Update security table
+        updateTable(securityTable, {
+          "Threat Score": data.threatScore,
+          "Malicious": data.isMalicious ? "Yes" : "No",
+          "Bot": data.isBot ? "Yes" : "No",
+          "CDN": data.isCdn ? "Yes" : "No",
+          "Enterprise Bot": data.isEnterpriseBot ? "Yes" : "No",
+          "Proxy": data.isProxy ? "Yes" : "No",
+          "Proxy Type": data.proxyType,
+          "Client Trust Score": data.clientTrustScore
+        });
+
+        // Set up copy buttons
+        copyIpBtn.onclick = () => {
+          navigator.clipboard.writeText(data.ip);
+          copyIpBtn.textContent = "Copied!";
+          copyIpBtn.classList.add('copied');
+          setTimeout(() => {
+            copyIpBtn.textContent = "Copy IP";
+            copyIpBtn.classList.remove('copied');
+          }, 1500);
+        };
+
+        copyAllBtn.onclick = () => {
+          navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+          copyAllBtn.textContent = "Copied!";
+          copyAllBtn.classList.add('copied');
+          setTimeout(() => {
+            copyAllBtn.textContent = "Copy All Data";
+            copyAllBtn.classList.remove('copied');
+          }, 1500);
+        };
+
+      } catch (error) {
+        ipAddress.textContent = "Error";
+        locationTable.innerHTML = '<tr><td colspan="2">Failed to load data: ' + error.message + '</td></tr>';
+        networkTable.innerHTML = '';
+        securityTable.innerHTML = '';
+      }
+    }
+
+    function updateTable(table, data) {
+      const tbody = table.querySelector('tbody');
+      tbody.innerHTML = '';
+      
+      for (const [key, value] of Object.entries(data)) {
+        const row = document.createElement('tr');
+        const keyCell = document.createElement('td');
+        const valueCell = document.createElement('td');
+        
+        keyCell.textContent = key;
+        valueCell.textContent = value;
+        
+        row.appendChild(keyCell);
+        row.appendChild(valueCell);
+        tbody.appendChild(row);
+      }
+    }
+    
+    getClientInfo();
+  </script>
+</body>
+</html>

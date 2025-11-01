@@ -1,0 +1,94 @@
+ <!DOCTYPE html>
+<html lang="id-ID">
+	<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>Email Sanitizer - Bersihkan dan Filter Hanya Gmail | Mbah Babat Tools</title>
+	<meta name="description" content="Email Sanitizer membantu kamu membersihkan daftar email agar hanya tersisa alamat @gmail.com yang valid, rapi, tanpa simbol, dan bebas duplikat. Praktis, cepat, dan gratis." />
+	<meta name="keywords" content="email sanitizer, gmail cleaner, hapus duplikat email, filter email gmail, bersihkan daftar email, validasi email, email tools, mbah babat" />
+	<meta name="author" content="Mbah Babat" />
+	<meta name="robots" content="index, follow" />
+	<meta name="language" content="id" />
+
+	<link rel="icon" type="image/x-icon" href="assets/image/emailsanitizer.ico" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="id_ID" />
+	<meta property="og:title" content="Email Sanitizer - Bersihkan dan Filter Hanya Gmail" />
+	<meta property="og:description" content="Bersihkan daftar email kamu agar hanya tersisa @gmail.com yang valid dan rapi. Hapus simbol, duplikat, dan ubah huruf otomatis jadi lowercase." />
+	<meta property="og:url" content="https://mbahbabat.github.io/emailsanitizer/id/" />
+	<meta property="og:site_name" content="Mbah Babat Tools" />
+	<meta property="og:image" content="https://mbahbabat.github.io/emailsanitizer/assets/image/emailsanitizer.webp" />
+	<meta property="og:image:alt" content="Email Sanitizer - Gmail Only Preview" />
+	<meta property="og:image:type" content="image/webp" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Email Sanitizer - Bersihkan dan Filter Hanya Gmail" />
+	<meta name="twitter:description" content="Filter otomatis hanya @gmail.com, hapus simbol dan duplikat, dan hasilkan daftar email bersih siap pakai." />
+	<meta name="twitter:image" content="https://mbahbabat.github.io/emailsanitizer/assets/image/emailsanitizer.webp" />
+	<meta name="twitter:image:alt" content="Email Sanitizer - Gmail Cleaner" />
+	<meta name="twitter:creator" content="@mbahbabat" />
+
+	<link rel="canonical" href="https://mbahbabat.github.io/emailsanitizer/id/" />
+	
+	<link rel="alternate" hreflang="en-US" href="https://mbahbabat.github.io/emailsanitizer/">
+	<link rel="alternate" hreflang="id-ID" href="https://mbahbabat.github.io/emailsanitizer/id/">
+	<link rel="alternate" hreflang="x-default" href="https://mbahbabat.github.io/emailsanitizer/">	
+
+    <style>
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:#fff0}*:before,*:after{box-sizing:inherit}body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:800px;margin:0 auto;padding:20px;background-color:#f5f5f5;color:#333}h1{color:#d44638;text-align:center;margin-bottom:30px}.container{background-color:#fff;border-radius:8px;padding:20px;box-shadow:0 2px 10px rgb(0 0 0 / .1)}textarea{width:100%;height:200px;padding:12px;border:1px solid #ddd;border-radius:4px;resize:vertical;font-family:monospace;box-sizing:border-box;resize:none}.counter{display:flex;justify-content:right}.input-button{display:flex;gap:10px;margin:15px 0;flex-wrap:wrap;justify-content:right}.output-button{display:flex;justify-content:center;gap:10px;width:100%;margin:15px 0}button{padding:10px 15px;border:none;border-radius:4px;cursor:pointer;font-weight:700;transition:background-color 0.2s}#pasteBtn{background-color:#4CAF50;color:#fff}#fixInputBtn{background-color:red;color:#fff}#clearInput{background-color:#2196F3;color:#fff}#copyBtn{background-color:#FF9800;color:#fff}button:hover{opacity:.9}.info{margin-top:20px;padding:10px;background-color:#e7f3ff;border-radius:4px;border-left:4px solid #2196F3}.example{margin-top:20px;padding:10px;background-color:#fff8e1;border-radius:4px;border-left:4px solid #FFC107}.valid-email{color:#4CAF50;font-weight:700}.invalid-email{color:#F44336;text-decoration:line-through}.status{margin-top:10px;padding:8px;border-radius:4px;text-align:center;font-weight:700}.success{background-color:#e8f5e9;color:#2e7d32;border:1px solid #c8e6c9}.error{background-color:#ffebee;color:#c62828;border:1px solid #ffcdd2}
+		
+    </style>
+</head>
+<body>
+    <h1>Email Sanitizer - Gmail Only</h1>
+    
+    <div class="container">        
+		<div class="input-button">
+			<button id="fixInputBtn">Paksa Fix Input</button>
+            <button id="pasteBtn">Tempel</button>
+        </div>
+		<label for="emailInput">Masukkan email (dipisahkan spasi atau baris baru):</label>
+        <textarea id="emailInput" placeholder="Masukkan email di sini..." spellcheck="false"></textarea>
+        <div class="counter">
+			<p>Total: <span id="email-counter">0</span></p>
+		</div>
+        <div class="output-button">
+            <button id="clearInput">Kosongkan Input</button>
+			<button id="copyBtn">Salin Hasil</button>
+        </div>
+        
+        <div id="statusMessage" class="status" style="display: none;"></div>
+        
+        <div class="info">
+            <p><strong>Email Sanitizer - Gmail Only</strong> adalah alat sederhana berbasis web yang membantu kamu membersihkan daftar email agar hanya tersisa alamat @gmail.com yang valid dan rapi.
+Alat ini secara otomatis akan:</p>
+            <ul>
+                <li>Menyaring hanya email dengan domain @gmail.com</li>
+                <li>Menghapus karakter tidak valid seperti titik (.), plus (+), atau simbol lain di bagian nama email</li>
+				<li>Menghapus duplikat email secara otomatis</li>
+                <li>Memudahkan kamu untuk tempel (paste), perbaiki input, dan salin hasil hanya dengan satu klik</li>
+            </ul>
+			<p><strong>Cocok</strong> digunakan untuk:</p>
+			<ul>
+				<li>Membersihkan hasil ekspor data email dari Excel, Google Form, atau database</li>
+                <li>Menyiapkan daftar email untuk pengiriman newsletter atau verifikasi</li>
+				<li>Menyederhanakan daftar kontak agar lebih konsisten dan bebas error</li>
+			</ul>
+			<p>Dengan tampilan yang ringan dan intuitif, alat ini membantu kamu menghemat waktu dan memastikan daftar email yang bersih, valid, dan siap pakai.</p>
+        </div>
+        
+        <div class="example">
+            <strong>Contoh:</strong>
+            <p>Input tidak valid: <span class="invalid-email">x.y.z@gmail.com</span>, <span class="invalid-email">x+y+z@gmail.com</span>, <span class="invalid-email">Z!@#$%^&*()_+@gmail.com</span>, <span class="invalid-email">zyz@yahoo.com</span></p>
+        </div>
+    </div>
+
+    <script>
+const emailInput=document.getElementById("emailInput"),pasteBtn=document.getElementById("pasteBtn"),fixInputBtn=document.getElementById("fixInputBtn"),copyBtn=document.getElementById("copyBtn"),clearInput=document.getElementById("clearInput"),statusMessage=document.getElementById("statusMessage"),emailCounter=document.getElementById("email-counter");function showStatus(t,e){statusMessage.textContent=t,statusMessage.className="status "+(e?"success":"error"),statusMessage.style.display="block",setTimeout((()=>{statusMessage.style.display="none"}),3e3)}function sanitizeEmails(t){const e=t.split(/\s+/),a=new Set;for(let t of e)if(t=t.trim(),/@gmail\.com$/i.test(t)){const[e]=t.split("@");/^[a-zA-Z0-9]+$/.test(e)&&a.add(t.toLowerCase())}return emailCounter.textContent=a.size,Array.from(a).join("\n")}pasteBtn.addEventListener("click",(async()=>{try{const t=sanitizeEmails(await navigator.clipboard.readText());emailInput.value=t,t?showStatus("Email berhasil dipaste dan disanitasi!",!0):showStatus("Tidak ada email valid yang ditemukan di clipboard.",!1)}catch(t){console.error("Gagal membaca clipboard: ",t),showStatus("Tidak dapat mengakses clipboard. Silakan paste manual.",!1)}})),fixInputBtn.addEventListener("click",(()=>{const t=sanitizeEmails(emailInput.value);emailInput.value=t,t?showStatus("Input berhasil disanitasi!",!0):showStatus("Tidak ada email valid yang ditemukan.",!1)})),copyBtn.addEventListener("click",(async()=>{if(emailInput.value.trim())try{await navigator.clipboard.writeText(emailInput.value),showStatus("Email bersih berhasil disalin!",!0)}catch(t){console.error("Gagal menyalin ke clipboard: ",t);const e=document.createElement("textarea");e.value=emailInput.value,document.body.appendChild(e),e.select(),document.execCommand("copy"),document.body.removeChild(e),showStatus("Email bersih berhasil disalin!",!0)}else showStatus("Tidak ada email untuk disalin.",!1)})),clearInput.addEventListener("click",(()=>{emailInput.value="",emailCounter.textContent="0"})),emailInput.addEventListener("blur",(()=>{const t=emailInput.value,e=sanitizeEmails(t);t!==e&&(emailInput.value=e,showStatus("Email berhasil disanitasi!",!0))})),emailInput.addEventListener("paste",(t=>{setTimeout((()=>{const t=emailInput.value,e=sanitizeEmails(t);t!==e&&(emailInput.value=e,showStatus("Email berhasil dipaste dan disanitasi!",!0))}),0)}));
+    </script>
+</body>
+</html>

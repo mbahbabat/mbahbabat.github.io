@@ -355,15 +355,38 @@
       }
     }
     
-    // Function to add IP to history
-    function addToHistory(ip) {
-      // Don't add if the last IP is the same as current IP
-      if (ipHistoryList.length === 0 || ipHistoryList[ipHistoryList.length - 1] !== ip) {
-        ipHistoryList.push(ip);
-        localStorage.setItem(IP_HISTORY_KEY, JSON.stringify(ipHistoryList));
-        updateHistoryDisplay();
-      }
-    }
+	function addToHistory(ip) {
+		const now = new Date();
+		const formattedTime = formatDate(now);
+
+		// Jika history kosong atau IP berubah, tambahkan record baru
+		if (ipHistoryList.length === 0 || ipHistoryList[ipHistoryList.length - 1].ip !== ip) {
+			ipHistoryList.push({ ip, time: formattedTime });
+			localStorage.setItem(IP_HISTORY_KEY, JSON.stringify(ipHistoryList));
+			updateHistoryDisplay();
+		}
+	}
+
+	function formatDate(date) {
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const day = String(date.getDate()).padStart(2, '0');
+		const hours = String(date.getHours()).padStart(2, '0');
+		const minutes = String(date.getMinutes()).padStart(2, '0');
+		const seconds = String(date.getSeconds()).padStart(2, '0');
+
+		return `[${year}-${month}-${day} ${hours}:${minutes}:${seconds}]`;
+	}
+
+	// Fungsi untuk memperbarui tampilan history
+	function updateHistoryDisplay() {
+		let historyText = '';
+		ipHistoryList.forEach((item, index) => {
+			historyText += `${index + 1}. ${item.ip}   ${item.time}\n`;
+		});
+		ipHistory.value = historyText;
+	}
+
     
     // Function to check for duplicate IPs in history
     function checkDuplicateIPs(currentIP) {
@@ -383,15 +406,6 @@
 		ipWarning.classList.add('hidden');
         ipWarning.textContent = '';
       }
-    }
-    
-    // Function to update the history display
-    function updateHistoryDisplay() {
-      let historyText = '';
-      ipHistoryList.forEach((ip, index) => {
-        historyText += `${index + 1}. ${ip}\n`;
-      });
-      ipHistory.value = historyText;
     }
     
     // Event listener for refresh button

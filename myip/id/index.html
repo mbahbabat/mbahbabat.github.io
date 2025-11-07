@@ -26,6 +26,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta http-equiv="expires" content="0">
 	
+	<link rel="icon" href="https://mbahbabat.github.io/myip/assets/image/icon.ico">
+	
 	<link rel="alternate" hreflang="en" href="https://mbahbabat.github.io/myip/">
 	<link rel="alternate" hreflang="id" href="https://mbahbabat.github.io/myip/id/">
 	<link rel="alternate" hreflang="x-default" href="https://mbahbabat.github.io/myip/">
@@ -45,6 +47,9 @@
 	}
 	</script>
   <style>
+	*{
+		box-sizing: border-box;
+	}
     body {
       font-family: Arial, sans-serif;
       background: #f7f7f7;
@@ -53,10 +58,11 @@
       max-width: 800px;
       margin: 0 auto;
     }
-    header h1 {
+    footer, header h1 {
       text-align: center;
       color: #2c3e50;
     }
+	
     #ipDisplay {
       background: linear-gradient(135deg, #3498db, #2c3e50);
       color: white;
@@ -121,55 +127,135 @@
       text-align: center;
       padding: 20px;
     }
+    
+    /* New styles for added features */
+    .ip-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    #ipWarning {
+      color: #e74c3c;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+      background-color: rgba(231, 76, 60, 0.1);
+      padding: 8px;
+      border-radius: 5px;
+    }
+    
+    #historyContainer {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    
+    #ipHistory {
+      width: 100%;
+      height: 150px;
+      font-family: monospace;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      resize: vertical;
+      margin-bottom: 10px;
+      white-space: pre;
+      overflow-x: auto;
+	  resize: none;
+    }
+    
+    .history-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    #clearHistoryBtn {
+      background-color: #e74c3c;
+    }
+    
+    #clearHistoryBtn:hover {
+      background-color: #c0392b;
+    }
+	
+	.hidden{
+		display: none!important;
+	}
   </style>
 </head>
 <body>
   <header>
     <h1>MY IP</h1>
   </header>
+  <main>
+	  <div id="ipDisplay">
+		<div>Alamat IP Anda</div>
+		<div id="ipAddress">Memuat...</div>
+		<div class="ip-actions">
+		  <button id="copyIpBtn">Salin IP</button>
+		  <button id="refreshBtn">Refresh</button>
+		</div>
+		<div id="ipWarning" class="ipWarning hidden"></div>
+	  </div>
 
-  <div id="ipDisplay">
-    <div>Alamat Ip Saya</div>
-    <div id="ipAddress">Memuat...</div>
-    <button id="copyIpBtn">Salin IP</button>
-  </div>
+	  <div id="historyContainer">
+		<h2 class="section-title">Riwayat Alamat IP</h2>
+		<textarea id="ipHistory" readonly></textarea>
+		<div class="history-actions">
+		  <button id="clearHistoryBtn">Hapus Riwayat</button>
+		</div>
+	  </div>
+	  
+	  <div id="dataContainer">
+		<h2 class="section-title">Informasi Lokasi</h2>
+		<table id="locationTable">
+		  <tbody>
+			<tr><td colspan="2" class="loading">Memuat data...</td></tr>
+		  </tbody>
+		</table>
 
-  <div id="dataContainer">
-    <h2 class="section-title">Informasi Lokasi</h2>
-    <table id="locationTable">
-      <tbody>
-        <tr><td colspan="2" class="loading">Memuat data...</td></tr>
-      </tbody>
-    </table>
+		<h2 class="section-title">Informasi Jaringan</h2>
+		<table id="networkTable">
+		  <tbody>
+			<tr><td colspan="2" class="loading">Memuat data...</td></tr>
+		  </tbody>
+		</table>
 
-    <h2 class="section-title">Informasi Jaringan</h2>
-    <table id="networkTable">
-      <tbody>
-        <tr><td colspan="2" class="loading">Memuat data...</td></tr>
-      </tbody>
-    </table>
+		<h2 class="section-title">Informasi Keamanan</h2>
+		<table id="securityTable">
+		  <tbody>
+			<tr><td colspan="2" class="loading">Memuat data...</td></tr>
+		  </tbody>
+		</table>
 
-    <h2 class="section-title">Informasi Keamanan</h2>
-    <table id="securityTable">
-      <tbody>
-        <tr><td colspan="2" class="loading">Memuat data...</td></tr>
-      </tbody>
-    </table>
-
-    <button id="copyAllBtn">Salin Semua Data</button>
-  </div>
-
-  <footer></footer>
+		<button id="copyAllBtn">Salin Semua Data</button>
+	  </div>
+  </main>
+  <footer>
+	<p>&copy; 2024 Gmooy | All Rights Reserved</p>
+  </footer>
 
   <script>
     const ipAddress = document.getElementById('ipAddress');
     const copyIpBtn = document.getElementById('copyIpBtn');
     const copyAllBtn = document.getElementById('copyAllBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
     const locationTable = document.getElementById('locationTable');
     const networkTable = document.getElementById('networkTable');
     const securityTable = document.getElementById('securityTable');
+    const ipWarning = document.getElementById('ipWarning');
+    const ipHistory = document.getElementById('ipHistory');
+    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
     
     const SERVER_URL = "https://myip.sigundulpro.workers.dev/getClientInfo";
+    const IP_HISTORY_KEY = "ipHistory";
+    
+    // Initialize IP history
+    let ipHistoryList = JSON.parse(localStorage.getItem(IP_HISTORY_KEY)) || [];
+    updateHistoryDisplay();
     
     async function getClientInfo(){
       try {
@@ -180,6 +266,12 @@
 
         // Update IP display
         ipAddress.textContent = data.ip;
+
+        // Check for duplicate IPs in history
+        checkDuplicateIPs(data.ip);
+        
+        // Add IP to history if it's new
+        addToHistory(data.ip);
 
         // Update location table
         updateTable(locationTable, {
@@ -222,7 +314,7 @@
           copyIpBtn.textContent = "Tersalin!";
           copyIpBtn.classList.add('copied');
           setTimeout(() => {
-            copyIpBtn.textContent = "salin IP";
+            copyIpBtn.textContent = "Salin IP";
             copyIpBtn.classList.remove('copied');
           }, 1500);
         };
@@ -263,6 +355,64 @@
       }
     }
     
+    // Function to add IP to history
+    function addToHistory(ip) {
+      // Don't add if the last IP is the same as current IP
+      if (ipHistoryList.length === 0 || ipHistoryList[ipHistoryList.length - 1] !== ip) {
+        ipHistoryList.push(ip);
+        localStorage.setItem(IP_HISTORY_KEY, JSON.stringify(ipHistoryList));
+        updateHistoryDisplay();
+      }
+    }
+    
+    // Function to check for duplicate IPs in history
+    function checkDuplicateIPs(currentIP) {
+      const duplicateLines = [];
+      
+      // Check all IPs in history except the last one (current IP)
+      for (let i = 0; i < ipHistoryList.length - 1; i++) {
+        if (ipHistoryList[i] === currentIP) {
+          duplicateLines.push(i + 1); // +1 to convert from 0-indexed to 1-indexed line numbers
+        }
+      }
+      
+      if (duplicateLines.length > 0) {
+		ipWarning.classList.remove('hidden');
+        ipWarning.textContent = `IP ini sudah ada dalam riwayat - baris ${duplicateLines.join(', ')}`;
+      } else {
+		ipWarning.classList.add('hidden');
+        ipWarning.textContent = '';
+      }
+    }
+    
+    // Function to update the history display
+    function updateHistoryDisplay() {
+      let historyText = '';
+      ipHistoryList.forEach((ip, index) => {
+        historyText += `${index + 1}. ${ip}\n`;
+      });
+      ipHistory.value = historyText;
+    }
+    
+    // Event listener for refresh button
+    refreshBtn.onclick = () => {
+      ipAddress.textContent = "Loading...";
+      locationTable.innerHTML = '<tr><td colspan="2" class="loading">Memuat data...</td></tr>';
+      networkTable.innerHTML = '<tr><td colspan="2" class="loading">Memuat data...</td></tr>';
+      securityTable.innerHTML = '<tr><td colspan="2" class="loading">Memuat data...</td></tr>';
+      ipWarning.textContent = '';
+      getClientInfo();
+    };
+    
+    // Event listener for clear history button
+    clearHistoryBtn.onclick = () => {
+      ipHistoryList = [];
+      localStorage.removeItem(IP_HISTORY_KEY);
+      updateHistoryDisplay();
+      ipWarning.textContent = '';
+    };
+    
+    // Initial call to get IP info
     getClientInfo();
   </script>
 </body>

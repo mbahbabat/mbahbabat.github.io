@@ -376,10 +376,10 @@
       }
       
       if (duplicateLines.length > 0) {
-		historyContainer.classList.remove('hidden');
+		ipWarning.classList.remove('hidden');
         ipWarning.textContent = `This IP is in the IP history - line ${duplicateLines.join(', ')}`;
       } else {
-		historyContainer.classList.add('hidden');
+		ipWarning.classList.add('hidden');
         ipWarning.textContent = '';
       }
     }

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V380 CCTV Archive</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --accent-color: #00d26a;
+            --card-bg: #2d2d2d;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 { margin-bottom: 20px; color: var(--accent-color); }
+        
+        /* Container Setup */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        /* Video Player Area */
+        .player-section {
+            flex: 2;
+            min-width: 300px;
+        }
+        video {
+            width: 100%;
+            background: #000;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .current-info {
+            margin-top: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        /* Playlist Area */
+        .playlist-section {
+            flex: 1;
+            min-width: 250px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 10px;
+            max-height: 600px; /* Scrollable */
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .playlist-header {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #444;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .file-item {
+            padding: 10px;
+            border-bottom: 1px solid #3d3d3d;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.9em;
+        }
+        .file-item:hover { background-color: #3d3d3d; }
+        .file-item.active { 
+            background-color: var(--accent-color); 
+            color: #000; 
+            font-weight: bold;
+        }
+        .file-meta { font-size: 0.8em; opacity: 0.7; margin-top: 4px; }
+
+        /* Config Form (Hidden by default if configured) */
+        #config-form {
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 500px;
+            display: none; /* Ubah ke block jika ingin edit */
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+        }
+        button {
+            background: var(--accent-color);
+            border: none;
+            padding: 10px 20px;
+            color: #000;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .loading { text-align: center; margin-top: 20px; color: #888; }
+    </style>
+</head>
+<body>
+
+    <h1>👁️ CCTV Replay</h1>
+
+    <!-- FORM KONFIGURASI (Isi sekali saja lalu save code, atau input manual) -->
+    <div id="config-form" style="display: block;">
+        <h3>Pengaturan GitHub</h3>
+        <label>Owner (User):</label>
+        <input type="text" id="gh_owner" value="mbahbabat">
+        <label>Repo Name:</label>
+        <input type="text" id="gh_repo" value="assets-gchecker">
+        <label>Token (Wajib untuk Private Repo):</label>
+        <input type="password" id="gh_token" placeholder="github_pat_...">
+        <label>Tag Release:</label>
+        <input type="text" id="gh_tag" value="cctv-records">
+        <button onclick="loadVideos()">Muat Video</button>
+    </div>
+
+    <div class="container" id="main-ui" style="display:none;">
+        <!-- Player -->
+        <div class="player-section">
+            <video id="videoPlayer" controls playsinline>
+                Browser Anda tidak support video tag.
+            </video>
+            <div class="current-info" id="currentTitle">Pilih video untuk memutar</div>
+            <div style="margin-top:10px;">
+                <a id="downloadBtn" href="#" target="_blank" style="color: var(--accent-color); text-decoration: none;">⬇ Download Video Ini</a>
+            </div>
+        </div>
+
+        <!-- Playlist -->
+        <div class="playlist-section">
+            <div class="playlist-header">
+                <span>Daftar Rekaman</span>
+                <button onclick="loadVideos()" style="padding: 5px 10px; font-size: 0.8em;">Refresh</button>
+            </div>
+            <div id="playlist">
+                <div class="loading">Menunggu data...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simpan config di LocalStorage agar tidak input ulang terus
+        const inputs = ['gh_owner', 'gh_repo', 'gh_token', 'gh_tag'];
+        
+        // Load saved config
+        inputs.forEach(id => {
+            const saved = localStorage.getItem(id);
+            if(saved) document.getElementById(id).value = saved;
+        });
+
+        async function loadVideos() {
+            const owner = document.getElementById('gh_owner').value;
+            const repo = document.getElementById('gh_repo').value;
+            const token = document.getElementById('gh_token').value;
+            const tag = document.getElementById('gh_tag').value;
+
+            // Save config
+            inputs.forEach(id => localStorage.setItem(id, document.getElementById(id).value));
+
+            document.getElementById('config-form').style.display = 'none'; // Hide form
+            document.getElementById('main-ui').style.display = 'flex'; // Show UI
+            const playlistEl = document.getElementById('playlist');
+            playlistEl.innerHTML = '<div class="loading">Sedang mengambil data dari GitHub...</div>';
+
+            try {
+                // 1. Fetch data release dari GitHub API
+                const url = `https://api.github.com/repos/${owner}/${repo}/releases/tags/${tag}`;
+                const headers = token ? { 'Authorization': `token ${token}` } : {};
+
+                const response = await fetch(url, { headers });
+                
+                if (!response.ok) {
+                    throw new Error(`Gagal akses API: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // 2. Filter hanya file video dan Urutkan (Terbaru di atas)
+                // Asumsi nama file ada tanggalnya, sort by name desc biasanya works
+                // Atau sort by created_at desc
+                let assets = data.assets.filter(a => a.name.match(/\.(mp4|avi|mov)$/i));
+                
+                // Sort by date created (terbaru paling atas)
+                assets.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+                playlistEl.innerHTML = '';
+                
+                if (assets.length === 0) {
+                    playlistEl.innerHTML = '<div style="padding:10px;">Tidak ada video ditemukan.</div>';
+                    return;
+                }
+
+                // 3. Render Playlist
+                assets.forEach((asset, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'file-item';
+                    
+                    // Format Size
+                    const sizeMB = (asset.size / (1024*1024)).toFixed(2);
+                    // Format Time
+                    const date = new Date(asset.created_at).toLocaleString('id-ID');
+
+                    item.innerHTML = `
+                        <div>${asset.name}</div>
+                        <div class="file-meta">📅 ${date} | 💾 ${sizeMB} MB</div>
+                    `;
+
+                    item.onclick = () => playVideo(asset, item);
+                    playlistEl.appendChild(item);
+
+                    // Auto play yang pertama
+                    if(index === 0) playVideo(asset, item);
+                });
+
+            } catch (error) {
+                console.error(error);
+                playlistEl.innerHTML = `<div style="color:red; padding:10px;">Error: ${error.message}<br>Cek Console / Token Anda.</div>`;
+                document.getElementById('config-form').style.display = 'block';
+            }
+        }
+
+        function playVideo(asset, element) {
+            // Highlight active item
+            document.querySelectorAll('.file-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            const player = document.getElementById('videoPlayer');
+            const title = document.getElementById('currentTitle');
+            const dlBtn = document.getElementById('downloadBtn');
+
+            title.innerText = asset.name;
+            dlBtn.href = asset.browser_download_url;
+            
+            // PENTING: Untuk Private Repo, browser_download_url mungkin butuh login session di browser
+            // Jika pakai token di URL (not recommended tapi working): asset.url + '?access_token=...' (API v3 beda)
+            // Cara paling aman untuk Private Repo: User harus login github.com di browser ini.
+            player.src = asset.browser_download_url;
+            player.play();
+        }
+    </script>
+</body>
+</html>

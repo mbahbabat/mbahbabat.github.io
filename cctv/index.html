@@ -119,7 +119,7 @@
     <h1>👁️ CCTV Replay</h1>
 
     <!-- FORM KONFIGURASI (Isi sekali saja lalu save code, atau input manual) -->
-    <div id="config-form" style="display: block;">
+    <div id="config-form" style="display:none;">
         <h3>Pengaturan GitHub</h3>
         <label>Owner (User):</label>
         <input type="text" id="gh_owner" value="mbahbabat">
@@ -132,7 +132,7 @@
         <button onclick="loadVideos()">Muat Video</button>
     </div>
 
-    <div class="container" id="main-ui" style="display:none;">
+    <div class="container" id="main-ui" style="display:block;">
         <!-- Player -->
         <div class="player-section">
             <video id="videoPlayer" controls playsinline>
@@ -157,6 +157,7 @@
     </div>
 
     <script>
+		
         // Simpan config di LocalStorage agar tidak input ulang terus
         const inputs = ['gh_owner', 'gh_repo', 'gh_token', 'gh_tag'];
         
@@ -255,6 +256,8 @@
             player.src = asset.browser_download_url;
             player.play();
         }
+		
+		loadVideos();
     </script>
 </body>
 </html>

@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V380 CCTV Archive</title>
+    <title>V380 CCTV Archive - Multi Date</title>
     <style>
         :root {
             --bg-color: #1a1a1a;
             --text-color: #e0e0e0;
             --accent-color: #00d26a;
             --card-bg: #2d2d2d;
+            --warning-color: #ff9800;
+            --error-color: #ff6b6b;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,89 +22,100 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
-        h1 { margin-bottom: 20px; color: var(--accent-color); }
+        h1 { 
+            margin-bottom: 10px; 
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h1 small {
+            font-size: 0.6em;
+            opacity: 0.7;
+        }
         
         /* Container Setup */
         .container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            max-width: 1200px;
+            max-width: 1400px;
             width: 100%;
         }
         
         /* Video Player Area */
         .player-section {
-            flex: 2;
+            flex: 3;
             min-width: 300px;
         }
         video {
             width: 100%;
+            max-height: 70vh;
             background: #000;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
+        .player-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 8px;
+        }
         .current-info {
-            margin-top: 10px;
             font-size: 1.1em;
             font-weight: bold;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+        .video-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
         }
 
         /* Playlist Area */
         .playlist-section {
             flex: 1;
-            min-width: 250px;
+            min-width: 300px;
             background-color: var(--card-bg);
             border-radius: 8px;
-            padding: 10px;
-            max-height: 600px; /* Scrollable */
+            padding: 15px;
+            max-height: 80vh;
             overflow-y: auto;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
         }
         .playlist-header {
-            padding-bottom: 10px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #444;
             margin-bottom: 10px;
+        }
+        
+        /* Date Picker & Controls */
+        .controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
         }
-        .file-item {
+        .date-picker-container {
+            flex: 1;
+            min-width: 200px;
+        }
+        input[type="date"] {
+            width: 100%;
             padding: 10px;
-            border-bottom: 1px solid #3d3d3d;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 0.9em;
-        }
-        .file-item:hover { background-color: #3d3d3d; }
-        .file-item.active { 
-            background-color: var(--accent-color); 
-            color: #000; 
-            font-weight: bold;
-        }
-        .file-meta { font-size: 0.8em; opacity: 0.7; margin-top: 4px; }
-
-        /* Config Form (Hidden by default if configured) */
-        #config-form {
-            background: #333;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            width: 100%;
-            max-width: 500px;
-            display: none; /* Ubah ke block jika ingin edit */
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0 15px;
             background: #222;
             border: 1px solid #444;
             color: white;
             border-radius: 4px;
+            font-family: inherit;
         }
-        button {
+        .btn {
             background: var(--accent-color);
             border: none;
             padding: 10px 20px;
@@ -110,154 +123,599 @@
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
+            transition: opacity 0.2s;
+            flex-shrink: 0;
         }
-        .loading { text-align: center; margin-top: 20px; color: #888; }
+        .btn:hover { opacity: 0.9; }
+        .btn-secondary {
+            background: #555;
+            color: white;
+        }
+        
+        /* File List */
+        .file-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .file-item {
+            padding: 12px;
+            border-bottom: 1px solid #3d3d3d;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .file-item:hover { 
+            background-color: #3d3d3d;
+            border-left-color: var(--accent-color);
+        }
+        .file-item.active { 
+            background-color: rgba(0, 210, 106, 0.2); 
+            border-left-color: var(--accent-color);
+            font-weight: bold;
+        }
+        .file-name {
+            margin-bottom: 5px;
+            word-break: break-word;
+        }
+        .file-meta { 
+            font-size: 0.8em; 
+            opacity: 0.7; 
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .no-videos {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.7;
+            font-style: italic;
+        }
+        
+        /* Config Form */
+        .config-panel {
+            background: #333;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+            display: none;
+        }
+        .config-panel.active {
+            display: block;
+        }
+        .config-row {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        .config-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        /* Status & Info */
+        .status-bar {
+            margin-top: 20px;
+            padding: 10px;
+            background: var(--card-bg);
+            border-radius: 5px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            text-align: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+        }
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #444;
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .player-section, .playlist-section {
+                width: 100%;
+            }
+            video {
+                max-height: 50vh;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <h1>👁️ CCTV Replay</h1>
+    <h1>👁️ CCTV Replay <small>Multi-Date Archive</small></h1>
 
-    <!-- FORM KONFIGURASI (Isi sekali saja lalu save code, atau input manual) -->
-    <div id="config-form" style="display:none;">
-        <h3>Pengaturan GitHub</h3>
-        <label>Owner (User):</label>
-        <input type="text" id="gh_owner" value="mbahbabat">
-        <label>Repo Name:</label>
-        <input type="text" id="gh_repo" value="assets-gchecker">
-        <label>Token (Wajib untuk Private Repo):</label>
-        <input type="password" id="gh_token" placeholder="github_pat_...">
-        <label>Tag Release:</label>
-        <input type="text" id="gh_tag" value="cctv-records">
-        <button onclick="loadVideos()">Muat Video</button>
+    <!-- Config Panel -->
+    <div class="config-panel" id="config-panel" style="display:none;">
+        <h3>⚙️ Pengaturan GitHub</h3>
+        <div class="config-row">
+            <label>Owner (User):</label>
+            <input type="text" id="gh_owner" value="mbahbabat" placeholder="mbahbabat">
+        </div>
+        <div class="config-row">
+            <label>Repo Name:</label>
+            <input type="text" id="gh_repo" value="assets-gchecker" placeholder="assets-gchecker">
+        </div>
+        <div class="config-row" style="display:none;">
+            <label>Token (Opsional untuk Private Repo):</label>
+            <input type="password" id="gh_token" placeholder="github_pat_...">
+            <small style="opacity:0.7;">Biarkan kosong jika repo public</small>
+        </div>
+        <div class="config-row">
+			<label>Tag Prefix:</label>
+			<input type="text" id="gh_prefix" value="cctv-records" placeholder="cctv-records">
+			<small style="opacity:0.7;">Format tag: [prefix]-YYYY-MM-DD</small>
+		</div>
+        <div class="config-actions">
+            <button class="btn" onclick="saveConfig()">💾 Simpan & Muat</button>
+            <button class="btn btn-secondary" onclick="resetConfig()">🔄 Reset</button>
+        </div>
     </div>
 
+    <!-- Main UI -->
     <div class="container" id="main-ui" style="display:block;">
         <!-- Player -->
         <div class="player-section">
             <video id="videoPlayer" controls playsinline>
                 Browser Anda tidak support video tag.
             </video>
-            <div class="current-info" id="currentTitle">Pilih video untuk memutar</div>
-            <div style="margin-top:10px;">
-                <a id="downloadBtn" href="#" target="_blank" style="color: var(--accent-color); text-decoration: none;">⬇ Download Video Ini</a>
+            
+            <div class="player-info">
+                <div class="current-info" id="currentTitle">Pilih video untuk memutar</div>
+                <div class="video-meta">
+                    <span id="videoSize">- MB</span>
+                    <span id="videoDate">-</span>
+                    <span id="videoDuration">-</span>
+                </div>
+                <div style="margin-top:15px;">
+                    <a id="downloadBtn" href="#" target="_blank" class="btn" style="text-decoration:none; display:inline-block;">⬇ Download Video</a>
+                    <button class="btn btn-secondary" onclick="toggleConfig()" style="margin-left:10px;">⚙️ Settings</button>
+                </div>
             </div>
         </div>
 
         <!-- Playlist -->
         <div class="playlist-section">
             <div class="playlist-header">
-                <span>Daftar Rekaman</span>
-                <button onclick="loadVideos()" style="padding: 5px 10px; font-size: 0.8em;">Refresh</button>
+                <h3 style="margin:0 0 10px 0;">📅 Pilih Tanggal</h3>
+                <div class="controls">
+                    <div class="date-picker-container">
+                        <input type="date" id="datePicker" onchange="loadDateVideos()">
+                    </div>
+                    <button class="btn" onclick="loadDateVideos()">📂 Muat</button>
+                    <button class="btn btn-secondary" onclick="refreshDates()">🔄 Refresh Dates</button>
+                </div>
+                <div id="dateStatus" style="font-size:0.9em; opacity:0.8; margin-top:10px;"></div>
             </div>
-            <div id="playlist">
-                <div class="loading">Menunggu data...</div>
+            
+            <div class="file-list" id="playlist">
+                <div class="no-videos">Pilih tanggal untuk menampilkan rekaman</div>
+            </div>
+            
+            <div style="margin-top:15px; padding-top:15px; border-top:1px solid #444;">
+                <small style="opacity:0.7;">
+                    Tag saat ini: <span id="currentTag">-</span><br>
+                    Total video: <span id="totalVideos">0</span>
+                </small>
             </div>
         </div>
     </div>
 
+    <!-- Status Bar -->
+    <div class="status-bar" id="status-bar">
+        Status: Konfigurasi diperlukan
+    </div>
+
     <script>
-		
-        // Simpan config di LocalStorage agar tidak input ulang terus
-        const inputs = ['gh_owner', 'gh_repo', 'gh_token', 'gh_tag'];
-        
-        // Load saved config
-        inputs.forEach(id => {
-            const saved = localStorage.getItem(id);
-            if(saved) document.getElementById(id).value = saved;
+        // State management
+        let currentState = {
+            owner: '',
+            repo: '',
+            token: '',
+            prefix: 'cctv-records',
+            currentTag: '',
+            currentDate: '',
+            availableDates: [],
+            currentVideo: null
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedConfig();
+            setupDatePicker();
         });
 
-        async function loadVideos() {
-            const owner = document.getElementById('gh_owner').value;
-            const repo = document.getElementById('gh_repo').value;
-            const token = document.getElementById('gh_token').value;
-            const tag = document.getElementById('gh_tag').value;
+        function setupDatePicker() {
+            const datePicker = document.getElementById('datePicker');
+            const today = new Date().toISOString().split('T')[0];
+            datePicker.value = today;
+            datePicker.max = today;
+            
+            // Set default to yesterday for testing
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            datePicker.value = yesterday.toISOString().split('T')[0];
+        }
 
-            // Save config
-            inputs.forEach(id => localStorage.setItem(id, document.getElementById(id).value));
+        function loadSavedConfig() {
+            const config = {
+                owner: localStorage.getItem('gh_owner'),
+                repo: localStorage.getItem('gh_repo'),
+                token: localStorage.getItem('gh_token'),
+                prefix: localStorage.getItem('gh_prefix') || 'cctv'
+            };
 
-            document.getElementById('config-form').style.display = 'none'; // Hide form
-            document.getElementById('main-ui').style.display = 'flex'; // Show UI
-            const playlistEl = document.getElementById('playlist');
-            playlistEl.innerHTML = '<div class="loading">Sedang mengambil data dari GitHub...</div>';
+            if (config.owner && config.repo) {
+                // Apply saved config
+                document.getElementById('gh_owner').value = config.owner;
+                document.getElementById('gh_repo').value = config.repo;
+                document.getElementById('gh_token').value = config.token || '';
+                document.getElementById('gh_prefix').value = config.prefix;
+                
+                currentState = { ...currentState, ...config };
+                
+                // Auto-load today's videos if config exists
+                setTimeout(() => {
+                    saveConfig();
+                }, 500);
+            } else {
+                // Show config panel if no saved config
+                toggleConfig(true);
+            }
+        }
 
+        function saveConfig() {
+            currentState.owner = document.getElementById('gh_owner').value.trim();
+            currentState.repo = document.getElementById('gh_repo').value.trim();
+            currentState.token = document.getElementById('gh_token').value.trim();
+            currentState.prefix = document.getElementById('gh_prefix').value.trim() || 'cctv';
+
+            if (!currentState.owner || !currentState.repo) {
+                alert('Owner dan Repo wajib diisi!');
+                return;
+            }
+
+            // Save to localStorage
+            localStorage.setItem('gh_owner', currentState.owner);
+            localStorage.setItem('gh_repo', currentState.repo);
+            localStorage.setItem('gh_token', currentState.token);
+            localStorage.setItem('gh_prefix', currentState.prefix);
+
+            // Hide config panel
+            toggleConfig(false);
+            
+            // Load available dates
+            loadAvailableDates();
+        }
+
+        function resetConfig() {
+            if (confirm('Reset semua pengaturan ke default?')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        function toggleConfig(show) {
+            const panel = document.getElementById('config-panel');
+            const mainUI = document.getElementById('main-ui');
+            
+            if (show === undefined) {
+                show = !panel.classList.contains('active');
+            }
+            
+            if (show) {
+                panel.classList.add('active');
+                mainUI.style.display = 'none';
+            } else {
+                panel.classList.remove('active');
+                mainUI.style.display = 'flex';
+            }
+        }
+
+        async function loadAvailableDates() {
+            const statusEl = document.getElementById('dateStatus');
+            statusEl.innerHTML = '<span style="color:#ff9800;">Mengambil daftar tanggal...</span>';
+            
             try {
-                // 1. Fetch data release dari GitHub API
-                const url = `https://api.github.com/repos/${owner}/${repo}/releases/tags/${tag}`;
-                const headers = token ? { 'Authorization': `token ${token}` } : {};
-
+                const url = `https://api.github.com/repos/${currentState.owner}/${currentState.repo}/releases`;
+                const headers = currentState.token ? { 'Authorization': `token ${currentState.token}` } : {};
+                
                 const response = await fetch(url, { headers });
                 
                 if (!response.ok) {
-                    throw new Error(`Gagal akses API: ${response.status}`);
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
+                
+                const releases = await response.json();
+                
+                // Filter releases with our prefix and extract dates
+                const dateSet = new Set();
+                releases.forEach(release => {
+                    if (release.tag_name.startsWith(currentState.prefix + '-')) {
+                        // Extract date from tag (format: prefix-YYYY-MM-DD)
+                        const dateMatch = release.tag_name.match(/\d{4}-\d{2}-\d{2}/);
+                        if (dateMatch) {
+                            dateSet.add(dateMatch[0]);
+                        }
+                    }
+                });
+                
+                currentState.availableDates = Array.from(dateSet).sort().reverse();
+                
+                if (currentState.availableDates.length > 0) {
+                    // Set date picker to most recent date
+                    const datePicker = document.getElementById('datePicker');
+                    datePicker.value = currentState.availableDates[0];
+                    
+                    // Load videos for most recent date
+                    loadDateVideos();
+                    
+                    statusEl.innerHTML = `<span style="color:#00d26a;">✓ ${currentState.availableDates.length} tanggal ditemukan</span>`;
+                } else {
+                    statusEl.innerHTML = '<span style="color:#ff6b6b;">✗ Tidak ada release dengan format yang sesuai</span>';
+                }
+                
+                updateStatusBar(`Ready - ${currentState.availableDates.length} dates available`);
+                
+            } catch (error) {
+                console.error('Error loading dates:', error);
+                statusEl.innerHTML = `<span style="color:#ff6b6b;">Error: ${error.message}</span>`;
+                updateStatusBar(`Error: ${error.message}`, 'error');
+            }
+        }
 
+        function refreshDates() {
+            loadAvailableDates();
+        }
+
+        async function loadDateVideos() {
+            const datePicker = document.getElementById('datePicker');
+            const selectedDate = datePicker.value;
+            
+            if (!selectedDate) {
+                alert('Silakan pilih tanggal terlebih dahulu');
+                return;
+            }
+            
+            currentState.currentDate = selectedDate;
+            currentState.currentTag = `${currentState.prefix}-${selectedDate}`;
+            
+            document.getElementById('currentTag').textContent = currentState.currentTag;
+            document.getElementById('dateStatus').innerHTML = `<span style="color:#00d26a;">Memuat: ${selectedDate}</span>`;
+            
+            const playlistEl = document.getElementById('playlist');
+            playlistEl.innerHTML = '<div class="loading">Mengambil video...</div>';
+            
+            updateStatusBar(`Loading videos for ${selectedDate}...`);
+            
+            try {
+                const url = `https://api.github.com/repos/${currentState.owner}/${currentState.repo}/releases/tags/${currentState.currentTag}`;
+                const headers = currentState.token ? { 'Authorization': `token ${currentState.token}` } : {};
+                
+                const response = await fetch(url, { headers });
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error(`Tidak ada rekaman untuk tanggal ${selectedDate}`);
+                    }
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
                 const data = await response.json();
+                const assets = data.assets.filter(a => 
+                    a.name.match(/\.(mp4|avi|mov|mkv|flv|wmv|dav)$/i)
+                );
                 
-                // 2. Filter hanya file video dan Urutkan (Terbaru di atas)
-                // Asumsi nama file ada tanggalnya, sort by name desc biasanya works
-                // Atau sort by created_at desc
-                let assets = data.assets.filter(a => a.name.match(/\.(mp4|avi|mov)$/i));
-                
-                // Sort by date created (terbaru paling atas)
                 assets.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
+                
                 playlistEl.innerHTML = '';
                 
                 if (assets.length === 0) {
-                    playlistEl.innerHTML = '<div style="padding:10px;">Tidak ada video ditemukan.</div>';
+                    playlistEl.innerHTML = `
+                        <div class="no-videos">
+                            <div style="margin-bottom:10px;">📭 Tidak ada video ditemukan</div>
+                            <small>Tanggal: ${selectedDate}</small>
+                        </div>
+                    `;
+                    document.getElementById('totalVideos').textContent = '0';
+                    updateStatusBar(`No videos found for ${selectedDate}`, 'warning');
                     return;
                 }
-
-                // 3. Render Playlist
+                
+                document.getElementById('totalVideos').textContent = assets.length;
+                
+                // Render playlist items
                 assets.forEach((asset, index) => {
                     const item = document.createElement('div');
                     item.className = 'file-item';
+                    item.dataset.asset = JSON.stringify(asset);
                     
-                    // Format Size
-                    const sizeMB = (asset.size / (1024*1024)).toFixed(2);
-                    // Format Time
-                    const date = new Date(asset.created_at).toLocaleString('id-ID');
-
+                    const sizeMB = (asset.size / (1024 * 1024)).toFixed(2);
+                    const date = new Date(asset.created_at).toLocaleString('id-ID', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
                     item.innerHTML = `
-                        <div>${asset.name}</div>
-                        <div class="file-meta">📅 ${date} | 💾 ${sizeMB} MB</div>
+                        <div class="file-name">${asset.name}</div>
+                        <div class="file-meta">
+                            <span>🕒 ${date}</span>
+                            <span>💾 ${sizeMB} MB</span>
+                        </div>
                     `;
-
-                    item.onclick = () => playVideo(asset, item);
+                    
+                    item.onclick = () => {
+                        playVideo(asset, item);
+                        // Store current video for download
+                        currentState.currentVideo = asset;
+                    };
+                    
                     playlistEl.appendChild(item);
-
-                    // Auto play yang pertama
-                    if(index === 0) playVideo(asset, item);
+                    
+                    // Auto-play first video
+                    if (index === 0) {
+                        playVideo(asset, item);
+                        currentState.currentVideo = asset;
+                    }
                 });
-
+                
+                updateStatusBar(`Loaded ${assets.length} videos for ${selectedDate}`);
+                
             } catch (error) {
-                console.error(error);
-                playlistEl.innerHTML = `<div style="color:red; padding:10px;">Error: ${error.message}<br>Cek Console / Token Anda.</div>`;
-                document.getElementById('config-form').style.display = 'block';
+                console.error('Error loading videos:', error);
+                playlistEl.innerHTML = `
+                    <div class="no-videos" style="color:#ff6b6b;">
+                        <div style="margin-bottom:10px;">❌ ${error.message}</div>
+                        <small>Pastikan tanggal benar dan koneksi stabil</small>
+                    </div>
+                `;
+                updateStatusBar(`Error: ${error.message}`, 'error');
             }
         }
 
         function playVideo(asset, element) {
             // Highlight active item
-            document.querySelectorAll('.file-item').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.file-item').forEach(el => {
+                el.classList.remove('active');
+            });
             element.classList.add('active');
-
-            const player = document.getElementById('videoPlayer');
-            const title = document.getElementById('currentTitle');
-            const dlBtn = document.getElementById('downloadBtn');
-
-            title.innerText = asset.name;
-            dlBtn.href = asset.browser_download_url;
             
-            // PENTING: Untuk Private Repo, browser_download_url mungkin butuh login session di browser
-            // Jika pakai token di URL (not recommended tapi working): asset.url + '?access_token=...' (API v3 beda)
-            // Cara paling aman untuk Private Repo: User harus login github.com di browser ini.
+            const player = document.getElementById('videoPlayer');
+            const titleEl = document.getElementById('currentTitle');
+            const sizeEl = document.getElementById('videoSize');
+            const dateEl = document.getElementById('videoDate');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // Update UI
+            titleEl.textContent = asset.name;
+            sizeEl.textContent = (asset.size / (1024 * 1024)).toFixed(2) + ' MB';
+            dateEl.textContent = new Date(asset.created_at).toLocaleString('id-ID');
+            downloadBtn.href = asset.browser_download_url;
+            downloadBtn.download = asset.name;
+            
+            // Set video source
             player.src = asset.browser_download_url;
-            player.play();
+            
+            // Try to play
+            player.play().catch(e => {
+                console.log('Autoplay prevented:', e);
+            });
+            
+            // Update duration when metadata loads
+            player.onloadedmetadata = function() {
+                const duration = formatTime(player.duration);
+                document.getElementById('videoDuration').textContent = duration;
+            };
         }
+
+        function formatTime(seconds) {
+            if (!seconds || isNaN(seconds)) return '-';
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (hrs > 0) {
+                return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateStatusBar(message, type = 'info') {
+            const statusBar = document.getElementById('status-bar');
+            statusBar.textContent = `Status: ${message}`;
+            
+            // Color coding
+            switch(type) {
+                case 'error':
+                    statusBar.style.background = 'rgba(255, 107, 107, 0.2)';
+                    statusBar.style.borderLeft = '3px solid var(--error-color)';
+                    break;
+                case 'warning':
+                    statusBar.style.background = 'rgba(255, 152, 0, 0.2)';
+                    statusBar.style.borderLeft = '3px solid var(--warning-color)';
+                    break;
+                case 'success':
+                    statusBar.style.background = 'rgba(0, 210, 106, 0.2)';
+                    statusBar.style.borderLeft = '3px solid var(--accent-color)';
+                    break;
+                default:
+                    statusBar.style.background = 'var(--card-bg)';
+                    statusBar.style.borderLeft = '3px solid #444';
+            }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Space to play/pause
+            if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                const player = document.getElementById('videoPlayer');
+                if (player.paused) {
+                    player.play();
+                } else {
+                    player.pause();
+                }
+            }
+            
+            // Left/Right arrow for seeking
+            if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                const player = document.getElementById('videoPlayer');
+                player.currentTime = Math.max(0, player.currentTime - 10);
+            }
+            if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                const player = document.getElementById('videoPlayer');
+                player.currentTime = Math.min(player.duration, player.currentTime + 10);
+            }
+        });
+
+        // Auto-refresh available dates every 5 minutes
+        setInterval(() => {
+            if (currentState.owner && currentState.repo) {
+                loadAvailableDates();
+            }
+        }, 300000); // 5 minutes
 		
-		loadVideos();
+		saveConfig();
+
     </script>
 </body>
 </html>

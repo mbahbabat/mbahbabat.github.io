@@ -1,466 +1,966 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>PAWANG RECOIL</title>
-    <!-- Tailwind CSS + Custom Gaming Style -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons (gaming vibe) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: Orbitron & Poppins untuk nuansa gaming -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-        .font-gaming {
-            font-family: 'Orbitron', monospace;
-            letter-spacing: 1px;
-        }
-        body {
-            background: radial-gradient(circle at 10% 30%, #0a0f1e, #03050b);
-            min-height: 100vh;
-            position: relative;
-        }
-        /* Efek grid futuristik */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .glass-card {
-            background: rgba(12, 20, 35, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 255, 255, 0.25);
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5), 0 0 12px rgba(0, 255, 255, 0.2);
-            transition: all 0.25s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(0, 255, 255, 0.6);
-            box-shadow: 0 20px 35px -12px black, 0 0 18px cyan;
-        }
-        .btn-cyber {
-            background: linear-gradient(95deg, #0f2b3d, #0a1a2a);
-            border: 1px solid #00ccff;
-            transition: all 0.2s ease;
-            text-shadow: 0 0 3px rgba(0,255,255,0.5);
-            font-weight: 600;
-        }
-        .btn-cyber:hover {
-            background: linear-gradient(95deg, #00aaff20, #0f2b3d);
-            border-color: #0ff;
-            box-shadow: 0 0 12px #0ff;
-            transform: scale(1.02);
-        }
-        .btn-danger-glow {
-            background: #2a0f1a;
-            border: 1px solid #ff3366;
-        }
-        .btn-danger-glow:hover {
-            background: #ff336620;
-            box-shadow: 0 0 10px #ff3366;
-            border-color: #ff6699;
-        }
-        .btn-warning-glow {
-            background: #2a1f0a;
-            border: 1px solid #ffaa33;
-        }
-        .btn-warning-glow:hover {
-            background: #ffaa3320;
-            box-shadow: 0 0 10px #ffaa33;
-        }
-        input, .input-glow {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #2a4c6e;
-            color: #e2f0ff;
-            transition: all 0.2s;
-        }
-        input:focus {
-            outline: none;
-            border-color: #0ff;
-            box-shadow: 0 0 8px #0ff;
-            background: #07121f;
-        }
-        .hwid-badge {
-            background: #0a1424;
-            border-left: 4px solid #0ff;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 1px;
-        }
-        .separator-glow {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, cyan, magenta, transparent);
-        }
-        .animate-pulse-slow {
-            animation: pulseGlow 2.5s infinite;
-        }
-        @keyframes pulseGlow {
-            0% { text-shadow: 0 0 0px cyan; opacity: 0.9; }
-            50% { text-shadow: 0 0 6px cyan; opacity: 1; }
-            100% { text-shadow: 0 0 0px cyan; opacity: 0.9; }
-        }
-        .fa, .fas, .far {
-            margin-right: 6px;
-        }
-        button:active {
-            transform: scale(0.98);
-        }
-        /* Mobile friendly */
-        @media (max-width: 640px) {
-            .glass-card {
-                padding: 1.25rem !important;
-            }
-            .flex.gap-4 {
-                gap: 12px;
-                flex-direction: column;
-            }
-            .btn-cyber, .btn-danger-glow, .btn-warning-glow {
-                width: 100%;
-                justify-content: center;
-                display: flex;
-                align-items: center;
-            }
-            h1.font-gaming {
-                font-size: 1.6rem;
-            }
-        }
-        /* scrollbar gaming */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0f1e;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: cyan;
-            border-radius: 10px;
-        }
-    </style>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+		<title>PAWANG RECOIL - USER DASBOARD</title>
+		<!-- Tailwind CSS + Custom Gaming Style -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<!-- Font Awesome Icons (gaming vibe) -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		<!-- Google Fonts: Orbitron & Poppins untuk nuansa gaming -->
+		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<style>
+			* {
+				font-family: 'Poppins', sans-serif;
+			}
+			.font-gaming {
+				font-family: 'Orbitron', monospace;
+				letter-spacing: 1px;
+			}
+			body {
+				background: radial-gradient(circle at 10% 30%, #0a0f1e, #03050b);
+				min-height: 100vh;
+				position: relative;
+			}
+			/* Efek grid futuristik */
+			body::before {
+				content: "";
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-image: 
+					linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+				background-size: 40px 40px;
+				pointer-events: none;
+				z-index: 0;
+			}
+			.glass-card {
+				background: rgba(12, 20, 35, 0.75);
+				backdrop-filter: blur(12px);
+				border: 1px solid rgba(0, 255, 255, 0.25);
+				box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5), 0 0 12px rgba(0, 255, 255, 0.2);
+				transition: all 0.25s ease;
+			}
+			.glass-card:hover {
+				border-color: rgba(0, 255, 255, 0.6);
+				box-shadow: 0 20px 35px -12px black, 0 0 18px cyan;
+			}
+			.btn-cyber {
+				background: linear-gradient(95deg, #0f2b3d, #0a1a2a);
+				border: 1px solid #00ccff;
+				transition: all 0.2s ease;
+				text-shadow: 0 0 3px rgba(0,255,255,0.5);
+				font-weight: 600;
+			}
+			.btn-cyber:hover {
+				background: linear-gradient(95deg, #00aaff20, #0f2b3d);
+				border-color: #0ff;
+				box-shadow: 0 0 12px #0ff;
+				transform: scale(1.02);
+			}
+			.btn-danger-glow {
+				background: #2a0f1a;
+				border: 1px solid #ff3366;
+			}
+			.btn-danger-glow:hover {
+				background: #ff336620;
+				box-shadow: 0 0 10px #ff3366;
+				border-color: #ff6699;
+			}
+			.btn-warning-glow {
+				background: #2a1f0a;
+				border: 1px solid #ffaa33;
+			}
+			.btn-warning-glow:hover {
+				background: #ffaa3320;
+				box-shadow: 0 0 10px #ffaa33;
+			}
+			input, .input-glow {
+				background: rgba(0, 0, 0, 0.6);
+				border: 1px solid #2a4c6e;
+				color: #e2f0ff;
+				transition: all 0.2s;
+			}
+			input:focus {
+				outline: none;
+				border-color: #0ff;
+				box-shadow: 0 0 8px #0ff;
+				background: #07121f;
+			}
+			.hwid-badge {
+				background: #0a1424;
+				border-left: 4px solid #0ff;
+				font-family: 'Courier New', monospace;
+				letter-spacing: 1px;
+			}
+			.separator-glow {
+				height: 2px;
+				background: linear-gradient(90deg, transparent, cyan, magenta, transparent);
+			}
+			.animate-pulse-slow {
+				animation: pulseGlow 2.5s infinite;
+			}
+			@keyframes pulseGlow {
+				0% { text-shadow: 0 0 0px cyan; opacity: 0.9; }
+				50% { text-shadow: 0 0 6px cyan; opacity: 1; }
+				100% { text-shadow: 0 0 0px cyan; opacity: 0.9; }
+			}
+			.fa, .fas, .far {
+				margin-right: 6px;
+			}
+			button:active {
+				transform: scale(0.98);
+			}
+			/* Mobile friendly */
+			@media (max-width: 640px) {
+				.glass-card {
+					padding: 1.25rem !important;
+				}
+				.flex.gap-4 {
+					gap: 12px;
+					flex-direction: column;
+				}
+				.btn-cyber, .btn-danger-glow, .btn-warning-glow {
+					width: 100%;
+					justify-content: center;
+					display: flex;
+					align-items: center;
+				}
+				h1.font-gaming {
+					font-size: 1.6rem;
+				}
+			}
+			/* scrollbar gaming */
+			::-webkit-scrollbar {
+				width: 5px;
+			}
+			::-webkit-scrollbar-track {
+				background: #0a0f1e;
+			}
+			::-webkit-scrollbar-thumb {
+				background: cyan;
+				border-radius: 10px;
+			}
+			
+			/* Popup Modal Styles */
+			.modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.9);
+				backdrop-filter: blur(15px);
+				z-index: 1000;
+				justify-content: center;
+				align-items: center;
+				animation: fadeIn 0.3s ease;
+			}
 
-        // Konfigurasi Firebase 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDyvwCnhfr2_IIz5m8_OWwskqrcJrFmyqE",
-            authDomain: "usa-001-a4193.firebaseapp.com",
-            projectId: "usa-001-a4193",
-            storageBucket: "usa-001-a4193.firebasestorage.app",
-            messagingSenderId: "569974903486",
-            appId: "1:569974903486:web:dc272b7aaa123f697d84ef"
-        };
+			.modal.active {
+				display: flex;
+			}
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
+			@keyframes fadeIn {
+				from { opacity: 0; }
+				to { opacity: 1; }
+			}
 
-        // WORKER URL
-        const WORKER_URL = "https://pawangrecoil-server.mbahbabat.workers.dev";
+			.modal-content {
+				background: linear-gradient(135deg, #0a0f1e, #050810);
+				border: 2px solid rgba(0, 255, 255, 0.3);
+				border-radius: 24px;
+				max-width: 500px;
+				width: 90%;
+				max-height: 85vh;
+				overflow-y: auto;
+				position: relative;
+				box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+				animation: slideUp 0.3s ease;
+			}
 
-        // Elemen DOM
-        const loginSection = document.getElementById("login-section");
-        const setPasswordSection = document.getElementById("set-password-section");
-        const dashboardSection = document.getElementById("dashboard-section");
-        const userEmailSpan = document.getElementById("user-email");
-        const hwidSpan = document.getElementById("hwid");
-        const messageDiv = document.getElementById("message");
-        const loadingOverlay = document.getElementById("loading-overlay");
+			@keyframes slideUp {
+				from {
+					transform: translateY(50px);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
 
-        function showLoading(show) {
-            if(loadingOverlay) loadingOverlay.style.display = show ? "flex" : "none";
-        }
+			.modal-header {
+				padding: 20px 24px;
+				border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				background: rgba(0, 0, 0, 0.4);
+				border-radius: 24px 24px 0 0;
+			}
 
-        function showMessage(msg, isError = true) {
-            console.log(isError ? "[ERROR]" : "[SUCCESS]", msg);
-            if(messageDiv) {
-                messageDiv.textContent = msg;
-                messageDiv.className = `text-center p-3 rounded-lg mt-3 font-semibold backdrop-blur-sm ${isError ? 'bg-red-900/60 text-red-200 border border-red-500' : 'bg-green-900/60 text-green-200 border border-green-400'}`;
-            }
-            if(isError) {
-                // notifikasi ringan tapi tidak ganggu banget 
-                const toast = document.createElement('div');
-                toast.innerText = msg;
-                toast.className = "fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-black/80 border-l-4 border-red-500 text-white px-5 py-2 rounded-lg z-50 text-sm font-mono backdrop-blur";
-                document.body.appendChild(toast);
-                setTimeout(() => toast.remove(), 3000);
-            }
-        }
+			.modal-header h3 {
+				font-family: 'Orbitron', monospace;
+				font-size: 1.5rem;
+				background: linear-gradient(135deg, #00ffff, #ff00ff);
+				-webkit-background-clip: text;
+				background-clip: text;
+				color: transparent;
+				margin: 0;
+			}
 
-        async function callAPI(endpoint, method, body = null, token) {
-            console.log(`[API] Call ${endpoint}`);
-            const res = await fetch(`${WORKER_URL}${endpoint}`, {
-                method: method,
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: body ? JSON.stringify(body) : undefined
-            });
-            const data = await res.json();
-            console.log(`[API] Response ${endpoint}:`, data);
-            if (!res.ok) throw new Error(data.error || "Request gagal ke server");
-            return data;
-        }
+			.close-modal {
+				background: rgba(255, 255, 255, 0.1);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				color: white;
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				cursor: pointer;
+				font-size: 20px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: all 0.2s;
+			}
 
-        async function loadProfile(token) {
-            showLoading(true);
-            try {
-                const profile = await callAPI("/profile", "GET", null, token);
-                document.getElementById("display-username").innerText = profile.username || profile.email?.split('@')[0] || "Gamer";
-                document.getElementById("display-email").innerText = profile.email;
-                const subEnd = profile.subscriptionEnd || 0;
-                const now = Date.now();
-                const vipStatusEl = document.getElementById("vip-status");
-                
-                if (!profile.hasPassword) {
-                    // Belum buat password
-                    setPasswordSection.classList.remove("hidden");
-                    dashboardSection.classList.add("hidden");
-                    loginSection.classList.add("hidden");
-                    userEmailSpan.textContent = profile.email;
-                } else {
-                    setPasswordSection.classList.add("hidden");
-                    dashboardSection.classList.remove("hidden");
-                    loginSection.classList.add("hidden");
-                    userEmailSpan.textContent = profile.email;
-                    const hwidText = profile.hwid ? `🔐 ${profile.hwid.substring(0, 20)}${profile.hwid.length > 20 ? '...' : ''}` : "⚡ No HWID locked";
-                    hwidSpan.innerHTML = `<i class="fas fa-microchip"></i> ${hwidText}`;
-                    if(profile.hwid) {
-                        hwidSpan.classList.add("text-cyan-300");
-                    } else {
-                        hwidSpan.classList.add("text-yellow-300");
-                    }
-                }
+			.close-modal:hover {
+				background: rgba(255, 0, 0, 0.3);
+				border-color: red;
+				transform: rotate(90deg);
+			}
+
+			.modal-body {
+				padding: 24px;
+			}
+
+			.package-grid {
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+			}
+
+			.package-card {
+				background: linear-gradient(135deg, rgba(10, 20, 40, 0.8), rgba(5, 10, 20, 0.9));
+				border: 1px solid rgba(0, 255, 255, 0.2);
+				border-radius: 16px;
+				padding: 16px 20px;
+				cursor: pointer;
+				transition: all 0.25s ease;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.package-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: -100%;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+				transition: left 0.5s;
+			}
+
+			.package-card:hover::before {
+				left: 100%;
+			}
+
+			.package-card:hover {
+				border-color: rgba(0, 255, 255, 0.8);
+				transform: translateX(5px);
+				box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+			}
+
+			.package-card.selected {
+				border: 2px solid #00ffcc;
+				background: linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(0, 100, 100, 0.2));
+				box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+			}
+
+			.package-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 12px;
+				margin-bottom: 12px;
+			}
+
+			.package-name {
+				font-family: 'Orbitron', monospace;
+				font-size: 1.2rem;
+				font-weight: bold;
+				color: #00ffff;
+			}
+
+			.package-price {
+				font-size: 1.5rem;
+				font-weight: bold;
+				background: linear-gradient(135deg, #ffaa00, #ff6600);
+				-webkit-background-clip: text;
+				background-clip: text;
+				color: transparent;
+			}
+
+			.package-price small {
+				font-size: 0.7rem;
+				color: #888;
+			}
+
+			.package-duration {
+				font-size: 0.8rem;
+				color: #aaa;
+				margin-top: 8px;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.package-duration i {
+				color: #00ffcc;
+			}
+
+			.package-badge {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				background: linear-gradient(135deg, #ff3366, #ff0066);
+				color: white;
+				font-size: 0.6rem;
+				padding: 2px 4px;
+				border-radius: 20px;
+				font-weight: 700;
+			}
+
+			.package-savings {
+				font-size: 0.7rem;
+				color: #00ffcc;
+				margin-left: 8px;
+			}
+
+			.subscribe-btn {
+				width: 100%;
+				background: linear-gradient(135deg, #00aaff, #0066cc);
+				border: none;
+				padding: 14px;
+				border-radius: 12px;
+				color: white;
+				font-weight: bold;
+				font-size: 1rem;
+				margin-top: 20px;
+				cursor: pointer;
+				transition: all 0.2s;
+				font-family: 'Orbitron', monospace;
+			}
+
+			.subscribe-btn:hover:not(:disabled) {
+				transform: scale(1.02);
+				box-shadow: 0 0 20px rgba(0, 170, 255, 0.5);
+			}
+
+			.subscribe-btn:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
+
+			.selected-check {
+				color: #00ffcc;
+				margin-left: 10px;
+			}
+
+			/* Loading dalam modal */
+			.modal-loading {
+				text-align: center;
+				padding: 40px;
+				color: #00ffff;
+			}
+
+			/* Responsive */
+			@media (max-width: 640px) {
+				.modal-content {
+					width: 95%;
+					margin: 10px;
+				}
 				
-				if (subEnd > now) {
-                    const dateObj = new Date(subEnd);
-                    vipStatusEl.innerText = `Active until: ${dateObj.toLocaleDateString()}`;
-                    vipStatusEl.className = "font-mono text-green-400 font-bold text-sm";
-                } else {
-                    vipStatusEl.innerText = `Unsubscribed`;
-                    vipStatusEl.className = "font-mono text-red-400 font-bold text-sm";
-                }
-            } catch(err) {
-                showMessage(err.message);
-            } finally {
-                showLoading(false);
-            }
-        }
+				.package-card {
+					padding: 12px 16px;
+				}
+				
+				.package-name {
+					font-size: 1rem;
+				}
+				
+				.package-price {
+					font-size: 1.2rem;
+				}
+			}
+		</style>
+	</head>
+	<body class="relative">
+		<!-- Loading Overlay -->
+		<div id="loading-overlay" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden justify-center items-center flex-col" style="display: none;">
+			<div class="text-cyan-400 text-4xl mb-3"><i class="fas fa-circle-notch fa-spin"></i></div>
+			<p class="text-white font-gaming tracking-wider">LOADING PROFILE...</p>
+		</div>
 
-        // Simpan password
-        document.getElementById("save-password-btn").addEventListener("click", async () => {
-            const btn = document.getElementById("save-password-btn");
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Saving...';
-            btn.disabled = true;
-            try {
-                const token = await auth.currentUser?.getIdToken(true);
-                if (!token) throw new Error("Token expired, reload page.");
-                const newPass = document.getElementById("new-password").value;
-                const confirmPass = document.getElementById("confirm-password").value;
-                if (newPass.length < 4) throw new Error("Password minimal 4 karakter!");
-                if (newPass !== confirmPass) throw new Error("Konfirmasi password tidak cocok!");
-                await callAPI("/set-password", "POST", { newPassword: newPass }, token);
-                document.getElementById("new-password").value = "";
-                document.getElementById("confirm-password").value = "";
-                showMessage("✅ Password saved! Welcome to the arena.", false);
-                await loadProfile(token);
-            } catch (err) {
-                showMessage(err.message);
-            } finally {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }
-        });
+		<div class="container mx-auto px-4 py-5 md:py-10 max-w-2xl relative z-10">
+			<!-- LOGIN SECTION - Gaming style -->
+			<div id="login-section" class="glass-card rounded-2xl p-6 md:p-10 text-center shadow-2xl transition-all">
+				<div class="mb-2 flex justify-center">
+					<i class="fas fa-gamepad text-5xl text-cyan-400 animate-pulse-slow"></i>
+				</div>
+				<h1 class="font-gaming text-3xl md:text-4xl font-black bg-gradient-to-r from-cyan-300 to-purple-400 bg-clip-text text-transparent tracking-wider">
+					PAWANG RECOIL
+				</h1>
+				<div class="separator-glow w-24 mx-auto my-4"></div>
+				<p class="text-gray-300 mb-6 flex items-center justify-center gap-2"><i class="fas fa-shield-alt text-cyan-400"></i> Sign in to continue</p>
+				<button id="google-login-btn" class="btn-cyber w-full py-3 rounded-xl text-white text-lg font-bold transition flex items-center justify-center gap-3">
+					<i class="fab fa-google text-xl"></i> SIGN IN WITH GOOGLE
+				</button>
+				<div id="message" class="mt-5"></div>
+				<div class="mt-6 text-xs text-gray-500 flex justify-center gap-4">
+					<span><i class="fas fa-microchip"></i> 1 Account = 1 Device</span>
+					<span><i class="fas fa-lock"></i> HWID Protection</span>
+				</div>
+			</div>
 
-        // Ganti password dari dashboard
-        document.getElementById("change-password-btn").addEventListener("click", async () => {
-            const newPass = prompt("🔐 Masukkan password baru (min 4 karakter) :");
-            if (!newPass || newPass.length < 4) return alert("Password minimal 4 karakter.");
-            const confirm = prompt("🔄 Konfirmasi password baru:");
-            if (newPass !== confirm) return alert("❌ Konfirmasi tidak cocok!");
-            const token = await auth.currentUser?.getIdToken(true);
-            try {
-                await callAPI("/set-password", "POST", { newPassword: newPass }, token);
-                showMessage("✨ Password berhasil diubah! ✨", false);
-            } catch (err) {
-                showMessage(err.message);
-            }
-        });
+			<!-- SET PASSWORD SECTION (First Time) -->
+			<div id="set-password-section" class="hidden glass-card rounded-2xl p-6 md:p-8 shadow-2xl">
+				<div class="flex items-center gap-3 mb-3 border-b border-cyan-800 pb-2">
+					<i class="fas fa-key text-yellow-400 text-2xl"></i>
+					<h2 class="font-gaming text-2xl font-bold text-white">🔐 ACTIVATE ACCOUNT</h2>
+				</div>
+				<p class="text-gray-300 mb-1"><i class="fas fa-envelope"></i> Email: <span id="user-email" class="font-mono text-cyan-300 font-bold"></span></p>
+				<p class="text-sm text-cyan-200/70 mb-5">Create a password to log in to the App</p>
+				<div class="mb-4">
+					<label class="block text-gray-200 text-sm font-semibold mb-1"><i class="fas fa-lock"></i> NEW PASSWORD</label>
+					<input type="password" id="new-password" class="input-glow w-full rounded-lg px-4 py-3" placeholder="Minimal 4 karakter">
+				</div>
+				<div class="mb-5">
+					<label class="block text-gray-200 text-sm font-semibold mb-1"><i class="fas fa-check-circle"></i> CONFIRM PASSWORD</label>
+					<input type="password" id="confirm-password" class="input-glow w-full rounded-lg px-4 py-3" placeholder="Ulangi password">
+				</div>
+				<button id="save-password-btn" class="bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 text-white font-bold py-3 px-4 rounded-xl w-full transition-all flex items-center justify-center gap-2 shadow-lg">
+					<i class="fas fa-database"></i> SAVE & ACTIVATE
+				</button>
+				<div class="mt-5 text-center">
+					<button id="logout-btn" class="text-red-400 hover:text-red-300 text-sm flex items-center gap-1 mx-auto transition"><i class="fas fa-sign-out-alt"></i> Cancel</button>
+				</div>
+			</div>
 
-        // Reset HWID
-        document.getElementById("reset-hwid-btn").addEventListener("click", async () => {
-            if (!confirm("⚠️ RESET HWID akan me-logout semua perangkat yang terkait. Lanjutkan?")) return;
-            const token = await auth.currentUser?.getIdToken(true);
-            try {
-                await callAPI("/reset-hwid", "POST", null, token);
-                showMessage("🔄 HWID telah direset! Sekarang aman.", false);
-                await loadProfile(token);
-            } catch (err) {
-                showMessage(err.message);
-            }
-        });
+			<!-- DASHBOARD SECTION - Gaming Dashboard -->
+			<div id="dashboard-section" class="hidden glass-card rounded-2xl p-6 md:p-8 shadow-2xl">
+				<div class="flex flex-wrap justify-between items-center border-b border-cyan-700/60 pb-3 mb-4">
+					<div class="flex items-center gap-2">
+						<i class="fas fa-headset text-cyan-400 text-2xl"></i>
+						<h2 class="font-gaming text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">USER DASHBOARD</h2>
+					</div>
+					<button id="logout-btn-dash" class="bg-red-900/40 hover:bg-red-800/60 text-red-300 border border-red-500/50 font-bold py-1.5 px-4 rounded-full text-sm transition flex items-center gap-1">
+						<i class="fas fa-power-off"></i> EXIT
+					</button>
+				</div>
+				
+				<!-- Informasi penting ala gaming -->
+				<div class="bg-black/40 rounded-xl p-3 mb-5 text-xs text-gray-300 flex flex-wrap gap-x-5 gap-y-1 border border-cyan-800/40">
+					<span><i class="fas fa-gamepad text-cyan-400"></i> Username & password to login app</span>
+					<span><i class="fas fa-skull text-red-400"></i> 1 Account = 1 HWID</span>
+				</div>
+				
+				<!-- Email Card -->
+				<div class="mb-4 bg-black/30 rounded-xl p-3 border-l-4 border-cyan-500">
+					<p class="text-gray-400 text-xs uppercase tracking-wider"><i class="far fa-envelope"></i> EMAIL</p>
+					<p id="display-email" class="font-mono text-cyan-300 font-bold text-base break-all">-</p>
+				</div>
+				
+				<!-- Username Card -->
+				<div class="mb-4 bg-black/30 rounded-xl p-3 border-l-4 border-yellow-500">
+					<p class="text-gray-400 text-xs uppercase tracking-wider"><i class="fas fa-user-astronaut"></i> USERNAME</p>
+					<p id="display-username" class="text-white text-xl font-bold tracking-wide">-</p>
+				</div>
+				
+				<!-- HWID Status dengan Icon -->
+				<div class="mb-4 bg-black/30 rounded-xl p-3 border-l-4 border-red-500">
+					<p class="text-gray-400 text-xs uppercase tracking-wider"><i class="fas fa-star text-yellow-400"></i> HWID STATUS</p>
+					<p id="hwid" class="font-mono text-cyan-300 mt-1 text-sm break-all flex items-center gap-2">-</p>
+					<p class="text-[10px] text-gray-500 mt-1">*Reset HWID if you change PC/motherboard</p>
+				</div>
 
-        // Auth state
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    const token = await user.getIdToken();
-                    await loadProfile(token);
-                } catch (err) {
-                    showMessage("Gagal memuat profile: " + err.message);
-                }
-            } else {
-                loginSection.classList.remove("hidden");
-                setPasswordSection.classList.add("hidden");
-                dashboardSection.classList.add("hidden");
-            }
-        });
+				<!-- VIP Status Card -->
+				<div class="mb-6 bg-black/40 rounded-xl p-3 border border-yellow-600/50">
+					<p class="text-purple-300 text-xs uppercase flex items-center gap-1"><i class="fas fa-fingerprint"></i> VIP STATUS</p>
+					<div class="flex justify-between items-center mt-1">
+						<p id="vip-status" class="font-mono text-green-400 font-bold text-base">-</p>
+						<button id="buy-vip-btn" class="bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 text-black font-bold py-1 px-3 rounded-lg text-xs transition">
+							DONATION (Crypto)
+						</button>
+					</div>
+				</div>			
+				
+				<!-- Tombol aksi dengan grid responsif -->
+				<div class="flex flex-col sm:flex-row gap-4 mt-2">
+					<button id="change-password-btn" class="btn-cyber flex-1 py-3 rounded-xl text-white font-bold flex items-center justify-center gap-2 transition">
+						<i class="fas fa-exchange-alt"></i> CHANGE PASSWORD
+					</button>
+					<button id="reset-hwid-btn" class="btn-warning-glow flex-1 py-3 rounded-xl text-white font-bold flex items-center justify-center gap-2 transition">
+						<i class="fas fa-trash-restore"></i> RESET HWID
+					</button>
+				</div>
+				
+				<!-- Tips Gaming -->
+				<div class="mt-8 pt-3 text-center text-gray-500 text-xs border-t border-gray-700 flex justify-center gap-5">
+					<a href="#" class="hover:text-cyan-400 transition"><i class="fab fa-discord"></i> Support</a>
+					<span><i class="fas fa-shield-haltered"></i> Protector 2.0</span>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Efek floating particle sederhana (opsional aesthetic) -->
+		<div class="fixed bottom-4 left-4 text-[10px] text-white/20 font-mono z-0 pointer-events-none">2026 | PAWANG RECOIL</div>
 
-        // Login Google
-        document.getElementById("google-login-btn").addEventListener("click", async () => {
-            try {
-                await signInWithPopup(auth, provider);
-                showMessage("Login sukses! Mengarahkan...", false);
-            } catch (err) {
-                showMessage("Login gagal: " + err.message);
-            }
-        });
+		<!-- Subscription Modal -->
+		<div id="subscription-modal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3><i class="fas fa-crown"></i> CHOOSE YOUR PACKAGE</h3>
+					<button class="close-modal" id="close-modal-btn">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div id="package-list" class="package-grid">
+						<!-- Packages will be loaded here -->
+						<div class="modal-loading">
+							<i class="fas fa-spinner fa-spin"></i> Loading packages...
+						</div>
+					</div>
+					<button id="confirm-subscribe-btn" class="subscribe-btn" disabled>
+						<i class="fas fa-rocket"></i> SUBSCRIBE NOW
+					</button>
+					<p class="text-center text-gray-500 text-xs mt-4">
+						<i class="fas fa-shield-alt"></i> Secure payment via NOWPayments
+					</p>
+				</div>
+			</div>
+		</div>
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+			import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Logout buttons
-        document.getElementById("logout-btn").addEventListener("click", () => signOut(auth));
-        document.getElementById("logout-btn-dash").addEventListener("click", () => signOut(auth));
-    </script>
-</head>
-<body class="relative">
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden justify-center items-center flex-col" style="display: none;">
-        <div class="text-cyan-400 text-4xl mb-3"><i class="fas fa-circle-notch fa-spin"></i></div>
-        <p class="text-white font-gaming tracking-wider">LOADING PROFILE...</p>
-    </div>
+			// Konfigurasi Firebase 
+			const firebaseConfig = {
+				apiKey: "AIzaSyDyvwCnhfr2_IIz5m8_OWwskqrcJrFmyqE",
+				authDomain: "mbahbabat.github.io",
+				projectId: "usa-001-a4193",
+				storageBucket: "usa-001-a4193.firebasestorage.app",
+				messagingSenderId: "569974903486",
+				appId: "1:569974903486:web:dc272b7aaa123f697d84ef"
+			};
 
-    <div class="container mx-auto px-4 py-5 md:py-10 max-w-2xl relative z-10">
-        <!-- LOGIN SECTION - Gaming style -->
-        <div id="login-section" class="glass-card rounded-2xl p-6 md:p-10 text-center shadow-2xl transition-all">
-            <div class="mb-2 flex justify-center">
-                <i class="fas fa-gamepad text-5xl text-cyan-400 animate-pulse-slow"></i>
-            </div>
-            <h1 class="font-gaming text-3xl md:text-4xl font-black bg-gradient-to-r from-cyan-300 to-purple-400 bg-clip-text text-transparent tracking-wider">
-                PAWANG RECOIL
-            </h1>
-            <div class="separator-glow w-24 mx-auto my-4"></div>
-            <p class="text-gray-300 mb-6 flex items-center justify-center gap-2"><i class="fas fa-shield-alt text-cyan-400"></i> Sign in to continue</p>
-            <button id="google-login-btn" class="btn-cyber w-full py-3 rounded-xl text-white text-lg font-bold transition flex items-center justify-center gap-3">
-                <i class="fab fa-google text-xl"></i> SIGN IN WITH GOOGLE
-            </button>
-            <div id="message" class="mt-5"></div>
-            <div class="mt-6 text-xs text-gray-500 flex justify-center gap-4">
-                <span><i class="fas fa-microchip"></i> 1 Account = 1 Device</span>
-                <span><i class="fas fa-lock"></i> HWID Protection</span>
-            </div>
-        </div>
+			const app = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const provider = new GoogleAuthProvider();
 
-        <!-- SET PASSWORD SECTION (First Time) -->
-        <div id="set-password-section" class="hidden glass-card rounded-2xl p-6 md:p-8 shadow-2xl">
-            <div class="flex items-center gap-3 mb-3 border-b border-cyan-800 pb-2">
-                <i class="fas fa-key text-yellow-400 text-2xl"></i>
-                <h2 class="font-gaming text-2xl font-bold text-white">🔐 ACTIVATE ACCOUNT</h2>
-            </div>
-            <p class="text-gray-300 mb-1"><i class="fas fa-envelope"></i> Email: <span id="user-email" class="font-mono text-cyan-300 font-bold"></span></p>
-            <p class="text-sm text-cyan-200/70 mb-5">Create a password to log in to the App</p>
-            <div class="mb-4">
-                <label class="block text-gray-200 text-sm font-semibold mb-1"><i class="fas fa-lock"></i> NEW PASSWORD</label>
-                <input type="password" id="new-password" class="input-glow w-full rounded-lg px-4 py-3" placeholder="Minimal 4 karakter">
-            </div>
-            <div class="mb-5">
-                <label class="block text-gray-200 text-sm font-semibold mb-1"><i class="fas fa-check-circle"></i> CONFIRM PASSWORD</label>
-                <input type="password" id="confirm-password" class="input-glow w-full rounded-lg px-4 py-3" placeholder="Ulangi password">
-            </div>
-            <button id="save-password-btn" class="bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 text-white font-bold py-3 px-4 rounded-xl w-full transition-all flex items-center justify-center gap-2 shadow-lg">
-                <i class="fas fa-database"></i> SAVE & ACTIVATE
-            </button>
-            <div class="mt-5 text-center">
-                <button id="logout-btn" class="text-red-400 hover:text-red-300 text-sm flex items-center gap-1 mx-auto transition"><i class="fas fa-sign-out-alt"></i> Cancel</button>
-            </div>
-        </div>
+			// WORKER URL
+			const WORKER_URL = "https://pawangrecoil-server.mbahbabat.workers.dev";
 
-        <!-- DASHBOARD SECTION - Gaming Dashboard -->
-        <div id="dashboard-section" class="hidden glass-card rounded-2xl p-6 md:p-8 shadow-2xl">
-            <div class="flex flex-wrap justify-between items-center border-b border-cyan-700/60 pb-3 mb-4">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-headset text-cyan-400 text-2xl"></i>
-                    <h2 class="font-gaming text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">USER DASHBOARD</h2>
-                </div>
-                <button id="logout-btn-dash" class="bg-red-900/40 hover:bg-red-800/60 text-red-300 border border-red-500/50 font-bold py-1.5 px-4 rounded-full text-sm transition flex items-center gap-1">
-                    <i class="fas fa-power-off"></i> EXIT
-                </button>
-            </div>
-            
-            <!-- Informasi penting ala gaming -->
-            <div class="bg-black/40 rounded-xl p-3 mb-5 text-xs text-gray-300 flex flex-wrap gap-x-5 gap-y-1 border border-cyan-800/40">
-                <span><i class="fas fa-gamepad text-cyan-400"></i> Username & password to login app</span>
-                <span><i class="fas fa-skull text-red-400"></i> 1 Account = 1 HWID</span>
-            </div>
-            
-            <!-- Email Card -->
-            <div class="mb-4 bg-black/30 rounded-xl p-3 border-l-4 border-cyan-500">
-                <p class="text-gray-400 text-xs uppercase tracking-wider"><i class="far fa-envelope"></i> EMAIL</p>
-                <p id="display-email" class="font-mono text-cyan-300 font-bold text-base break-all">-</p>
-            </div>
-            
-            <!-- Username Card -->
-            <div class="mb-4 bg-black/30 rounded-xl p-3 border-l-4 border-yellow-500">
-                <p class="text-gray-400 text-xs uppercase tracking-wider"><i class="fas fa-user-astronaut"></i> USERNAME</p>
-                <p id="display-username" class="text-white text-xl font-bold tracking-wide">-</p>
-            </div>
-            
-            <!-- HWID Status dengan Icon -->
-            <div class="mb-4 bg-black/30 rounded-xl p-3 border-l-4 border-red-500">
-                <p class="text-gray-400 text-xs uppercase tracking-wider"><i class="fas fa-star text-yellow-400"></i> HWID STATUS</p>
-                <p id="hwid" class="font-mono text-cyan-300 mt-1 text-sm break-all flex items-center gap-2">-</p>
-                <p class="text-[10px] text-gray-500 mt-1">*Reset HWID if you change PC/motherboard</p>
-            </div>
+			// Elemen DOM
+			const loginSection = document.getElementById("login-section");
+			const setPasswordSection = document.getElementById("set-password-section");
+			const dashboardSection = document.getElementById("dashboard-section");
+			const userEmailSpan = document.getElementById("user-email");
+			const hwidSpan = document.getElementById("hwid");
+			const messageDiv = document.getElementById("message");
+			const loadingOverlay = document.getElementById("loading-overlay");
 
-			<!-- VIP Status Card -->
-            <div class="mb-6 bg-black/40 rounded-xl p-3 border border-yellow-600/50">
-                <p class="text-purple-300 text-xs uppercase flex items-center gap-1"><i class="fas fa-fingerprint"></i> VIP STATUS</p>
-                <div class="flex justify-between items-center mt-1">
-                    <p id="vip-status" class="font-mono text-green-400 font-bold text-base">-</p>
-                    <button id="buy-vip-btn" class="bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 text-black font-bold py-1 px-3 rounded-lg text-xs transition">
-                        DONATION (Crypto)
-                    </button>
-                </div>
-            </div>			
-            
-            <!-- Tombol aksi dengan grid responsif -->
-            <div class="flex flex-col sm:flex-row gap-4 mt-2">
-                <button id="change-password-btn" class="btn-cyber flex-1 py-3 rounded-xl text-white font-bold flex items-center justify-center gap-2 transition">
-                    <i class="fas fa-exchange-alt"></i> CHANGE PASSWORD
-                </button>
-                <button id="reset-hwid-btn" class="btn-warning-glow flex-1 py-3 rounded-xl text-white font-bold flex items-center justify-center gap-2 transition">
-                    <i class="fas fa-trash-restore"></i> RESET HWID
-                </button>
-            </div>
-            
-            <!-- Tips Gaming -->
-            <div class="mt-8 pt-3 text-center text-gray-500 text-xs border-t border-gray-700 flex justify-center gap-5">
-                <a href="#" class="hover:text-cyan-400 transition"><i class="fab fa-discord"></i> Support</a>
-                <span><i class="fas fa-shield-haltered"></i> Protector 2.0</span>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Efek floating particle sederhana (opsional aesthetic) -->
-    <div class="fixed bottom-4 left-4 text-[10px] text-white/20 font-mono z-0 pointer-events-none">2026 | PAWANG RECOIL</div>
-</body>
+			function showLoading(show) {
+				if(loadingOverlay) loadingOverlay.style.display = show ? "flex" : "none";
+			}
+
+			function showMessage(msg, isError = true) {
+				console.log(isError ? "[ERROR]" : "[SUCCESS]", msg);
+				if(messageDiv) {
+					messageDiv.textContent = msg;
+					messageDiv.className = `text-center p-3 rounded-lg mt-3 font-semibold backdrop-blur-sm ${isError ? 'bg-red-900/60 text-red-200 border border-red-500' : 'bg-green-900/60 text-green-200 border border-green-400'}`;
+					setTimeout(() => messageDiv.remove(), 5000);
+				}
+				if(isError) {
+					// notifikasi ringan tapi tidak ganggu banget 
+					const toast = document.createElement('div');
+					toast.innerText = msg;
+					toast.className = "fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-black/80 border-l-4 border-red-500 text-white px-5 py-2 rounded-lg z-50 text-sm font-mono backdrop-blur";
+					document.body.appendChild(toast);
+					setTimeout(() => toast.remove(), 3000);
+				}
+			}
+
+			async function callAPI(endpoint, method, body = null, token) {
+				console.log(`[API] Call ${endpoint}`);
+				const res = await fetch(`${WORKER_URL}${endpoint}`, {
+					method: method,
+					headers: {
+						"Authorization": `Bearer ${token}`,
+						"Content-Type": "application/json"
+					},
+					body: body ? JSON.stringify(body) : undefined
+				});
+				const data = await res.json();
+				console.log(`[API] Response ${endpoint}:`, data);
+				if (!res.ok) throw new Error(data.error || "Request gagal ke server");
+				return data;
+			}
+			
+
+			// 2. PANTAU STATUS AUTH (USER MASIH LOGIN ATAU TIDAK)
+			onAuthStateChanged(auth, async (user) => {
+			  if (user) {
+				try {
+				  const token = await user.getIdToken();
+				  await loadProfile(token);
+				  // Sembunyikan form login, tampilkan dashboard
+				  loginSection.classList.add("hidden");
+				  dashboardSection.classList.remove("hidden");
+				} catch (err) {
+				  showMessage("Failed to load profile: " + err.message);
+				}
+			  } else {
+				// User tidak login
+				loginSection.classList.remove("hidden");
+				setPasswordSection.classList.add("hidden");
+				dashboardSection.classList.add("hidden");
+			  }
+			});
+
+			async function loadProfile(token) {
+				showLoading(true);
+				try {
+					const profile = await callAPI("/profile", "GET", null, token);
+					document.getElementById("display-username").innerText = profile.username || profile.email?.split('@')[0] || "Gamer";
+					document.getElementById("display-email").innerText = profile.email;
+					const subEnd = profile.subscriptionEnd || 0;
+					const now = Date.now();
+					const vipStatusEl = document.getElementById("vip-status");
+					const donationBtn = document.getElementById("buy-vip-btn");
+					
+					if (!profile.hasPassword) {
+						// Belum buat password
+						setPasswordSection.classList.remove("hidden");
+						dashboardSection.classList.add("hidden");
+						loginSection.classList.add("hidden");
+						userEmailSpan.textContent = profile.email;	
+					} else {
+						setPasswordSection.classList.add("hidden");
+						dashboardSection.classList.remove("hidden");
+						loginSection.classList.add("hidden");
+						userEmailSpan.textContent = profile.email;
+						const hwidText = profile.hwid ? `🔐 ${profile.hwid.substring(0, 20)}${profile.hwid.length > 20 ? '...' : ''}` : "⚡ No HWID locked";
+						hwidSpan.innerHTML = `<i class="fas fa-microchip"></i> ${hwidText}`;
+						if(profile.hwid) {
+							hwidSpan.classList.add("text-cyan-300");
+						} else {
+							hwidSpan.classList.add("text-yellow-300");
+						}
+						if (subEnd > now) {
+							const dateObj = new Date(subEnd);
+							const daysLeft = Math.ceil((subEnd - now) / (1000 * 60 * 60 * 24));
+							vipStatusEl.innerHTML = `🎯 Active: ${daysLeft} days left <i class="fas fa-bolt"></i>`;
+							vipStatusEl.className = "font-mono text-green-400 font-bold text-sm";
+							donationBtn.classList.add("hidden");
+						} else {
+							vipStatusEl.innerText = `Unsubscribed`;
+							vipStatusEl.className = "font-mono text-red-400 font-bold text-sm";
+							donationBtn.classList.remove("hidden");
+						}
+					}
+					
+				} catch(err) {
+					showMessage(err.message);
+				} finally {
+					showLoading(false);
+				}
+			}
+
+			// Login Google
+			document.getElementById("google-login-btn").addEventListener("click", async () => {
+				try {
+					await signInWithRedirect(auth, new GoogleAuthProvider());
+					await getRedirectResult(auth);
+					showMessage("Login successful! Redirecting...", false);
+				} catch (err) {
+					showMessage("Failed to log in: " + err.message);
+				}
+			});
+
+			// Logout buttons
+			document.getElementById("logout-btn").addEventListener("click", () => {
+				signOut(auth);
+				showMessage("You have been logged out", true);
+			});
+			
+			document.getElementById("logout-btn-dash").addEventListener("click", () => {
+				signOut(auth);
+				showMessage("You have been logged out", true);
+			});
+					
+			// Simpan password
+			document.getElementById("save-password-btn").addEventListener("click", async () => {
+				const btn = document.getElementById("save-password-btn");
+				const originalText = btn.innerHTML;
+				btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Saving...';
+				btn.disabled = true;
+				try {
+					const token = await auth.currentUser?.getIdToken(true);
+					if (!token) throw new Error("Token expired, reload page.");
+					const newPass = document.getElementById("new-password").value;
+					const confirmPass = document.getElementById("confirm-password").value;
+					if (newPass.length < 4) throw new Error("Password must be at least 4 characters!");
+					if (newPass !== confirmPass) throw new Error("Password confirmation does not match!");
+					await callAPI("/set-password", "POST", { newPassword: newPass }, token);
+					document.getElementById("new-password").value = "";
+					document.getElementById("confirm-password").value = "";
+					showMessage("✅ Password saved! Welcome to the dashboard.", false);
+					await loadProfile(token);
+				} catch (err) {
+					showMessage(err.message);
+				} finally {
+					btn.innerHTML = originalText;
+					btn.disabled = false;
+				}
+			});
+
+			// Ganti password dari dashboard
+			document.getElementById("change-password-btn").addEventListener("click", async () => {
+				const newPass = prompt("🔐 Enter new password :");
+				if (!newPass || newPass.length < 4) return alert("Password must be at least 4 characters.");
+				const confirm = prompt("🔄 Confirm new password:");
+				if (newPass !== confirm) return alert("❌ Password confirmation does not match!");
+				const token = await auth.currentUser?.getIdToken(true);
+				try {
+					await callAPI("/set-password", "POST", { newPassword: newPass }, token);
+					showMessage("✨ Password successfully updated! ✨", false);
+				} catch (err) {
+					showMessage(err.message);
+				}
+			});
+
+			// Reset HWID
+			document.getElementById("reset-hwid-btn").addEventListener("click", async () => {
+				if (!confirm("⚠️ This action will unbind your current device. Continue?")) return;
+				const token = await auth.currentUser?.getIdToken(true);
+				try {
+					await callAPI("/reset-hwid", "POST", null, token);
+					showMessage("🔄 HWID has been reset! Please log in to the app to bind new device.", false);
+					await loadProfile(token);
+				} catch (err) {
+					showMessage(err.message);
+				}
+			});
+			
+			// ========== PAKET LANGANAN (PRODUK) ==========
+			const SUBSCRIPTION_PACKAGES = {
+				"7days": {
+					name: "🔥 7 DAYS",
+					duration: "7 Days",
+					price_usd: 2,
+					duration_ms: 7 * 24 * 60 * 60 * 1000,
+					description: "Cocok untuk trial / short term",
+					savings: null,
+					icon: "fa-calendar-week"
+				},
+				"1month": {
+					name: "⚡ 1 MONTH",
+					duration: "30 Days",
+					price_usd: 5,
+					duration_ms: 30 * 24 * 60 * 60 * 1000,
+					description: "Paling populer!",
+					savings: "Save 16%",
+					icon: "fa-calendar-alt"
+				},
+				"3months": {
+					name: "💎 3 MONTHS",
+					duration: "90 Days",
+					price_usd: 12,
+					duration_ms: 90 * 24 * 60 * 60 * 1000,
+					description: "Nilai terbaik",
+					savings: "Save 33%",
+					icon: "fa-gem"
+				},
+				"6months": {
+					name: "👑 6 MONTHS",
+					duration: "180 Days",
+					price_usd: 20,
+					duration_ms: 180 * 24 * 60 * 60 * 1000,
+					description: "Premium access",
+					savings: "Save 44%",
+					icon: "fa-crown"
+				},
+				"1year": {
+					name: "🏆 1 YEAR",
+					duration: "365 Days",
+					price_usd: 35,
+					duration_ms: 365 * 24 * 60 * 60 * 1000,
+					description: "Best value!",
+					savings: "Save 51%",
+					icon: "fa-trophy"
+				}
+			};
+
+			// Variabel global untuk menyimpan package yang dipilih
+			let selectedPackage = null;
+
+			// Fungsi render package ke modal
+			function renderPackages() {
+				const container = document.getElementById('package-list');
+				if (!container) return;
+				
+				container.innerHTML = '';
+				
+				Object.entries(SUBSCRIPTION_PACKAGES).forEach(([id, pkg]) => {
+					const packageCard = document.createElement('div');
+					packageCard.className = 'package-card';
+					packageCard.setAttribute('data-package-id', id);
+					
+					const savingsBadge = pkg.savings ? `<span class="package-badge">${pkg.savings}</span>` : '';
+					
+					packageCard.innerHTML = `
+						${savingsBadge}
+						<div class="package-header">
+							<div class="package-name">
+								<i class="fas ${pkg.icon}"></i> ${pkg.name}
+							</div>
+							<div class="package-price">
+								$${pkg.price_usd}
+								<small>USD</small>
+							</div>
+						</div>
+						<div class="package-duration">
+							<i class="fas fa-hourglass-half"></i>
+							${pkg.duration}
+							<span class="package-savings">${pkg.savings ? pkg.savings : '&nbsp;'}</span>
+						</div>
+						<div class="text-gray-400 text-xs mt-2">
+							<i class="fas fa-info-circle"></i> ${pkg.description}
+						</div>
+						<div id="selected-indicator-${id}" class="selected-check" style="display: none;">
+							<i class="fas fa-check-circle"></i> Selected
+						</div>
+					`;
+					
+					packageCard.addEventListener('click', () => {
+						// Remove selected class from all packages
+						document.querySelectorAll('.package-card').forEach(card => {
+							card.classList.remove('selected');
+						});
+						// Hide all selected indicators
+						Object.keys(SUBSCRIPTION_PACKAGES).forEach(pkgId => {
+							const indicator = document.getElementById(`selected-indicator-${pkgId}`);
+							if (indicator) indicator.style.display = 'none';
+						});
+						
+						// Add selected class to clicked package
+						packageCard.classList.add('selected');
+						const indicator = document.getElementById(`selected-indicator-${id}`);
+						if (indicator) indicator.style.display = 'block';
+						
+						// Set selected package
+						selectedPackage = { id, ...pkg };
+						
+						// Enable subscribe button
+						const subscribeBtn = document.getElementById('confirm-subscribe-btn');
+						if (subscribeBtn) {
+							subscribeBtn.disabled = false;
+							subscribeBtn.innerHTML = `<i class="fas fa-rocket"></i> SUBSCRIBE NOW - $${pkg.price_usd} USD`;
+						}
+					});
+					
+					container.appendChild(packageCard);
+				});
+			}
+
+			// Fungsi untuk membuka modal
+			function openSubscriptionModal() {
+				const modal = document.getElementById('subscription-modal');
+				if (modal) {
+					renderPackages();
+					modal.classList.add('active');
+					selectedPackage = null;
+					const subscribeBtn = document.getElementById('confirm-subscribe-btn');
+					if (subscribeBtn) {
+						subscribeBtn.disabled = true;
+						subscribeBtn.innerHTML = '<i class="fas fa-rocket"></i> SUBSCRIBE NOW';
+					}
+				}
+			}
+
+			// Fungsi untuk menutup modal
+			function closeSubscriptionModal() {
+				const modal = document.getElementById('subscription-modal');
+				if (modal) {
+					modal.classList.remove('active');
+				}
+			}
+
+			// Fungsi untuk melakukan subscribe (create invoice)
+			async function handleSubscribe() {
+				if (!selectedPackage) {
+					showMessage("Please select a package first!");
+					return;
+				}
+				
+				const subscribeBtn = document.getElementById('confirm-subscribe-btn');
+				const originalText = subscribeBtn.innerHTML;
+				subscribeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating invoice...';
+				subscribeBtn.disabled = true;
+				
+				try {
+					const token = await auth.currentUser?.getIdToken(true);
+					if (!token) throw new Error("Session expired. Please login again.");
+					
+					// Call API dengan package yang dipilih
+					const data = await callAPI("/create-invoice", "POST", { 
+						productId: selectedPackage.id 
+					}, token);
+					
+					// Redirect ke halaman pembayaran
+					if (data.invoice_url) {
+						window.location.href = data.invoice_url;
+					} else {
+						throw new Error("No invoice URL received");
+					}
+					
+				} catch (err) {
+					showMessage(err.message || "Failed to create invoice");
+					subscribeBtn.innerHTML = originalText;
+					subscribeBtn.disabled = false;
+				}
+			}
+
+			document.getElementById("buy-vip-btn").addEventListener("click", (e) => {
+				e.preventDefault();
+				openSubscriptionModal();
+			});
+
+			// Event listener untuk modal
+			document.getElementById("close-modal-btn")?.addEventListener("click", closeSubscriptionModal);
+			document.getElementById("confirm-subscribe-btn")?.addEventListener("click", handleSubscribe);
+
+			// Close modal when clicking outside
+			window.addEventListener("click", (e) => {
+				const modal = document.getElementById("subscription-modal");
+				if (e.target === modal) {
+					closeSubscriptionModal();
+				}
+			});
+
+			// Close modal with Escape key
+			document.addEventListener("keydown", (e) => {
+				if (e.key === "Escape") {
+					closeSubscriptionModal();
+				}
+			});		
+		</script>	
+	</body>
 </html>

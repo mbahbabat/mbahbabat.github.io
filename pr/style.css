@@ -275,7 +275,6 @@ button:active {
 	display: none;
 	justify-content: center;
 	align-items: center;
-	overflow-y: auto;
 }
 
 .main-el.active{
@@ -291,7 +290,6 @@ button:active {
 	justify-content: center;
 	align-items: center;
 	animation: fadeIn 0.3s ease;
-	overflow-y: auto;
 }
 
 .modal.active {
@@ -1020,19 +1018,12 @@ body[data-rds-mode="tablet"] .modal {
 	margin:0 !important;
 }
 
-body[data-rds-mode="mobile"] .container,
-body[data-rds-mode="tablet"] .container {
-    height: 100% !important;
-    width: 100% !important;
-}
-
 body[data-rds-mode="mobile"] .glass-card,
 body[data-rds-mode="tablet"] .glass-card,
 body[data-rds-mode="mobile"] .modal-content,
 body[data-rds-mode="tablet"] .modal-content {
 	flex: 1!important;
     width: 100% !important;
-	min-height: 100% !important;
     margin: 0 !important;
 	border-radius: 0 !important;
 	background: rgba(8, 12, 24, 0.2) !important;

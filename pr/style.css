@@ -1024,6 +1024,7 @@ body[data-rds-mode="mobile"] .modal,
 body[data-rds-mode="tablet"] .modal {
     padding: 3px !important;
     align-items: flex-start !important;
+	positoon: absolute !important;
 }
 
 body[data-rds-mode="mobile"] .container,
@@ -1056,7 +1057,8 @@ body[data-rds-mode="tablet"] .modal-header {
 
 
 body[data-rds-mode="mobile"] .canvas-container,
-body[data-rds-mode="tablet"] .canvas-container { 
+body[data-rds-mode="tablet"] .canvas-container,
+body[data-rds-mode="desktop"] .canvas-container { 
     display: none !important;
 }
 

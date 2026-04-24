@@ -1029,7 +1029,7 @@ body[data-rds-mode="tablet"] .modal-content {
 	border-radius: 0 !important;
 	background: rgba(8, 12, 24, 0.2) !important;
 	backdrop-filter: blur(5px) !important;
-	padding-bottom: 50px!important;
+	padding-bottom: 10%!important;
 }
 
 body[data-rds-mode="mobile"] .modal-header,

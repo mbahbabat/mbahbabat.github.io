@@ -19,6 +19,7 @@ const loginSection = document.getElementById("login-section");
 const setPasswordSection = document.getElementById("set-password-section");
 const dashboardSection = document.getElementById("dashboard-section");
 const userEmailSpan = document.getElementById("user-email");
+const userUsernameSpan = document.getElementById("user-username");
 const hwidSpan = document.getElementById("hwid");
 const hwid_desk = document.getElementById("hwid_desk");
 const messageDiv = document.getElementById("msgbox");
@@ -229,19 +230,21 @@ async function renderDashboardUI(profile) {
 		setPasswordSection.classList.remove("hidden");
 		dashboardSection.classList.add("hidden");
 		loginSection.classList.add("hidden");
-		userEmailSpan.textContent = profile.email;	
+		userEmailSpan.textContent = profile.email;
+		userUsernameSpan.textContent = '@' + profile.username
 	} else {
 		setPasswordSection.classList.add("hidden");
 		dashboardSection.classList.remove("hidden");
 		loginSection.classList.add("hidden");
 		userEmailSpan.textContent = profile.email;
+		userUsernameSpan.textContent = '@' + profile.username;
 		const pcName = profile.hwid ? profile.pcName : "No Device";
 		const procName = profile.hwid ? profile.procName : "-";
 		const boardName = profile.hwid ? profile.boardName : "-";
 		const osName = profile.hwid ? profile.osName : "-";
-		const hwid_deskText = profile.hwid ? "*Reset device if you change device, motherboard, or processor" : "*Device will be automatically bound on first login";
+		const hwid_deskText = profile.hwid ? "*Reset device if you change device, motherboard, or processor" : "*Your device will be automatically linked upon first login.";
 		hwidSpan.innerHTML = `		<div class="flex gap-4 items-center">
-										<div class="p-2 flex flex-col gap-4 items-center text-gray-200/75">
+										<div class="p-2 flex flex-col gap-2 items-center text-gray-200/75">
 											<i class="fa-solid fa-desktop text-3xl"></i>
 											<p class="font-mono font-bold text-sm "> ${pcName}</p>
 										</div>
@@ -271,7 +274,6 @@ async function renderDashboardUI(profile) {
 		if (isPendingPayment) {//belum bayar
 			if(globalProfileTimeout) clearTimeout(globalProfileTimeout);		
 			donationBtn.innerHTML = `<i class="fas fa-rocket text-pink-400"></i> Extend VIP`;
-			donationBtn.style.color="white";
 			vipStatusEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Pending Payment...`;
 			loadingSpinner = false;
 			globalProfileTimeout = setTimeout(async () => {
@@ -333,7 +335,6 @@ async function renderDashboardUI(profile) {
 									 </div>	
 										`;
 			donationBtn.innerHTML = `<i class="fas fa-rocket text-pink-400"></i> Extend VIP`;
-			donationBtn.style.color="white";
 			donationBtn.onclick = (e) => {
 				e.preventDefault();
 				openSubscriptionModal(); 
@@ -342,8 +343,7 @@ async function renderDashboardUI(profile) {
 			vipStatusEl.innerHTML = `<i class="fa-solid fa-leaf text-green-500"></i> Regular Member`;
 			vipStatusEl.style.color="white";
 			if (!hasClaimedTrial) {
-				donationBtn.innerHTML = `<i class="fas fa-gift shakeAnim text-yellow-500"></i> Start Free Trial`;
-				donationBtn.style.color="white";
+				donationBtn.innerHTML = `<i class="fas fa-gift shakeAnim text-pink-500"></i> Start Free Trial`;
 				donationBtn.onclick = (e) => {
 					e.preventDefault();
 					openTrialModal();
@@ -351,7 +351,6 @@ async function renderDashboardUI(profile) {
 				pay_with_crypto_text.innerText="( 3 Days FREE )";
 			} else {
 				donationBtn.innerHTML = `Upgrade to VIP`;
-				donationBtn.style.color="white";
 				donationBtn.onclick = (e) => {
 					e.preventDefault();
 					openSubscriptionModal(); 
@@ -1563,6 +1562,7 @@ let ledIndex = 0;
 let ledInterval = null;
 let isHovering = false;
 const dashboard = document.querySelector('#dashboard-section');
+const destopDashboard = document.querySelector('body[data-rds-mode="desktop"] #dashboard-section'); 
 
 // Mapping class selector ke class active yang sesuai
 const colorMapping = [
@@ -1636,8 +1636,8 @@ function startLEDAnimation() {
     }
     
     // Event listener hover (hapus dulu yang lama biar ga double)
-    dashboard.removeEventListener('mouseenter', handleMouseEnter);
-    dashboard.removeEventListener('mouseleave', handleMouseLeave);
+    destopDashboard.removeEventListener('mouseenter', handleMouseEnter);
+    destopDashboard.removeEventListener('mouseleave', handleMouseLeave);
     
     function handleMouseEnter() {
         isHovering = true;
@@ -1650,8 +1650,8 @@ function startLEDAnimation() {
         ledInterval = setInterval(animate, 50);
     }
     
-    dashboard.addEventListener('mouseenter', handleMouseEnter);
-    dashboard.addEventListener('mouseleave', handleMouseLeave);
+    destopDashboard.addEventListener('mouseenter', handleMouseEnter);
+    destopDashboard.addEventListener('mouseleave', handleMouseLeave);
 }
 
 function observeDashboard() {

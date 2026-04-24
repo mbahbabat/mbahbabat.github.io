@@ -27,8 +27,8 @@
 				remMode: 'responsive',
 				breakpoints: { mobile: 640, tablet: 1023 },
 				desktop: { baseWidth: 1980, baseHeight: 720, minScale: 0.3, maxScale: 1.2 },
-				tablet: { baseWidth: 640, baseHeight: 1280, minScale: 0.2, maxScale: 1.1 },
-				mobile: { baseWidth: 346, baseHeight: 900, minScale: 0.1, maxScale: 1.0 }
+				tablet: { baseWidth: 800, baseHeight: 1280, minScale: 0.2, maxScale: 1.1 },
+				mobile: { baseWidth: 500, baseHeight: 900, minScale: 0.1, maxScale: 1.0 }
 			});
 		</script>
 		<link rel="stylesheet" href="style.css">
@@ -47,14 +47,14 @@
 			<p class="text-white font-gaming tracking-wider">LOADING PROFILE...</p>
 		</div>
 		<div id="main-el" class="main-el active">
-			<div class="container max-w-[37.5rem] flex flex-col">
+			<div class="main-el-content flex flex-col items-center justify-center">
 				<!-- LOGIN SECTION - Gaming style -->
-				<div id="login-section" class="hidden flex items-center w-full flex-1">
-					<div id="login-section-container" class="glass-card w-full rounded-2xl p-6 md:p-10 text-center shadow-2xl transition-all">
+				<div id="login-section" class="hidden flex items-center w-full">
+					<div id="login-section-container" class="main-el-body">
 						<div class="mb-2 flex justify-center">
 							<i class="fas fa-gamepad text-5xl text-cyan-400 animate-pulse-slow"></i>
 						</div>
-						<h1 class="font-gaming text-3xl md:text-4xl font-black bg-gradient-to-r from-cyan-300 to-purple-400 bg-clip-text text-transparent tracking-wider">
+						<h1 class="flex justify-center font-gaming text-3xl md:text-4xl font-black bg-gradient-to-r from-cyan-300 to-purple-400 bg-clip-text text-transparent tracking-wider">
 							PAWANG RECOIL
 						</h1>
 						<div class="separator-glow w-24 mx-auto my-4"></div>
@@ -68,89 +68,103 @@
 						</div>
 					</div>
 				</div>
-				<!-- SET PASSWORD SECTION (First Time) -->
-				<div id="set-password-section" class="hidden glass-card rounded-2xl p-6 md:p-8 shadow-2xl">
-					<div class="flex items-center gap-3 mb-3 border-b border-cyan-800 pb-2">
-						<i class="fas fa-key text-yellow-400 text-2xl"></i>
-						<h2 class="font-gaming text-2xl font-bold text-white">ACTIVATE ACCOUNT</h2>
-					</div>
-					<p class="text-gray-300 mb-1"><i class="fas fa-envelope"></i> Email: <span id="user-email" class="font-mono text-cyan-300 font-bold"></span></p>
-					<p class="text-sm text-cyan-200/70 mb-5">Create a password to access the app</p>
-					<div class="mb-4">
-						<label class="block text-gray-200 text-sm font-semibold mb-1"><i class="fas fa-lock"></i> NEW PASSWORD</label>
-						<input type="password" id="new-password" class="input-glow w-full rounded-lg px-4 py-3" placeholder="Minimum 4 characters">
-					</div>
-					<div class="mb-5">
-						<label class="block text-gray-200 text-sm font-semibold mb-1"><i class="fas fa-check-circle"></i> CONFIRM PASSWORD</label>
-						<input type="password" id="confirm-password" class="input-glow w-full rounded-lg px-4 py-3" placeholder="Confirm your password">
-					</div>
-					<button id="save-password-btn" class="bg-gradient-to-r from-cyan-600 to-emerald-700 hover:from-cyan-500 hover:to-emerald-600 text-white font-bold py-3 px-4 rounded-xl w-full transition-all flex items-center justify-center gap-2 shadow-lg">
-					<i class="fas fa-database"></i> SAVE & ACTIVATE
-					</button>
-					<div class="mt-5 text-center">
-						<button id="logout-btn" class="text-red-400 hover:text-red-300 text-sm flex items-center gap-1 mx-auto transition"><i class="fas fa-sign-out-alt"></i> Cancel</button>
-					</div>
-				</div>
-				<!-- DASHBOARD SECTION - Gaming Dashboard -->
-				<div id="dashboard-section" class="hidden glass-card flex flex-col gap-5 rounded-2xl p-[1.25rem] shadow-2xl min-h-[46.875rem]">
-					<div class="flex">
-						<div class="flex-1 flex items-center gap-2">
-							<i class="fa-solid fa-gun text-cyan-400 text-2xl"></i>
-							<h2 id="dash-title" class="font-gaming text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">USER DASHBOARD</h2>
-						</div>
-						<button id="logout-btn-dash" class="anred bg-red-600/10 font-gaming text-red-500/70 border-y border-red-500/50 font-bold py-1.5 px-4 rounded-full text-sm transition flex items-center gap-1 hover:border-red-400 hover:text-red-500">
-							<i class="fas fa-power-off"></i> <span id="logout-text">Log Out</span>
-						</button>
-					</div>
-					<!-- Important Information -->
-					<div class="ancyan bg-black/40 rounded-xl p-3 text-xs text-gray-300 flex flex-wrap gap-x-5 gap-y-1 border border-cyan-800/40">
-						<span><i class="fas fa-shield-alt text-cyan-400"></i> Secured Connection</span>
-						<span><i class="fas fa-microchip text-cyan-400"></i> Single-Device Authorization</span>
-					</div>
-					<div class="flex gap-4">
-						<!-- Email Card -->
-						<div class="ancyan bg-cyan-300/5 rounded-xl p-3 border-x border-cyan-300/25 flex-1 transition hover:border-cyan-300">
-							<p class="font-gaming text-cyan-300 text-xs tracking-wider mb-2"><i class="far fa-envelope"></i> Email</p>
-							<p id="display-email" class="text-gray-200/75 font-mono text-xs">-</p>
-						</div>
-						<!-- Username Card -->
-						<div class="ancyan bg-cyan-300/5 rounded-xl p-3 border-x border-cyan-300/25 flex-1 transition hover:border-cyan-400">
-							<p class="font-gaming text-cyan-300 text-xs tracking-wider mb-2"><i class="fas fa-user-astronaut"></i> Username</p>
-							<p id="display-username" class="text-gray-200/75 font-mono text-xs">-</p>
-						</div>
-					</div>
-					<!-- HWID Status dengan Icon -->
-					<div class="ancyan bg-cyan-300/5 rounded-xl p-3 border-x border-cyan-300/25 transition hover:border-cyan-400">
-						<p class="font-gaming mb-2  text-cyan-300 text-xs tracking-wider"><i class="fa-solid fa-desktop"></i> Device Authorization</p>
-						<div id="hwid">-</div>
-						<p id="hwid_desk" class="mt-4 text-white/50 text-[0.688rem] italic"></p>
-					</div>
-					<!-- VIP Status Card -->
-					<div class="anred anpurple ancyan angreen anyellow anblue bg-purple-500/5 rounded-xl p-3 border-x border-purple-500/50 transition hover:border-purple-400 flex flex-col gap-4">
-						<p class="font-gaming text-cyan-300 text-xs tracking-wider"><i class="fas fa-fingerprint"></i>Membership</p>
-						<div class="flex-1 flex items-center justify-between gap-4">
-							<p id="vip-status" class="anred anpurple ancyan angreen anyellow anblue flex-1 rounded-xl h-full w-full p-3 flex items-center justify-center gap-2 border-x-2 border-red-300/25 font-gaming font-bold text-base text-gray-500 hover:border-red-400">-</p>
-							<div id="vip-btn" class="flex flex-col gap-4 items-center p-2">
-								<button id="buy-vip-btn" class="bg-purple-600/5 anred anpurple ancyan angreen anyellow anblue font-gaming border-y border-purple-500/25 hover:border-purple-500 px-5 py-3 font-bold rounded-xl flex items-center justify-center gap-2 transition">
-								Upgrade to VIP
-								</button>
-								<p id="pay_with_crypto_text" class="text-white text-xs tracking-wider"><i class="fa-brands fa-bitcoin" style="color:orange"></i> Pay with Crypto</p>
+				
+				<!-- ACCOUNT SETUP -->
+				<div id="set-password-section" class="hidden flex-1 flex items-center h-full w-full">
+					<div id="set-password-section-container" class="main-el-body h-full w-full">
+						<div class="flex-1 flex flex-col">
+							<div class="flex-1 flex flex-col gap-4">
+								<div class="flex items-center gap-3 mb-5 border-b border-purple-800/20 pb-5">
+									<i class="fa-solid fa-gear text-cyan-300"></i>
+									<h2 class="font-gaming text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-200 to-cyan-800 bg-clip-text text-transparent">SET UP YOUR ACCOUNT</h2>.
+								</div>
+								<p class="text-sm text-gray-200/70 mb-5">Use these credentials to log in to the desktop app.</p>
+								<p class="font-gaming text-sm text-white font-semibold mb-3"><i class="fas fa-envelope text-red-300"></i> Email: <span id="user-email" class="font-mono text-sm text-purple-300"></span></p>
+								<p class="font-gaming text-sm text-white font-semibold mb-3"><i class="fa-solid fa-at text-blue-300"></i> Username: <span id="user-username" class="font-mono text-sm text-purple-300"></span></p>
+								<div class="mb-4">
+									<label class="font-gaming block text-white text-sm font-semibold mb-3"><i class="fas fa-lock text-orange-300"></i> Password</label>
+									<input type="password" id="new-password" class="input-modal w-full rounded-lg px-4 py-3" placeholder="Enter your password">
+								</div>
+								<div class="mb-5">
+									<label class="font-gaming block text-white text-sm font-semibold mb-3"><i class="fas fa-check-circle text-green-300"></i> Confirm Password</label>
+									<input type="password" id="confirm-password" class="input-modal w-full rounded-lg px-4 py-3" placeholder=" Re-enter your password">
+								</div>								
 							</div>
 						</div>
+						<div class="flex gap-4">
+							<button id="logout-btn" class="cancel-btn flex-1 bg-red-600/10 font-gaming border-y border-red-500/25 hover:border-red-500 hover:text-red-500 py-3 rounded-xl text-red-500/70 text-xs font-bold flex items-center justify-center gap-1 transition">
+								CANCEL
+							</button>
+							<button id="save-password-btn" class="subscribe-btn flex-1 bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 py-3 rounded-xl text-cyan-300/70 text-xs font-bold flex items-center justify-center gap-1 transition">
+								<i class="fas fa-database"></i> ACTIVATE 
+							</button>
+						</div>
+						<a href="#" class="p-2 text-center text-gray-300 text-xs italic"><i class="fa-regular fa-circle-check"></i> Terms and Conditions</a> 						
 					</div>
-					<!-- Tombol aksi dengan grid -->
-					<div class="items-center flex gap-4">
-						<button id="change-password-btn" class="ancyan bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 flex-1 py-3 rounded-xl text-cyan-300/70 font-bold flex items-center justify-center gap-2 transition">
-						<i class="fas fa-exchange-alt"></i> Change Password
-						</button>
-						<button id="reset-hwid-btn" class="ancyan bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 flex-1 py-3 rounded-xl text-cyan-300/70 font-bold flex items-center justify-center gap-2 transition">
-						<i class="fas fa-trash-restore"></i> Reset Device
-						</button>
-					</div>
-					<!-- Tips Gaming -->
-					<div class="flex-1 flex flex-col gap-4 justify-center items-center">
-						<a href="#" id="ticket" class="font-gaming hover:text-cyan-400 transition text-cyan-300/50 text-xs"><i class="fa-solid fa-headset"></i> Customer Support</a>
-						<span class="text-gray-600 text-[0.625rem]"><i class="fas fa-shield-haltered"></i> Powered by Sigma Protector</span>
+				</div>
+				
+				<!-- DASHBOARD SECTION - Gaming Dashboard -->
+				<div id="dashboard-section" class="hidden flex-1 flex items-center h-full w-full">
+					<div id="dashboard-section-container" class="main-el-body h-full w-full gap-6">
+						<div class="flex repading">
+							<div class="flex-1 flex items-center gap-2">
+								<i class="fa-solid fa-gun text-cyan-400 text-2xl"></i>
+								<h2 id="dash-title" class="font-gaming text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">USER DASHBOARD</h2>
+							</div>
+							<button id="logout-btn-dash" class="anred bg-red-600/10 font-gaming text-red-500/70 border-y border-red-500/50 font-bold py-1.5 px-4 rounded-full text-sm transition flex items-center gap-1 hover:border-red-400 hover:text-red-500">
+								<i class="fas fa-power-off"></i> <span id="logout-text">Log Out</span>
+							</button>
+						</div>
+						<!-- Important Information -->
+						<div class="ancyan repading bg-black/40 rounded-xl p-3 text-xs text-gray-300 flex flex-wrap gap-x-5 gap-y-1 border border-cyan-800/40">
+							<span><i class="fas fa-shield-alt text-cyan-400"></i> Secure Connection</span>
+							<span><i class="fas fa-microchip text-cyan-400"></i> Single-Device Authorization</span>
+						</div>
+						<div class="flex gap-4">
+							<!-- Email Card -->
+							<div class="ancyan repading bg-cyan-300/5 rounded-xl p-3 border-x border-cyan-300/25 flex-1 transition hover:border-cyan-300">
+								<p class="font-gaming text-cyan-300 text-xs tracking-wider mb-2"><i class="far fa-envelope"></i> Email</p>
+								<p id="display-email" class="text-gray-200/75 font-mono text-xs">-</p>
+							</div>
+							<!-- Username Card -->
+							<div class="ancyan repading bg-cyan-300/5 rounded-xl p-3 border-x border-cyan-300/25 flex-1 transition hover:border-cyan-400">
+								<p class="font-gaming text-cyan-300 text-xs tracking-wider mb-2"><i class="fas fa-user-astronaut"></i> Username</p>
+								<p id="display-username" class="text-gray-200/75 font-mono text-xs">-</p>
+							</div>
+						</div>
+						<!-- HWID Status dengan Icon -->
+						<div class="ancyan repading bg-cyan-300/5 rounded-xl p-3 border-x border-cyan-300/25 transition hover:border-cyan-400">
+							<p class="font-gaming mb-2  text-cyan-300 text-xs tracking-wider"><i class="fa-solid fa-desktop"></i> Device Authorization</p>
+							<div id="hwid">-</div>
+							<p id="hwid_desk" class="mt-4 text-white/50 text-[0.688rem] italic"></p>
+						</div>
+						<!-- VIP Status Card -->
+						<div class="anred anpurple ancyan angreen anyellow anblue bg-purple-500/5 rounded-xl p-3 border-x border-purple-500/50 transition hover:border-purple-400 flex flex-col gap-4">
+							<p class="font-gaming repading text-cyan-300 text-xs tracking-wider"><i class="fas fa-fingerprint"></i>Membership</p>
+							<div class="flex-1 repading-extra flex items-center justify-between gap-4">
+								<p id="vip-status" class="anred anpurple ancyan angreen anyellow anblue flex-1 rounded-xl h-full w-full p-3 flex items-center justify-center gap-2 border-x-2 border-red-300/25 font-gaming font-bold text-base text-gray-500 hover:border-red-400">-</p>
+								<div id="vip-btn" class="flex flex-col gap-4 items-center p-2">
+									<button id="buy-vip-btn" class="bg-purple-600/5 anred anpurple ancyan angreen anyellow anblue font-gaming font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent border-y border-purple-500/25 hover:border-purple-500 px-5 py-3 rounded-xl flex items-center justify-center gap-2 transition">
+									Upgrade to VIP
+									</button>
+									<p id="pay_with_crypto_text" class="text-white text-xs tracking-wider"><i class="fa-brands fa-bitcoin" style="color:orange"></i> Pay with Crypto</p>
+								</div>
+							</div>
+						</div>
+						<!-- Tombol aksi dengan grid -->
+						<div class="items-center flex gap-4 repading">
+							<button id="change-password-btn" class="ancyan text-cyan-200 bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 flex-1 py-3 rounded-xl text-cyan-300/70 font-bold flex items-center justify-center gap-2 transition">
+							<i class="fas fa-exchange-alt"></i> Change Password
+							</button>
+							<button id="reset-hwid-btn" class="ancyan text-cyan-200 bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 flex-1 py-3 rounded-xl text-cyan-300/70 font-bold flex items-center justify-center gap-2 transition">
+							<i class="fas fa-trash-restore"></i> Reset Device
+							</button>
+						</div>
+						<!-- Tips Gaming -->
+						<div class="flex-1 flex flex-col gap-4 justify-center items-center">
+							<a href="#" id="ticket" class="font-gaming hover:text-cyan-400 transition text-cyan-300/50 text-xs"><i class="fa-solid fa-headset"></i> Customer Support</a>
+							<span class="text-gray-600 text-[0.625rem]"><i class="fas fa-shield-haltered"></i> Powered by Sigma Protector</span>
+						</div>
 					</div>
 				</div>
 			</div>

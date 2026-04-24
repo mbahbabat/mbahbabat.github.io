@@ -525,8 +525,8 @@ button:active {
 	transition: all 0.2s;
 	border-top: none;
 	border-bottom: none;
-	border-left: 5px double purple;
-	border-right: 5px double purple;	
+	border-left: 3px ridge rgba(164, 19, 166, 0.5);
+	border-right: 3px ridge rgba(164, 19, 166, 0.5);	
 }
 
 .input-modal:focus {
@@ -1011,6 +1011,11 @@ body[data-rds-mode="mobile"] .modal,
 body[data-rds-mode="tablet"] .modal {
     padding: 3px !important;
     align-items: flex-start !important;
+	position: absolute !important;
+    min-height: 100% !important;
+	max-height: 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;	
 }
 
 body[data-rds-mode="mobile"] .container,

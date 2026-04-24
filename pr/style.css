@@ -1024,7 +1024,7 @@ body[data-rds-mode="mobile"] .modal-content,
 body[data-rds-mode="tablet"] .modal-content {
 	flex: 1!important;
     width: 100% !important;
-	min-height: calc(100% + 50px)!important;
+	min-height: 110%!important;
     margin: 0 !important;
 	border-radius: 0 !important;
 	background: rgba(8, 12, 24, 0.2) !important;

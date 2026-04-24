@@ -1562,7 +1562,7 @@ refreshTicketsBtn.addEventListener("click", () => {
 let ledIndex = 0;
 let ledInterval = null;
 let isHovering = false;
-const dashboard = document.getElementById('dashboard-section');
+const dashboard = document.querySelector('body[data-rds-mode="desktop"] #dashboard-section');
 
 // Mapping class selector ke class active yang sesuai
 const colorMapping = [

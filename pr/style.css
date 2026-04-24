@@ -1024,12 +1024,10 @@ body[data-rds-mode="mobile"] .modal-content,
 body[data-rds-mode="tablet"] .modal-content {
 	flex: 1!important;
     width: 100% !important;
-	min-height: calc(100% + 100px)!important;
     margin: 0 !important;
 	border-radius: 0 !important;
 	background: rgba(8, 12, 24, 0.2) !important;
 	backdrop-filter: blur(5px) !important;
-	padding-bottom: 100px!important;
 }
 
 body[data-rds-mode="mobile"] .modal-header,

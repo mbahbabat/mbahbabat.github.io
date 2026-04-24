@@ -1028,7 +1028,8 @@ body[data-rds-mode="tablet"] .modal {
 
 body[data-rds-mode="mobile"] .container,
 body[data-rds-mode="tablet"] .container {
-	min-height: 100vh !important;
+	position: absolute !important;
+    min-height: 100% !important;
     max-width: 100% !important;
     width: 100% !important;
 }
@@ -1046,6 +1047,7 @@ body[data-rds-mode="tablet"] .modal-content {
 
 body[data-rds-mode="mobile"] .modal-content,
 body[data-rds-mode="tablet"] .modal-content {
+	position: absolute !important;
     min-height: 100% !important;
 }
 

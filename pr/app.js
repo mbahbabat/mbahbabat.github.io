@@ -87,25 +87,47 @@ function showLoading(show) {
 	if(loadingOverlay) loadingOverlay.style.display = show ? "flex" : "none";
 }
 
+let isModalHistoryPushed = false;
+
 function mainElDsiplayToggle() {
-  // Cek apakah ada SALAH SATU modal yang punya class 'active'
   const isAnyModalOpen = Array.from(allModals).some(modal => 
     modal.classList.contains('active')
   );
 
   if (isAnyModalOpen) {
-    mainEl.classList.remove('active'); // Sembunyikan main-el jika ada modal buka
+    mainEl.classList.remove('active');
+    if (!isModalHistoryPushed) {
+      history.pushState({ modal: 'open' }, "");
+      isModalHistoryPushed = true;
+    }
   } else {
-    mainEl.classList.add('active');    // Tampilkan main-el jika semua modal tutup
+    mainEl.classList.add('active');
+    if (isModalHistoryPushed) {
+      isModalHistoryPushed = false;
+      if (history.state && history.state.modal === 'open') {
+        history.back();
+      }
+    }
   }
 }
+
+// Menangani tombol back pada perangkat (Android/iOS)
+window.addEventListener('popstate', () => {
+  const isAnyModalOpen = Array.from(allModals).some(modal => modal.classList.contains('active'));
+  if (isAnyModalOpen) {
+    // Tombol back ditekan saat modal terbuka, tutup semua modal
+    allModals.forEach(modal => modal.classList.remove('active', 'ticket-expanded-mode'));
+    isModalHistoryPushed = false;
+    mainEl.classList.add('active');
+  }
+});
 
 // showMessage function
 function showMessage(msg, isError = true) {
 	// Tampilkan di div message jika ada
 	if(messageDiv) {
 		messageDiv.innerHTML = `
-			<div class="text-center p-3 rounded-lg font-semibold z-10000  ${isError ? 'bg-red-900/60 text-red-200 border border-red-500' : 'bg-green-900/60 text-green-200 border border-green-400'}">
+			<div class="text-center p-3 rounded-lg font-semibold z-[9999999]  ${isError ? 'bg-red-900/60 text-red-200 border border-red-500' : 'bg-green-900/60 text-green-200 border border-green-400'}">
 				<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'} mr-2"></i>
 				${msg}
 			</div>
@@ -942,6 +964,39 @@ const refreshTicketsBtn = document.getElementById("refresh-tickets");
 // Image modal untuk fullscreen
 const imageViewModal = document.createElement("div");
 imageViewModal.className = "image-view-modal";
+
+// Custom Dropdown Logic
+const customTicketTypeBtn = document.getElementById("custom-ticket-type-btn");
+const ticketTypeList = document.getElementById("ticket-type-list");
+const ticketTypeInput = document.getElementById("ticket-type");
+const selectedTicketTypeText = document.getElementById("selected-ticket-type-text");
+const ticketTypeChevron = document.getElementById("ticket-type-chevron");
+
+if (customTicketTypeBtn) {
+	customTicketTypeBtn.addEventListener("click", () => {
+		ticketTypeList.classList.toggle("hidden");
+		ticketTypeChevron.style.transform = ticketTypeList.classList.contains("hidden") ? "rotate(0deg)" : "rotate(180deg)";
+	});
+
+	ticketTypeList.addEventListener("click", (e) => {
+		const li = e.target.closest("li");
+		if (li) {
+			const value = li.getAttribute("data-value");
+			const text = li.innerHTML;
+			ticketTypeInput.value = value;
+			selectedTicketTypeText.innerHTML = text;
+			ticketTypeList.classList.add("hidden");
+			ticketTypeChevron.style.transform = "rotate(0deg)";
+		}
+	});
+
+	document.addEventListener("click", (e) => {
+		if (!customTicketTypeBtn.contains(e.target) && !ticketTypeList.contains(e.target)) {
+			ticketTypeList.classList.add("hidden");
+			ticketTypeChevron.style.transform = "rotate(0deg)";
+		}
+	});
+}
 imageViewModal.innerHTML = '<img id="fullscreen-image" src="" alt="Fullscreen">';
 document.body.appendChild(imageViewModal);
 imageViewModal.addEventListener("click", () => imageViewModal.classList.remove("active"));
@@ -1141,13 +1196,13 @@ function renderTicketList(tickets) {
 		// Problem Details
 		const problemDiv = document.createElement("div");
 		problemDiv.id = "problem_details";
-		problemDiv.className = "p-3 mb-4 rounded-lg text-xs";
-		let problemHtml = `<h3 class="font-gaming mb-4 text-black text-base font-bold text-cyan-300">Problem details:</h3>
-			<p class="bg-black/40 mb-4 text-white text-xs min-h-[150px] whitespace-pre-wrap break-words">${escapeHtml(ticket.message)}</p>`;
+		problemDiv.className = "mb-5 text-xs";
+		let problemHtml = `<h3 class="font-gaming mb-2 text-cyan-400 text-[0.85rem] font-bold tracking-wider flex items-center gap-2"><i class="fas fa-file-alt"></i> Problem Details</h3>
+			<div class="bg-[#050b14]/80 p-4 rounded-xl border border-cyan-900/50 text-gray-300 text-sm min-h-[100px] whitespace-pre-wrap break-words shadow-inner">${escapeHtml(ticket.message)}</div>`;
 		if (ticket.images?.length) {
-			problemHtml += `<h3 class="font-gaming mb-4 text-black text-base font-bold text-cyan-300">Attachments:</h3><div class="ticket-images">`;
+			problemHtml += `<h3 class="font-gaming mb-2 mt-4 text-cyan-400 text-[0.85rem] font-bold tracking-wider flex items-center gap-2"><i class="fas fa-paperclip"></i> Attachments</h3><div class="ticket-images">`;
 			ticket.images.forEach(img => {
-				problemHtml += `<div class="ticket-image"><img src="${img}" alt="Attachment" onclick="window.viewFullImage('${img}')"></div>`;
+				problemHtml += `<div class="ticket-image border border-cyan-800/50 rounded-lg overflow-hidden hover:border-cyan-400 transition cursor-pointer"><img src="${img}" alt="Attachment" onclick="window.viewFullImage('${img}')" class="w-full h-full object-cover"></div>`;
 			});
 			problemHtml += `</div>`;
 		}
@@ -1165,27 +1220,27 @@ function renderTicketList(tickets) {
 		const resolvedMsg = document.createElement("div");
 		if (showReplyForm) {	
 			formDiv.id = `reply-form-${ticket.ticketId}`;
-			formDiv.className = "reply-form mt-3 pt-2 border-t border-gray-700 hidden";
+			formDiv.className = "reply-form mt-4 pt-4 border-t border-cyan-800/30 hidden";
 			formDiv.innerHTML = `
-				<textarea id="reply-msg-${ticket.ticketId}" class="input-modal w-full text-sm mb-3" rows="3" placeholder="Type your reply..."></textarea>
+				<textarea id="reply-msg-${ticket.ticketId}" class="input-modal rounded-xl w-full text-sm mb-3 bg-[#050b14]/80 border-cyan-900/50" rows="3" placeholder="Type your reply here..."></textarea>
 				<div id="reply-preview-${ticket.ticketId}" class="image-preview-container flex flex-wrap gap-2 mb-3"></div>
 				<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
 					<div class="flex items-center gap-3">
-						<label class="btn-cyber text-sm py-2 px-4 rounded-xl cursor-pointer inline-flex items-center gap-2">
-							<i class="fas fa-image text-white"></i> Attach
+						<label class="bg-cyan-900/20 border border-cyan-800/50 hover:bg-cyan-800/40 text-cyan-300 text-xs py-2 px-4 rounded-xl cursor-pointer inline-flex items-center gap-2 transition">
+							<i class="fas fa-paperclip"></i> Attach Image
 							<input type="file" id="reply-files-${ticket.ticketId}" multiple accept="image/*" class="hidden" data-ticket-id="${ticket.ticketId}">
 						</label>
-						<span id="reply-image-count-${ticket.ticketId}" class="text-gray-400 text-xs">No files</span>
+						<span id="reply-image-count-${ticket.ticketId}" class="text-gray-500 text-xs font-mono">No files</span>
 					</div>
 					<div class="w-full sm:w-auto">
-						<button type="button" class="send-reply-btn btn-cyber text-sm py-2 px-6 rounded-xl w-full sm:w-auto flex items-center justify-center gap-2" data-ticket-id="${ticket.ticketId}">
-							<i class="fas fa-paper-plane text-white"></i> Send
+						<button type="button" class="send-reply-btn bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 py-2 px-6 rounded-xl text-cyan-300/80 text-xs font-bold w-full sm:w-auto flex items-center justify-center gap-2 transition" data-ticket-id="${ticket.ticketId}">
+							<i class="fas fa-paper-plane"></i> SEND REPLY
 						</button>
 					</div>
 				</div>
 				<div id="reply-progress-${ticket.ticketId}" class="upload-progress" style="display: none; margin-top: 10px;">
 					<div class="progress-bar"><div class="progress-fill"></div></div>
-					<p class="text-xs text-gray-400 mt-1 text-center">Sending...</p>
+					<p class="text-xs text-cyan-400 mt-1 text-center font-mono">Sending...</p>
 				</div>
 			`;
 		} else if (isResolved) {
@@ -1220,9 +1275,9 @@ function renderReplies(replies) {
 			</div>
 			<div class="reply-message">${escapeHtml(reply.message || '')}</div>
 			${reply.images?.length ? `
-				<h3 class="font-gaming mb-4 text-black text-base font-bold text-cyan-300 mt-[15px]">Attachments:</h3>
+				<h3 class="font-gaming mb-2 mt-4 text-cyan-400 text-[0.85rem] font-bold tracking-wider flex items-center gap-2"><i class="fas fa-paperclip"></i> Attachments</h3>
 				<div class="ticket-images mt-2">
-					${reply.images.map(img => `<div class="ticket-image"><img src="${img}" onclick="window.viewFullImage('${img}')"></div>`).join('')}
+					${reply.images.map(img => `<div class="ticket-image border border-cyan-800/50 rounded-lg overflow-hidden hover:border-cyan-400 transition cursor-pointer"><img src="${img}" onclick="window.viewFullImage('${img}')" class="w-full h-full object-cover"></div>`).join('')}
 				</div>
 			` : ''}
 			<div class="reply-time"><i class="far fa-clock"></i> ${formatFullTime(reply.createdAt)}</div>

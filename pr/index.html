@@ -10,15 +10,6 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 		<!-- Google Fonts: Orbitron & Poppins untuk nuansa gaming -->
 		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-		  <!-- Three.js core libraries -->
-		  <script type="importmap">
-			{
-			  "imports": {
-				"three": "https://unpkg.com/three@0.128.0/build/three.module.js",
-				"three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
-			  }
-			}
-		  </script>		
 		<!--Responsive-->
 		<script type="module">
 			import { RDS } from "./lib/RDS.js";
@@ -36,11 +27,8 @@
 	<body class="min-h-screen min-w-screen">
 		<div class="glow-orb" style="width: 21.875rem; height: 350px; background: radial-gradient(circle, #2a6fdb, transparent); top: -100px; left: -80px; animation-duration: 22s;"></div>
 		<div class="glow-orb" style="width: 31.25rem; height: 500px; background: radial-gradient(circle, #7f2eff, transparent); bottom: -150px; right: -100px; opacity: 0.25; animation-duration: 25s;"></div>
-		<div class="glow-orb" style="width: 280px; height: 280px; background: radial-gradient(circle, #00c6ff, transparent); top: 40%; right: 5%; opacity: 0.3; animation-duration: 19s;"></div>
-		<div class="canvas-container" id="canvas-container">
-			<canvas id="futuristicCanvas"></canvas>
-		</div>		
-		<div id="msgbox" class="fixed top-5 left-1/2 transform -translate-x-1/2"></div>
+		<div class="glow-orb" style="width: 280px; height: 280px; background: radial-gradient(circle, #00c6ff, transparent); top: 40%; right: 5%; opacity: 0.3; animation-duration: 19s;"></div>		
+		<div id="msgbox" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-999999999"></div>
 		<!-- Loading Overlay -->
 		<div id="loading-overlay" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden justify-center items-center flex-col" style="display: none;">
 			<div class="text-cyan-400 text-4xl mb-3"><i class="fas fa-circle-notch fa-spin"></i></div>
@@ -262,34 +250,38 @@
 		
 		<!-- Change Password Modal -->
 		<div id="change-password-modal" class="modal">
-			<div class="modal-content max-w-[37.5rem]"">
+			<div class="modal-content max-w-[37.5rem]">
 				<div class="modal-header">
 					<h3><i class="fas fa-key"></i> CHANGE PASSWORD</h3>
 					<button class="close-modal" id="close-password-modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<div class="flex-1 flex flex-col items-center justify-center">
-						<div class="flex flex-col gap-2 p-5 justify-center items-center text-gray-400 w-full">
-							<i class="fa-solid fa-circle-info text-5xl mb-5"></i>
-							<p class="text-sm"> Password is used to log in to the app.</p>
-							<p class="text-sm"> Enter your password, minimum 4 characters</p>
+					<div class="flex-1 flex flex-col justify-center mb-5 w-full">
+						<div class="text-center mb-5 mt-2">
+							<i class="fas fa-shield-alt text-cyan-400 text-5xl mb-3"></i>
+							<p class="text-white text-lg font-bold mb-2">UPDATE CREDENTIALS</p>
+							<p class="text-sm text-gray-400">Secure your account with a new password.</p>
 						</div>
-						<div class="flex-1 flex flex-col gap-5 w-full justify-center">
-							<label class="block text-gray-300 text-sm"><i class="fas fa-lock"></i> ENTER PASSWORD</label>
-							<input type="password" id="modal-new-password" class="input-modal" placeholder="Enter new password">
-							<label class="block text-gray-300 text-sm"><i class="fas fa-check-circle"></i> CONFIRM PASSWORD</label>
-							<input type="password" id="modal-confirm-password" class="input-modal" placeholder="Confirm your password">
+						<div class="flex flex-col gap-4 w-full">
+							<div>
+								<label class="block text-gray-300 text-sm mb-2"><i class="fas fa-lock"></i> NEW PASSWORD</label>
+								<input type="password" id="modal-new-password" class="input-modal rounded-lg" placeholder="Enter new password (min. 4 characters)">
+							</div>
+							<div>
+								<label class="block text-gray-300 text-sm mb-2"><i class="fas fa-check-circle"></i> CONFIRM PASSWORD</label>
+								<input type="password" id="modal-confirm-password" class="input-modal rounded-lg" placeholder="Re-enter your new password">
+							</div>
 						</div>
 					</div>
 					<div class="flex gap-4">
-						<button id="cancel-password-change" class="cancel-btn flex-1 bg-red-600/10 font-gaming border-y border-red-300/25 hover:border-red-300 hover:text-red-300 py-3 rounded-xl text-red-300/70 font-bold flex items-center justify-center gap-2 transition">
+						<button id="cancel-password-change" class="cancel-btn flex-1 bg-red-600/10 font-gaming border-y border-red-500/25 hover:border-red-500 hover:text-red-500 py-3 rounded-xl text-red-500/70 text-xs font-bold flex items-center justify-center gap-1 transition">
 							CANCEL
 						</button>
-						<button id="confirm-password-change" class="flex-1 bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 py-3 rounded-xl text-cyan-300/70 font-bold flex items-center justify-center gap-2 transition">
-							<i class="fas fa-save"></i> UPDATE PASSWORD
+						<button id="confirm-password-change" class="flex-1 bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 py-3 rounded-xl text-cyan-300/70 text-xs font-bold flex items-center justify-center gap-1 transition">
+							<i class="fas fa-save"></i> UPDATE
 						</button>
 					</div>
-					<p class="text-xs italic text-gray-400 text-center p-3"><i class="fas fa-exclamation-triangle text-yellow-500"></i>Update your password regularly to keep your account secure.</p>
+					<p class="text-xs italic text-gray-400 text-center p-3"><i class="fas fa-exclamation-triangle text-yellow-500 mr-1"></i>Update your password regularly to keep your account secure.</p>
 				</div>
 			</div>
 		</div>
@@ -304,19 +296,19 @@
 				<div class="modal-body">
 					<div class="text-center mb-5 flex-1 flex flex-col justify-center">
 						<i class="fas fa-exclamation-triangle text-yellow-500 text-5xl mb-3"></i>
-						<p class="text-gray-300 mb-2">WARNING</p>
-						<p class="text-sm text-gray-400">This action will clear the linked device from your account.</p>
-						<p class="text-sm text-red-400">You can only bind a new device when logging in from the app.</p>					
+						<p class="text-white text-lg font-bold mb-2">DEVICE UNLINK</p>
+						<p class="text-sm text-gray-300 mb-2">This action will clear the currently linked device from your account.</p>
+						<p class="text-sm text-cyan-400 bg-cyan-900/20 p-2 rounded-lg border border-cyan-800/50 mx-4"><i class="fas fa-info-circle"></i> You must log in from the desktop app to authorize a new device.</p>					
 					</div>
 					<div class="flex gap-4">
-						<button id="cancel-reset-hwid" class="cancel-btn flex-1 bg-red-600/10 font-gaming border-y border-red-500/25 hover:border-red-500 hover:text-red-500 py-3 rounded-xl text-red-500/70 font-bold flex items-center justify-center gap-2 transition">
+						<button id="cancel-reset-hwid" class="cancel-btn flex-1 bg-red-600/10 font-gaming border-y border-red-500/25 hover:border-red-500 hover:text-red-500 py-3 rounded-xl text-red-500/70 text-xs font-bold flex items-center justify-center gap-1 transition">
 							CANCEL
 						</button>
-						<button id="confirm-reset-hwid" class="flex-1 bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 py-3 rounded-xl text-cyan-300/70 font-bold flex items-center justify-center gap-2 transition">
-							<i class="fas fa-trash"></i> RESET
+						<button id="confirm-reset-hwid" class="flex-1 bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 py-3 rounded-xl text-cyan-300/70 text-xs font-bold flex items-center justify-center gap-1 transition">
+							<i class="fas fa-trash-restore"></i> PROCEED RESET
 						</button>
 					</div>					
-					<p class="text-xs italic text-gray-400 p-3 text-center">Use this feature when you replace devices, motherboards, or processors.</p>
+					<p class="text-xs italic text-gray-400 p-3 text-center">Use this feature when you replace your PC, motherboard, or processor.</p>
 				</div>
 			</div>
 		</div>
@@ -364,18 +356,26 @@
 						<form id="ticket-form">
 							<div class="mb-4 flex flex-col flex-1">
 								<!-- Ticket Type -->
-								<div class="mb-4">
+								<!-- Ticket Type Custom Dropdown -->
+								<div class="mb-4 relative">
 									<label class="block text-gray-300 text-sm mb-2">
 										<i class="fas fa-tag"></i> TICKET TYPE
 									</label>
-									<select id="ticket-type" class="input-modal" required>
-										<option value="General">📋 General Question</option>
-										<option value="Technical">🔧 Technical Issue</option>
-										<option value="Billing">💰 Billing / Payment</option>
-										<option value="Account">👤 Account Problem</option>
-										<option value="Feature">✨ Feature Request</option>
-										<option value="Bug">🐛 Bug Report</option>
-									</select>
+									<div id="custom-ticket-type-btn" class="input-modal rounded-lg cursor-pointer flex justify-between items-center transition hover:border-cyan-400">
+										<span id="selected-ticket-type-text">📋 General Question</span>
+										<i class="fas fa-chevron-down text-cyan-400 text-xs transition-transform duration-200" id="ticket-type-chevron"></i>
+									</div>
+									<input type="hidden" id="ticket-type" value="General" required>
+									
+									<!-- Dropdown List -->
+									<ul id="ticket-type-list" class="absolute w-full mt-1 bg-[#0a0f1e]/95 border border-cyan-800/40 rounded-lg shadow-lg z-50 hidden overflow-hidden backdrop-blur-md">
+										<li class="px-4 py-3 hover:bg-cyan-900/50 cursor-pointer text-gray-200 hover:text-cyan-300 border-b border-cyan-800/20 last:border-0 transition" data-value="General">📋 General Question</li>
+										<li class="px-4 py-3 hover:bg-cyan-900/50 cursor-pointer text-gray-200 hover:text-cyan-300 border-b border-cyan-800/20 last:border-0 transition" data-value="Technical">🔧 Technical Issue</li>
+										<li class="px-4 py-3 hover:bg-cyan-900/50 cursor-pointer text-gray-200 hover:text-cyan-300 border-b border-cyan-800/20 last:border-0 transition" data-value="Billing">💰 Billing / Payment</li>
+										<li class="px-4 py-3 hover:bg-cyan-900/50 cursor-pointer text-gray-200 hover:text-cyan-300 border-b border-cyan-800/20 last:border-0 transition" data-value="Account">👤 Account Problem</li>
+										<li class="px-4 py-3 hover:bg-cyan-900/50 cursor-pointer text-gray-200 hover:text-cyan-300 border-b border-cyan-800/20 last:border-0 transition" data-value="Feature">✨ Feature Request</li>
+										<li class="px-4 py-3 hover:bg-cyan-900/50 cursor-pointer text-gray-200 hover:text-cyan-300 transition" data-value="Bug">🐛 Bug Report</li>
+									</ul>
 								</div>
 
 								<!-- Message -->
@@ -383,7 +383,7 @@
 									<label class="block text-gray-300 text-sm mb-2">
 										<i class="fas fa-comment"></i> MESSAGE
 									</label>
-									<textarea id="ticket-message" class="input-modal flex-1" rows="4" 
+									<textarea id="ticket-message" class="input-modal rounded-lg flex-1" rows="4" 
 										placeholder="Describe your issue in detail..." required></textarea>
 								</div>
 
@@ -407,7 +407,7 @@
 							</div>
 
 							<!-- Submit Button -->
-							<button type="submit" id="submit-ticket-btn" class="bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 py-3 rounded-xl text-cyan-300/70 font-bold flex items-center justify-center gap-2 transition">
+							<button type="submit" id="submit-ticket-btn" class="bg-cyan-600/10 font-gaming border-y border-cyan-300/25 hover:border-cyan-300 hover:text-cyan-300 py-3 rounded-xl text-cyan-300/70 text-xs font-bold flex items-center justify-center gap-1 transition">
 								<i class="fas fa-paper-plane"></i> SUBMIT TICKET
 							</button>
 						</form>
@@ -417,8 +417,6 @@
 		</div>	
 
 		<script type="module" src="app.js"></script>
-
-		<script type="module" src="background.js"></script>
-  	
+ 	
 	</body>
 </html>

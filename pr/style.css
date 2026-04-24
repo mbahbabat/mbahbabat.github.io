@@ -289,7 +289,6 @@ button:active {
 	display: none;
 	justify-content: center;
 	align-items: center;
-	background: radial-gradient(circle at 10% 30%, #0a0f1e, #03050b);
 	animation: fadeIn 0.3s ease;
 	overflow-y: auto;
 }
@@ -1012,7 +1011,7 @@ body[data-rds-mode="tablet"] .modal {
     padding: 3px !important;
     align-items: flex-start !important;
 	position: absolute !important;
-    min-height: 100% !important;
+    min-height: 100vh !important;
 	max-height: 100% !important;
     max-width: 100% !important;
     width: 100% !important;	
@@ -1036,6 +1035,8 @@ body[data-rds-mode="tablet"] .modal-content {
     max-width: 100% !important;
     margin: 0 !important;
 	border-radius: 0 !important;
+	background: rgba(8, 12, 24, 0.1) !important;
+	backdrop-filter: blur(2px) !important;
 }
 
 body[data-rds-mode="mobile"] .modal-content,

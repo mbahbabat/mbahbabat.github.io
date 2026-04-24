@@ -1024,7 +1024,7 @@ body[data-rds-mode="mobile"] .modal,
 body[data-rds-mode="tablet"] .modal {
     padding: 3px !important;
     align-items: flex-start !important;
-	positoon: absolute !important;
+	position: absolute !important;
 }
 
 body[data-rds-mode="mobile"] .container,

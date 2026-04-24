@@ -1057,7 +1057,7 @@ body[data-rds-mode="tablet"] .modal-header {
 
 body[data-rds-mode="mobile"] .canvas-container,
 body[data-rds-mode="tablet"] .canvas-container { 
-    opacity: 0 !important;
+    display: none !important;
 }
 
 body[data-rds-mode="mobile"] .cancel-btn,

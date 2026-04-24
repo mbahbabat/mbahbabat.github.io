@@ -20,23 +20,9 @@
 	height: 10px;
 }
 
-select {
-  appearance: none;
-  background-color: #0b111a;
-  color: #00ffff;
-  border: 1px solid #00ffff;
-  padding: 10px;
-  /* Tambahkan icon custom panah ke bawah karena appearance: none menghilangkannya */
-}
-
-/* Ini maksimal yang bisa dilakukan di kebanyakan browser */
-option {
-  background: #0b111a;
-  color: #00ffff;
-}
-
 body {
   background: radial-gradient(circle at 10% 30%, #0a0f1e, #03050b);
+  overflow-x: hidden;
 }
 
 /* cyber grid overlay */
@@ -307,9 +293,9 @@ button:active {
 	display: none;
 	justify-content: center;
 	align-items: center;
-	overflow-y: auto;
 	background: radial-gradient(circle at 10% 30%, #0a0f1e, #03050b);
 	animation: fadeIn 0.3s ease;
+	overflow-y: auto;
 }
 
 .modal.active {
@@ -331,12 +317,12 @@ button:active {
 	border-radius: 24px;
 	width: 95%;
 	max-width: 600px;
-	height: 85vh;
-	max-height: 750px;
+	height: 750px;
 	position: relative;
 	animation: slideUp 0.3s ease;
 	display: flex;
 	flex-direction: column;
+	
 }
 
 @keyframes slideUp {
@@ -533,9 +519,8 @@ button:active {
 
 /* Input modal styling */
 .input-modal {
-	background: rgba(0, 188, 255, 0.2);
-	border: 1px solid #00ccff;
-	border-radius: 12px;
+	background: rgba(0, 188, 255, 0.1);
+	border-radius: 15px;
 	padding: 12px 16px;
 	width: 100%;
 	color: white;

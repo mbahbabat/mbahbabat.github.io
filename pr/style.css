@@ -1009,8 +1009,8 @@ body[data-rds-mode="mobile"] .modal,
 body[data-rds-mode="tablet"] .modal {
     align-items: flex-start !important;
 	position: absolute !important;
-    height: 100% !important;
-    width: 100% !important;
+    height: 100dvh !important;
+    width: 100dvh !important;
 	top: 0;
 	left: 0;
     width: 100% !important;

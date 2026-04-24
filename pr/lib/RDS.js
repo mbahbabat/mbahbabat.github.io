@@ -131,8 +131,6 @@ const RDS = (() => {
 	const convertCSSValue = (value, base) => {
 		if (!value || typeof value !== 'string') return value;
 
-		// Regex menangkap url() utuh, selector escaped \[...\], ATAU nilai px. 
-		// Jika grup ke-1 (pxValue) terisi, itu adalah px. Jika tidak, itu adalah url() atau selector dan diabaikan.
 		return value.replace(/(?:url\(['"]?[^)]*?['"]?\))|(?:\\\[.*?\\\])|([-+]?\d*\.?\d+)px/gi, (match, pxValue) => {
 			if (!pxValue) return match; // Mengembalikan url() atau escaped bracket tanpa diubah
 				
@@ -252,10 +250,8 @@ const RDS = (() => {
 			return;
 		}
 
-		// 3. Kalkulasi skala
-		const widthRatio = viewportWidth / activeConfig.baseWidth;
-		const heightRatio = viewportHeight / activeConfig.baseHeight;
-		let scale = Math.min(widthRatio, heightRatio);
+		// 3. Kalkulasi skala (Hanya berdasarkan width sesuai permintaan)
+		let scale = viewportWidth / activeConfig.baseWidth;
 		scale = Math.max(activeConfig.minScale, Math.min(scale, activeConfig.maxScale));
 
 		// 4. Hook beforeUpdate
@@ -320,23 +316,32 @@ const RDS = (() => {
 			remConversionObserver.disconnect();
 
 			mutations.forEach((mutation) => {
-				if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-					mutation.addedNodes.forEach((node) => {
-						if (node.nodeType === Node.ELEMENT_NODE) {
-							if (node.hasAttribute('style')) {
-								node.setAttribute('style', convertCSSValue(node.getAttribute('style'), config.remBaseSize));
-							}
-							if (node.tagName === 'STYLE') {
-								node.textContent = convertCSSValue(node.textContent, config.remBaseSize);
-							}
-							node.querySelectorAll('[style]').forEach(el => {
-								el.setAttribute('style', convertCSSValue(el.getAttribute('style'), config.remBaseSize));
-							});
-							node.querySelectorAll('style').forEach(styleTag => {
-								styleTag.textContent = convertCSSValue(styleTag.textContent, config.remBaseSize);
-							});
+				if (mutation.type === 'childList') {
+					// Tangani perubahan text node di dalam tag STYLE (misal oleh Tailwind JIT)
+					if (mutation.target.tagName === 'STYLE') {
+						const original = mutation.target.textContent;
+						const converted = convertCSSValue(original, config.remBaseSize);
+						if (original !== converted) {
+							mutation.target.textContent = converted;
 						}
-					});
+					} else if (mutation.addedNodes.length > 0) {
+						mutation.addedNodes.forEach((node) => {
+							if (node.nodeType === Node.ELEMENT_NODE) {
+								if (node.hasAttribute('style')) {
+									node.setAttribute('style', convertCSSValue(node.getAttribute('style'), config.remBaseSize));
+								}
+								if (node.tagName === 'STYLE') {
+									node.textContent = convertCSSValue(node.textContent, config.remBaseSize);
+								}
+								node.querySelectorAll('[style]').forEach(el => {
+									el.setAttribute('style', convertCSSValue(el.getAttribute('style'), config.remBaseSize));
+								});
+								node.querySelectorAll('style').forEach(styleTag => {
+									styleTag.textContent = convertCSSValue(styleTag.textContent, config.remBaseSize);
+								});
+							}
+						});
+					}
 				}
 				
 				if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
@@ -346,11 +351,11 @@ const RDS = (() => {
 			});
 
 			// Nyalakan kembali observer
-			remConversionObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+			remConversionObserver.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
 		});
 
-		// Memulai observasi
-		remConversionObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+		// Memulai observasi (gunakan document.documentElement agar head juga terobservasi)
+		remConversionObserver.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
 	};
 	
 	let isProxyEnabled = false;

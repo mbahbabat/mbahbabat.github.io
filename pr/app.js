@@ -1203,7 +1203,7 @@ function renderTicketList(tickets) {
 	if (hasPending) {
 		const pendingInfo = document.createElement("div");
 		pendingInfo.id = "pending_info";
-		pendingInfo.className = "bg-yellow-900/30 border-l-4 border-yellow-500 p-3 mb-4 rounded-lg text-xs";
+		pendingInfo.className = "bg-yellow-900/30 border border-yellow-500 p-3 mb-4 rounded-lg text-xs";
 		pendingInfo.innerHTML = `<i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
 			<span class="text-yellow-200">You still have an open ticket. Please wait for support to respond before creating a new one.</span>`;
 		fragment.appendChild(pendingInfo);

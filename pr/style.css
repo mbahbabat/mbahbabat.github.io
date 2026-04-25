@@ -674,16 +674,15 @@ textarea::-webkit-resizer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	cursor: pointer;
 	padding: 12px;
 	background: rgba(0, 0, 0, 0.3);
 	border-radius: 12px;
 	transition: all 0.2s;
-	border-left: 3px solid transparent;
+	cursor: pointer;
 }
 
 .ticket-header:hover {
-	background: rgba(0, 255, 255, 0.1);
+	background: rgba(109, 0, 212, 0.5);
 	border-left-color: #00ffff;
 }
 
@@ -730,7 +729,6 @@ textarea::-webkit-resizer {
 	min-height: 0;
 	flex-direction: column;	
 	padding: 16px;
-	background: rgba(0, 36, 88, 0.3);
 	border-radius: 12px;
 	margin-top: 8px;
 	margin-bottom: 16px;
@@ -830,9 +828,11 @@ textarea::-webkit-resizer {
 
 .ticket-badge {
 	font-size: 0.7rem;
-	padding: 2px 6px;
-	border-radius: 10px;
-	background: rgba(0, 0, 0, 0.5);
+	padding: 3px 8px;
+	border-radius: 20px;
+	font-weight: bold;	
+	background: rgba(78, 189, 255, 0.5);
+	border: 1px solid white;
 }
 
 .refresh-tickets-btn {
@@ -953,7 +953,7 @@ textarea::-webkit-resizer {
 
 .reply-form {
 	width: 100%;
-	background: #1a1a2e;
+	background: rgba(0, 0, 0, 0.3);;
 	padding: 1.25rem;
 	border-radius: 16px;
 }

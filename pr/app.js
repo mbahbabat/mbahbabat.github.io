@@ -185,8 +185,19 @@ async function loadProfile(forceFetch = false) {
 			localStorage.removeItem('pawang_pending_invoice_url');
 		}
 		
-		// Selalu fetch jika tidak ada cache, atau HWID kosong, atau dipaksa, atau cache kadaluarsa (otomatis null dari getCache)
-		if (!profile || !profile.hwid || forceFetch) {
+		// Selalu fetch jika tidak ada cache, atau limit device belum terpenuhi, atau dipaksa
+		let needsFetch = forceFetch;
+		if (!profile) {
+			needsFetch = true;
+		} else {
+			const maxDevices = (profile.subscriptionEnd > Date.now()) ? 5 : 1;
+			const currentDevices = profile.devices ? profile.devices.length : 0;
+			if (currentDevices < maxDevices) {
+				needsFetch = true;
+			}
+		}
+
+		if (needsFetch) {
 			if(loadingSpinner){
 				showLoading(true);
 			}
@@ -260,37 +271,49 @@ async function renderDashboardUI(profile) {
 		loginSection.classList.add("hidden");
 		userEmailSpan.textContent = profile.email;
 		userUsernameSpan.textContent = '@' + profile.username;
-		const pcName = profile.hwid ? profile.pcName : "No Device";
-		const procName = profile.hwid ? profile.procName : "-";
-		const boardName = profile.hwid ? profile.boardName : "-";
-		const osName = profile.hwid ? profile.osName : "-";
-		const hwid_deskText = profile.hwid ? "*Reset device if you change device, motherboard, or processor" : "*Your device will be automatically linked upon first login.";
-		hwidSpan.innerHTML = `		<div class="flex gap-4 items-center">
-										<div class="p-2 flex flex-col gap-2 items-center text-gray-200/75">
-											<i class="fa-solid fa-desktop text-3xl"></i>
-											<p class="font-mono font-bold text-sm "> ${pcName}</p>
-										</div>
-										<div id="device-spec" class="grid grid-cols-[auto_1fr] gap-2" style=" display: ${profile.hwid ? 'grid' : 'none'}">
-											<!-- Baris CPU -->
-											<div class="font-mono text-[0.5rem] md:text-xs text-gray-200/50">
-												<i class="fa-solid fa-microchip w-6"></i>
-											</div>
-											<div class="font-mono italic text-[0.625rem] md:text-xs text-gray-200/50">${procName}</div>
-
-											<!-- Baris MB -->
-											<div class="font-mono text-[0.625rem] md:text-xs text-gray-200/50">
-												<i class="fa-solid fa-memory w-6"></i>
-											</div>
-											<div class="font-mono italic text-[0.625rem] md:text-xs text-gray-200/50">${boardName}</div>
-
-											<!-- Baris OS -->
-											<div class="font-mono text-[0.625rem] md:text-xs text-gray-200/50">
-												<i class="fa-brands fa-windows w-6"></i>
-											</div>
-											<div class="font-mono italic text-[0.625rem] md:text-xs text-gray-200/50">${osName}</div>
-										</div>
-									</div>`;
+		const devices = profile.devices || [];
+		const maxDevices = (profile.subscriptionEnd > Date.now()) ? 5 : 1;
+		const hwid_deskText = devices.length > 0 ? `*Limit: ${devices.length}/${maxDevices} devices. Reset if you change hardware.` : `*Limit: 0/${maxDevices} devices. Automatically linked upon login.`;
 		
+		let hwidHtml = "";
+		if (devices.length === 0) {
+			hwidHtml = `
+			<div class="flex gap-4 items-center">
+				<div class="p-2 flex flex-col gap-2 items-center text-gray-200/75 w-full">
+					<i class="fa-solid fa-desktop text-3xl"></i>
+					<p class="font-mono font-bold text-sm">No Device Linked</p>
+				</div>
+			</div>`;
+		} else {
+			hwidHtml = `<div class="flex flex-col gap-2 max-h-[7.5rem] overflow-y-auto pr-1 stylish-scroll">`;
+			devices.forEach((dev, idx) => {
+				const pcName = dev.pcName || "Device " + (idx+1);
+				const procName = dev.procName || "-";
+				const boardName = dev.boardName || "-";
+				const osName = dev.osName || "-";
+				hwidHtml += `
+				<div class="flex gap-3 items-center bg-black/20 p-2 rounded-lg border border-white/5 relative group">
+					<div class="p-2 flex flex-col gap-1 items-center text-cyan-400/80 w-50 shrink-0">
+						<i class="fa-solid fa-desktop text-xl"></i>
+						<p class="font-mono font-bold text-[0.6rem] truncate w-full text-center" title="${pcName}">${pcName}</p>
+					</div>
+					<div class="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 w-full overflow-hidden items-center">
+						<!-- CPU -->
+						<div class="font-mono text-[0.5rem] text-gray-200/50 flex justify-center"><i class="fa-solid fa-microchip w-3"></i></div>
+						<div class="font-mono italic text-[0.55rem] text-gray-200/50 truncate" title="${procName}">${procName}</div>
+						<!-- MB -->
+						<div class="font-mono text-[0.5rem] text-gray-200/50 flex justify-center"><i class="fa-solid fa-memory w-3"></i></div>
+						<div class="font-mono italic text-[0.55rem] text-gray-200/50 truncate" title="${boardName}">${boardName}</div>
+						<!-- OS -->
+						<div class="font-mono text-[0.5rem] text-gray-200/50 flex justify-center"><i class="fa-brands fa-windows w-3"></i></div>
+						<div class="font-mono italic text-[0.55rem] text-gray-200/50 truncate" title="${osName}">${osName}</div>
+					</div>
+				</div>`;
+			});
+			hwidHtml += `</div>`;
+		}
+		
+		hwidSpan.innerHTML = hwidHtml;
 		hwid_desk.innerText = `${hwid_deskText}`;
 		
 		if (isPendingPayment) {//belum bayar
@@ -312,10 +335,10 @@ async function renderDashboardUI(profile) {
 					vipStatusEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Confirming Payment...`;
 					break;
 				case "confirmed":
-					vipStatusEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Payment confirmed! Processing..`;
+					vipStatusEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Payment confirmed! Processing...`;
 					break;
 				case "sending":
-					vipStatusEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing VIP to your account..`;
+					vipStatusEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing VIP to your account...`;
 					break;
 				default:
 					vipStatusEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing your payment...`;
@@ -511,9 +534,8 @@ changePasswordModal.addEventListener("click", (e) => {
 const resetHwidModal = document.getElementById("reset-hwid-modal");
 const closeHwidModal = document.getElementById("close-hwid-modal");
 const cancelResetHwid = document.getElementById("cancel-reset-hwid");
-const confirmResetHwid = document.getElementById("confirm-reset-hwid");
-
 document.getElementById("reset-hwid-btn").addEventListener("click", () => {
+	renderResetHwidModal();
 	resetHwidModal.classList.add("active");
 	mainElDsiplayToggle();
 });
@@ -528,37 +550,67 @@ resetHwidModal.addEventListener("click", (e) => {
 	if (e.target === resetHwidModal) closeResetModal();
 });
 
-confirmResetHwid.addEventListener("click", async () => {
-	const btn = confirmResetHwid;
-	const originalText = btn.innerHTML;
-	btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Resetting...';
-	btn.disabled = true;
+function renderResetHwidModal() {
+	const container = document.getElementById("devices-list-container");
 	const profile = getCache();
-	if (!profile || !profile.hwid){
-		closeResetModal() 
-		return showMessage("No Device", true)
-	};
+	const devices = profile?.devices || [];
 	
-	try {
-		await callAPI("/reset-hwid", "POST", null);
-		showMessage("HWID has been reset successfully!", false);
-		closeResetModal();
-		
-		let cachedData = getCache();
-		if(cachedData) {
-			cachedData.hwid = null;
-			setCache(cachedData);
-			renderDashboardUI(cachedData);
-		} else {
-			await loadProfile(true);
-		}
-	} catch (err) {
-		showMessage(err.message);
-	} finally {
-		btn.innerHTML = originalText;
-		btn.disabled = false;
+	if (devices.length === 0) {
+		container.innerHTML = `
+		<div class="bg-black/20 p-4 rounded-xl border border-white/5 text-center text-gray-400 text-sm">
+			No devices linked to your account.
+		</div>`;
+		return;
 	}
-});
+	
+	let html = '';
+	devices.forEach((dev, idx) => {
+		const pcName = dev.pcName || "Device " + (idx+1);
+		const hwid = dev.hwid || "";
+		const displayHwid = hwid ? hwid.substring(0,16) + '...' : "Unknown";
+		html += `
+		<div class="flex items-center justify-between bg-black/20 p-3 rounded-xl border border-white/5 gap-3">
+			<div class="flex items-center gap-3 overflow-hidden">
+				<div class="bg-cyan-900/30 p-2 rounded-lg text-cyan-400 shrink-0">
+					<i class="fa-solid fa-desktop text-xl"></i>
+				</div>
+				<div class="flex flex-col overflow-hidden">
+					<p class="text-white font-bold text-sm truncate w-full" title="${pcName}">${pcName}</p>
+					<p class="text-gray-400 text-[0.65rem] truncate font-mono">HWID: ${displayHwid}</p>
+				</div>
+			</div>
+			<button class="unbind-hwid-btn shrink-0 bg-red-600/10 border-y border-red-500/25 hover:border-red-500 hover:text-red-500 text-red-400 px-4 py-2 rounded-xl text-xs font-bold transition" data-hwid="${hwid}">
+				<i class="fas fa-unlink"></i> Unbind
+			</button>
+		</div>`;
+	});
+	container.innerHTML = html;
+	
+	container.querySelectorAll('.unbind-hwid-btn').forEach(btn => {
+		btn.addEventListener('click', async (e) => {
+			const targetHwid = e.currentTarget.getAttribute('data-hwid');
+			const originalText = e.currentTarget.innerHTML;
+			e.currentTarget.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+			e.currentTarget.disabled = true;
+			
+			try {
+				await callAPI("/reset-hwid", "POST", { hwid: targetHwid });
+				showMessage("Device unbound successfully!", false);
+				
+				let cachedData = getCache();
+				if (cachedData && cachedData.devices) {
+					cachedData.devices = cachedData.devices.filter(d => d.hwid !== targetHwid);
+					setCache(cachedData);
+				}
+				renderResetHwidModal(); 
+			} catch (err) {
+				showMessage(err.message || "Failed to unbind device", true);
+				e.currentTarget.innerHTML = originalText;
+				e.currentTarget.disabled = false;
+			}
+		});
+	});
+}
 
 // ========== PAYMENT ==========
 
@@ -894,7 +946,7 @@ if (confirmTrialBtn) {
 			const data = await callAPI("/claim-trial", "POST", {});
 			loadProfile(true);
 			if (data.success) {
-				showMessage("✅ VIP Activated! You have 3 days of VIP access!", false);
+				showMessage("VIP Activated! You have 3 days of VIP access!", false);
 				closeTrialModalFunc();
 				
 				// Update cache dengan data baru

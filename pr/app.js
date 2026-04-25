@@ -1107,7 +1107,7 @@ function updateCreateImagePreview() {
 			div.innerHTML = `
 				<img src="${e.target.result}" alt="Preview">
 				<div class="remove-image" data-index="${index}">
-					<i class="fas fa-times"></i>
+					<i class="fa-regular fa-circle-xmark"></i>
 				</div>
 			`;
 			div.querySelector(".remove-image").addEventListener("click", () => {
@@ -1250,7 +1250,7 @@ function renderTicketList(tickets) {
 		problemDiv.id = "problem_details";
 		problemDiv.className = "mb-5 text-xs";
 		let problemHtml = `<h3 class="font-gaming mb-2 text-cyan-400 text-[0.85rem] font-bold tracking-wider flex items-center gap-2"><i class="fas fa-file-alt"></i> Problem Details</h3>
-			<div class="bg-[#050b14]/80 p-4 rounded-xl border border-cyan-900/50 text-gray-300 text-sm min-h-[100px] whitespace-pre-wrap break-words shadow-inner">${escapeHtml(ticket.message)}</div>`;
+			<div class="bg-[#050b14]/80 p-4 rounded-xl border border-cyan-900/50 text-gray-300 text-sm min-h-[200px] whitespace-pre-wrap break-words shadow-inner">${escapeHtml(ticket.message)}</div>`;
 		if (ticket.images?.length) {
 			problemHtml += `<h3 class="font-gaming mb-2 mt-4 text-cyan-400 text-[0.85rem] font-bold tracking-wider flex items-center gap-2"><i class="fas fa-paperclip"></i> Attachments</h3><div class="ticket-images">`;
 			ticket.images.forEach(img => {
@@ -1359,7 +1359,7 @@ function updateReplyImagePreview(ticketId) {
 			div.innerHTML = `
 				<img src="${e.target.result}" alt="Preview">
 				<div class="remove-image" data-ticket-id="${ticketId}" data-index="${index}">
-					<i class="fas fa-times"></i>
+					<i class="fa-regular fa-circle-xmark"></i>
 				</div>
 			`;
 			div.querySelector(".remove-image").addEventListener("click", () => {

@@ -608,23 +608,15 @@ button:active {
 .preview-image .remove-image {
 	position: absolute;
 	top: 2px;
-	right: 2px;
-	background: rgba(0, 0, 0, 0.7);
-	border-radius: 50%;
-	width: 20px;
-	height: 20px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	right: 5px;
 	cursor: pointer;
-	font-size: 12px;
+	font-size: 14px;
 	color: #ff3366;
 	transition: all 0.2s;
 }
 
 .preview-image .remove-image:hover {
-	background: #ff3366;
-	color: white;
+	font-size: 16px
 }
 
 textarea {
@@ -996,23 +988,15 @@ textarea::-webkit-resizer {
 .reply-form .preview-image .remove-image {
 	position: absolute;
 	top: 2px;
-	right: 2px;
-	background: rgba(0, 0, 0, 0.7);
-	border-radius: 50%;
-	width: 18px;
-	height: 18px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	right: 5px;
 	cursor: pointer;
-	font-size: 10px;
+	font-size: 14px;
 	color: #ff3366;
 	transition: all 0.2s;
 }
 
 .reply-form .preview-image .remove-image:hover {
-	background: #ff3366;
-	color: white;
+	font-size: 16px
 }
 
 .reply-form .upload-progress {

@@ -1400,8 +1400,6 @@ ticketListContainer.addEventListener("click", async (e) => {
 			detail.classList.remove("active");
 			ticketModal.classList.remove("ticket-expanded-mode"); 
 			if (chevron) chevron.className = "fas fa-chevron-down";
-			if (chevron) chevron.style.cssText = "";
-			if (chevron) chevron.style.color = "cyan";
 			allTickets.forEach(t => {
 				t.classList.remove("hidden");
 				t.classList.add("mini");
@@ -1410,13 +1408,14 @@ ticketListContainer.addEventListener("click", async (e) => {
 		} else {
 			detail.classList.add("active");
 			ticketModal.classList.add("ticket-expanded-mode"); 
-			if (chevron) chevron.className = "fa-regular fa-circle-xmark";
-			if (chevron) chevron.style.cssText = "color: #ff3366; font-size:1.5em";
+			if (chevron) chevron.className = "fas fa-chevron-up";
 			allTickets.forEach(t => {
 				if (t.dataset.ticketId !== ticketId) t.classList.add("hidden");
 				else {
 					t.classList.remove("hidden");
 					t.classList.remove("mini");
+					//const headerEl = t.querySelector(".ticket-header");
+					//if (headerEl) headerEl.classList.add("hidden");
 				}
 			});
 			if (replyform) replyform.classList.remove("hidden");

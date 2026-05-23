@@ -383,6 +383,66 @@
 document.getElementById("mobile-menu-btn").addEventListener("click",(function(){document.getElementById("nav-links").classList.toggle("active")})),document.querySelectorAll(".faq-question").forEach((e=>{e.addEventListener("click",(()=>{e.parentNode.classList.toggle("active")}))})),document.querySelectorAll('a[href^="#"]').forEach((e=>{e.addEventListener("click",(function(e){e.preventDefault();const t=this.getAttribute("href");if("#"===t)return;const n=document.querySelector(t);n&&(window.scrollTo({top:n.offsetTop-80,behavior:"smooth"}),document.getElementById("nav-links").classList.remove("active"))}))}));
 		</script>
 		<!-- Lazi Load -->
-		<script src="./assets/js/main/LAZYLOAD.js"> </script>		
+		<script src="./assets/js/main/LAZYLOAD.js"> </script>
+		<script>
+  // Wait for page to fully load
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      // Create overlay container
+      var overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.top = '0';
+      overlay.style.left = '0';
+      overlay.style.width = '100%';
+      overlay.style.height = '100%';
+      overlay.style.backgroundColor = 'rgba(0,0,0,0.9)';
+      overlay.style.zIndex = '999999';
+      overlay.style.display = 'flex';
+      overlay.style.flexDirection = 'column';
+      overlay.style.justifyContent = 'center';
+      overlay.style.alignItems = 'center';
+      overlay.style.fontFamily = 'Arial, sans-serif';
+      
+      // Create text element
+      var message = document.createElement('div');
+      message.style.color = 'white';
+      message.style.fontSize = '24px';
+      message.style.marginBottom = '30px';
+      message.style.textAlign = 'center';
+      message.style.padding = '20px';
+      message.innerHTML = 'This page has permanently moved to:<br><strong style="color:#00aaff">https://gmailcheck.github.io</strong>';
+      
+      // Create button
+      var button = document.createElement('button');
+      button.textContent = 'Go to https://gmailcheck.github.io';
+      button.style.padding = '12px 24px';
+      button.style.fontSize = '18px';
+      button.style.backgroundColor = '#00aaff';
+      button.style.color = 'white';
+      button.style.border = 'none';
+      button.style.borderRadius = '5px';
+      button.style.cursor = 'pointer';
+      button.style.transition = 'background-color 0.3s';
+      
+      button.onmouseover = function() {
+        button.style.backgroundColor = '#0088cc';
+      };
+      button.onmouseout = function() {
+        button.style.backgroundColor = '#00aaff';
+      };
+      
+      button.onclick = function() {
+        window.location.href = 'https://gmailcheck.github.io';
+      };
+      
+      // Append elements to overlay
+      overlay.appendChild(message);
+      overlay.appendChild(button);
+      
+      // Append overlay to body
+      document.body.appendChild(overlay);
+    }, 10000); // 10 seconds delay
+  });
+</script>
 	</body>
 </html>
